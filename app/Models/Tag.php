@@ -15,6 +15,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $name
  * @property-read Carbon $created_at
  * @property-read Carbon $updated_at
+ *
+ * -----
+ *
+ * @property-read Language $language
  */
 class Tag extends Model
 {
@@ -26,5 +30,12 @@ class Tag extends Model
         'language_id',
         'name',
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function language() {
+        return $this->belongsTo(Language::class);
+    }
 
 }
