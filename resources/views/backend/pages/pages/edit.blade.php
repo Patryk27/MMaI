@@ -11,7 +11,7 @@
 @section('content')
     <div class="title-wrapper">
         <h1 class="title">
-            Editing page
+            Editing page #{{ $page->id }}
         </h1>
     </div>
 
