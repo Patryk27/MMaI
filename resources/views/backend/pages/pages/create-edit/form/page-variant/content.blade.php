@@ -1,6 +1,7 @@
 @php
     /**
      * @var \App\Models\Language $language
+     * @var \App\Models\Page $page
      * @var \App\Models\PageVariant|null $pageVariant
      */
 @endphp
@@ -9,8 +10,5 @@
      class="tab-pane"
      role="tabpanel"
      data-type="page-variant">
-    @include('backend.pages.pages.create-edit.form.page-variant.content-inner', [
-        'language' => $language,
-        'pageVariant' => $pageVariant,
-    ])
+    @include('backend.pages.pages.create-edit.form.page-variant.content-inner')
 </div>

@@ -29,8 +29,6 @@ export default class PageVariant {
             },
         };
 
-        this.$dom.form.container.find('[data-field="lead"]').hide(); // @todo this should depend on whether page is a CMS or a blog one
-
         // When user clicks on the "is enabled" checkbox, refresh the section
         this.$dom.enabled.checkbox.on('change', () => {
             this.refresh();

@@ -1,6 +1,7 @@
 @php
     /**
      * @var \App\Models\Language $language
+     * @var \App\Models\Page $page
      * @var \App\Models\PageVariant|null $pageVariant
      */
 @endphp
@@ -39,7 +40,7 @@
 </div>
 
 {{-- Route --}}
-<div class="form-group" data-field="route">
+<div class="form-group">
     <label>
         Route
     </label>
@@ -59,7 +60,7 @@
 </div>
 
 {{-- Title --}}
-<div class="form-group" data-field="title">
+<div class="form-group required">
     <label>
         Title
     </label>
@@ -70,20 +71,22 @@
     ]) !!}
 </div>
 
-{{-- Lead --}}
-<div class="form-group" data-field="lead">
-    <label>
-        Lead
-    </label>
+@if ($page->isBlogPage())
+    {{-- Lead --}}
+    <div class="form-group">
+        <label>
+            Lead
+        </label>
 
-    {!! Form::textarea('lead', null, [
-        'class' => 'form-control',
-        'placeholder' => 'This is my awesome page!',
-    ]) !!}
-</div>
+        {!! Form::textarea('lead', null, [
+            'class' => 'form-control',
+            'placeholder' => 'This is my awesome page!',
+        ]) !!}
+    </div>
+@endif
 
 {{-- Content --}}
-<div class="form-group" data-field="content">
+<div class="form-group">
     <label>
         Content
     </label>
