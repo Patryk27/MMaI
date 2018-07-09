@@ -1,0 +1,38 @@
+.post-footer {
+  display: flex;
+  color: $gray-800;
+
+  > .tags {
+    margin-right: 15px;
+
+    > .fas {
+      position: relative;
+      top: 2px;
+      left: -2px;
+    }
+
+    > .tag {
+      @extend .link.dimmed;
+
+      &:not(:last-child) {
+        position: relative;
+        margin-right: 6px;
+
+        &::after {
+          position: absolute;
+          top: 1px;
+          right: -2px;
+
+          color: $gray-800;
+          content: ',';
+        }
+      }
+    }
+  }
+
+  > .date {
+    > .fas {
+      margin-right: 2px;
+    }
+  }
+}

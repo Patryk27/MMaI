@@ -1,0 +1,11 @@
+&--create, &--edit {
+  .is-enabled-checkbox {
+    margin-bottom: 1em;
+  }
+
+  form {
+    [name="lead"] {
+      height: 8em;
+    }
+  }
+}

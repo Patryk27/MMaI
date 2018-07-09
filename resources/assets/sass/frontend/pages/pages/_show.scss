@@ -1,0 +1,17 @@
+&--show {
+  .content-container {
+    .content {
+      .page-content {
+        > :last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    .content-footer {
+      .post-footer {
+        justify-content: right;
+      }
+    }
+  }
+}

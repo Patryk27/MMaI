@@ -1,0 +1,40 @@
+.site-navigation {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: $navbar-width;
+  height: 100%;
+  padding: $navbar-padding-y $navbar-padding-x;
+
+  text-align: center;
+  background: $navbar-bg;
+
+  > .nav-title {
+    @extend h1;
+
+    font-size: 2em;
+  }
+
+  > .nav-items {
+    margin: 4em 0 0 0;
+    padding: 0;
+
+    > .nav-item {
+      display: block;
+      padding: 0.2em 0;
+
+      &.active {
+        color: $link-active-color;
+
+        &::before {
+          content: '>';
+        }
+
+        &::after {
+          content: '<';
+        }
+      }
+    }
+  }
+}

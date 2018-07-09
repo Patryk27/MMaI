@@ -1,0 +1,9 @@
+.link {
+  &.dimmed {
+    color: $link-dimmed-color;
+
+    &:hover {
+      color: $link-dimmed-hover-color;
+    }
+  }
+}

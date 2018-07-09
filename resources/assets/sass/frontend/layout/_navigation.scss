@@ -1,0 +1,43 @@
+.site-navigation {
+  position: fixed;
+  top: 0;
+  right: 0;
+
+  width: $navbar-width;
+  height: 100%;
+  padding: $navbar-padding-y $navbar-padding-x;
+
+  text-align: center;
+  background: $navbar-bg;
+
+  fieldset {
+    margin-top: 55px;
+
+    legend {
+      font-size: 1.5em;
+      color: $navbar-section-color;
+      border-bottom: 1px solid $navbar-section-border-color;
+    }
+  }
+
+  > .nav-title {
+    > .title {
+      @extend h1;
+
+      font-size: 2em;
+    }
+
+    > .description {
+      margin-top: 18px;
+    }
+  }
+
+  > .nav-menu {
+    > .nav-menu-items {
+      > .nav-menu-item {
+        display: block;
+        padding: 0.2em 0;
+      }
+    }
+  }
+}

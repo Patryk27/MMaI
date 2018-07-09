@@ -1,0 +1,23 @@
+.content-container {
+  margin-left: $navbar-width;
+  padding: $navbar-padding-y;
+
+  > .content {
+    > h1, > .title-wrapper {
+      margin-bottom: 0.7em;
+    }
+
+    > .title-wrapper {
+      display: flex;
+      padding-bottom: 1em;
+      margin-bottom: 2em;
+
+      border-bottom: 1px solid $border-color;
+
+      > .title {
+        flex-grow: 1;
+        font-size: 2em;
+      }
+    }
+  }
+}

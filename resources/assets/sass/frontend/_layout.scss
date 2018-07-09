@@ -1,0 +1,10 @@
+&--layout {
+  .site-container {
+    height: 100%;
+    margin-right: $navbar-width;
+
+    @import 'layout/content';
+    @import 'layout/navigation';
+    @import 'layout/pagination';
+  }
+}

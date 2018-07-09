@@ -1,0 +1,129 @@
+// Primary font is used in about 95% of the site - basically everywhere but the pages' titles
+$font-family-base: 'Open Sans';
+$font-family-base-url-name: 'Open+Sans';
+
+// Secondary font is used in pages' titles
+$secondary-font-family-base: 'Montserrat';
+$secondary-font-family-base-url-name: 'Montserrat';
+
+// I hate rounded corners.
+$enable-rounded: false;
+
+// ================== //
+// == Basic colors == //
+// ================== //
+
+$white: #ffffff;
+$gray: #111111;
+$black: #000000;
+
+$blue: #007bff;
+$yellow: #ffce00;
+
+// ========== //
+// == Base == //
+// ========== //
+
+$light: $gray;
+$dark: #080808;
+
+$border-color: lighten($light, 5%);
+$selection-color: lighten($blue, 5%);
+
+// ========== //
+// == Body == //
+// ========== //
+
+$body-bg: $dark;
+$body-color: $white;
+
+// ============= //
+// == Content == //
+// ============= //
+
+$content-container-padding: 80px;
+$content-footer-margin-top: 45px;
+
+// ========== //
+// == Link == //
+// ========== //
+
+$link-color: $yellow;
+
+$link-active-color: lighten($link-color, 25%);
+
+$link-dimmed-color: darken($yellow, 30%);
+$link-dimmed-hover-color: lighten($link-dimmed-color, 15%);
+
+// ================ //
+// == Navigation == //
+// ================ //
+
+$navbar-width: 300px;
+$navbar-padding-x: 25px;
+$navbar-padding-y: 25px;
+
+$navbar-bg: $light;
+$navbar-section-color: lighten($light, 35%);
+$navbar-section-border-color: $light;
+
+// ===================== //
+// == Navigation Tabs == //
+// ===================== //
+
+$nav-tabs-border-color: $border-color;
+$nav-tabs-link-hover-border-color: $border-color $border-color $border-color $border-color;
+
+$nav-tabs-link-active-color: $link-active-color;
+$nav-tabs-link-active-border-color: $border-color $border-color $body-bg $border-color;
+
+$tab-pane-padding-top: 1em;
+
+// ================ //
+// == Pagination == //
+// ================ //
+
+$pagination-bg: $light;
+$pagination-color: $body-color;
+$pagination-border-color: $light;
+
+$pagination-hover-bg: $pagination-bg;
+$pagination-hover-color: $pagination-color;
+$pagination-hover-border-color: #404040;
+
+$pagination-disabled-bg: $light;
+$pagination-disabled-color: $black;
+$pagination-disabled-border-color: $light;
+
+$pagination-active-bg: darken($yellow, 10%);
+$pagination-active-color: $light;
+
+// ============== //
+// == Dropdown == //
+// ============== //
+
+$dropdown-bg: $light;
+
+$dropdown-link-color: $white;
+$dropdown-link-hover-color: $white;
+$dropdown-link-hover-bg: lighten($dropdown-bg, 8%);
+
+// =========== //
+// == Input == //
+// =========== //
+
+$input-bg: $light;
+$input-color: $white;
+$input-border-color: $light;
+
+$input-placeholder-color: lighten($light, 15%);
+
+$input-disabled-bg: $dark;
+
+// =========== //
+// == Table == //
+// =========== //
+
+$table-dark-bg: $body-bg;
+$table-dark-accent-bg: $table-dark-bg;
+$table-dark-color: $white;

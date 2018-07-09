@@ -1,0 +1,6 @@
+&--authenticated {
+  .site-container {
+    @import 'authenticated/content';
+    @import 'authenticated/navigation';
+  }
+}

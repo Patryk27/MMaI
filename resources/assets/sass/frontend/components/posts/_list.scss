@@ -1,0 +1,33 @@
+.posts-list {
+  .no-posts-alert {
+    margin-bottom: 3em;
+  }
+
+  .post {
+    margin-bottom: 4em;
+
+    > header {
+      font-weight: bold;
+      font-size: 1.5em;
+
+      > a {
+        color: $body-color;
+        font-family: $secondary-font-family-base;
+      }
+    }
+
+    > .lead {
+      margin: 0.5em 0 0 0;
+      color: $gray-400;
+      font-size: 1em;
+    }
+
+    > footer {
+      display: flex;
+
+      .link {
+        flex-grow: 1;
+      }
+    }
+  }
+}

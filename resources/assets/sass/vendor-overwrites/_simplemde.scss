@@ -1,0 +1,81 @@
+.editor-toolbar,
+.editor-toolbar.fullscreen {
+  padding: 8px;
+
+  border: 1px solid $input-border-color;
+  border-bottom: none;
+
+  border-radius: 0;
+
+  background: $dark;
+  opacity: 1;
+
+  &:hover {
+    background: $dark;
+    opacity: 1;
+  }
+
+  &::before, &::after {
+    display: none;
+  }
+
+  &.disabled-for-preview {
+    a {
+      &:not(.no-disable) {
+        background: none;
+        opacity: 0.1;
+      }
+    }
+  }
+
+  a {
+    color: #ffffff !important;
+    background: none;
+
+    &:hover, &.active {
+      color: #000000 !important;
+      background: #ffffff;
+    }
+  }
+
+  i.separator {
+    border-left: 1px solid $input-border-color;
+    border-right: 1px solid $input-border-color;
+  }
+}
+
+.editor-preview,
+.editor-preview-side {
+  color: $body-color;
+  background: $body-bg;
+}
+
+.CodeMirror {
+  &-wrap {
+    color: $input-color;
+    background: $input-bg;
+
+    border: 1px solid $input-border-color;
+    border-radius: 0;
+  }
+
+  &-cursor {
+    width: 0;
+    border-left: 1px solid #ffffff;
+    border-right: none;
+  }
+
+  &-placeholder {
+    color: $input-placeholder-color !important;
+    opacity: 1 !important;
+  }
+
+  &-selected {
+    border: none !important;
+    background: $selection-color !important;
+  }
+
+  .cm-spell-error {
+    background: darken(color('red'), 25%) !important;
+  }
+}

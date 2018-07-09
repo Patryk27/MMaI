@@ -1,0 +1,26 @@
+.form-group {
+  &.required {
+    label {
+      &::after {
+        content: '*';
+
+        position: relative;
+        top: -3px;
+        left: -2px;
+
+        color: color('red');
+      }
+    }
+  }
+}
+
+.form-footer {
+  padding-top: 1em;
+  text-align: right;
+
+  border-top: 1px solid $border-color;
+}
+
+[disabled] {
+  cursor: not-allowed;
+}

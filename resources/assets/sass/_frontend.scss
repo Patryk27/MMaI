@@ -1,0 +1,5 @@
+body.frontend {
+  @import 'frontend/layout';
+  @import 'frontend/pages';
+  @import 'frontend/components';
+}
