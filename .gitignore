@@ -1,9 +1,15 @@
 /.idea
 /node_modules
-/public/hot
+
+/public/css
+/public/fonts
+/public/js
 /public/storage
+
 /storage/*.key
+
 /vendor
+
 .env
 .phpstorm.meta.php
 _ide_helper.php
