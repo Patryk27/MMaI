@@ -72,21 +72,24 @@ export default class Form {
             data: data,
         });
 
+        // @todo use async
         request
             .then((response) => {
                 this.$eventHandlers.afterSubmit(true, response);
             })
             .catch((ex) => {
                 if (this.$handleError(ex)) {
+                    // noinspection JSIgnoredPromiseFromCall
                     swal({
                         title: 'Error',
                         text: 'Form contains errors - please fix them and try again.',
                         icon: 'error',
                     });
                 } else {
+                    // noinspection JSIgnoredPromiseFromCall
                     swal({
                         title: 'Fatal error',
-                        text: 'Failed to save the form - please refresh the site and try again.',
+                        text: 'Failed to save the form - please refresh page and try again.',
                         icon: 'error',
                     });
                 }

@@ -34,7 +34,8 @@ class Tag extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function language() {
+    public function language()
+    {
         return $this->belongsTo(Language::class);
     }
 

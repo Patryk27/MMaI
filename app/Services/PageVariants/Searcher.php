@@ -17,13 +17,13 @@ class Searcher extends AbstractSearcher implements SearcherInterface
         FIELD_TITLE = 'title',
         FIELD_STATUS = 'status',
 
-        FIELD_PAGE_ID = 'page.id',
-        FIELD_PAGE_TYPE = 'page.type',
+        FIELD_PAGE_ID = 'page_id',
+        FIELD_PAGE_TYPE = 'page_type',
 
-        FIELD_LANGUAGE_ID = 'language.id',
-        FIELD_LANGUAGE_NAME = 'language.name',
+        FIELD_LANGUAGE_ID = 'language_id',
+        FIELD_LANGUAGE_NAME = 'language_name',
 
-        FIELD_ROUTE_URL = 'route.url';
+        FIELD_ROUTE_URL = 'route_url';
 
     private const FIELDS_MAP = [
         self::FIELD_ID => 'page_variants.id',

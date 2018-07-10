@@ -9,11 +9,9 @@ use Throwable;
 
 /**
  * This is a generic repository used to facilitate creating repositories.
- *
- * It should not be inherited from - a composition must be preferred (that's why
- * it's "final").
+ * It should not be inherited from - use composition.
  */
-final class GenericRepository
+class GenericRepository
 {
 
     /**

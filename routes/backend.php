@@ -3,6 +3,7 @@
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\PagesController;
 use App\Http\Controllers\Backend\SignInController;
+use App\Http\Controllers\Backend\TagsController;
 
 // -- administration panel -- //
 
@@ -31,6 +32,7 @@ Route::group(['prefix' => 'backend'], function () {
         });
 
         // /backend/search
+        // @todo replace it with "post", to keep consistency with tags searching
         Route::get('search', PagesController::class . '@search')
             ->name('backend.pages.search');
 
@@ -46,12 +48,14 @@ Route::group(['prefix' => 'backend'], function () {
                 ->name('backend.posts.index');
         });
 
+        // /backend/tags/search
+        Route::post('tags/search', TagsController::class . '@search')
+            ->name('backend.tags.search');
+
         // /backend/tags
-        Route::group(['prefix' => 'tags'], function () {
-            // /backend/tags/index
-            Route::get('index')
-                ->name('backend.tags.index');
-        });
+        Route::resource('tags', TagsController::class, [
+            'as' => 'backend',
+        ]);
 
         // /backend/about
         Route::group(['prefix' => 'about'], function () {
