@@ -107,7 +107,7 @@ class GenericSearcher
         foreach ($fields as $field => $fieldValue) {
             if (!array_has($fieldFilters, $field)) {
                 throw new AppException(
-                    sprintf('Field [%s] it not filterable', $fieldFilters)
+                    sprintf('Field [%s] it not filterable', $field)
                 );
             }
 
