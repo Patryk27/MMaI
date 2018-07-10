@@ -3,7 +3,7 @@
 namespace App\Services\Core\DataTable;
 
 use App\Services\Core\Collection\Renderer;
-use App\Services\Core\SearcherInterface;
+use App\Services\Core\Searcher\SearcherInterface;
 use Illuminate\Http\Request;
 
 class Handler

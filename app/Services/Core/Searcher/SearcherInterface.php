@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Core;
+namespace App\Services\Core\Searcher;
 
 use Illuminate\Support\Collection;
 
@@ -21,19 +21,21 @@ interface SearcherInterface
     public function search(string $search): void;
 
     /**
-     * Applies a precise field filter.
+     * Applies a precise search filter.
      *
-     * For instance you may pass here e.g. ['type' => 'foo'].
+     * You can pass here an array describing precise filtering conditions, e.g.: [
+     *  'title' => 'something',
+     * ]
      *
-     * @param array $filters
+     * @param array $fields
      * @return void
      *
      * @see search()
      */
-    public function filter(array $filters): void;
+    public function filter(array $fields): void;
 
     /**
-     * Changes order (sorting) of the result collection.
+     * Changes sorting of the result collection.
      *
      * @param string $field
      * @param bool $ascending
@@ -42,7 +44,7 @@ interface SearcherInterface
     public function orderBy(string $field, bool $ascending): void;
 
     /**
-     * Changes paging of the result collection.
+     * Limits results to given page.
      *
      * @param int $page
      * @param int $perPage

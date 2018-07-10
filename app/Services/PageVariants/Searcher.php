@@ -4,12 +4,12 @@ namespace App\Services\PageVariants;
 
 use App\Exceptions\Exception as AppException;
 use App\Models\PageVariant;
-use App\Services\Core\SearcherInterface;
-use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
+use App\Services\Core\Searcher\AbstractSearcher;
+use App\Services\Core\Searcher\GenericSearcher;
+use App\Services\Core\Searcher\SearcherInterface;
 use Illuminate\Database\Query\JoinClause;
-use Illuminate\Support\Collection;
 
-class Searcher implements SearcherInterface
+class Searcher extends AbstractSearcher implements SearcherInterface
 {
 
     public const
@@ -17,15 +17,15 @@ class Searcher implements SearcherInterface
         FIELD_TITLE = 'title',
         FIELD_STATUS = 'status',
 
-        FIELD_PAGE_ID = 'page-id',
-        FIELD_PAGE_TYPE = 'page-type',
+        FIELD_PAGE_ID = 'page.id',
+        FIELD_PAGE_TYPE = 'page.type',
 
-        FIELD_LANGUAGE_ID = 'language-id',
-        FIELD_LANGUAGE_NAME = 'language-name',
+        FIELD_LANGUAGE_ID = 'language.id',
+        FIELD_LANGUAGE_NAME = 'language.name',
 
-        FIELD_ROUTE_URL = 'route-url';
+        FIELD_ROUTE_URL = 'route.url';
 
-    private const FIELD_MAPPING = [
+    private const FIELDS_MAP = [
         self::FIELD_ID => 'page_variants.id',
         self::FIELD_TITLE => 'page_variants.title',
         self::FIELD_STATUS => 'page_variants.status',
@@ -40,17 +40,16 @@ class Searcher implements SearcherInterface
     ];
 
     /**
-     * @var EloquentBuilder
-     */
-    private $builder;
-
-    /**
      * @param PageVariant $pageVariant
      */
     public function __construct(
         PageVariant $pageVariant
     ) {
-        $builder = $pageVariant->newQuery();
+        parent::__construct(
+            new GenericSearcher($pageVariant, self::FIELDS_MAP)
+        );
+
+        $builder = $this->searcher->getBuilder();
         $builder->selectRaw('page_variants.*');
 
         // Include pages
@@ -71,8 +70,6 @@ class Searcher implements SearcherInterface
                 sprintf('routes.model_type = "%s"', PageVariant::getMorphableType())
             );
         });
-
-        $this->builder = $builder;
     }
 
     /**
@@ -80,14 +77,10 @@ class Searcher implements SearcherInterface
      */
     public function search(string $search): void
     {
-        if (strlen($search) === 0) {
-            return;
-        }
-
-        $this->builder->where(function (EloquentBuilder $builder) use ($search) {
-            $builder->where('page_variants.title', 'like', '%' . $search . '%');
-            $builder->orWhere('routes.url', 'like', '%' . $search . '%');
-        });
+        $this->searcher->search($search, [
+            self::FIELD_TITLE,
+            self::FIELD_ROUTE_URL,
+        ]);
     }
 
     /**
@@ -95,62 +88,13 @@ class Searcher implements SearcherInterface
      *
      * @throws AppException
      */
-    public function filter(array $filters): void
+    public function filter(array $fields): void
     {
-        foreach ($filters as $field => $value) {
-            switch ($field) {
-                // @todo think of some another way, utilizing field mapping
-
-                case self::FIELD_STATUS:
-                    $this->builder->where('page_variants.status', $value);
-                    break;
-
-                case self::FIELD_PAGE_TYPE:
-                    $this->builder->where('pages.type', $value);
-                    break;
-
-                case self::FIELD_LANGUAGE_ID:
-                    $this->builder->where('languages.id', $value);
-                    break;
-
-                default:
-                    throw new AppException(
-                        sprintf('Unsupported field [%s] for filtering.', $field)
-                    );
-            }
-        }
-    }
-
-    /**
-     * @inheritdoc
-     *
-     * @throws AppException
-     */
-    public function orderBy(string $field, bool $ascending): void
-    {
-        if (!array_has(self::FIELD_MAPPING, $field)) {
-            throw new AppException(
-                sprintf('Unsupported field [%s] for ordering.', $field)
-            );
-        }
-
-        $this->builder->orderBy(self::FIELD_MAPPING[$field], $ascending ? 'asc' : 'desc');
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function forPage(int $page, int $perPage): void
-    {
-        $this->builder->forPage($page, $perPage);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function get(): Collection
-    {
-        return $this->builder->get();
+        $this->searcher->filter($fields, [
+            self::FIELD_STATUS => GenericSearcher::FILTER_OP_EQUAL,
+            self::FIELD_PAGE_TYPE => GenericSearcher::FILTER_OP_EQUAL,
+            self::FIELD_LANGUAGE_ID => GenericSearcher::FILTER_OP_EQUAL,
+        ]);
     }
 
     /**
@@ -158,7 +102,9 @@ class Searcher implements SearcherInterface
      */
     public function getCount(): int
     {
-        return $this->builder->count('page_variants.id');
+        return $this->searcher
+            ->getBuilder()
+            ->count('page_variants.id');
     }
 
 }
