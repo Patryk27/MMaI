@@ -1,6 +1,6 @@
 .content-container {
-  margin-left: $navbar-width;
-  padding: $navbar-padding-y;
+  margin-left: $backend-navbar-width;
+  padding: $backend-content-padding;
 
   > .content {
     > h1, > .title-wrapper {

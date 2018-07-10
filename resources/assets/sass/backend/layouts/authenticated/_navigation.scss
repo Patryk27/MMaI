@@ -3,9 +3,10 @@
   top: 0;
   left: 0;
 
-  width: $navbar-width;
+  width: $backend-navbar-width;
   height: 100%;
-  padding: $navbar-padding-y $navbar-padding-x;
+
+  padding: $navbar-padding;
 
   text-align: center;
   background: $navbar-bg;

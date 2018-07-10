@@ -41,7 +41,9 @@ $body-color: $white;
 // == Content == //
 // ============= //
 
-$content-container-padding: 80px;
+$frontend-content-padding: 80px;
+$backend-content-padding: 30px;
+
 $content-footer-margin-top: 45px;
 
 // ========== //
@@ -59,9 +61,10 @@ $link-dimmed-hover-color: lighten($link-dimmed-color, 15%);
 // == Navigation == //
 // ================ //
 
-$navbar-width: 300px;
-$navbar-padding-x: 25px;
-$navbar-padding-y: 25px;
+$frontend-navbar-width: 300px;
+$backend-navbar-width: 180px;
+
+$navbar-padding: 25px;
 
 $navbar-bg: $light;
 $navbar-section-color: lighten($light, 35%);
