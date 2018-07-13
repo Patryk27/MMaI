@@ -1,1 +1,11 @@
 @import 'loaders/tile';
+
+.loader-wrapper {
+  display: none;
+  align-items: center;
+  justify-content: center;
+
+  &.visible {
+    display: flex;
+  }
+}

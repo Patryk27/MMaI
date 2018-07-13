@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Traits\HasPresenter;
+use App\Presenters\PageVariantPresenter;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
@@ -28,9 +30,15 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read Language $language
  * @property-read Route|null $route
  * @property-read EloquentCollection|Tag[] $tags
+ *
+ * -----
+ *
+ * @method PageVariantPresenter getPresenter()
  */
-class PageVariant extends Model implements Interfaces\Morphable
+class PageVariant extends Model implements Interfaces\Morphable, Interfaces\Presentable
 {
+
+    use HasPresenter;
 
     const
         STATUS_DRAFT = 'draft',
@@ -135,6 +143,8 @@ class PageVariant extends Model implements Interfaces\Morphable
      * Returns URL for the "Edit" action.
      *
      * @return string
+     *
+     * @todo move to the presenter?
      */
     public function getBackendEditUrl(): string
     {
@@ -155,6 +165,14 @@ class PageVariant extends Model implements Interfaces\Morphable
     public static function getMorphableType(): string
     {
         return 'page-variant';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public static function getPresenterClass(): string
+    {
+        return PageVariantPresenter::class;
     }
 
 }

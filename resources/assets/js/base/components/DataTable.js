@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import swal from 'sweetalert';
 
 export default class DataTable {
 
@@ -18,6 +19,7 @@ export default class DataTable {
             initComplete: () => this.$dtInitComplete(),
 
             columns: columns,
+            deferLoading: true,
             orderMulti: false,
             processing: true,
             searchDelay: 500,
@@ -27,8 +29,11 @@ export default class DataTable {
         // Since the DataTable plugin destroys original container, we cannot
         // re-utilize $table here - we need to fetch the actual new container:
         this.$dom = {
+            loader: $(this.$config.loader),
             table: $(dtInstance.table().container()),
         };
+
+        dtInstance.ajax.reload();
     }
 
     /**
@@ -40,8 +45,22 @@ export default class DataTable {
      * @param {function} callback
      */
     $dtAjax(originalData, callback) {
+        this.$dom.loader.addClass('visible');
+        this.$dom.table.addClass('refreshing');
+
+        // Re-position the loader
+        this.$dom.loader.css({
+            position: 'absolute',
+
+            top: this.$dom.table.offset().top,
+            left: this.$dom.table.offset().left,
+
+            width: this.$dom.table.width(),
+            height: this.$dom.table.height(),
+        });
+
         // Transform column's data (name, attributes, etc.) onto the names only;
-        // Backend doesn't have to know anything more whatsoever.
+        // Backend doesn't need to know anything more.
         const columns = originalData.columns.map((column) => column.name);
 
         $.ajax({
@@ -62,35 +81,42 @@ export default class DataTable {
                 search: originalData.search.value,
             },
         }).done((response) => {
-            if (!response.hasOwnProperty('data')) {
-                alert('$.ajax() failed (1).'); // @todo
+            if (response.hasOwnProperty('data')) {
+                callback(response);
+            } else {
+                DataTable.$showErrorMessage();
             }
-
-            callback(response);
         }).fail(() => {
-            alert('$.ajax() failed (2).'); // @todo
+            DataTable.$showErrorMessage();
 
             callback({
                 data: [],
             });
+        }).always(() => {
+            this.$dom.loader.removeClass('visible');
+            this.$dom.table.removeClass('refreshing');
         });
     }
 
     /**
-     * @internal
+     * @private
      *
      * Handler replacing the original DataTable's "initCompete" method.
      */
     $dtInitComplete() {
         if (this.$config.autofocus) {
-            this.$dom.table
-                .find('.dataTables_filter input')
-                .focus();
+            // The DataTable's finished loading, but we do not have access to
+            // the "this.$dom.table" yet - we must wait a tick before doing so.
+            setTimeout(() => {
+                this.$dom.table
+                    .find('.dataTables_filter input')
+                    .focus();
+            }, 0);
         }
     }
 
     /**
-     * @internal
+     * @private
      *
      * Parses the table's configuration.
      *
@@ -108,16 +134,17 @@ export default class DataTable {
         return {
             source: config.source,
             autofocus: config.autofocus,
+            loader: config.loader || '',
         };
     }
 
     /**
-     * @internal
+     * @private
      *
      * Parses the table's header and returns configuration for each column.
      *
      * @param {jQuery} $table
-     * @returns {Array<Object>}
+     * @returns {array<object>}
      */
     static $buildColumns($table) {
         const columns = [];
@@ -138,6 +165,18 @@ export default class DataTable {
         });
 
         return columns;
+    }
+
+    /**
+     * @private
+     */
+    static $showErrorMessage() {
+        // noinspection JSIgnoredPromiseFromCall
+        swal({
+            title: 'Failed to load table',
+            text: 'There was an error trying to load the table - please refresh page and try again.',
+            icon: 'error',
+        });
     }
 
 }

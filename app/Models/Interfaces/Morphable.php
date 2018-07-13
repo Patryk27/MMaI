@@ -3,15 +3,14 @@
 namespace App\Models\Interfaces;
 
 /**
- * This interface is used to mark model as "morphable", meaning it can be e.g.
- * used in routing.
+ * This interface is used to mark model as 'morphable', to usage in polymorphic
+ * relationships.
  */
 interface Morphable
 {
 
     /**
-     * Returns id of this morphable, e.g. `5`.
-     * Used to fill the "morphable_id" field.
+     * Returns id (primary key) of this morphable, e.g. `5`.
      *
      * @return int
      */
@@ -19,7 +18,6 @@ interface Morphable
 
     /**
      * Returns name of this morphable, e.g. 'page' or 'language'.
-     * Used to fill the "morphable_name" field.
      *
      * @return string
      */

@@ -18,20 +18,42 @@
     <table class="table table-striped table-dark"
            data-datatable='{
             "source": "{{ route('backend.pages.search') }}",
+            "loader": "#posts-loader",
             "autofocus": true
            }'>
         <thead>
         <tr>
-            <th data-datatable-column='{"name": "id", "orderable": true}'>Id</th>
-            <th data-datatable-column='{"name": "language", "orderable": true}'>Language</th>
-            <th data-datatable-column='{"name": "route", "orderable": true}'>Route</th>
-            <th data-datatable-column='{"name": "title", "orderable": true}'>Title</th>
-            <th data-datatable-column='{"name": "status", "orderable": true}'>Status</th>
-            <th data-datatable-column='{"name": "actions"}'>&nbsp;</th>
+            <th data-datatable-column='{"name": "id", "orderable": true}'>
+                Id
+            </th>
+
+            <th data-datatable-column='{"name": "language-name", "orderable": true}'>
+                Language
+            </th>
+
+            <th data-datatable-column='{"name": "route-url", "orderable": true}'>
+                Route
+            </th>
+
+            <th data-datatable-column='{"name": "title", "orderable": true}'>
+                Title
+            </th>
+
+            <th data-datatable-column='{"name": "status"}'>
+                Status
+            </th>
+
+            <th data-datatable-column='{"name": "actions"}'>
+                &nbsp;
+            </th>
         </tr>
         </thead>
 
         <tbody>
         </tbody>
     </table>
+
+    <div id="posts-loader" class="loader-wrapper">
+        <div class="loader loader-tile"></div>
+    </div>
 @endsection

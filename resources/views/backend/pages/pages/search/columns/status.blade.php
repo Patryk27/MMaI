@@ -2,6 +2,10 @@
     /**
      * @var \App\Models\PageVariant $row
      */
+
+    $presenter = $row->getPresenter();
 @endphp
 
-{{ __('base/models/page-variant.enums.status.' . $row->status) }}
+<span class="badge badge-pill {{ $presenter->getStatusBadgeClass() }}">
+    {{ __('base/models/page-variant.enums.status.' . $row->status) }}
+</span>
