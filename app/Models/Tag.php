@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -19,6 +20,7 @@ use Illuminate\Database\Eloquent\Model;
  * -----
  *
  * @property-read Language $language
+ * @property-read EloquentCollection|PageVariant[] $pageVariants
  */
 class Tag extends Model
 {
@@ -37,6 +39,14 @@ class Tag extends Model
     public function language()
     {
         return $this->belongsTo(Language::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function pageVariants()
+    {
+        return $this->belongsToMany(PageVariant::class);
     }
 
 }

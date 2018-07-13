@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Exceptions\Exception as AppException;
 use App\Http\Controllers\Controller;
 use App\Repositories\LanguagesRepository;
+use App\Services\Core\Collection\Renderer as CollectionRenderer;
+use App\Services\Core\DataTable\Handler as DataTableHandler;
 use App\Services\Tags\Searcher as TagsSearcher;
 use Illuminate\Contracts\View\View as ViewContract;
 use Illuminate\Http\Request;
@@ -23,21 +24,37 @@ class TagsController extends Controller
     private $tagsSearcher;
 
     /**
+     * @var CollectionRenderer
+     */
+    private $collectionRenderer;
+
+    /**
+     * @var DataTableHandler
+     */
+    private $dataTableHandler;
+
+    /**
      * @param LanguagesRepository $languagesRepository
      * @param TagsSearcher $tagsSearcher
+     * @param CollectionRenderer $collectionRenderer
+     * @param DataTableHandler $dataTableHandler
      */
     public function __construct(
         LanguagesRepository $languagesRepository,
-        TagsSearcher $tagsSearcher
+        TagsSearcher $tagsSearcher,
+        CollectionRenderer $collectionRenderer,
+        DataTableHandler $dataTableHandler
     ) {
         $this->languagesRepository = $languagesRepository;
         $this->tagsSearcher = $tagsSearcher;
+        $this->collectionRenderer = $collectionRenderer;
+        $this->dataTableHandler = $dataTableHandler;
     }
 
     /**
      * @return ViewContract
      */
-    public function index()
+    public function index(): ViewContract
     {
         $languages = $this->languagesRepository->getAll();
         $languages = $languages->sortBy('english_name');
@@ -51,20 +68,21 @@ class TagsController extends Controller
     /**
      * @param Request $request
      * @return array
-     *
-     * @throws AppException
      */
-    public function search(Request $request)
+    public function search(Request $request): array
     {
-        $this->tagsSearcher->filter(
-            $request->get('filters', [])
+        $this->collectionRenderer->addColumns([
+            'id' => 'backend.pages.tags.search.columns.id',
+            'name' => 'backend.pages.tags.search.columns.name',
+            'page-count' => 'backend.pages.tags.search.columns.page-count',
+            'actions' => 'backend.pages.tags.search.columns.actions',
+        ]);
+
+        return $this->dataTableHandler->handle(
+            $this->tagsSearcher,
+            $this->collectionRenderer,
+            $request
         );
-
-        $this->tagsSearcher->orderBy(TagsSearcher::FIELD_NAME, true);
-
-        return [
-            'items' => $this->tagsSearcher->get(),
-        ];
     }
 
 }

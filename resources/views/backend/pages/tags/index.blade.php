@@ -15,28 +15,40 @@
         </h1>
     </div>
 
-    <div id="tags-form" class="form-inline">
-        {!! Form::label('language_id', 'Show tags for language:') !!}
+    <div class="loader-wrapper">
+        <div id="tags-loader" class="loader loader-tile"></div>
 
-        {!! Form::select('language_id', $languages, null, [
-            'class' => 'form-control',
-        ]) !!}
+        <div id="tags-form" class="form-inline">
+            {!! Form::label('language_id', 'Show tags for language:') !!}
+
+            {!! Form::select('language_id', $languages, null, [
+                'class' => 'form-control',
+            ]) !!}
+        </div>
+
+        <table id="tags-table" class="table table-striped table-dark">
+            <thead>
+            <tr>
+                <th data-datatable-column='{"name": "id", "orderable": true}'>
+                    Id
+                </th>
+
+                <th data-datatable-column='{"name": "name", "orderable": true}'>
+                    Name
+                </th>
+
+                <th data-datatable-column='{"name": "page-count", "orderable": true}'>
+                    Number of pages
+                </th>
+
+                <th data-datatable-column='{"name": "actions"}'>
+                    &nbsp;
+                </th>
+            </tr>
+            </thead>
+
+            <tbody>
+            </tbody>
+        </table>
     </div>
-
-    <div id="tags-loader" class="loader loader-tile"></div>
-
-    <table id="tags-table" class="table table-striped table-dark">
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>Tag</th>
-            <th>Number of posts</th>
-            <th>&nbsp;</th>
-        </tr>
-        </thead>
-
-        <tbody>
-
-        </tbody>
-    </table>
 @endsection
