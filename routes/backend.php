@@ -31,9 +31,8 @@ Route::group(['prefix' => 'backend'], function () {
                 ->name('backend.dashboard.index');
         });
 
-        // /backend/search
-        // @todo replace it with "post", to keep consistency with tags searching
-        Route::get('search', PagesController::class . '@search')
+        // /backend/pages/search
+        Route::get('pages/search', PagesController::class . '@search')
             ->name('backend.pages.search');
 
         // /backend/pages
@@ -49,7 +48,7 @@ Route::group(['prefix' => 'backend'], function () {
         });
 
         // /backend/tags/search
-        Route::post('tags/search', TagsController::class . '@search')
+        Route::get('tags/search', TagsController::class . '@search')
             ->name('backend.tags.search');
 
         // /backend/tags
@@ -58,10 +57,7 @@ Route::group(['prefix' => 'backend'], function () {
         ]);
 
         // /backend/about
-        Route::group(['prefix' => 'about'], function () {
-            // /backend/about/index
-            Route::get('index')
-                ->name('backend.about.index');
-        });
+        Route::get('about')
+            ->name('backend.about.index');
     });
 });

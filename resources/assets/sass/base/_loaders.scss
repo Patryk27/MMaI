@@ -1,11 +1,19 @@
 @import 'loaders/tile';
 
 .loader-wrapper {
-  display: none;
-  align-items: center;
-  justify-content: center;
+  position: relative;
 
-  &.visible {
-    display: flex;
+  .loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 100;
+
+    display: none;
+    transform: translate(-50%, -50%);
+
+    &.visible {
+      display: block;
+    }
   }
 }

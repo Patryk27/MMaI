@@ -15,45 +15,45 @@
         </div>
     </div>
 
-    <table class="table table-striped table-dark"
-           data-datatable='{
-            "source": "{{ route('backend.pages.search') }}",
-            "loader": "#posts-loader",
-            "autofocus": true
-           }'>
-        <thead>
-        <tr>
-            <th data-datatable-column='{"name": "id", "orderable": true}'>
-                Id
-            </th>
+    <div class="loader-wrapper">
+        <div id="posts-loader" class="loader loader-tile"></div>
 
-            <th data-datatable-column='{"name": "language-name", "orderable": true}'>
-                Language
-            </th>
+        <table class="table table-striped table-dark"
+               data-datatable='{
+                "autofocus": true,
+                "loader": "#posts-loader",
+                "source": "{{ route('backend.pages.search') }}"
+               }'>
+            <thead>
+            <tr>
+                <th data-datatable-column='{"name": "id", "orderable": true}'>
+                    Id
+                </th>
 
-            <th data-datatable-column='{"name": "route-url", "orderable": true}'>
-                Route
-            </th>
+                <th data-datatable-column='{"name": "language-name", "orderable": true}'>
+                    Language
+                </th>
 
-            <th data-datatable-column='{"name": "title", "orderable": true}'>
-                Title
-            </th>
+                <th data-datatable-column='{"name": "route-url", "orderable": true}'>
+                    Route
+                </th>
 
-            <th data-datatable-column='{"name": "status"}'>
-                Status
-            </th>
+                <th data-datatable-column='{"name": "title", "orderable": true}'>
+                    Title
+                </th>
 
-            <th data-datatable-column='{"name": "actions"}'>
-                &nbsp;
-            </th>
-        </tr>
-        </thead>
+                <th data-datatable-column='{"name": "status"}'>
+                    Status
+                </th>
 
-        <tbody>
-        </tbody>
-    </table>
+                <th data-datatable-column='{"name": "actions"}'>
+                    &nbsp;
+                </th>
+            </tr>
+            </thead>
 
-    <div id="posts-loader" class="loader-wrapper">
-        <div class="loader loader-tile"></div>
+            <tbody>
+            </tbody>
+        </table>
     </div>
 @endsection

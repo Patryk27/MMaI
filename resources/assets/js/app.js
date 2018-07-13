@@ -15,8 +15,10 @@ $(() => {
     Dispatcher.execute();
 
     $('[data-datatable]').each(function () {
-        new DataTable(
-            $(this),
-        );
+        let config = $(this).data('datatable');
+
+        config.table = $(this);
+
+        new DataTable(config);
     });
 });

@@ -1,10 +1,11 @@
 .dataTables_wrapper {
   padding: 0;
+
   transition: opacity 0.2s, filter 0.2s;
 
   &.refreshing {
     opacity: 0.5;
-    filter: blur(2px);
+    filter: blur(3px);
 
     pointer-events: none;
   }

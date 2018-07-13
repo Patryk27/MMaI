@@ -1,29 +1,38 @@
 import $ from 'jquery';
 import swal from 'sweetalert';
 
+/**
+ * This component is a wrapper for the great jQuery DataTable - it provides an
+ * additional functionality over the original one (e.g. loaders).
+ */
 export default class DataTable {
 
     /**
-     * @param {jQuery} $table
+     * @param {object} config
      */
-    constructor($table) {
-        // Prepare configuration
-        this.$config = DataTable.$buildConfiguration($table);
+    constructor(config) {
+        this.$config = config;
 
-        // Prepare columns' configuration
-        const columns = DataTable.$buildColumns($table);
+        if (config.table === undefined) {
+            throw 'Please specify the table\'s selector.';
+        }
+
+        // Prepare table's columns
+        const columns = DataTable.$buildColumns(
+            $(config.table)
+        );
 
         // Initialize the DataTable
-        const dtInstance = $table.DataTable({
-            ajax: (originalData, callback) => this.$dtAjax(originalData, callback),
-            initComplete: () => this.$dtInitComplete(),
-
+        const dtInstance = $(config.table).DataTable({
             columns: columns,
             deferLoading: true,
             orderMulti: false,
             processing: true,
             searchDelay: 500,
             serverSide: true,
+
+            ajax: (originalData, callback) => this.$dtAjax(originalData, callback),
+            initComplete: () => this.$dtInitComplete(),
         });
 
         // Since the DataTable plugin destroys original container, we cannot
@@ -39,63 +48,85 @@ export default class DataTable {
     /**
      * @private
      *
+     * Returns data used to prepare Ajax request to the backend.
+     *
+     * @param {object} originalData
+     * @returns {object}
+     */
+    $prepareRequest(originalData) {
+        // Transform column's data (name, attributes, etc.) onto the names only;
+        // Backend doesn't need to know anything more.
+        const columns = originalData.columns.map((column) => column.name);
+
+        // Prepare basic request
+        const request = {
+            columns: columns,
+
+            pagination: {
+                page: originalData.start / originalData.length,
+                perPage: originalData.length,
+            },
+
+            // We only support sorting by one column, so let's choose the first
+            // one.
+            orderBy: {
+                column: columns[originalData.order[0].column],
+                direction: originalData.order[0].dir,
+            },
+
+            search: originalData.search.value,
+        };
+
+        // If user's provided custom "prepare request" handler, call it now
+        if (this.$config.hasOwnProperty('prepareRequest')) {
+            return this.$config.prepareRequest(request);
+        } else {
+            return request;
+        }
+    }
+
+    /**
+     * @private
+     *
      * Handler replacing the original DataTable's "ajax" method.
      *
      * @param {object} originalData
      * @param {function} callback
      */
-    $dtAjax(originalData, callback) {
+    async $dtAjax(originalData, callback) {
+        // Mark table as "being refreshed"
         this.$dom.loader.addClass('visible');
         this.$dom.table.addClass('refreshing');
 
-        // Re-position the loader
-        this.$dom.loader.css({
-            position: 'absolute',
+        try {
+            const response = await $.ajax({
+                url: this.$config.source,
+                data: this.$prepareRequest(originalData),
+            });
 
-            top: this.$dom.table.offset().top,
-            left: this.$dom.table.offset().left,
-
-            width: this.$dom.table.width(),
-            height: this.$dom.table.height(),
-        });
-
-        // Transform column's data (name, attributes, etc.) onto the names only;
-        // Backend doesn't need to know anything more.
-        const columns = originalData.columns.map((column) => column.name);
-
-        $.ajax({
-            url: this.$config.source,
-            data: {
-                columns: columns,
-
-                pagination: {
-                    page: originalData.start / originalData.length,
-                    perPage: originalData.length,
-                },
-
-                orderBy: {
-                    column: columns[originalData.order[0].column],
-                    direction: originalData.order[0].dir,
-                },
-
-                search: originalData.search.value,
-            },
-        }).done((response) => {
             if (response.hasOwnProperty('data')) {
                 callback(response);
             } else {
                 DataTable.$showErrorMessage();
             }
-        }).fail(() => {
+        } catch (ex) {
+            console.error(ex);
+
             DataTable.$showErrorMessage();
 
             callback({
                 data: [],
             });
-        }).always(() => {
+        }
+
+        // Mark table as "ready";
+        // We're doing it after a delay, because it seems that Firefox cannot
+        // efficiently handle both re-building the new table and animating
+        // it, which results in stuttering animation.
+        setTimeout(() => {
             this.$dom.loader.removeClass('visible');
             this.$dom.table.removeClass('refreshing');
-        });
+        }, 150);
     }
 
     /**
@@ -113,29 +144,6 @@ export default class DataTable {
                     .focus();
             }, 0);
         }
-    }
-
-    /**
-     * @private
-     *
-     * Parses the table's configuration.
-     *
-     * @param {jQuery} $table
-     * @returns {Object}
-     */
-    static $buildConfiguration($table) {
-        let config = $table.data('datatable');
-
-        // Fill in the default configuration
-        config = Object.assign({
-            focus: false,
-        }, config);
-
-        return {
-            source: config.source,
-            autofocus: config.autofocus,
-            loader: config.loader || '',
-        };
     }
 
     /**
