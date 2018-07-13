@@ -119,7 +119,7 @@ class PagesRepository
     }
 
     /**
-     * Saves page version's route.
+     * Saves page variant's route.
      *
      * @param Route|null $oldRoute
      * @param Route|null $newRoute
