@@ -2,8 +2,13 @@
 
 use Illuminate\Database\Seeder as BaseSeeder;
 
-class Seeder extends BaseSeeder
+abstract class Seeder extends BaseSeeder
 {
+
+    /**
+     * @return void
+     */
+    abstract public function run(): void;
 
     /**
      * @param string|string[] $tables
@@ -15,13 +20,13 @@ class Seeder extends BaseSeeder
             $tables = [$tables];
         }
 
-//        DB::statement('SET foreign_key_checks=0'); @todo
+        DB::statement('SET foreign_key_checks=0');
 
         foreach ($tables as $table) {
-//            DB::table($table)->truncate();
+            DB::table($table)->truncate();
         }
 
-//        DB::statement('SET foreign_key_checks=1');
+        DB::statement('SET foreign_key_checks=1');
     }
 
 }

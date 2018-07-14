@@ -23,52 +23,8 @@ class PagesSeeder extends Seeder
     {
         $this->now = Carbon::now();
 
-        $this->createHomePages();
         $this->createAboutPages();
         $this->createExamplePosts();
-    }
-
-    /**
-     * Creates default home pages.
-     *
-     * Language | Page URL
-     * -------- | --------
-     * English  | en/home-page
-     * Polish   | pl/strona-glowna
-     *
-     * Further redirections (from "en" to "en/home-page" and so on) are created
-     * in the @see RoutesSeeder.
-     *
-     * @return void
-     * @throws Throwable
-     */
-    private function createHomePages(): void
-    {
-        $this->createPage([
-            'type' => Page::TYPE_CMS,
-
-            'variants' => [
-                'en' => [
-                    'url' => 'en/home-page',
-                    'status' => PageVariant::STATUS_PUBLISHED,
-
-                    'title' => 'Home Page',
-                    'content' => '{{ @home }}',
-
-                    'published_at' => $this->now,
-                ],
-
-                'pl' => [
-                    'url' => 'pl/strona-glowna',
-                    'status' => PageVariant::STATUS_PUBLISHED,
-
-                    'title' => 'Strona główna',
-                    'content' => '{{ @home }}',
-
-                    'published_at' => $this->now,
-                ],
-            ],
-        ]);
     }
 
     /**

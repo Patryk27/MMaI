@@ -2,8 +2,10 @@
 
 namespace App\Services\Routes;
 
+use App\Models\InternalPage;
 use App\Models\PageVariant;
 use App\Models\Route;
+use App\Services\InternalPages\Renderer as InternalPagesRenderer;
 use App\Services\PageVariants\Renderer as PageVariantsRenderer;
 use Exception;
 use Illuminate\Contracts\View\Factory as ViewFactoryContract;
@@ -20,19 +22,27 @@ class Dispatcher
     private $viewFactory;
 
     /**
+     * @var InternalPagesRenderer
+     */
+    private $internalPagesRenderer;
+
+    /**
      * @var PageVariantsRenderer
      */
     private $pageVariantsRenderer;
 
     /**
      * @param ViewFactoryContract $viewFactory
+     * @param InternalPagesRenderer $internalPagesRenderer
      * @param PageVariantsRenderer $pageVariantsRenderer
      */
     public function __construct(
         ViewFactoryContract $viewFactory,
+        InternalPagesRenderer $internalPagesRenderer,
         PageVariantsRenderer $pageVariantsRenderer
     ) {
         $this->viewFactory = $viewFactory;
+        $this->internalPagesRenderer = $internalPagesRenderer;
         $this->pageVariantsRenderer = $pageVariantsRenderer;
     }
 
@@ -45,6 +55,10 @@ class Dispatcher
     public function dispatch(Route $route)
     {
         switch ($route->model_type) {
+            case InternalPage::getMorphableType():
+                /** @noinspection PhpParamsInspection */
+                return $this->dispatchInternalPage($route->model);
+
             case Route::getMorphableType():
                 /** @noinspection PhpParamsInspection */
                 return $this->dispatchRoute($route->model);
@@ -58,6 +72,15 @@ class Dispatcher
                     sprintf('Don\'t know how to dispatch route with [model_type=%s].', $route->model_type)
                 );
         }
+    }
+
+    /**
+     * @param InternalPage $internalPage
+     * @return mixed
+     */
+    private function dispatchInternalPage(InternalPage $internalPage)
+    {
+        return $this->internalPagesRenderer->render($internalPage);
     }
 
     /**

@@ -12,9 +12,6 @@ class RoutesSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->createRedirection('en', 'en/home-page');
-        $this->createRedirection('pl', 'pl/strona-glowna');
-
         $this->createRedirection('/', 'en');
     }
 

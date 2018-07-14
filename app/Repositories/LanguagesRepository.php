@@ -47,6 +47,18 @@ class LanguagesRepository
     }
 
     /**
+     * Returns language with given slug (e.g. "pl") or `null` if no such
+     * language exists.
+     *
+     * @param string $slug
+     * @return Language|null
+     */
+    public function getBySlug(string $slug): ?Language
+    {
+        return $this->repository->getBy('slug', $slug);
+    }
+
+    /**
      * Returns all the languages.
      *
      * @return EloquentCollection|Language[]

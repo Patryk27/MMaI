@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\CustomPages\Handlers;
+namespace App\Services\InternalPages\Renderers;
 
 use App\Models\Page;
 use App\Models\PageVariant;
@@ -11,7 +11,7 @@ use App\Services\PageVariants\Searcher as PageVariantsSearcher;
 use Exception;
 use Illuminate\Contracts\View\Factory as ViewFactoryContract;
 
-class HomePageHandler implements HandlerInterface
+class HomeRenderer implements RendererInterface
 {
 
     const NUMBER_OF_POSTS_PER_PAGE = 10;
@@ -69,6 +69,8 @@ class HomePageHandler implements HandlerInterface
      */
     public function render()
     {
+        // @todo there's too much happening in here
+
         $language = $this->languageDetector->getLanguageOrFail();
 
         $this->pageVariantsSearcher->filter([
@@ -90,8 +92,8 @@ class HomePageHandler implements HandlerInterface
         $pageVariants = $this->pageVariantsRenderer->renderMany($pageVariants);
         $pageVariants = $this->paginator->build($pageVariants, $totalNumberOfPages, self::NUMBER_OF_POSTS_PER_PAGE);
 
-        $view = $this->viewFactory->make('frontend.special-pages.home', [
-            'renderedPageVariants' => $pageVariants,
+        $view = $this->viewFactory->make('frontend.internal-pages.home', [
+            'posts' => $pageVariants,
         ]);
 
         return $view->render();

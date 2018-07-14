@@ -9,8 +9,9 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->truncate([
+            'internal_pages',
             'languages',
-            'navigation_items',
+            'menu_items',
             'pages',
             'page_variants',
             'routes',
@@ -22,6 +23,7 @@ class DatabaseSeeder extends Seeder
         $this->call(LanguagesSeeder::class);
         $this->call(TagsSeeder::class);
         $this->call(PagesSeeder::class);
+        $this->call(InternalPagesSeeder::class);
         $this->call(RoutesSeeder::class);
         $this->call(MenuItemsSeeder::class);
     }

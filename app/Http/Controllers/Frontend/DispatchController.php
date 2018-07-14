@@ -49,7 +49,8 @@ class DispatchController extends Controller
     public function show(?string $url = null)
     {
         // In case of empty URL, fall back to "/";
-        // The "/" route should be present in the database, whereas the null one not necessarily.
+        // The "/" route should be present in the database, whereas the null one
+        // not necessarily.
         if (empty($url)) {
             $url = '/';
         }
