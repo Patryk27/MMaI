@@ -4,13 +4,14 @@ use App\Models\Language;
 use App\Models\MenuItem;
 use App\Models\Route;
 
-final class MenuItemsSeeder
-    extends Seeder {
+class MenuItemsSeeder extends Seeder
+{
 
     /**
      * @return void
      */
-    public function run(): void {
+    public function run(): void
+    {
         $this->createItemToRoute('en', 0, 'en/about-me', 'About me');
         $this->createItemToRoute('pl', 0, 'pl/o-mnie', 'O mnie');
 
@@ -27,7 +28,8 @@ final class MenuItemsSeeder
      * @param string $title
      * @return void
      */
-    private function createItemToRoute(string $languageSlug, int $position, string $url, string $title): void {
+    private function createItemToRoute(string $languageSlug, int $position, string $url, string $title): void
+    {
         $language = Language::where('slug', $languageSlug)->firstOrFail();
         $route = Route::where('url', $url)->firstOrFail();
 
@@ -48,7 +50,8 @@ final class MenuItemsSeeder
      * @param string $title
      * @return void
      */
-    private function createItemToUrl(string $languageSlug, int $position, string $string, string $title): void {
+    private function createItemToUrl(string $languageSlug, int $position, string $string, string $title): void
+    {
         $language = Language::where('slug', $languageSlug)->firstOrFail();
 
         MenuItem::create([

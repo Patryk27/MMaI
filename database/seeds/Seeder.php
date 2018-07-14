@@ -2,14 +2,15 @@
 
 use Illuminate\Database\Seeder as BaseSeeder;
 
-abstract class Seeder
-    extends BaseSeeder {
+class Seeder extends BaseSeeder
+{
 
     /**
      * @param string|string[] $tables
      * @return void
      */
-    protected function truncate($tables): void {
+    protected function truncate($tables): void
+    {
         if (!is_array($tables)) {
             $tables = [$tables];
         }

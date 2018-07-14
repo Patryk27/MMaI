@@ -7,8 +7,8 @@ use App\Models\Route;
 use App\Models\Tag;
 use Carbon\Carbon;
 
-final class PagesSeeder
-    extends Seeder {
+class PagesSeeder extends Seeder
+{
 
     /**
      * @var Carbon
@@ -19,7 +19,8 @@ final class PagesSeeder
      * @return void
      * @throws Throwable
      */
-    public function run(): void {
+    public function run(): void
+    {
         $this->now = Carbon::now();
 
         $this->createHomePages();
@@ -41,7 +42,8 @@ final class PagesSeeder
      * @return void
      * @throws Throwable
      */
-    private function createHomePages(): void {
+    private function createHomePages(): void
+    {
         $this->createPage([
             'type' => Page::TYPE_CMS,
 
@@ -80,7 +82,8 @@ final class PagesSeeder
      * @return void
      * @throws Throwable
      */
-    private function createAboutPages(): void {
+    private function createAboutPages(): void
+    {
         $this->createPage([
             'type' => Page::TYPE_CMS,
 
@@ -121,7 +124,8 @@ final class PagesSeeder
      * @return void
      * @throws Throwable
      */
-    private function createExamplePosts(): void {
+    private function createExamplePosts(): void
+    {
         $date = sprintf('%04d-%02d', $this->now->year, $this->now->month);
 
         $faker = Faker\Factory::create('en');
@@ -196,7 +200,8 @@ final class PagesSeeder
      * @return void
      * @throws Throwable
      */
-    private function createPage(array $pageData): void {
+    private function createPage(array $pageData): void
+    {
         // Firstly, create the page itself
         $page = Page::create([
             'type' => $pageData['type'],
@@ -219,7 +224,8 @@ final class PagesSeeder
      * @param array $pageVariantData
      * @throws Throwable
      */
-    private function createPageVariant(Page $page, string $languageName, array $pageVariantData): void {
+    private function createPageVariant(Page $page, string $languageName, array $pageVariantData): void
+    {
         // Find language to which this PV is going to be bound
         $language = Language::where('slug', $languageName)->firstOrFail();
 

@@ -4,13 +4,14 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTagsTable
-    extends Migration {
+class CreateTagsTable extends Migration
+{
 
     /**
      * @return void
      */
-    public function up() {
+    public function up()
+    {
         Schema::create('tags', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('language_id');
@@ -30,7 +31,8 @@ class CreateTagsTable
     /**
      * @return void
      */
-    public function down() {
+    public function down()
+    {
         Schema::dropIfExists('tags');
     }
 

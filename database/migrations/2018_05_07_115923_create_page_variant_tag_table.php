@@ -4,13 +4,14 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePageVariantTagTable
-    extends Migration {
+class CreatePageVariantTagTable extends Migration
+{
 
     /**
      * @return void
      */
-    public function up() {
+    public function up()
+    {
         Schema::create('page_variant_tag', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('page_variant_id');
@@ -31,7 +32,9 @@ class CreatePageVariantTagTable
     /**
      * @return void
      */
-    public function down() {
+    public function down()
+    {
         Schema::dropIfExists('page_variant_tag');
     }
+
 }

@@ -1,12 +1,13 @@
 <?php
 
-final class DatabaseSeeder
-    extends Seeder {
+class DatabaseSeeder extends Seeder
+{
 
     /**
      * @return void
      */
-    public function run(): void {
+    public function run(): void
+    {
         $this->truncate([
             'languages',
             'navigation_items',

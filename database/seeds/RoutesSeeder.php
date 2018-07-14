@@ -2,13 +2,16 @@
 
 use App\Models\Route;
 
-final class RoutesSeeder
-    extends Seeder {
+class RoutesSeeder extends Seeder
+{
 
     /**
      * @return void
+     *
+     * @throws Throwable
      */
-    public function run(): void {
+    public function run(): void
+    {
         $this->createRedirection('en', 'en/home-page');
         $this->createRedirection('pl', 'pl/strona-glowna');
 
@@ -22,9 +25,11 @@ final class RoutesSeeder
      * @param string $fromUrl
      * @param string $toUrl
      * @return void
+     *
      * @throws Throwable
      */
-    private function createRedirection(string $fromUrl, string $toUrl): void {
+    private function createRedirection(string $fromUrl, string $toUrl): void
+    {
         $toUrlModel = Route::where('url', $toUrl)->firstOrFail();
 
         Route::buildFor($fromUrl, $toUrlModel)

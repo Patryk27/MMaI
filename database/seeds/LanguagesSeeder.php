@@ -2,7 +2,7 @@
 
 use App\Models\Language;
 
-final class LanguagesSeeder extends Seeder
+class LanguagesSeeder extends Seeder
 {
 
     /**

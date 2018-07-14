@@ -4,13 +4,14 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePageVariantsTable
-    extends Migration {
+class CreatePageVariantsTable extends Migration
+{
 
     /**
      * @return void
      */
-    public function up() {
+    public function up()
+    {
         Schema::create('page_variants', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('page_id');
@@ -37,7 +38,8 @@ class CreatePageVariantsTable
     /**
      * @return void
      */
-    public function down() {
+    public function down()
+    {
         Schema::dropIfExists('page_variants');
     }
 
