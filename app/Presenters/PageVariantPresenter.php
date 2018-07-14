@@ -19,7 +19,7 @@ class PageVariantPresenter extends Presenter
     {
         return array_get([
             PageVariant::STATUS_DRAFT => 'badge-warning',
-            PageVariant::STATUS_PUBLISHED => 'badge-primary',
+            PageVariant::STATUS_PUBLISHED => 'badge-success',
             PageVariant::STATUS_DELETED => 'badge-danger',
         ], $this->model->status, '');
     }
