@@ -10,14 +10,34 @@ class NavigationComposer
 {
 
     private const ITEMS = [
-        'backend.dashboard' => 'Dashboard',
-        'backend.pages' => 'Pages',
-        'backend.posts' => 'Posts',
-        'backend.tags' => 'Tags',
+        'backend.dashboard' => [
+            'icon' => 'fa fa-tachometer-alt',
+            'title' => 'Dashboard',
+        ],
+
+        'backend.pages' => [
+            'icon' => 'fa fa-file',
+            'title' => 'Pages',
+        ],
+
+        'backend.posts' => [
+            'icon' => 'fa fa-file',
+            'title' => 'Posts',
+        ],
+
+        'backend.tags' => [
+            'icon' => 'fa fa-tag',
+            'title' => 'Tags',
+        ],
+
 //        'backend.routes' => 'Routes',
 //        'backend.languages' => 'Languages',
 //        'backend.users' => 'Users',
-        'backend.about' => 'About',
+
+        'backend.about' => [
+            'icon' => 'fa fa-box',
+            'title' => 'About',
+        ],
     ];
 
     /**
@@ -61,10 +81,11 @@ class NavigationComposer
     {
         $items = [];
 
-        foreach (self::ITEMS as $route => $title) {
+        foreach (self::ITEMS as $route => $item) {
             $items[] = [
                 'url' => $this->urlGenerator->route($route . '.index'),
-                'title' => $title,
+                'title' => $item['title'],
+                'icon' => $item['icon'],
                 'active' => $this->isRouteActive($route),
             ];
         }
