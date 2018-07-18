@@ -14,13 +14,16 @@ class Renderer
     private $renderers;
 
     /**
-     * @param Renderers\HomeRenderer $homePageRenderer
+     * @param Renderers\HomeRenderer $homeRenderer
+     * @param Renderers\SearchRenderer $searchRenderer
      */
     public function __construct(
-        Renderers\HomeRenderer $homePageRenderer
+        Renderers\HomeRenderer $homeRenderer,
+        Renderers\SearchRenderer $searchRenderer
     ) {
         $this->renderers = [
-            InternalPage::TYPE_HOME => $homePageRenderer,
+            InternalPage::TYPE_HOME => $homeRenderer,
+            InternalPage::TYPE_SEARCH => $searchRenderer,
         ];
     }
 
