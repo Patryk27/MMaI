@@ -17,7 +17,7 @@ class CreateLanguagesTable extends Migration
             $table->string('slug');
             $table->string('iso_name');
             $table->string('english_name');
-            $table->string('translated_name');
+            $table->string('native_name');
             $table->timestamps();
 
             // -- indexes -- //
@@ -25,7 +25,7 @@ class CreateLanguagesTable extends Migration
             $table->unique('slug');
             $table->unique('iso_name');
             $table->unique('english_name');
-            $table->unique('translated_name');
+            $table->unique('native_name');
         });
     }
 

@@ -17,7 +17,7 @@ use Illuminate\Support\Carbon;
  * @property string $slug
  * @property string $iso_name
  * @property string $english_name
- * @property string $translated_name
+ * @property string $native_name
  * @property-read Carbon $created_at
  * @property-read Carbon $updated_at
  */
@@ -31,7 +31,7 @@ class Language extends Model
         'slug',
         'iso_name',
         'english_name',
-        'translated_name',
+        'native_name',
     ];
 
     /**

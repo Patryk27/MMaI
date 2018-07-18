@@ -19,7 +19,7 @@ class LanguagesSeeder extends Seeder
      * @param string $slug
      * @param string $isoName
      * @param string $englishName
-     * @param string $translatedName
+     * @param string $nativeName
      * @return void
      * @throws Throwable
      */
@@ -27,13 +27,13 @@ class LanguagesSeeder extends Seeder
         string $slug,
         string $isoName,
         string $englishName,
-        string $translatedName
+        string $nativeName
     ): void {
         Language::create([
             'slug' => $slug,
             'iso_name' => $isoName,
             'english_name' => $englishName,
-            'translated_name' => $translatedName,
+            'native_name' => $nativeName,
         ]);
     }
 
