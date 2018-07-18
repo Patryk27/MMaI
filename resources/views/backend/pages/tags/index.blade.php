@@ -19,11 +19,11 @@
         <div id="tags-loader" class="loader loader-tile"></div>
 
         <div id="tags-form" class="form-inline">
-            {!! Form::label('language_id', 'Show tags for language:') !!}
+            {{ Form::label('language_id', 'Show tags for language:') }}
 
-            {!! Form::select('language_id', $languages, null, [
+            {{ Form::select('language_id', $languages, null, [
                 'class' => 'form-control',
-            ]) !!}
+            ]) }}
         </div>
 
         <table id="tags-table" class="table table-striped table-dark">

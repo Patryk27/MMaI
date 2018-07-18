@@ -13,9 +13,9 @@
 @if(is_null($pageVariant))
     {{-- Enabled --}}
     <div class="form-check is-enabled-checkbox">
-        {!! Form::checkbox('is_enabled', 1, null, [
+        {{ Form::checkbox('is_enabled', 1, null, [
             'class' => 'form-check-input',
-        ]) !!}
+        ]) }}
 
         <label class="form-check-label">
             Enabled
@@ -23,10 +23,10 @@
     </div>
 @endif
 
-{!! Form::model($pageVariant) !!}
+{{ Form::model($pageVariant) }}
 
-{!! Form::hidden('id') !!}
-{!! Form::hidden('language_id', $language->id) !!}
+{{ Form::hidden('id') }}
+{{ Form::hidden('language_id', $language->id) }}
 
 {{-- Status --}}
 <div class="form-group required" data-field="status">
@@ -34,9 +34,9 @@
         Status
     </label>
 
-    {!! Form::select('status', __('base/models/page-variant.enums.status'), null, [
+    {{ Form::select('status', __('base/models/page-variant.enums.status'), null, [
         'class' => 'form-control',
-    ]) !!}
+    ]) }}
 </div>
 
 {{-- Route --}}
@@ -53,10 +53,10 @@
         }
     @endphp
 
-    {!! Form::text('route', $route, [
+    {{ Form::text('route', $route, [
         'class' => 'form-control',
         'placeholder' => 'my-awesome-page',
-    ]) !!}
+    ]) }}
 </div>
 
 {{-- Title --}}
@@ -65,10 +65,10 @@
         Title
     </label>
 
-    {!! Form::text('title', null, [
+    {{ Form::text('title', null, [
         'class' => 'form-control',
         'placeholder' => 'My Awesome Page',
-    ]) !!}
+    ]) }}
 </div>
 
 @if ($page->isBlogPage())
@@ -78,10 +78,10 @@
             Lead
         </label>
 
-        {!! Form::textarea('lead', null, [
+        {{ Form::textarea('lead', null, [
             'class' => 'form-control',
             'placeholder' => 'This is my awesome page!',
-        ]) !!}
+        ]) }}
     </div>
 @endif
 
@@ -91,10 +91,10 @@
         Content
     </label>
 
-    {!! Form::textarea('content', null, [
+    {{ Form::textarea('content', null, [
         'class' => 'form-control',
         'placeholder' => '# This is my awesome page!',
-    ]) !!}
+    ]) }}
 </div>
 
-{!! Form::close() !!}
+{{ Form::close() }}
