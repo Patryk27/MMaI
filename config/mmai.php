@@ -1,6 +1,6 @@
 <?php
 
-// @todo add comments
+// @todo provide comments
 
 return [
     'posts' => [
