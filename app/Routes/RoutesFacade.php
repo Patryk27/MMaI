@@ -2,7 +2,7 @@
 
 namespace App\Routes;
 
-use App\Core\Exceptions\Exception;
+use App\Routes\Exceptions\RouteNotFoundException;
 use App\Routes\Internal\Services\RoutesDeleter;
 use App\Routes\Internal\Services\RoutesDispatcher;
 use App\Routes\Internal\Services\RoutesQuerier;
@@ -87,14 +87,14 @@ class RoutesFacade
      * @param RouteQueryInterface $query
      * @return Route
      *
-     * @throws Exception
+     * @throws RouteNotFoundException
      */
     public function queryOne(RouteQueryInterface $query): Route
     {
         $routes = $this->queryMany($query);
 
         if ($routes->isEmpty()) {
-            throw new Exception('Route was not found.');
+            throw new RouteNotFoundException('Route was not found.');
         }
 
         return $routes->first();

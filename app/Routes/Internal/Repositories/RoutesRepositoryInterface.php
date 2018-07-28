@@ -38,6 +38,8 @@ interface RoutesRepositoryInterface
      *
      * @param Route $route
      * @return void
+     *
+     * @see \App\Routes\Internal\Services\RoutesDeleter
      */
     public function delete(Route $route): void;
 

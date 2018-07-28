@@ -2,13 +2,14 @@
 
 namespace Tests\Unit\Routes;
 
+use App\Core\Models\Interfaces\Morphable;
 use App\Core\Repositories\InMemoryRepository;
 use App\Routes\Internal\Repositories\RoutesInMemoryRepository;
-use App\Routes\Internal\Services\RoutesDeleter;
-use App\Routes\Internal\Services\RoutesDispatcher;
-use App\Routes\Internal\Services\RoutesQuerier;
-use App\Routes\Internal\Services\RoutesRerouter;
 use App\Routes\RoutesFacade;
+use App\Routes\RoutesFactory;
+use Tests\Assertions\Routes\RouteDoesNotExistAssertion;
+use Tests\Assertions\Routes\RouteExistsAssertion;
+use Tests\Assertions\Routes\RoutePointsAtAssertion;
 use Tests\Unit\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
@@ -33,17 +34,40 @@ abstract class TestCase extends BaseTestCase
             new InMemoryRepository()
         );
 
-        $routesDeleter = new RoutesDeleter();
-        $routesDispatcher = new RoutesDispatcher();
-        $routesRerouter = new RoutesRerouter();
-        $routesQuerier = new RoutesQuerier($this->routesRepository);
+        $this->routesFacade = RoutesFactory::build($this->routesRepository);
+    }
 
-        $this->routesFacade = new RoutesFacade(
-            $routesDeleter,
-            $routesDispatcher,
-            $routesRerouter,
-            $routesQuerier
-        );
+    /**
+     * @param string $url
+     * @return void
+     */
+    protected function assertRouteExists(string $url): void
+    {
+        $this->assertThat($url, new RouteExistsAssertion($this->routesFacade));
+    }
+
+    /**
+     * @param string $url
+     * @return void
+     */
+    protected function assertRouteDoesNotExist(string $url): void
+    {
+        $this->assertThat($url, new RouteDoesNotExistAssertion($this->routesFacade));
+    }
+
+    /**
+     * @param string $url
+     * @param Morphable $morphable
+     * @return void
+     */
+    protected function assertRoutePointsAt(string $url, Morphable $morphable): void
+    {
+        $payload = [
+            'url' => $url,
+            'morphable' => $morphable,
+        ];
+
+        $this->assertThat($payload, new RoutePointsAtAssertion($this->routesFacade));
     }
 
 }

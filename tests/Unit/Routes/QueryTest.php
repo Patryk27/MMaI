@@ -3,6 +3,7 @@
 namespace Tests\Unit\Routes;
 
 use App\Core\Exceptions\Exception;
+use App\Routes\Exceptions\RouteNotFoundException;
 use App\Routes\Models\Route;
 use App\Routes\Queries\GetRouteByUrlQuery;
 
@@ -10,7 +11,7 @@ class QueryTest extends TestCase
 {
 
     /**
-     * @return void
+     * @inheritdoc
      */
     public function setUp(): void
     {
@@ -55,8 +56,9 @@ class QueryTest extends TestCase
      *
      * @throws Exception
      */
-    public function testGetRouteByUrlQueryFailsOnMadeUpRoute(): void {
-        $this->expectExceptionMessage('Route was not found.');
+    public function testGetRouteByUrlQueryFailsOnMadeUpRoute(): void
+    {
+        $this->expectException(RouteNotFoundException::class);
 
         $this->routesFacade->queryOne(
             new GetRouteByUrlQuery('some not existing route')

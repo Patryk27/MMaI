@@ -24,7 +24,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * -----
  *
- * @property-read Model $model
+ * @property-read Model|Morphable $model
  */
 class Route extends Model implements Morphable
 {

@@ -15,12 +15,13 @@ class CreateRoutesTable extends Migration
         Schema::create('routes', function (Blueprint $table) {
             $table->increments('id');
             $table->char('url', 128);
-            $table->nullableMorphs('model');
+            $table->morphs('model');
             $table->timestamps();
 
             // -- indexes -- //
 
             $table->unique('url');
+            $table->unique(['model_type', 'model_id']);
         });
     }
 
