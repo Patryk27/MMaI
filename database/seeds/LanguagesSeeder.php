@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Language;
+use App\Languages\Models\Language;
 
 class LanguagesSeeder extends Seeder
 {
@@ -21,6 +21,7 @@ class LanguagesSeeder extends Seeder
      * @param string $englishName
      * @param string $nativeName
      * @return void
+     *
      * @throws Throwable
      */
     private function createLanguage(

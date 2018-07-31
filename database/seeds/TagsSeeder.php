@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\Language;
-use App\Models\Tag;
+use App\Languages\Models\Language;
+use App\Tags\Models\Tag;
 
 class TagsSeeder extends Seeder
 {

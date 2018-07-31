@@ -1,8 +1,8 @@
 <?php
 
-use App\Models\Language;
-use App\Models\MenuItem;
-use App\Models\Route;
+use App\Languages\Models\Language;
+use App\Menus\Models\MenuItem;
+use App\Routes\Models\Route;
 
 class MenuItemsSeeder extends Seeder
 {

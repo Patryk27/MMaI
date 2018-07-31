@@ -1,10 +1,10 @@
 <?php
 
-use App\Models\Language;
-use App\Models\Page;
-use App\Models\PageVariant;
-use App\Models\Route;
-use App\Models\Tag;
+use App\Languages\Models\Language;
+use App\Pages\Models\Page;
+use App\Pages\Models\PageVariant;
+use App\Routes\Models\Route;
+use App\Tags\Models\Tag;
 use Carbon\Carbon;
 
 class PagesSeeder extends Seeder
