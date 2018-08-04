@@ -3,27 +3,26 @@
 namespace App\Routes;
 
 use App\Routes\Exceptions\RouteNotFoundException;
-use App\Routes\Internal\Services\RoutesDeleter;
-use App\Routes\Internal\Services\RoutesDispatcher;
-use App\Routes\Internal\Services\RoutesQuerier;
-use App\Routes\Internal\Services\RoutesRerouter;
+use App\Routes\Implementation\Repositories\RoutesRepositoryInterface;
+use App\Routes\Implementation\Services\RoutesDeleter;
+use App\Routes\Implementation\Services\RoutesQuerier;
+use App\Routes\Implementation\Services\RoutesRerouter;
 use App\Routes\Models\Route;
-use App\Routes\Queries\RouteQueryInterface;
+use App\Routes\Queries\RoutesQueryInterface;
 use Illuminate\Support\Collection;
-use Throwable;
 
-class RoutesFacade
+final class RoutesFacade
 {
+
+    /**
+     * @var RoutesRepositoryInterface
+     */
+    private $routesRepository;
 
     /**
      * @var RoutesDeleter
      */
     private $routesDeleter;
-
-    /**
-     * @var RoutesDispatcher
-     */
-    private $routesDispatcher;
 
     /**
      * @var RoutesRerouter
@@ -36,19 +35,19 @@ class RoutesFacade
     private $routesQuerier;
 
     /**
+     * @param RoutesRepositoryInterface $routesRepository
      * @param RoutesDeleter $routesDeleter
-     * @param RoutesDispatcher $routesDispatcher
      * @param RoutesRerouter $routesRerouter
      * @param RoutesQuerier $routesQuerier
      */
     public function __construct(
+        RoutesRepositoryInterface $routesRepository,
         RoutesDeleter $routesDeleter,
-        RoutesDispatcher $routesDispatcher,
         RoutesRerouter $routesRerouter,
         RoutesQuerier $routesQuerier
     ) {
+        $this->routesRepository = $routesRepository;
         $this->routesDeleter = $routesDeleter;
-        $this->routesDispatcher = $routesDispatcher;
         $this->routesRerouter = $routesRerouter;
         $this->routesQuerier = $routesQuerier;
     }
@@ -63,17 +62,6 @@ class RoutesFacade
     }
 
     /**
-     * @param Route $route
-     * @return mixed
-     *
-     * @throws Throwable
-     */
-    public function dispatch(Route $route)
-    {
-        return $this->routesDispatcher->dispatch($route);
-    }
-
-    /**
      * @param Route $oldRoute
      * @param Route $newRoute
      * @return void
@@ -84,12 +72,21 @@ class RoutesFacade
     }
 
     /**
-     * @param RouteQueryInterface $query
+     * @param Route $route
+     * @return void
+     */
+    public function persist(Route $route): void
+    {
+        $this->routesRepository->persist($route);
+    }
+
+    /**
+     * @param RoutesQueryInterface $query
      * @return Route
      *
      * @throws RouteNotFoundException
      */
-    public function queryOne(RouteQueryInterface $query): Route
+    public function queryOne(RoutesQueryInterface $query): Route
     {
         $routes = $this->queryMany($query);
 
@@ -101,10 +98,10 @@ class RoutesFacade
     }
 
     /**
-     * @param RouteQueryInterface $query
+     * @param RoutesQueryInterface $query
      * @return Collection|Route[]
      */
-    public function queryMany(RouteQueryInterface $query): Collection
+    public function queryMany(RoutesQueryInterface $query): Collection
     {
         return $this->routesQuerier->query($query);
     }

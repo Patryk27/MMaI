@@ -2,7 +2,9 @@
 
 namespace App\Tags;
 
-class TagsFacade
+final class TagsFacade
 {
+
+    // @todo
 
 }

@@ -6,18 +6,29 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use LogicException;
 
-class InMemoryRepository
+/**
+ * This class provides a few basic implementations which can be used to
+ * facilitate building in-memory repositories.
+ *
+ * E.g. @see \App\Routes\Implementation\Repositories\InMemoryRoutesRepository.
+ */
+final class InMemoryRepository
 {
 
     /**
+     * List of all the items this repository contains.
+     *
      * @var Collection|Model[]
      */
     private $items;
 
     /**
+     * Number which the next inserted item is going to be assigned.
+     * It is automatically incremented then.
+     *
      * @var int
      */
-    private $incrementingId;
+    private $incrementingId = 1000;
 
     /**
      * Constructs an in-memory repository.
@@ -31,7 +42,6 @@ class InMemoryRepository
         array $items = []
     ) {
         $this->items = new Collection();
-        $this->incrementingId = 1000; // Arbitrary, does not actually matter.
 
         foreach ($items as $item) {
             $this->insert($item);

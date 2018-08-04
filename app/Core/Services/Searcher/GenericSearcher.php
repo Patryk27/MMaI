@@ -2,7 +2,7 @@
 
 namespace App\Core\Services\Searcher;
 
-use App\Exceptions\Exception as AppException;
+use App\Core\Exceptions\Exception as AppException;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;

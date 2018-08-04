@@ -1,14 +1,18 @@
 <?php
 
+use App\Core\Exceptions\UnimplementedException;
+
 /**
+ * Throws a @see UnimplementedException pointing at the caller's frame.
+ *
  * @return void
  */
 function unimplemented(): void
 {
     $frames = debug_backtrace();
-    $previousFrame = $frames[1];
+    $callerFrame = $frames[1];
 
-    throw new LogicException(
-        sprintf('[%s::%s] has not been implemented yet.', $previousFrame['class'], $previousFrame['function'])
+    throw new UnimplementedException(
+        sprintf('%s::%s', $callerFrame['class'], $callerFrame['function'])
     );
 }

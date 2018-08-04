@@ -5,13 +5,27 @@ namespace App\App\Http\Controllers\Backend;
 use App\App\Http\Controllers\Controller;
 use App\App\Http\Requests\Backend\Pages\UpsertRequest as PageUpsertRequest;
 use App\Core\Exceptions\Exception as AppException;
+use App\Core\Services\Collection\Renderer as CollectionRenderer;
+use App\Core\Services\DataTables\Handler as DataTablesHandler;
 use App\Pages\Models\Page;
 use App\Pages\PagesFacade;
+use App\Pages\Queries\SearchPageVariantsQuery;
 use Illuminate\Contracts\View\View as ViewContract;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 
 class PagesController extends Controller
 {
+
+    /**
+     * @var CollectionRenderer
+     */
+    private $collectionRenderer;
+
+    /**
+     * @var DataTablesHandler
+     */
+    private $dataTablesHandler;
 
     /**
      * @var PagesFacade
@@ -19,11 +33,17 @@ class PagesController extends Controller
     private $pagesFacade;
 
     /**
+     * @param CollectionRenderer $collectionRenderer
+     * @param DataTablesHandler $dataTablesHandler
      * @param PagesFacade $pagesFacade
      */
     public function __construct(
+        CollectionRenderer $collectionRenderer,
+        DataTablesHandler $dataTablesHandler,
         PagesFacade $pagesFacade
     ) {
+        $this->collectionRenderer = $collectionRenderer;
+        $this->dataTablesHandler = $dataTablesHandler;
         $this->pagesFacade = $pagesFacade;
     }
 
@@ -38,31 +58,33 @@ class PagesController extends Controller
     /**
      * @param Request $request
      * @return array
-     *
-     * @throws AppException
      */
     public function search(Request $request): array
     {
-        throw new AppException('Not implemented.'); // @todo
+        $this->collectionRenderer->addColumns([
+            'id' => 'backend.pages.pages.search.columns.id',
+            'language' => 'backend.pages.pages.search.columns.language',
+            'route' => 'backend.pages.pages.search.columns.route',
+            'title' => 'backend.pages.pages.search.columns.title',
+            'status' => 'backend.pages.pages.search.columns.status',
+            'actions' => 'backend.pages.pages.search.columns.actions',
+        ]);
 
-//        $this->pageVariantsSearcher->filter([
-//            PageVariantsSearcher::FIELD_PAGE_TYPE => Page::TYPE_CMS,
-//        ]);
-//
-//        $this->collectionRenderer->addColumns([
-//            'id' => 'backend.pages.pages.search.columns.id',
-//            'language' => 'backend.pages.pages.search.columns.language',
-//            'route' => 'backend.pages.pages.search.columns.route',
-//            'title' => 'backend.pages.pages.search.columns.title',
-//            'status' => 'backend.pages.pages.search.columns.status',
-//            'actions' => 'backend.pages.pages.search.columns.actions',
-//        ]);
-//
-//        return $this->dataTableHandler->handle(
-//            $this->pageVariantsSearcher,
-//            $this->collectionRenderer,
-//            $request
-//        );
+        $this->dataTablesHandler->setQueryHandler(function (array $query): Collection {
+            return $this->collectionRenderer->render(
+                $this->pagesFacade->queryMany(
+                    new SearchPageVariantsQuery($query)
+                )
+            );
+        });
+
+        $this->dataTablesHandler->setQueryCountHandler(function (array $query): int {
+            return $this->pagesFacade->queryCount(
+                new SearchPageVariantsQuery($query)
+            );
+        });
+
+        return $this->dataTablesHandler->handle($request);
     }
 
     /**
@@ -76,6 +98,8 @@ class PagesController extends Controller
     /**
      * @param PageUpsertRequest $request
      * @return array
+     *
+     * @throws AppException
      */
     public function store(PageUpsertRequest $request): array
     {
@@ -103,6 +127,8 @@ class PagesController extends Controller
      * @param Page $page
      * @param PageUpsertRequest $request
      * @return array
+     *
+     * @throws AppException
      */
     public function update(Page $page, PageUpsertRequest $request): array
     {

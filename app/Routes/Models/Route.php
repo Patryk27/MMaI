@@ -10,8 +10,9 @@ use Illuminate\Database\Eloquent\Model;
  * This model describes a single route.
  *
  * It can point at:
- *   - a page,
- *   - a route (in which case we're doing a redirection).
+ *   - a page variant,
+ *   - an intrinsic page,
+ *   - a route (in which case it is a redirection).
  *
  * -----
  *

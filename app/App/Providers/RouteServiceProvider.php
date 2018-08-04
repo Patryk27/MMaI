@@ -13,21 +13,21 @@ class RouteServiceProvider extends BaseRouteServiceProvider
      */
     public function map(): void
     {
-        foreach (['backend', 'frontend'] as $part) {
-            $this->loadPart($part);
+        foreach (['backend', 'frontend'] as $namespace) {
+            $this->loadRoutesFromNamespace($namespace);
         }
     }
 
     /**
-     * @param string $part
+     * @param string $namespace
      * @return void
      */
-    private function loadPart(string $part): void
+    private function loadRoutesFromNamespace(string $namespace): void
     {
         Route::middleware('web')
             ->group(
                 base_path(
-                    sprintf('routes/%s.php', $part)
+                    sprintf('routes/%s.php', $namespace)
                 )
             );
     }

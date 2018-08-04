@@ -2,13 +2,12 @@
 
 namespace App\Routes;
 
-use App\Routes\Internal\Repositories\RoutesRepositoryInterface;
-use App\Routes\Internal\Services\RoutesDeleter;
-use App\Routes\Internal\Services\RoutesDispatcher;
-use App\Routes\Internal\Services\RoutesQuerier;
-use App\Routes\Internal\Services\RoutesRerouter;
+use App\Routes\Implementation\Repositories\RoutesRepositoryInterface;
+use App\Routes\Implementation\Services\RoutesDeleter;
+use App\Routes\Implementation\Services\RoutesQuerier;
+use App\Routes\Implementation\Services\RoutesRerouter;
 
-class RoutesFactory
+final class RoutesFactory
 {
 
     /**
@@ -19,13 +18,12 @@ class RoutesFactory
         RoutesRepositoryInterface $routesRepository
     ): RoutesFacade {
         $routesDeleter = new RoutesDeleter($routesRepository);
-        $routesDispatcher = new RoutesDispatcher();
         $routesRerouter = new RoutesRerouter($routesRepository);
         $routesQuerier = new RoutesQuerier($routesRepository);
 
         return new RoutesFacade(
+            $routesRepository,
             $routesDeleter,
-            $routesDispatcher,
             $routesRerouter,
             $routesQuerier
         );

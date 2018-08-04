@@ -2,7 +2,11 @@
 
 namespace App\Menus\Queries;
 
-class GetMenuItemsByLanguageIdQuery implements MenuQueryInterface
+/**
+ * This class defines a query which will return all the menu items for specified
+ * language.
+ */
+final class GetMenuItemsByLanguageIdQuery implements MenuItemsQueryInterface
 {
 
     /**

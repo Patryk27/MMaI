@@ -21,7 +21,6 @@ class CreateRoutesTable extends Migration
             // -- indexes -- //
 
             $table->unique('url');
-            $table->unique(['model_type', 'model_id']);
         });
     }
 

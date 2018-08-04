@@ -13,7 +13,7 @@
          data-method="post"
          data-url="{{ route('backend.pages.store') }}">
         @include('backend.pages.pages.create-edit.form', [
-            'page' => new \App\Models\Page(),
+            'page' => new \App\Pages\Models\Page(),
         ])
     </div>
 @endsection

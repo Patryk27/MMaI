@@ -1,6 +1,6 @@
 @php
     /**
-     * @var \Illuminate\Contracts\Pagination\LengthAwarePaginator|\App\ValueObjects\RenderedPageVariant[] $posts
+     * @var \Illuminate\Contracts\Pagination\LengthAwarePaginator|\App\Pages\ValueObjects\RenderedPage[] $posts
      */
 @endphp
 

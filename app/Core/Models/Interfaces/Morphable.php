@@ -3,8 +3,8 @@
 namespace App\Core\Models\Interfaces;
 
 /**
- * This interface is used to mark model as 'morphable', to usage in polymorphic
- * relationships.
+ * This interface is used to mark model as "morphable", so it can be used in
+ * polymorphic relationships.
  */
 interface Morphable
 {

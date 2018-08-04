@@ -2,7 +2,10 @@
 
 namespace App\Routes\Queries;
 
-class GetRouteByUrlQuery implements RouteQueryInterface
+/**
+ * This class defines a query which will return single route with specified URL.
+ */
+final class GetRouteByUrlQuery implements RoutesQueryInterface
 {
 
     /**

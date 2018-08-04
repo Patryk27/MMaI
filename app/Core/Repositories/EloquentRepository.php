@@ -7,7 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Throwable;
 
-class EloquentRepository
+/**
+ * This class provides a few basic implementations which can be used to
+ * facilitate building Eloquent-based repositories.
+ *
+ * E.g. @see \App\Routes\Implementation\Repositories\EloquentRoutesRepository.
+ */
+final class EloquentRepository
 {
 
     /**
@@ -22,16 +28,6 @@ class EloquentRepository
         Model $model
     ) {
         $this->model = $model;
-    }
-
-    /**
-     * Returns model's instance to which this repository works for.
-     *
-     * @return Model
-     */
-    public function getModel(): Model
-    {
-        return $this->model;
     }
 
     /**

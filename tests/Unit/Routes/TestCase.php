@@ -4,7 +4,7 @@ namespace Tests\Unit\Routes;
 
 use App\Core\Models\Interfaces\Morphable;
 use App\Core\Repositories\InMemoryRepository;
-use App\Routes\Internal\Repositories\RoutesInMemoryRepository;
+use App\Routes\Implementation\Repositories\InMemoryRoutesRepository;
 use App\Routes\RoutesFacade;
 use App\Routes\RoutesFactory;
 use Tests\Assertions\Routes\RouteDoesNotExistAssertion;
@@ -16,7 +16,7 @@ abstract class TestCase extends BaseTestCase
 {
 
     /**
-     * @var RoutesInMemoryRepository
+     * @var InMemoryRoutesRepository
      */
     protected $routesRepository;
 
@@ -30,7 +30,9 @@ abstract class TestCase extends BaseTestCase
      */
     public function setUp(): void
     {
-        $this->routesRepository = new RoutesInMemoryRepository(
+        parent::setUp();
+
+        $this->routesRepository = new InMemoryRoutesRepository(
             new InMemoryRepository()
         );
 

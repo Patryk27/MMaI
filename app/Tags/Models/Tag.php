@@ -2,6 +2,8 @@
 
 namespace App\Tags\Models;
 
+use App\Languages\Models\Language;
+use App\Pages\Models\PageVariant;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;

@@ -1,8 +1,8 @@
 @php
     /**
-     * @var \App\Models\Language $language
-     * @var \App\Models\Page $page
-     * @var \App\Models\PageVariant|null $pageVariant
+     * @var \App\Languages\Models\Language $language
+     * @var \App\Pages\Models\Page $page
+     * @var \App\Pages\Models\PageVariant|null $pageVariant
      */
 @endphp
 

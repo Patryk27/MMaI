@@ -1,11 +1,11 @@
 @php
     /**
-     * @see \App\ViewComposers\Frontend\Layout\NavigationComposer
+     * @see \App\App\ViewComposers\Frontend\Layout\NavigationComposer
      */
 
     /**
      * @var string $homeUrl
-     * @var \Illuminate\Support\Collection|\App\Models\MenuItem[] $menuItems
+     * @var \Illuminate\Support\Collection|\App\Menus\Models\MenuItem[] $menuItems
      */
 @endphp
 

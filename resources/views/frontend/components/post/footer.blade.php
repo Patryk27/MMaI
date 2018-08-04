@@ -1,6 +1,6 @@
 @php
     /**
-     * @var \App\Models\PageVariant $pageVariant
+     * @var \App\Pages\Models\PageVariant $pageVariant
      */
 @endphp
 

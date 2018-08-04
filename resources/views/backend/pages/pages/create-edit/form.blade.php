@@ -1,7 +1,7 @@
 @php
     /**
-     * @var \Illuminate\Support\Collection|\App\Models\Language[] $languages
-     * @var \App\Models\Page $page
+     * @var \Illuminate\Support\Collection|\App\Languages\Models\Language[] $languages
+     * @var \App\Pages\Models\Page $page
      */
 @endphp
 

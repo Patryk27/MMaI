@@ -8,7 +8,7 @@ trait HasPresenter
 {
 
     /**
-     * @var Presenter
+     * @var Presenter|null
      */
     private $presenterInstance;
 

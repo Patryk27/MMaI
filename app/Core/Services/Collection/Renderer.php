@@ -45,7 +45,7 @@ class Renderer
     {
         if (array_has($this->columns, $columnName)) {
             throw new LogicException(
-                sprintf('Column [%s] has been already included in the renderer.', $columnName)
+                sprintf('Column [%s] has been already added into the renderer.', $columnName)
             );
         }
 

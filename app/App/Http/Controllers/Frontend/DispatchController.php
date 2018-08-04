@@ -3,13 +3,31 @@
 namespace App\App\Http\Controllers\Frontend;
 
 use App\App\Http\Controllers\Controller;
+use App\IntrinsicPages\IntrinsicPagesFacade;
+use App\IntrinsicPages\Models\IntrinsicPage;
+use App\Pages\Models\PageVariant;
+use App\Pages\PagesFacade;
+use App\Routes\Exceptions\RouteNotFoundException;
+use App\Routes\Models\Route;
 use App\Routes\Queries\GetRouteByUrlQuery;
 use App\Routes\RoutesFacade;
-use Exception;
+use Illuminate\Http\RedirectResponse;
+use LogicException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Throwable;
 
 class DispatchController extends Controller
 {
+
+    /**
+     * @var IntrinsicPagesFacade
+     */
+    private $intrinsicPagesFacade;
+
+    /**
+     * @var PagesFacade
+     */
+    private $pagesFacade;
 
     /**
      * @var RoutesFacade
@@ -17,11 +35,17 @@ class DispatchController extends Controller
     private $routesFacade;
 
     /**
+     * @param IntrinsicPagesFacade $intrinsicPagesFacade
+     * @param PagesFacade $pagesFacade
      * @param RoutesFacade $routesFacade
      */
     public function __construct(
+        IntrinsicPagesFacade $intrinsicPagesFacade,
+        PagesFacade $pagesFacade,
         RoutesFacade $routesFacade
     ) {
+        $this->intrinsicPagesFacade = $intrinsicPagesFacade;
+        $this->pagesFacade = $pagesFacade;
         $this->routesFacade = $routesFacade;
     }
 
@@ -29,21 +53,38 @@ class DispatchController extends Controller
      * @param string|null $url
      * @return mixed
      *
-     * @throws Exception
+     * @throws Throwable
      */
     public function show(?string $url = null)
     {
-        $routes = $this->routesFacade->queryMany(
-            new GetRouteByUrlQuery(empty($url) ? '/' : $url)
-        );
-
-        if ($routes->isEmpty()) {
+        try {
+            $route = $this->routesFacade->queryOne(
+                new GetRouteByUrlQuery(empty($url) ? '/' : $url)
+            );
+        } catch (RouteNotFoundException $ex) {
             throw new NotFoundHttpException();
         }
 
-        return $this->routesFacade->dispatch(
-            $routes->first()
-        );
+        switch ($route->model_type) {
+            case IntrinsicPage::getMorphableType():
+                /** @noinspection PhpParamsInspection */
+                return $this->intrinsicPagesFacade->render($route->model);
+
+            case PageVariant::getMorphableType():
+                /** @noinspection PhpParamsInspection */
+                return view('frontend.pages.pages.show', [
+                    'renderedPage' => $this->pagesFacade->render($route->model),
+                ]);
+
+            case Route::getMorphableType():
+                /** @noinspection PhpParamsInspection */
+                return new RedirectResponse('/' . $route->model->url);
+
+            default:
+                throw new LogicException(
+                    sprintf('Don\'t know how to dispatch route with [model_type=%s].', $route->model_type)
+                );
+        }
     }
 
 }

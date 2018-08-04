@@ -6,7 +6,9 @@ use App\Pages\Models\PageVariant;
 use App\Routes\Models\Route;
 
 /**
- * In this test we are setting up following routes:
+ * This test checks the re-routing functionality.
+ *
+ * At the beginning we are setting up following routes:
  *
  *   /first-route  =>  /second-route  =>  [first page variant]
  *   /third-route  =>  [second page variant]
