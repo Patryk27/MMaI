@@ -36,6 +36,10 @@ class InMemoryPagesRepository implements PagesRepositoryInterface
     public function persist(Page $page): void
     {
         $this->repository->persist($page);
+
+        foreach ($page->pageVariants as $pageVariant) {
+            $pageVariant->page()->associate($page);
+        }
     }
 
 }

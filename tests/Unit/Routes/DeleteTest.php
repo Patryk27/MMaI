@@ -6,7 +6,9 @@ use App\Pages\Models\PageVariant;
 use App\Routes\Models\Route;
 
 /**
- * In this test we are setting up following routes:
+ * This test checks the routes deleting functionality.
+ *
+ * At the beginning we are setting up following routes:
  *
  *   /first-route   =>  /second-route  =>  /third-route  => [first page variant]
  *   /fourth-route  =>  [second page variant]

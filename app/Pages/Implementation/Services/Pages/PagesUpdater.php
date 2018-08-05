@@ -51,7 +51,7 @@ class PagesUpdater
      */
     public function update(Page $page, array $pageData): void
     {
-        foreach ($pageData['pageVariants'] as $pageVariantData) {
+        foreach (array_get($pageData, 'pageVariants', []) as $pageVariantData) {
             $this->updatePageVariant($page, $pageVariantData);
         }
 
@@ -75,7 +75,7 @@ class PagesUpdater
 
             if (is_null($pageVariant)) {
                 throw new AppException(
-                    sprintf('Page variant with [id=%d] was not found inside page with [id=%d].', $pageVariantData['id'], $page->id)
+                    sprintf('Page variant [id=%d] was not found inside page [id=%d].', $pageVariantData['id'], $page->id)
                 );
             }
 

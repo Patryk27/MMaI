@@ -6,7 +6,6 @@ use App\Core\Exceptions\Exception as AppException;
 use App\Pages\Models\Page;
 use App\Pages\Models\PageVariant;
 use App\Routes\Models\Route;
-use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 
 class PageVariantsCreator
 {
@@ -27,25 +26,15 @@ class PageVariantsCreator
 
     /**
      * @param Page $page
-     * @param array $data
+     * @param array $pageVariantData
      * @return PageVariant
      *
      * @throws AppException
      */
-    public function create(Page $page, array $data): PageVariant
+    public function create(Page $page, array $pageVariantData): PageVariant
     {
-        $pageVariant = new PageVariant();
-        $pageVariant->setRelations([
-            'page' => $page,
-            'route' => null,
-            'tags' => new EloquentCollection(),
-        ]);
-
-        $pageVariant->fill(
-            array_only($data, ['language_id', 'status', 'title', 'lead', 'content'])
-        );
-
-        $this->createRoute($pageVariant, $data);
+        $pageVariant = $this->createPageVariant($page, $pageVariantData);
+        $this->createRoute($pageVariant, $pageVariantData);
 
         $this->pageVariantsValidator->validate($pageVariant);
 
@@ -53,13 +42,37 @@ class PageVariantsCreator
     }
 
     /**
+     * @param Page $page
+     * @param array $pageVariantData
+     * @return PageVariant
+     */
+    private function createPageVariant(Page $page, array $pageVariantData): PageVariant
+    {
+        // Create a brand-new page variant
+        $pageVariant = new PageVariant();
+
+        // Associate it with a page;
+        // We cannot simply do `$pageVariant->page()->associate($page)`, because
+        // the `$page` may not exist yet.
+        $pageVariant->setRelations([
+            'page' => $page,
+        ]);
+
+        $pageVariant->fill(
+            array_only($pageVariantData, ['language_id', 'status', 'title', 'lead', 'content'])
+        );
+
+        return $pageVariant;
+    }
+
+    /**
      * @param PageVariant $pageVariant
-     * @param array $data
+     * @param array $pageVariantData
      * @return void
      */
-    private function createRoute(PageVariant $pageVariant, array $data): void
+    private function createRoute(PageVariant $pageVariant, array $pageVariantData): void
     {
-        $url = array_get($data, 'route');
+        $url = array_get($pageVariantData, 'route');
 
         if (strlen($url) > 0) {
             $route = new Route([

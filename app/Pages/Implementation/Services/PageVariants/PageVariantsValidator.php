@@ -27,7 +27,7 @@ class PageVariantsValidator
                 throw new AppException('Published page must have a route.');
             }
 
-            if ($page->isBlogPage() && strlen($pageVariant->lead) === 0) {
+            if ($page->isBlogPost() && strlen($pageVariant->lead) === 0) {
                 throw new AppException('Published post must contain a lead.');
             }
         }

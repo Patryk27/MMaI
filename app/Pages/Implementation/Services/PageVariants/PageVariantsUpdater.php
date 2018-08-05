@@ -26,18 +26,18 @@ class PageVariantsUpdater
 
     /**
      * @param PageVariant $pageVariant
-     * @param array $data
+     * @param array $pageVariantData
      * @return void
      *
      * @throws AppException
      */
-    public function update(PageVariant $pageVariant, array $data): void
+    public function update(PageVariant $pageVariant, array $pageVariantData): void
     {
-        $this->updatePublishedAt($pageVariant, $data);
-        $this->updateRoute($pageVariant, $data);
+        $this->updatePublishedAt($pageVariant, $pageVariantData);
+        $this->updateRoute($pageVariant, $pageVariantData);
 
         $pageVariant->fill(
-            array_only($data, ['status', 'title', 'lead', 'content'])
+            array_only($pageVariantData, ['status', 'title', 'lead', 'content'])
         );
 
         $this->pageVariantsValidator->validate($pageVariant);
@@ -45,14 +45,14 @@ class PageVariantsUpdater
 
     /**
      * @param PageVariant $pageVariant
-     * @param array $data
+     * @param array $pageVariantData
      * @return void
      */
-    private function updatePublishedAt(PageVariant $pageVariant, array $data): void
+    private function updatePublishedAt(PageVariant $pageVariant, array $pageVariantData): void
     {
         // If page variant is being published for the first time, fill the
         // "published at" with current date & time.
-        if (array_get($data, 'status') === PageVariant::STATUS_PUBLISHED) {
+        if (array_get($pageVariantData, 'status') === PageVariant::STATUS_PUBLISHED) {
             if (!$pageVariant->isPublished()) {
                 $pageVariant->published_at = Carbon::now();
             }
@@ -61,10 +61,10 @@ class PageVariantsUpdater
 
     /**
      * @param PageVariant $pageVariant
-     * @param array $data
+     * @param array $pageVariantData
      * @return void
      */
-    private function updateRoute(PageVariant $pageVariant, array $data): void
+    private function updateRoute(PageVariant $pageVariant, array $pageVariantData): void
     {
         if (isset($pageVariant->route)) {
             /**
@@ -72,7 +72,7 @@ class PageVariantsUpdater
              */
 
             $oldUrl = $pageVariant->route->url;
-            $newUrl = array_get($data, 'route', '');
+            $newUrl = array_get($pageVariantData, 'route', '');
 
             if ($newUrl !== $oldUrl) {
                 if (strlen($newUrl) === 0) {
@@ -90,7 +90,7 @@ class PageVariantsUpdater
              * Case #2: this PV does not have a route - we may create it.
              */
 
-            $url = array_get($data, 'route', '');
+            $url = array_get($pageVariantData, 'route', '');
 
             if (strlen($url) > 0) {
                 $newRoute = new Route([

@@ -71,7 +71,7 @@
     ]) }}
 </div>
 
-@if ($page->isBlogPage())
+@if ($page->isBlogPost())
     {{-- Lead --}}
     <div class="form-group">
         <label>

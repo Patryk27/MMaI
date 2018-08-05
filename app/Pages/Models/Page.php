@@ -54,11 +54,11 @@ class Page extends Model
     }
 
     /**
-     * Returns `true` if this page is a blog page.
+     * Returns `true` if this page is a blog post.
      *
      * @return bool
      */
-    public function isBlogPage(): bool
+    public function isBlogPost(): bool
     {
         return $this->type === self::TYPE_BLOG;
     }
@@ -90,6 +90,8 @@ class Page extends Model
      * Returns URL for the "Edit" action.
      *
      * @return string
+     *
+     * @todo move into presenter?
      */
     public function getBackendEditUrl(): string
     {

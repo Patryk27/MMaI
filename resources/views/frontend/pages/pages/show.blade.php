@@ -24,7 +24,7 @@
         </article>
     </main>
 
-    @if ($page->isBlogPage())
+    @if ($page->isBlogPost())
         <footer class="content-footer">
             @include('frontend.components.post.footer', [
                 'pageVariant' => $pageVariant,

@@ -34,16 +34,16 @@ class PagesCreator
     }
 
     /**
-     * @param array $data
+     * @param array $pageData
      * @return Page
      *
      * @throws AppException
      */
-    public function create(array $data): Page
+    public function create(array $pageData): Page
     {
         // Create a new page
         $page = new Page([
-            'type' => array_get($data, 'page.type'),
+            'type' => array_get($pageData, 'page.type'),
         ]);
 
         // We are manually setting the "page variants" relationship, so that
@@ -51,7 +51,7 @@ class PagesCreator
         // during unit testing).
         $page->setRelation('pageVariants', new EloquentCollection());
 
-        foreach (array_get($data, 'pageVariants', []) as $pageVariantData) {
+        foreach (array_get($pageData, 'pageVariants', []) as $pageVariantData) {
             $page->pageVariants->push(
                 $this->pageVariantsCreator->create($page, $pageVariantData)
             );
