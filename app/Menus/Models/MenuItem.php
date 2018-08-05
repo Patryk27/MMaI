@@ -86,7 +86,7 @@ class MenuItem extends Model
         }
 
         throw new Exception(
-            sprintf('Menu item with [id = %d] has no valid target URL.', $this->id)
+            sprintf('Menu item [id=%d] has no valid target URL.', $this->id)
         );
     }
 

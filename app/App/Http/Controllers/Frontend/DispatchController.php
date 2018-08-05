@@ -82,7 +82,7 @@ class DispatchController extends Controller
 
             default:
                 throw new LogicException(
-                    sprintf('Don\'t know how to dispatch route with [model_type=%s].', $route->model_type)
+                    sprintf('Do not know how to dispatch route [model_type=%s].', $route->model_type)
                 );
         }
     }

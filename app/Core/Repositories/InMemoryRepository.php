@@ -128,7 +128,7 @@ final class InMemoryRepository
         // exception in such cases.
         if ($this->items->has($this->incrementingId)) {
             throw new LogicException(
-                sprintf('In-memory repository already contains model with id [%d].', $this->incrementingId)
+                sprintf('In-memory repository already contains model [id=%d].', $this->incrementingId)
             );
         }
 
