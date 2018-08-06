@@ -79,9 +79,17 @@ class EloquentPageVariantsSearcher extends AbstractEloquentSearcher implements P
     public function filter(array $fields): void
     {
         $this->searcher->filter($fields, [
-            SearchPageVariantsQuery::FIELD_STATUS => EloquentSearcher::FILTER_OP_EQUAL,
-            SearchPageVariantsQuery::FIELD_PAGE_TYPE => EloquentSearcher::FILTER_OP_EQUAL,
-            SearchPageVariantsQuery::FIELD_LANGUAGE_ID => EloquentSearcher::FILTER_OP_EQUAL,
+            SearchPageVariantsQuery::FIELD_ID => EloquentSearcher::FILTER_EQUAL,
+            SearchPageVariantsQuery::FIELD_TITLE => EloquentSearcher::FILTER_LIKE,
+            SearchPageVariantsQuery::FIELD_STATUS => EloquentSearcher::FILTER_EQUAL,
+
+            SearchPageVariantsQuery::FIELD_PAGE_ID => EloquentSearcher::FILTER_EQUAL,
+            SearchPageVariantsQuery::FIELD_PAGE_TYPE => EloquentSearcher::FILTER_EQUAL,
+
+            SearchPageVariantsQuery::FIELD_LANGUAGE_ID => EloquentSearcher::FILTER_EQUAL,
+            SearchPageVariantsQuery::FIELD_LANGUAGE_NAME => EloquentSearcher::FILTER_LIKE,
+
+            SearchPageVariantsQuery::FIELD_ROUTE_URL => EloquentSearcher::FILTER_LIKE,
         ]);
     }
 

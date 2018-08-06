@@ -19,9 +19,9 @@ class EloquentSearcher
 {
 
     public const
-        FILTER_OP_EQUAL = 'equal',
-        FILTER_OP_NOT_EQUAL = 'not equal',
-        FILTER_OP_LIKE = 'like';
+        FILTER_EQUAL = 'equal',
+        FILTER_NOT_EQUAL = 'not equal',
+        FILTER_LIKE = 'like';
 
     /**
      * @var EloquentBuilder
@@ -92,8 +92,8 @@ class EloquentSearcher
      *
      * Example:
      *   filter($someValues, [
-     *     'firstField' => GenericSearcher::FILTER_OP_EQUAL,
-     *     'secondField' => GenericSearcher::FILTER_OP_EQUAL,
+     *     'firstField' => GenericSearcher::FILTER_EQUAL,
+     *     'secondField' => GenericSearcher::FILTER_EQUAL,
      *   ]);
      *
      * @param array $fields
@@ -114,15 +114,15 @@ class EloquentSearcher
             $column = $this->fieldToColumn($field);
 
             switch ($fieldFilters[$field]) {
-                case self::FILTER_OP_EQUAL:
+                case self::FILTER_EQUAL:
                     $this->builder->where($column, $fieldValue);
                     break;
 
-                case self::FILTER_OP_NOT_EQUAL:
+                case self::FILTER_NOT_EQUAL:
                     $this->builder->where($column, '!=', $fieldValue);
                     break;
 
-                case self::FILTER_OP_LIKE;
+                case self::FILTER_LIKE;
                     $this->builder->where($column, 'like', '%' . $fieldValue . '%');
                     break;
 
