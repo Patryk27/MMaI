@@ -23,7 +23,7 @@ abstract class AbstractSearchQuery
      *
      * @var array
      */
-    private $filter;
+    private $filters;
 
     /**
      * @see \App\Core\Services\Searcher\SearcherInterface::orderBy()
@@ -46,7 +46,7 @@ abstract class AbstractSearchQuery
         array $query
     ) {
         $this->search = array_get($query, 'search', '');
-        $this->filter = array_get($query, 'filter', []);
+        $this->filters = array_get($query, 'filters', []);
         $this->orderBy = array_get($query, 'orderBy', []);
         $this->pagination = array_get($query, 'pagination', []);
     }
@@ -60,10 +60,10 @@ abstract class AbstractSearchQuery
     public function applyTo(SearcherInterface $searcher): void
     {
         $searcher->search($this->getSearch());
-        $searcher->filter($this->getFilter());
+        $searcher->filter($this->getFilters());
 
         foreach ($this->getOrderBy() as $field => $direction) {
-            $searcher->orderBy($field, $direction === 'asc');
+            $searcher->orderBy($field, strtolower($direction) === 'asc');
         }
 
         if ($this->hasPagination()) {
@@ -85,9 +85,9 @@ abstract class AbstractSearchQuery
     /**
      * @return array
      */
-    public function getFilter(): array
+    public function getFilters(): array
     {
-        return $this->filter;
+        return $this->filters;
     }
 
     /**

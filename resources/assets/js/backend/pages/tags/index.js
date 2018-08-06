@@ -1,7 +1,13 @@
-import DataTable from '../../../base/components/DataTable';
+import DataTables from '../../../base/components/DataTable';
 
 export default function () {
-    new DataTable({
+    const $form = $('#tags-form');
+
+    $form.on('change', 'select', () => {
+        dataTable.refresh();
+    });
+
+    const dataTable = new DataTables({
         autofocus: true,
         loader: '#tags-loader',
         source: '/backend/tags/search',
@@ -9,7 +15,7 @@ export default function () {
 
         prepareRequest(request) {
             request.filters = {
-                language_id: 1,
+                language_id: $form.find('[name="language_id"]').val(),
             };
 
             return request;

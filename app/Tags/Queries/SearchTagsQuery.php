@@ -15,6 +15,8 @@ final class SearchTagsQuery extends AbstractSearchQuery implements TagsQueryInte
         FIELD_ID = 'id',
         FIELD_NAME = 'name',
 
-        FIELD_LANGUAGE_ID = 'language-id';
+        FIELD_LANGUAGE_ID = 'language_id',
+
+        FIELD_PAGE_VARIANT_COUNT = 'page_variant_count';
 
 }

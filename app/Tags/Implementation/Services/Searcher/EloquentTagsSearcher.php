@@ -17,6 +17,8 @@ class EloquentTagsSearcher extends AbstractEloquentSearcher implements TagsSearc
         SearchTagsQuery::FIELD_NAME => 'tags.name',
 
         SearchTagsQuery::FIELD_LANGUAGE_ID => 'tags.language_id',
+
+        SearchTagsQuery::FIELD_PAGE_VARIANT_COUNT => 'page_variant_count',
     ];
 
     /**
@@ -28,6 +30,17 @@ class EloquentTagsSearcher extends AbstractEloquentSearcher implements TagsSearc
         parent::__construct(
             new EloquentSearcher($tag, self::FIELDS_MAP)
         );
+
+        $builder = $this->searcher->getBuilder();
+        $builder->selectRaw('tags.*');
+        $builder->selectRaw('COUNT(page_variant_tag.tag_id) AS page_variant_count');
+
+        // Include tags
+        $builder->leftJoin('page_variant_tag', 'page_variant_tag.tag_id', 'tags.id');
+
+        // Since this query involves a JOIN clause, we need to group our records
+        // back
+        $builder->groupBy('tags.id');
     }
 
     /**

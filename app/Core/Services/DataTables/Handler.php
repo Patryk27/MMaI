@@ -78,6 +78,7 @@ class Handler
 
         // Apply filters
         $query += $this->applySearchFilter($request);
+        $query += $this->applyOtherFilters($request);
 
         // Get number of rows after filtering;
         // We must do it here, because later we're going to add
@@ -112,6 +113,17 @@ class Handler
 
         return [
             'search' => $request->input('search'),
+        ];
+    }
+
+    /**
+     * @param Request $request
+     * @return array
+     */
+    private function applyOtherFilters(Request $request): array
+    {
+        return [
+            'filters' => $request->get('filters', [])
         ];
     }
 

@@ -15,13 +15,11 @@
         </div>
     </div>
 
-    <div class="loader-wrapper">
-        <div id="posts-loader" class="loader loader-tile"></div>
-
+    <div id="pages-loader" data-loader-type="tile">
         <table class="table table-striped table-dark"
                data-datatable='{
                 "autofocus": true,
-                "loader": "#posts-loader",
+                "loader": "#pages-loader",
                 "source": "{{ route('backend.pages.search') }}"
                }'>
             <thead>

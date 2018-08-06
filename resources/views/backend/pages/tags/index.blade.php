@@ -15,16 +15,19 @@
         </h1>
     </div>
 
-    <div class="loader-wrapper">
-        <div id="tags-loader" class="loader loader-tile"></div>
+    <div id="tags-loader" data-loader-type="tile">
+        {{ Form::open([
+            'id' => 'tags-form',
+            'class' => 'form-inline',
+        ]) }}
 
-        <div id="tags-form" class="form-inline">
-            {{ Form::label('language_id', 'Show tags for language:') }}
+        {{ Form::label('language_id', 'Show tags for language:') }}
 
-            {{ Form::select('language_id', $languages, null, [
-                'class' => 'form-control',
-            ]) }}
-        </div>
+        {{ Form::select('language_id', $languages, null, [
+            'class' => 'form-control',
+        ]) }}
+
+        {{ Form::close() }}
 
         <table id="tags-table" class="table table-striped table-dark">
             <thead>
@@ -37,7 +40,7 @@
                     Name
                 </th>
 
-                <th data-datatable-column='{"name": "page-count", "orderable": true}'>
+                <th data-datatable-column='{"name": "page_variant_count", "orderable": true}'>
                     Number of pages
                 </th>
 

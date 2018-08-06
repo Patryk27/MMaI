@@ -1,9 +1,11 @@
 import $ from 'jquery';
 import swal from 'sweetalert';
 
+import Loader from './Loader';
+
 /**
- * This component is a wrapper for the great jQuery DataTable - it provides an
- * additional functionality over the original one (e.g. loaders).
+ * This component is a wrapper for the great jQuery DataTables - it provides an
+ * additional functionality over the original one (e.g. adds support for loaders).
  */
 export default class DataTable {
 
@@ -17,13 +19,18 @@ export default class DataTable {
             throw 'Please specify the table\'s selector.';
         }
 
-        // Prepare table's columns
+        // Initialize loader
+        if (config.hasOwnProperty('loader')) {
+            this.$loader = new Loader(config.loader);
+        }
+
+        // Prepare DataTable's columns
         const columns = DataTable.$buildColumns(
-            $(config.table)
+            $(config.table),
         );
 
         // Initialize the DataTable
-        const dtInstance = $(config.table).DataTable({
+        this.$dt = $(config.table).DataTable({
             columns: columns,
             deferLoading: true,
             orderMulti: false,
@@ -38,11 +45,17 @@ export default class DataTable {
         // Since the DataTable plugin destroys original container, we cannot
         // re-utilize $table here - we need to fetch the actual new container:
         this.$dom = {
-            loader: $(this.$config.loader),
-            table: $(dtInstance.table().container()),
+            table: $(this.$dt.table().container()),
         };
 
-        dtInstance.ajax.reload();
+        this.$dt.ajax.reload();
+    }
+
+    /**
+     * Force-refreshes the DataTable.
+     */
+    refresh() {
+        this.$dt.ajax.reload();
     }
 
     /**
@@ -60,7 +73,7 @@ export default class DataTable {
 
         // Prepare basic request
         const request = {
-            columns: columns,
+            columns,
 
             pagination: {
                 page: originalData.start / originalData.length,
@@ -94,9 +107,9 @@ export default class DataTable {
      * @param {function} callback
      */
     async $dtAjax(originalData, callback) {
-        // Mark table as "being refreshed"
-        this.$dom.loader.addClass('visible');
-        this.$dom.table.addClass('refreshing');
+        if (this.$loader) {
+            this.$loader.show();
+        }
 
         try {
             const response = await $.ajax({
@@ -122,11 +135,12 @@ export default class DataTable {
         // Mark table as "ready";
         // We're doing it after a delay, because it seems that Firefox cannot
         // efficiently handle both re-building the new table and animating
-        // it, which results in stuttering animation.
+        // it, which results in a stuttering animation.
         setTimeout(() => {
-            this.$dom.loader.removeClass('visible');
-            this.$dom.table.removeClass('refreshing');
-        }, 150);
+            if (this.$loader) {
+                this.$loader.hide();
+            }
+        }, 200);
     }
 
     /**

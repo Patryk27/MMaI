@@ -64,7 +64,7 @@ class HomeRenderer implements RendererInterface
         $language = $this->languageDetector->getLanguageOrFail();
 
         $query = [
-            'filter' => [
+            'filters' => [
                 SearchPageVariantsQuery::FIELD_STATUS => PageVariant::STATUS_PUBLISHED,
                 SearchPageVariantsQuery::FIELD_PAGE_TYPE => Page::TYPE_BLOG,
                 SearchPageVariantsQuery::FIELD_LANGUAGE_ID => $language->id,
