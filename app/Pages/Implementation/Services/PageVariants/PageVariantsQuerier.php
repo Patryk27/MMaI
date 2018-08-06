@@ -26,6 +26,8 @@ class PageVariantsQuerier
     }
 
     /**
+     * Returns all page variants matching given query.
+     *
      * @param PageVariantsQueryInterface $query
      * @return Collection|PageVariant[]
      *
@@ -35,7 +37,9 @@ class PageVariantsQuerier
     {
         switch (true) {
             case $query instanceof SearchPageVariantsQuery:
-                return $this->search($query);
+                $query->applyTo($this->pagesSearcher);
+
+                return $this->pagesSearcher->get();
 
             default:
                 throw new LogicException(
@@ -45,6 +49,8 @@ class PageVariantsQuerier
     }
 
     /**
+     * Returns number of page variants matching given query.
+     *
      * @param PageVariantsQueryInterface $query
      * @return int
      *
@@ -52,29 +58,15 @@ class PageVariantsQuerier
      */
     public function queryCount(PageVariantsQueryInterface $query): int
     {
-        return $this->query($query)->count(); // @todo provide a better implementation, especially for SearchPageVariantsQuery
-    }
+        switch (true) {
+            case $query instanceof SearchPageVariantsQuery:
+                $query->applyTo($this->pagesSearcher);
 
-    /**
-     * @param SearchPageVariantsQuery $query
-     * @return Collection
-     */
-    private function search(SearchPageVariantsQuery $query): Collection
-    {
-        $this->pagesSearcher->filter($query->getFilter());
+                return $this->pagesSearcher->getCount();
 
-        foreach ($query->getOrderBy() as $field => $direction) {
-            $this->pagesSearcher->orderBy($field, $direction === 'asc');
+            default:
+                return $this->query($query)->count();
         }
-
-        if ($query->hasPagination()) {
-            $this->pagesSearcher->forPage(
-                $query->getPagination()['page'],
-                $query->getPagination()['perPage']
-            );
-        }
-
-        return $this->pagesSearcher->get();
     }
 
 }

@@ -2,6 +2,8 @@
 
 namespace App\Core\Queries;
 
+use App\Core\Services\Searcher\SearcherInterface;
+
 /**
  * This is a base class which is used to facilitate building "searching"
  * queries, e.g. @see \App\Pages\Queries\SearchPageVariantsQuery.
@@ -47,6 +49,29 @@ abstract class AbstractSearchQuery
         $this->filter = array_get($query, 'filter', []);
         $this->orderBy = array_get($query, 'orderBy', []);
         $this->pagination = array_get($query, 'pagination', []);
+    }
+
+    /**
+     * Applies this query to given searcher service.
+     *
+     * @param SearcherInterface $searcher
+     * @return void
+     */
+    public function applyTo(SearcherInterface $searcher): void
+    {
+        $searcher->search($this->getSearch());
+        $searcher->filter($this->getFilter());
+
+        foreach ($this->getOrderBy() as $field => $direction) {
+            $searcher->orderBy($field, $direction === 'asc');
+        }
+
+        if ($this->hasPagination()) {
+            $searcher->forPage(
+                $this->getPagination()['page'],
+                $this->getPagination()['perPage']
+            );
+        }
     }
 
     /**
