@@ -1,6 +1,6 @@
 @php
     /**
-     * @var \App\Models\Language $language
+     * @var \App\Languages\Models\Language $language
      */
 @endphp
 

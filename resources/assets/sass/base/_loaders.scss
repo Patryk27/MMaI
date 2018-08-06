@@ -1,7 +1,19 @@
 @import 'loaders/tile';
 
-.loader-wrapper {
+.loader {
   position: relative;
+
+  &.active {
+    pointer-events: none;
+
+    .loader {
+      display: block;
+    }
+
+    .loader-overlay {
+      background: rgba(0, 0, 0, 0.9);
+    }
+  }
 
   .loader {
     position: absolute;
@@ -11,9 +23,18 @@
 
     display: none;
     transform: translate(-50%, -50%);
+  }
 
-    &.visible {
-      display: block;
-    }
+  .loader-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    transition: 0.2s background;
+
+    pointer-events: none;
   }
 }

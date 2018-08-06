@@ -1,13 +1,14 @@
 <?php
 
-use App\Models\User;
+use App\Users\Models\User;
 
 class UsersSeeder extends Seeder
 {
 
     /**
-     * @throws Throwable
      * @return void
+     *
+     * @throws Throwable
      */
     public function run(): void
     {

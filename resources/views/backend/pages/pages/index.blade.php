@@ -15,13 +15,11 @@
         </div>
     </div>
 
-    <div class="loader-wrapper">
-        <div id="posts-loader" class="loader loader-tile"></div>
-
+    <div id="pages-loader" data-loader-type="tile">
         <table class="table table-striped table-dark"
                data-datatable='{
                 "autofocus": true,
-                "loader": "#posts-loader",
+                "loader": "#pages-loader",
                 "source": "{{ route('backend.pages.search') }}"
                }'>
             <thead>
@@ -30,11 +28,11 @@
                     Id
                 </th>
 
-                <th data-datatable-column='{"name": "language-name", "orderable": true}'>
+                <th data-datatable-column='{"name": "language_name", "orderable": true}'>
                     Language
                 </th>
 
-                <th data-datatable-column='{"name": "route-url", "orderable": true}'>
+                <th data-datatable-column='{"name": "route_url", "orderable": true}'>
                     Route
                 </th>
 

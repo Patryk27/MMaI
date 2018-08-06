@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Route;
+use App\Routes\Models\Route;
 
 class RoutesSeeder extends Seeder
 {

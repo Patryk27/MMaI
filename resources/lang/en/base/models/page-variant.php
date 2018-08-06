@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\PageVariant;
+use App\Pages\Models\PageVariant;
 
 return [
     'fields' => [

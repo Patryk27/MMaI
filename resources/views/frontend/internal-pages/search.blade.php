@@ -1,6 +1,6 @@
 @php
     /**
-     * @var \Illuminate\Database\Eloquent\Collection|\App\Models\Language[] $languages
+     * @var \Illuminate\Database\Eloquent\Collection|\App\Languages\Models\Language[] $languages
      */
 @endphp
 

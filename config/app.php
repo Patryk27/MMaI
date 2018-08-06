@@ -145,9 +145,8 @@ return [
 
         // ----- //
 
-        App\Providers\AppServiceProvider::class,
-        \App\Providers\CommandBusServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
+        App\App\Providers\AppServiceProvider::class,
+        App\App\Providers\RouteServiceProvider::class,
     ],
 
     /*

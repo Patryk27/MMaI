@@ -1,9 +1,9 @@
 <?php
 
-use App\Http\Controllers\Backend\DashboardController;
-use App\Http\Controllers\Backend\PagesController;
-use App\Http\Controllers\Backend\SignInController;
-use App\Http\Controllers\Backend\TagsController;
+use App\App\Http\Controllers\Backend\DashboardController;
+use App\App\Http\Controllers\Backend\PagesController;
+use App\App\Http\Controllers\Backend\SignInController;
+use App\App\Http\Controllers\Backend\TagsController;
 
 // -- administration panel -- //
 

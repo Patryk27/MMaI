@@ -1,6 +1,6 @@
 @php
     /**
-     * @var \App\Models\Tag $row
+     * @var \App\Tags\Models\Tag $row
      */
 @endphp
 
