@@ -23,6 +23,9 @@ class AppServiceProvider extends ServiceProvider
 
         // Routes
         \App\Routes\Implementation\Repositories\RoutesRepositoryInterface::class => \App\Routes\Implementation\Repositories\EloquentRoutesRepository::class,
+
+        // Tags
+        \App\Tags\Implementation\Services\TagsSearcherInterface::class => \App\Tags\Implementation\Services\Searcher\EloquentTagsSearcher::class,
     ];
 
     /**
