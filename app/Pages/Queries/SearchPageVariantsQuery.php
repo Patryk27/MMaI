@@ -6,7 +6,7 @@ use App\Core\Queries\AbstractSearchQuery;
 
 /**
  * This class defines a query which will return all the page variants matching
- * given query.
+ * given criteria.
  */
 final class SearchPageVariantsQuery extends AbstractSearchQuery implements PageVariantsQueryInterface
 {

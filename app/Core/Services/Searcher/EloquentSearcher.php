@@ -9,16 +9,16 @@ use Illuminate\Support\Collection;
 use LogicException;
 
 /**
- * This is a generic searcher used to facilitate creating searcher services by
- * providing basic implementations for methods required to create such service.
+ * This class provides simple implementations for common methods required by the
+ * searcher services.
  *
- * Contrary to @see AbstractSearcher, you should *not* inherit from this one -
- * use composition.
+ * Contrary to @see AbstractEloquentSearcher, you should *not* inherit from this
+ * one - use composition.
  */
-class GenericSearcher
+class EloquentSearcher
 {
 
-    const
+    public const
         FILTER_OP_EQUAL = 'equal',
         FILTER_OP_NOT_EQUAL = 'not equal',
         FILTER_OP_LIKE = 'like';

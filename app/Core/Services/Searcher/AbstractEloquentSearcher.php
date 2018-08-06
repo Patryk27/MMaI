@@ -6,24 +6,22 @@ use App\Core\Exceptions\Exception as AppException;
 use Illuminate\Support\Collection;
 
 /**
- * This is an abstract searcher used to facilitate creating searcher services by
- * providing basic implementations for methods required to create such service.
- *
- * Contrary to the @see GenericSearcher, you should inherit from this one.
+ * This class provides a base for an Eloquent-based searcher service.
+ * Contrary to the @see EloquentSearcher, yoy should inherit from this class.
  */
-abstract class AbstractSearcher implements SearcherInterface
+abstract class AbstractEloquentSearcher implements SearcherInterface
 {
 
     /**
-     * @var GenericSearcher
+     * @var EloquentSearcher
      */
     protected $searcher;
 
     /**
-     * @param GenericSearcher $searcher
+     * @param EloquentSearcher $searcher
      */
     public function __construct(
-        GenericSearcher $searcher
+        EloquentSearcher $searcher
     ) {
         $this->searcher = $searcher;
     }

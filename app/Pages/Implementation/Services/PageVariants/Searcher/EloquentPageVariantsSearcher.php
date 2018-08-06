@@ -3,14 +3,14 @@
 namespace App\Pages\Implementation\Services\PageVariants\Searcher;
 
 use App\Core\Exceptions\Exception as AppException;
-use App\Core\Services\Searcher\AbstractSearcher;
-use App\Core\Services\Searcher\GenericSearcher;
+use App\Core\Services\Searcher\AbstractEloquentSearcher;
+use App\Core\Services\Searcher\EloquentSearcher;
 use App\Pages\Implementation\Services\PageVariants\PageVariantsSearcherInterface;
 use App\Pages\Models\PageVariant;
 use App\Pages\Queries\SearchPageVariantsQuery;
 use Illuminate\Database\Query\JoinClause;
 
-class EloquentPageVariantsSearcher extends AbstractSearcher implements PageVariantsSearcherInterface
+class EloquentPageVariantsSearcher extends AbstractEloquentSearcher implements PageVariantsSearcherInterface
 {
 
     private const FIELDS_MAP = [
@@ -34,7 +34,7 @@ class EloquentPageVariantsSearcher extends AbstractSearcher implements PageVaria
         PageVariant $pageVariant
     ) {
         parent::__construct(
-            new GenericSearcher($pageVariant, self::FIELDS_MAP)
+            new EloquentSearcher($pageVariant, self::FIELDS_MAP)
         );
 
         $builder = $this->searcher->getBuilder();
@@ -79,9 +79,9 @@ class EloquentPageVariantsSearcher extends AbstractSearcher implements PageVaria
     public function filter(array $fields): void
     {
         $this->searcher->filter($fields, [
-            SearchPageVariantsQuery::FIELD_STATUS => GenericSearcher::FILTER_OP_EQUAL,
-            SearchPageVariantsQuery::FIELD_PAGE_TYPE => GenericSearcher::FILTER_OP_EQUAL,
-            SearchPageVariantsQuery::FIELD_LANGUAGE_ID => GenericSearcher::FILTER_OP_EQUAL,
+            SearchPageVariantsQuery::FIELD_STATUS => EloquentSearcher::FILTER_OP_EQUAL,
+            SearchPageVariantsQuery::FIELD_PAGE_TYPE => EloquentSearcher::FILTER_OP_EQUAL,
+            SearchPageVariantsQuery::FIELD_LANGUAGE_ID => EloquentSearcher::FILTER_OP_EQUAL,
         ]);
     }
 
