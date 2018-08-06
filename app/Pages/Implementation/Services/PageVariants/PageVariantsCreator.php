@@ -58,9 +58,15 @@ class PageVariantsCreator
             'page' => $page,
         ]);
 
+        // Fill page with data from the request
         $pageVariant->fill(
             array_only($pageVariantData, ['language_id', 'status', 'title', 'lead', 'content'])
         );
+
+        // Set-up default values
+        if (strlen($pageVariant->status) === 0) {
+            $pageVariant->status = PageVariant::STATUS_DRAFT;
+        }
 
         return $pageVariant;
     }
