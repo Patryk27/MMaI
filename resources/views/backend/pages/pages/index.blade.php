@@ -30,11 +30,11 @@
                     Id
                 </th>
 
-                <th data-datatable-column='{"name": "language-name", "orderable": true}'>
+                <th data-datatable-column='{"name": "language_name", "orderable": true}'>
                     Language
                 </th>
 
-                <th data-datatable-column='{"name": "route-url", "orderable": true}'>
+                <th data-datatable-column='{"name": "route_url", "orderable": true}'>
                     Route
                 </th>
 
