@@ -13,19 +13,27 @@
         <h1 class="title">
             Tags
         </h1>
+
+        <div class="toolbar">
+            <a id="create-tag-button" class="btn btn-primary">
+                Create a tag
+            </a>
+        </div>
     </div>
 
-    <div id="tags-loader" data-loader-type="tile">
+    <div id="tags-search-loader" data-loader-type="tile">
         {{ Form::open([
-            'id' => 'tags-form',
+            'id' => 'tags-search-form',
             'class' => 'form-inline',
         ]) }}
 
-        {{ Form::label('language_id', 'Show tags for language:') }}
+        <div class="form-group">
+            {{ Form::label('language_id', 'Show tags for language:') }}
 
-        {{ Form::select('language_id', $languages, null, [
-            'class' => 'form-control',
-        ]) }}
+            {{ Form::select('language_id', $languages, null, [
+                'class' => 'custom-select',
+            ]) }}
+        </div>
 
         {{ Form::close() }}
 
@@ -41,7 +49,7 @@
                 </th>
 
                 <th data-datatable-column='{"name": "page_variant_count", "orderable": true}'>
-                    Number of pages
+                    Number of pages / posts
                 </th>
 
                 <th data-datatable-column='{"name": "actions"}'>

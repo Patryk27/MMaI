@@ -4,4 +4,4 @@
      */
 @endphp
 
-{{ $row->pageVariants->count() }}
+{{ $row->getAttribute('page_variant_count') }}
