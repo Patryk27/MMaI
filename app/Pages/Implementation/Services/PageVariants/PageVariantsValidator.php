@@ -31,6 +31,12 @@ class PageVariantsValidator
                 throw new AppException('Published post must contain a lead.');
             }
         }
+
+        if (isset($pageVariant->route)) {
+            if (starts_with($pageVariant->route->url, 'backend/')) {
+                throw new AppException('It is not possible to create route in the [backend] namespace.');
+            }
+        }
     }
 
 }
