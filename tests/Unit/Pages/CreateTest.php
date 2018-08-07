@@ -82,7 +82,7 @@ class CreateTest extends TestCase
         $page = $this->pagesFacade->create([
             'pageVariants' => [
                 [
-                    'route' => '/somewhere',
+                    'route' => 'somewhere',
                 ],
             ],
         ]);
@@ -91,7 +91,7 @@ class CreateTest extends TestCase
 
         // Execute the assertions
         $this->assertNotNull($pageVariant->route);
-        $this->assertEquals('/somewhere', $pageVariant->route->url);
+        $this->assertEquals('somewhere', $pageVariant->route->url);
     }
 
 }

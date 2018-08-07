@@ -10,8 +10,8 @@ use App\Routes\Models\Route;
  *
  * At the beginning we are setting up following routes:
  *
- *   /first-route   =>  /second-route  =>  /third-route  => [first page variant]
- *   /fourth-route  =>  [second page variant]
+ *   first-route   =>  second-route  =>  third-route  => [first page variant]
+ *   fourth-route  =>  [second page variant]
  *
  * (that is: the first route points at the second one, which points at the third
  * one, while the fourth is entirely independent on them).
@@ -19,13 +19,13 @@ use App\Routes\Models\Route;
  * Then we are deleting the second route, which should leave us with following
  * structure:
  *
- *   /first-route  =>  /third-route  => [first page variant]
- *   /fourth-route
+ *   first-route  =>  third-route  => [first page variant]
+ *   fourth-route
  *
  * Then we delete the first route, which should leave us with:
  *
- *   /third-route  => [first page variant]
- *   /fourth-route
+ *   third-route  => [first page variant]
+ *   fourth-route
  *
  * Then we delete the third route and so we end up left with only the fourth
  * one.
@@ -62,19 +62,19 @@ class DeleteTest extends TestCase
         // Set up routes
         $this->routes = [
             'first' => new Route([
-                'url' => '/first-route',
+                'url' => 'first-route',
             ]),
 
             'second' => new Route([
-                'url' => '/second-route',
+                'url' => 'second-route',
             ]),
 
             'third' => new Route([
-                'url' => '/third-route',
+                'url' => 'third-route',
             ]),
 
             'fourth' => new Route([
-                'url' => '/fourth-route',
+                'url' => 'fourth-route',
             ]),
         ];
 
@@ -106,14 +106,14 @@ class DeleteTest extends TestCase
             $this->routes['second']
         );
 
-        $this->assertRouteExists('/first-route');
-        $this->assertRouteDoesNotExist('/second-route');
-        $this->assertRouteExists('/third-route');
-        $this->assertRouteExists('/fourth-route');
+        $this->assertRouteExists('first-route');
+        $this->assertRouteDoesNotExist('second-route');
+        $this->assertRouteExists('third-route');
+        $this->assertRouteExists('fourth-route');
 
-        $this->assertRoutePointsAt('/first-route', $this->routes['third']);
-        $this->assertRoutePointsAt('/third-route', $this->pageVariants['first']);
-        $this->assertRoutePointsAt('/fourth-route', $this->pageVariants['second']);
+        $this->assertRoutePointsAt('first-route', $this->routes['third']);
+        $this->assertRoutePointsAt('third-route', $this->pageVariants['first']);
+        $this->assertRoutePointsAt('fourth-route', $this->pageVariants['second']);
 
         // ----- //
 
@@ -121,12 +121,12 @@ class DeleteTest extends TestCase
             $this->routes['first']
         );
 
-        $this->assertRouteDoesNotExist('/first-route');
-        $this->assertRouteExists('/third-route');
-        $this->assertRouteExists('/fourth-route');
+        $this->assertRouteDoesNotExist('first-route');
+        $this->assertRouteExists('third-route');
+        $this->assertRouteExists('fourth-route');
 
-        $this->assertRoutePointsAt('/third-route', $this->pageVariants['first']);
-        $this->assertRoutePointsAt('/fourth-route', $this->pageVariants['second']);
+        $this->assertRoutePointsAt('third-route', $this->pageVariants['first']);
+        $this->assertRoutePointsAt('fourth-route', $this->pageVariants['second']);
 
         // ----- //
 
@@ -134,10 +134,10 @@ class DeleteTest extends TestCase
             $this->routes['third']
         );
 
-        $this->assertRouteDoesNotExist('/third-route');
-        $this->assertRouteExists('/fourth-route');
+        $this->assertRouteDoesNotExist('third-route');
+        $this->assertRouteExists('fourth-route');
 
-        $this->assertRoutePointsAt('/fourth-route', $this->pageVariants['second']);
+        $this->assertRoutePointsAt('fourth-route', $this->pageVariants['second']);
     }
 
 }

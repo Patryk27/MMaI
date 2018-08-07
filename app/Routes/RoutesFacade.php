@@ -2,11 +2,13 @@
 
 namespace App\Routes;
 
+use App\Core\Exceptions\Exception as AppException;
 use App\Routes\Exceptions\RouteNotFoundException;
 use App\Routes\Implementation\Repositories\RoutesRepositoryInterface;
 use App\Routes\Implementation\Services\RoutesDeleter;
 use App\Routes\Implementation\Services\RoutesQuerier;
 use App\Routes\Implementation\Services\RoutesRerouter;
+use App\Routes\Implementation\Services\RoutesValidator;
 use App\Routes\Models\Route;
 use App\Routes\Queries\RoutesQueryInterface;
 use Illuminate\Support\Collection;
@@ -18,6 +20,11 @@ final class RoutesFacade
      * @var RoutesRepositoryInterface
      */
     private $routesRepository;
+
+    /**
+     * @var RoutesValidator
+     */
+    private $routesValidator;
 
     /**
      * @var RoutesDeleter
@@ -36,17 +43,20 @@ final class RoutesFacade
 
     /**
      * @param RoutesRepositoryInterface $routesRepository
+     * @param RoutesValidator $routesValidator
      * @param RoutesDeleter $routesDeleter
      * @param RoutesRerouter $routesRerouter
      * @param RoutesQuerier $routesQuerier
      */
     public function __construct(
         RoutesRepositoryInterface $routesRepository,
+        RoutesValidator $routesValidator,
         RoutesDeleter $routesDeleter,
         RoutesRerouter $routesRerouter,
         RoutesQuerier $routesQuerier
     ) {
         $this->routesRepository = $routesRepository;
+        $this->routesValidator = $routesValidator;
         $this->routesDeleter = $routesDeleter;
         $this->routesRerouter = $routesRerouter;
         $this->routesQuerier = $routesQuerier;
@@ -65,18 +75,26 @@ final class RoutesFacade
      * @param Route $oldRoute
      * @param Route $newRoute
      * @return void
+     *
+     * @throws AppException
      */
     public function reroute(Route $oldRoute, Route $newRoute): void
     {
+        $this->routesValidator->validate($oldRoute);
+        $this->routesValidator->validate($newRoute);
+
         $this->routesRerouter->reroute($oldRoute, $newRoute);
     }
 
     /**
      * @param Route $route
      * @return void
+     *
+     * @throws AppException
      */
     public function persist(Route $route): void
     {
+        $this->routesValidator->validate($route);
         $this->routesRepository->persist($route);
     }
 

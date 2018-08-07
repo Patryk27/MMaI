@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Routes;
 
+use App\Core\Exceptions\Exception as AppException;
 use App\Pages\Models\PageVariant;
 use App\Routes\Models\Route;
 
@@ -10,14 +11,14 @@ use App\Routes\Models\Route;
  *
  * At the beginning we are setting up following routes:
  *
- *   /first-route  =>  /second-route  =>  [first page variant]
- *   /third-route  =>  [second page variant]
+ *   first-route  =>  second-route  =>  [first page variant]
+ *   third-route  =>  [second page variant]
  *
  * Then we re-route second route onto the third one and we should end up with:
  *
- *   /first-route   => /third-route
- *   /second-route  => /third-route
- *   /third-route   => [second page variant]
+ *   first-route   => third-route
+ *   second-route  => third-route
+ *   third-route   => [second page variant]
  */
 class RerouteTest extends TestCase
 {
@@ -51,15 +52,15 @@ class RerouteTest extends TestCase
         // Set up routes
         $this->routes = [
             'first' => new Route([
-                'url' => '/first-route',
+                'url' => 'first-route',
             ]),
 
             'second' => new Route([
-                'url' => '/second-route',
+                'url' => 'second-route',
             ]),
 
             'third' => new Route([
-                'url' => '/third-route',
+                'url' => 'third-route',
             ]),
         ];
 
@@ -83,6 +84,8 @@ class RerouteTest extends TestCase
 
     /**
      * @return void
+     *
+     * @throws AppException
      */
     public function testReroute(): void
     {
@@ -91,9 +94,9 @@ class RerouteTest extends TestCase
             $this->routes['third']
         );
 
-        $this->assertRoutePointsAt('/first-route', $this->routes['third']);
-        $this->assertRoutePointsAt('/second-route', $this->routes['third']);
-        $this->assertRoutePointsAt('/third-route', $this->pageVariants['second']);
+        $this->assertRoutePointsAt('first-route', $this->routes['third']);
+        $this->assertRoutePointsAt('second-route', $this->routes['third']);
+        $this->assertRoutePointsAt('third-route', $this->pageVariants['second']);
     }
 
 }

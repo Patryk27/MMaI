@@ -161,7 +161,7 @@ class UpdateTest extends TestCase
             'pageVariants' => [
                 [
                     'id' => $this->pageVariant->id,
-                    'route' => '/somewhere',
+                    'route' => 'somewhere',
                     'status' => PageVariant::STATUS_PUBLISHED,
                 ]
             ],
@@ -185,13 +185,13 @@ class UpdateTest extends TestCase
             'pageVariants' => [
                 [
                     'id' => $this->pageVariant->id,
-                    'route' => '/somewhere',
+                    'route' => 'somewhere',
                 ]
             ],
         ]);
 
         $this->assertNotNull($this->pageVariant->route);
-        $this->assertEquals('/somewhere', $this->pageVariant->route->url);
+        $this->assertEquals('somewhere', $this->pageVariant->route->url);
     }
 
     /**
@@ -210,7 +210,7 @@ class UpdateTest extends TestCase
             'pageVariants' => [
                 [
                     'id' => $this->pageVariant->id,
-                    'route' => '/somewhere',
+                    'route' => 'somewhere',
                 ]
             ],
         ]);
@@ -220,13 +220,13 @@ class UpdateTest extends TestCase
             'pageVariants' => [
                 [
                     'id' => $this->pageVariant->id,
-                    'route' => '/somewhere-else',
+                    'route' => 'somewhere-else',
                 ]
             ],
         ]);
 
         $this->assertNotNull($this->pageVariant->route);
-        $this->assertEquals('/somewhere-else', $this->pageVariant->route->url);
+        $this->assertEquals('somewhere-else', $this->pageVariant->route->url);
     }
 
     /**
@@ -245,7 +245,7 @@ class UpdateTest extends TestCase
             'pageVariants' => [
                 [
                     'id' => $this->pageVariant->id,
-                    'route' => '/somewhere',
+                    'route' => 'somewhere',
                 ]
             ],
         ]);
@@ -315,7 +315,7 @@ class UpdateTest extends TestCase
             'pageVariants' => [
                 [
                     'id' => $pageVariant->id,
-                    'route' => '/somewhere',
+                    'route' => 'somewhere',
                     'status' => PageVariant::STATUS_PUBLISHED,
                 ]
             ],
