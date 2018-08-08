@@ -1,6 +1,6 @@
 <?php
 
-use App\Pages\Models\IntrinsicPage;
+use App\IntrinsicPages\Models\IntrinsicPage;
 use App\Routes\Models\Route;
 
 class IntrinsicPagesSeeder extends Seeder
