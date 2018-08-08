@@ -7,6 +7,7 @@ class LanguagesSeeder extends Seeder
 
     /**
      * @throws Throwable
+     *
      * @return void
      */
     public function run(): void

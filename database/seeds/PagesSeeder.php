@@ -17,6 +17,7 @@ class PagesSeeder extends Seeder
 
     /**
      * @return void
+     *
      * @throws Throwable
      */
     public function run(): void
@@ -36,6 +37,7 @@ class PagesSeeder extends Seeder
      * Polish   | pl/o-mnie
      *
      * @return void
+     *
      * @throws Throwable
      */
     private function createAboutPages(): void
@@ -78,6 +80,7 @@ class PagesSeeder extends Seeder
      * The "xxxx-yy" part depends on current date.
      *
      * @return void
+     *
      * @throws Throwable
      */
     private function createExamplePosts(): void
@@ -154,6 +157,7 @@ class PagesSeeder extends Seeder
      *
      * @param array $pageData
      * @return void
+     *
      * @throws Throwable
      */
     private function createPage(array $pageData): void
@@ -178,6 +182,8 @@ class PagesSeeder extends Seeder
      * @param Page $page
      * @param string $languageName
      * @param array $pageVariantData
+     * @return void
+     *
      * @throws Throwable
      */
     private function createPageVariant(Page $page, string $languageName, array $pageVariantData): void
