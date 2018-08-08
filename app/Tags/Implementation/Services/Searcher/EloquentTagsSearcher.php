@@ -33,7 +33,7 @@ class EloquentTagsSearcher extends AbstractEloquentSearcher implements TagsSearc
 
         $builder = $this->searcher->getBuilder();
         $builder->selectRaw('tags.*');
-        $builder->selectRaw('COUNT(page_variant_tag.tag_id) AS page_variant_count');
+        $builder->selectRaw('COUNT(DISTINCT page_variant_tag.page_variant_id) AS page_variant_count');
 
         // Include tags
         $builder->leftJoin('page_variant_tag', 'page_variant_tag.tag_id', 'tags.id');
@@ -66,6 +66,14 @@ class EloquentTagsSearcher extends AbstractEloquentSearcher implements TagsSearc
 
             SearchTagsQuery::FIELD_LANGUAGE_ID => EloquentSearcher::FILTER_EQUAL,
         ]);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getCount(): int
+    {
+        return $this->get()->count(); // @todo provide a better implementation
     }
 
 }
