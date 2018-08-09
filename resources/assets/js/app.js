@@ -18,6 +18,7 @@ $(() => {
         const config = $(this).data('datatable');
         config.table = $(this);
 
-        new DataTable(config);
+        const dataTable = new DataTable(config);
+        dataTable.refresh();
     });
 });

@@ -47,8 +47,6 @@ export default class DataTable {
         this.$dom = {
             table: $(this.$dt.table().container()),
         };
-
-        this.$dt.ajax.reload();
     }
 
     /**
