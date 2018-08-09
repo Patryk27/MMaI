@@ -3,7 +3,7 @@
 ])
 
 @section('content')
-    <div class="title-wrapper">
+    <div class="content-header">
         <h1 class="title">
             Creating page
         </h1>

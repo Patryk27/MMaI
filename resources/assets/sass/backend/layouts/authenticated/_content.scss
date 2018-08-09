@@ -2,12 +2,12 @@
   margin-left: $backend-navbar-width;
   padding: $backend-content-padding;
 
-  > .content {
-    > h1, > .title-wrapper {
+  .content {
+    > h1, .content-header {
       margin-bottom: 0.7em;
     }
 
-    > .title-wrapper {
+    .content-header {
       display: flex;
       padding-bottom: 1em;
       margin-bottom: 2em;
