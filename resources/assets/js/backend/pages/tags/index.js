@@ -1,47 +1,26 @@
-import swal from 'sweetalert';
-import DataTables from '../../../base/components/DataTable';
-
-async function handleCreateTag() {
-    const tag = await swal({
-        title: 'Creating new Polish tag',
-        text: 'Enter tag\'s name:',
-        content: 'input',
-
-        buttons: {
-            cancel: 'Cancel',
-            create: 'Create',
-        },
-    });
-
-    alert(tag);
-}
+import CreateTagModalComponent from './index/CreateTagModalComponent';
+import DataTableComponent from './index/DataTableComponent';
+import SearchFormComponent from './index/SearchFormComponent';
 
 export default function () {
+    let currentLanguageId = null;
+
     const
-        $createTagButton = $('#create-tag-button'),
-        $searchForm = $('#tags-search-form');
+        createTagModal = new CreateTagModalComponent('#create-tag-modal'),
+        dataTable = new DataTableComponent('#tags-loader', '#tags-table'),
+        searchForm = new SearchFormComponent('#tags-search-form');
 
-    $createTagButton.on('click', () => {
-        // noinspection JSIgnoredPromiseFromCall
-        handleCreateTag();
+    $('#create-tag-button').on('click', () => {
+        createTagModal.show(currentLanguageId);
     });
 
-    $searchForm.on('change', 'select', () => {
-        dataTable.refresh();
+    searchForm.onLanguageChanged((languageId) => {
+        currentLanguageId = languageId;
     });
 
-    const dataTable = new DataTables({
-        autofocus: true,
-        loader: '#tags-search-loader',
-        source: '/backend/tags/search',
-        table: '#tags-table',
-
-        prepareRequest(request) {
-            request.filters = {
-                language_id: $searchForm.find('[name="language_id"]').val(),
-            };
-
-            return request;
-        },
+    searchForm.onSubmit((form) => {
+        dataTable.refresh(form);
     });
+
+    createTagModal.show(0);
 };

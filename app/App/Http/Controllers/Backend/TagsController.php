@@ -101,4 +101,8 @@ class TagsController extends Controller
         return $this->dataTablesHandler->handle($request);
     }
 
+    public function store() {
+
+    }
+
 }

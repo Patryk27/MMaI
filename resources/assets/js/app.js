@@ -16,7 +16,7 @@ $(() => {
 
     $('[data-datatable]').each(function () {
         const config = $(this).data('datatable');
-        config.table = $(this);
+        config.tableSelector = $(this);
 
         const dataTable = new DataTable(config);
         dataTable.refresh();

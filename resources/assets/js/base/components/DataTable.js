@@ -15,22 +15,22 @@ export default class DataTable {
     constructor(config) {
         this.$config = config;
 
-        if (config.table === undefined) {
+        if (config.tableSelector === undefined) {
             throw 'Please specify the table\'s selector.';
         }
 
         // Initialize loader
-        if (config.hasOwnProperty('loader')) {
-            this.$loader = new Loader(config.loader);
+        if (config.hasOwnProperty('loaderSelector')) {
+            this.$loader = new Loader(config.loaderSelector);
         }
 
         // Prepare DataTable's columns
         const columns = DataTable.$buildColumns(
-            $(config.table),
+            $(config.tableSelector),
         );
 
         // Initialize the DataTable
-        this.$dt = $(config.table).DataTable({
+        this.$dt = $(config.tableSelector).DataTable({
             columns: columns,
             deferLoading: true,
             orderMulti: false,

@@ -70,9 +70,9 @@ $navbar-bg: $light;
 $navbar-section-color: lighten($light, 35%);
 $navbar-section-border-color: $light;
 
-// ===================== //
-// == Navigation Tabs == //
-// ===================== //
+// ==================== //
+// == Navigation Tab == //
+// ==================== //
 
 $nav-tabs-border-color: $border-color;
 $nav-tabs-link-hover-border-color: $border-color $border-color $border-color $border-color;
@@ -139,3 +139,15 @@ $badge-padding-x: 6px;
 $badge-padding-y: 6px;
 
 $badge-pill-border-radius: 8px;
+
+// =========== //
+// == Modal == //
+// =========== //
+
+$modal-backdrop-opacity: 0.8;
+$modal-header-color: #333333;
+$modal-body-color: #333333;
+
+$modal-input-bg: $white;
+$modal-input-color: $black;
+$modal-input-border-color: #bbbbbb;

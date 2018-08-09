@@ -35,7 +35,7 @@
     </label>
 
     {{ Form::select('status', __('base/models/page-variant.enums.status'), null, [
-        'class' => 'form-control',
+        'class' => 'custom-select',
     ]) }}
 </div>
 

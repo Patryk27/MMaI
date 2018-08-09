@@ -19,7 +19,7 @@
         <table class="table table-striped table-dark"
                data-datatable='{
                 "autofocus": true,
-                "loader": "#pages-loader",
+                "loaderSelector": "#pages-loader",
                 "source": "{{ route('backend.pages.search') }}"
                }'>
             <thead>

@@ -1,8 +1,9 @@
 @import 'base/badge';
 @import 'base/form';
 @import 'base/link';
-@import 'base/loaders';
-@import 'base/tabs';
+@import 'base/loader';
+@import 'base/modal';
+@import 'base/tab';
 
 @import url('https://fonts.googleapis.com/css?family=#{$font-family-base-url-name}');
 @import url('https://fonts.googleapis.com/css?family=#{$secondary-font-family-base-url-name}');

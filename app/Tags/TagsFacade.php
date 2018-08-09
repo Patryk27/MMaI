@@ -26,6 +26,17 @@ final class TagsFacade
     }
 
     /**
+     * Creates a new brand-new tag from given data.
+     *
+     * @param array $tagData
+     * @return Tag
+     */
+    public function create(array $tagData): Tag
+    {
+
+    }
+
+    /**
      * Returns first tag matching given query.
      *
      * @param TagsQueryInterface $query

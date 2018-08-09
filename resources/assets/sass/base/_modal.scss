@@ -1,0 +1,19 @@
+.modal-dialog {
+  .modal-content {
+    input, select {
+      color: $modal-input-color;
+      background: $modal-input-bg;
+      border-color: $modal-input-border-color;
+    }
+
+    .modal-header {
+      .modal-title {
+        color: $modal-header-color;
+      }
+    }
+
+    .modal-body {
+      color: $modal-body-color;
+    }
+  }
+}

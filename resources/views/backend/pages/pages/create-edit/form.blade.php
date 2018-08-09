@@ -32,7 +32,7 @@
 
 {{-- Form's footer --}}
 <div class="form-footer">
-    <button type="submit" class="btn btn-success">
+    <button type="submit" class="btn btn-primary">
         Save
     </button>
 </div>
