@@ -3,7 +3,10 @@
     input, select {
       color: $modal-input-color;
       background: $modal-input-bg;
-      border-color: $modal-input-border-color;
+
+      &:not(.is-valid):not(.is-invalid) {
+        border-color: $modal-input-border-color;
+      }
     }
 
     select {

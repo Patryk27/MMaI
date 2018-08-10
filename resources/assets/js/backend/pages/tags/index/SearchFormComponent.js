@@ -1,9 +1,12 @@
 export default class SearchFormComponent {
 
     /**
+     * @param {Bus} bus
      * @param {string} formSelector
      */
-    constructor(formSelector) {
+    constructor(bus, formSelector) {
+        this.$bus = bus;
+
         const $form = $(formSelector);
 
         this.$dom = {
@@ -11,62 +14,22 @@ export default class SearchFormComponent {
             languageId: $form.find('[name="language_id"]'),
         };
 
-        this.$eventHandlers = {
-            languageChanged: null,
-            submit: null,
-        };
-
         this.$dom.form.on('change', 'select', () => {
-            this.$handleLanguageChanged();
-            this.$handleSubmit();
+            this.$submit();
         });
 
-        // @todo explain why we're doing this setTimeout() thing
+        // In the next tick we're firing the "submit" event, so that the DataTable can refresh itself.
         setTimeout(() => {
-            this.$handleLanguageChanged();
-            this.$handleSubmit();
+            this.$submit();
         }, 0);
     }
 
     /**
-     * Binds handler for the "language changed" event.
-     *
-     * Handler's signature:
-     *   (languageId: number) -> void
-     *
-     * @param {function} handler
-     */
-    onLanguageChanged(handler) {
-        this.$eventHandlers.languageChanged = handler;
-    }
-
-    /**
-     * Binds handler for the "submit" event.
-     *
-     * Handler's signature:
-     *   (form: object) -> void
-     *
-     * @param {function} handler
-     */
-    onSubmit(handler) {
-        this.$eventHandlers.submit = handler;
-    }
-
-    /**
      * @private
      */
-    $handleLanguageChanged() {
-        this.$eventHandlers.languageChanged(
-            this.$dom.languageId.val()
-        );
-    }
-
-    /**
-     * @private
-     */
-    $handleSubmit() {
-        this.$eventHandlers.submit({
-            language_id: this.$dom.languageId.val(),
+    $submit() {
+        this.$bus.emit('search-form::submit', {
+            languageId: this.$dom.languageId.val(),
         });
     }
 

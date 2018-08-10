@@ -1,5 +1,7 @@
 import swal from 'sweetalert';
+
 import ButtonComponent from '../../../../base/components/ButtonComponent.js';
+import InputComponent from '../../../../base/components/InputComponent';
 import TagsFacade from '../../../../base/api/TagsFacade';
 
 /**
@@ -15,13 +17,22 @@ export default class CreateTagModalComponent {
 
         this.$dom = {
             modal: $modal,
+            form: $modal.find('form'),
+        };
 
-            form: {
-                container: $modal.find('form'),
+        this.$form = {
+            name: new InputComponent(
+                $modal.find('[name="name"]'),
+            ),
 
-                name: $modal.find('[name="name"]'),
-                languageId: $modal.find('[name="language_id"]'),
-            },
+            languageId: new InputComponent(
+                $modal.find('[name="language_id"]'),
+            ),
+        };
+
+        this.$formFieldsMapping = {
+            name: 'name',
+            language_id: 'languageId',
         };
 
         this.$buttons = {
@@ -34,26 +45,14 @@ export default class CreateTagModalComponent {
             ),
         };
 
-        // @todo
-        // this.$inputs = {
-        //     name: new Input(
-        //         $modal.find('[name="name"]'),
-        //     ),
-        //
-        //     languageId: new Input(
-        //         $modal.find('[name="language_id"]'),
-        //     ),
-        // };
-
         // When modal is being shown, clear the "name" field and focus on it
         this.$dom.modal.on('shown.bs.modal', () => {
-            this.$dom.form.name
-                .val('')
-                .focus();
+            this.$form.name.setValue('');
+            this.$form.name.focus();
         });
 
         // Bind custom handler for the "submit" action
-        this.$dom.form.container.on('submit', () => {
+        this.$dom.form.on('submit', () => {
             // noinspection JSIgnoredPromiseFromCall
             this.$submit();
 
@@ -62,10 +61,18 @@ export default class CreateTagModalComponent {
     }
 
     /**
-     * @param {number} selectedLanguageId
+     * Changes the modal's active language id.
+     *
+     * @param {number} languageId
      */
-    show(selectedLanguageId) {
-        this.$dom.form.languageId.val(selectedLanguageId);
+    setLanguageId(languageId) {
+        this.$form.languageId.setValue(languageId);
+    }
+
+    /**
+     * Opens the "create tag" modal.
+     */
+    show() {
         this.$dom.modal.modal();
     }
 
@@ -104,23 +111,34 @@ export default class CreateTagModalComponent {
     async $submit() {
         this.$changeState('submitting');
 
-        try {
-            const $form = this.$dom.form;
+        const $form = this.$form;
 
+        try {
+            // Clear form's errors
+            for (const [, component] of Object.entries($form)) {
+                component.removeFeedback();
+            }
+
+            // Do the request
             await TagsFacade.create({
-                name: $form.name.val(),
-                language_id: $form.languageId.val(),
+                name: $form.name.getValue(),
+                language_id: $form.languageId.getValue(),
             });
         } catch (error) {
             if (error.type === 'invalid-input') {
-                console.log(error.payload);
+                for (const [fieldName, [fieldError]] of Object.entries(error.payload)) {
+                    const formFieldName = this.$formFieldsMapping[fieldName];
+                    const component = this.$form[formFieldName];
+
+                    component.setFeedback('invalid', fieldError);
+                }
             } else {
                 swal({
                     title: 'Cannot create tag',
                     text: error.message,
                     icon: 'error',
                 }).then(() => {
-                    this.$dom.form.name.focus();
+                    $form.name.focus();
                 });
             }
         }

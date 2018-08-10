@@ -3,10 +3,13 @@ import DataTableComponent from '../../../../base/components/DataTableComponent';
 export default class SearchResultsComponent {
 
     /**
+     * @param {Bus} bus
      * @param {string} loaderSelector
      * @param {string} tableSelector
      */
-    constructor(loaderSelector, tableSelector) {
+    constructor(bus, loaderSelector, tableSelector) {
+        this.$bus = bus;
+
         this.$dataTable = new DataTableComponent({
             loaderSelector,
             tableSelector,
@@ -27,10 +30,13 @@ export default class SearchResultsComponent {
     }
 
     /**
-     * @param {object} filters
+     * @param {object} form
      */
-    refresh(filters) {
-        this.$state.filters = filters;
+    refresh(form) {
+        this.$state.form = {
+            language_id: form.languageId,
+        };
+
         this.$dataTable.refresh();
     }
 
