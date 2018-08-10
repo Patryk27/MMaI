@@ -1,5 +1,23 @@
 .swal-modal {
+  border-radius: 0;
+
   .swal-title {
-    font-size: 22px;
+    color: $modal-header-color;
+    font-size: 1.25rem;
+  }
+
+  .swal-text {
+    color: $modal-body-color;
+  }
+
+  .swal-footer {
+    .swal-button {
+      @extend .btn;
+      @extend .btn-primary;
+
+      &.swal-button--cancel {
+        @extend .btn-secondary;
+      }
+    }
   }
 }
