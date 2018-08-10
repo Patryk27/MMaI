@@ -8,6 +8,8 @@
     'pageClass' => 'backend--pages--pages--edit',
 ])
 
+@section('title', 'Editing page')
+
 @section('content')
     <div class="content-header">
         <h1 class="title">

@@ -11,6 +11,8 @@
     'pageClass' => 'frontend--pages--pages--show',
 ])
 
+@section('title', $pageVariant->title)
+
 @section('content')
     <main class="content">
         <header>

@@ -8,6 +8,8 @@
     'pageClass' => 'frontend--internal-pages--home',
 ])
 
+@section('title', config('app.name'))
+
 @section('content')
     <h1>
         Search

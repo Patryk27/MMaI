@@ -8,6 +8,8 @@
     'pageClass' => 'backend--pages--tags--index',
 ])
 
+@section('title', 'Tags')
+
 @section('content')
     @include('backend.pages.tags.index.create-tag-modal')
     @include('backend.pages.tags.index.header')

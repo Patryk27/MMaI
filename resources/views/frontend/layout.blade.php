@@ -9,6 +9,10 @@
     'pageClass' => $pageClass,
 ])
 
+@section('layout-title')
+    @yield('title')
+@endsection
+
 @section('layout-content')
     <div class="site-container">
         <div class="content-container">

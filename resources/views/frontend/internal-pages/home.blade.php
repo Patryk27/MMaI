@@ -8,6 +8,8 @@
     'pageClass' => 'frontend--pages--pages--show',
 ])
 
+@section('title', config('app.name'))
+
 @section('content')
     @include('frontend.components.posts.list', [
         'posts' => $posts,

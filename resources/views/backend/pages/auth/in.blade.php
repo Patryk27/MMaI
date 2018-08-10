@@ -2,6 +2,8 @@
     'pageClass' => 'backend--pages--auth--in',
 ])
 
+@section('title', 'Signing in')
+
 @section('content')
     {{ Form::open([
         'method' => 'post',

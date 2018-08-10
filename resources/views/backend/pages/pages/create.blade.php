@@ -2,6 +2,8 @@
     'pageClass' => 'backend--pages--pages--create',
 ])
 
+@section('title', 'Creating page')
+
 @section('content')
     <div class="content-header">
         <h1 class="title">
