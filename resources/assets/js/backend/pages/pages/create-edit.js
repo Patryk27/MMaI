@@ -1,108 +1,86 @@
-import $ from 'jquery';
+import swal from 'sweetalert';
 
-import MessageBag from '../../../base/components/MessageBag';
-
-import MediaLibrarySection from './create-edit/sections/MediaLibrary';
-import PageVariant from './create-edit/sections/PageVariant';
-import Submitter from './create-edit/Submitter';
-
-/**
- * Initializes the form's message bag.
- *
- * @param {jQuery} $form
- * @return {MessageBag}
- */
-function initializeMessageBag($form) {
-    return new MessageBag(
-        $form.find('.form-messages'),
-    );
-}
-
-/**
- * Initializes the form's sections (tabs).
- *
- * @param {jQuery} $form
- * @return {object}
- */
-function initializeSections($form) {
-    // List of all the sections, divided by type
-    const sections = {
-        mediaLibrary: {},
-        pageVariants: [],
-    };
-
-    /**
-     * When user opens a section, we're calling the refresh method on it - it helps to overcome any bugs related to
-     * section (tab) being shown out of blue (e.g. with SimpleMDE).
-     */
-    $form.on('click', '.form-navigation-tabs .nav-link', function () {
-        const $sectionHeader = $(this);
-
-        // Fetch the section to which this link refers to
-        const $section = $(
-            $sectionHeader.attr('href'),
-        );
-
-        // Fetch the section's handler
-        const section = $section.data('section');
-
-        // And if that handler contains the refresh method, call it
-        if (section && section.refresh) {
-            section.refresh();
-        }
-    });
-
-    /**
-     * Instantiate handlers for each section present in the DOM.
-     * These handlers are responsible for serializing section's data before submitting them and other state-related
-     * things.
-     */
-    $form.find('.form-navigation-contents .tab-pane').each(function () {
-        const $section = $(this);
-
-        switch ($section.data('type')) {
-            case 'media-library': {
-                // Instantiate the media library section's handler
-                const section = new MediaLibrarySection($section);
-
-                // Save it into the section's DOM, so that we can re-use it later
-                $section.data('section', section);
-
-                // Save it for the function's result
-                sections.mediaLibrary = section;
-
-                break;
-            }
-
-            case 'page-variant': {
-                // Instantiate the page variant section's handler
-                const section = new PageVariant($section);
-
-                // Save it into the section's DOM, so that we can re-use it later
-                $section.data('section', section);
-
-                // Save it for the function's result
-                sections.pageVariants.push(section);
-
-                break;
-            }
-
-            default:
-                console.error('Unknown section\'s type: ' + $section.data('type'));
-        }
-    });
-
-    return sections;
-}
+import Bus from '../../../base/Bus';
+import ButtonComponent from '../../../base/components/ButtonComponent';
+import FormSubmitter from './create-edit/FormSubmitter';
+import MediaLibraryComponent from './create-edit/components/MediaLibraryComponent';
+import PageVariantComponent from './create-edit/components/PageVariantComponent';
 
 export default function () {
+    const bus = new Bus();
+
+    const dom = {
+        form: $('#page-form'),
+        formSubmitButton: $('#page-form-submit-button'),
+
+        sectionTabs: $('#page-section-tabs'),
+        sectionContents: $('#page-section-contents'),
+    };
+
+    const formSections = {
+        pageVariants: [],
+        mediaLibrary: null,
+    };
+
+    dom.sectionTabs.on('click', '.nav-link', () => {
+        // The tabs-changing thing is handled by Bootstrap and it will happen in the next tick - that is also why are
+        // going to emit that event then.
+        setTimeout(() => {
+            bus.emit('tabs::changed');
+        });
+    });
+
+    dom.sectionContents.find('.tab-pane').each((_, tab) => {
+        const $tab = $(tab);
+
+        switch ($tab.data('section-type')) {
+            case 'page-variant':
+                formSections.pageVariants.push(
+                    new PageVariantComponent(bus, $tab),
+                );
+
+                break;
+
+            case 'media-library':
+                formSections.mediaLibrary = new MediaLibraryComponent(bus, $tab);
+
+                break;
+
+            default:
+                throw 'Do not know how to handle section [type=' + $tab.data('section-type') + ']';
+        }
+    });
+
     const
-        $form = $('#form'),
-        messageBag = initializeMessageBag($form),
-        sections = initializeSections($form);
+        formSubmitButton = new ButtonComponent(dom.formSubmitButton),
+        formSubmitter = new FormSubmitter(bus, dom.form, formSections);
 
-    new Submitter($form, messageBag, sections);
+    bus.on('form::submitting', () => {
+        formSubmitButton.block();
+        formSubmitButton.showSpinner();
+    });
 
-    // Activate the first available tab (e.g. the English page variant)
-    $form.find('.form-navigation-tabs .nav-link').eq(0).click();
+    bus.on('form::submitted', ({response}) => {
+        formSubmitButton.unblock();
+        formSubmitButton.hideSpinner();
+
+        if (response) {
+            swal({
+                title: 'Success',
+                text: 'Page has been saved.',
+                icon: 'success',
+            }).then(() => {
+                // noinspection JSUnresolvedVariable
+                window.location.href = response.data.redirectTo;
+            });
+        }
+    });
+
+    dom.formSubmitButton.on('click', () => {
+        // noinspection JSIgnoredPromiseFromCall
+        formSubmitter.submit();
+    });
+
+    // Activate the first available tab
+    dom.sectionTabs.find('.nav-link').eq(0).click();
 };

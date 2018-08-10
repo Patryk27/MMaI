@@ -4,7 +4,7 @@
  * It assumes that button already exists in the DOM (that's why it accepts a selector) and then allows to e.g. disable
  * it or create a dynamic spinner inside it.
  */
-export default class Button {
+export default class ButtonComponent {
 
     /**
      * @param {jQuery|string} selector
@@ -16,21 +16,21 @@ export default class Button {
     }
 
     /**
-     * Blocks a button, yielding it unclickable.
+     * Blocks the button, yielding it unclickable.
      */
     block() {
         this.$dom.button.attr('disabled', true);
     }
 
     /**
-     * Unblocks a button, making it clickable again.
+     * Unblocks the button, making it clickable again.
      */
     unblock() {
         this.$dom.button.attr('disabled', false);
     }
 
     /**
-     * Shows a spinner inside a button.
+     * Shows a spinner inside the button.
      */
     showSpinner() {
         this.$dom.spinner =

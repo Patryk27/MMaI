@@ -1,13 +1,13 @@
-import DataTable from '../../../../base/components/DataTable';
+import DataTableComponent from '../../../../base/components/DataTableComponent';
 
-export default class DataTableComponent {
+export default class SearchResultsComponent {
 
     /**
      * @param {string} loaderSelector
      * @param {string} tableSelector
      */
     constructor(loaderSelector, tableSelector) {
-        this.$dataTable = new DataTable({
+        this.$dataTable = new DataTableComponent({
             loaderSelector,
             tableSelector,
 

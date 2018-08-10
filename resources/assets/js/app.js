@@ -5,7 +5,7 @@ import 'bootstrap';
 import 'datatables.net';
 import 'datatables.net-bs4/js/dataTables.bootstrap4';
 
-import DataTable from './base/components/DataTable';
+import DataTableComponent from './base/components/DataTableComponent';
 import Dispatcher from './base/Dispatcher';
 
 import './backend/pages';
@@ -21,7 +21,7 @@ $(() => {
         const config = $(this).data('datatable');
         config.tableSelector = $(this);
 
-        const dataTable = new DataTable(config);
+        const dataTable = new DataTableComponent(config);
         dataTable.refresh();
     });
 });

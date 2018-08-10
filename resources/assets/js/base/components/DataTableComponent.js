@@ -1,13 +1,13 @@
 import $ from 'jquery';
 import swal from 'sweetalert';
 
-import Loader from './Loader';
+import LoaderComponent from './LoaderComponent';
 
 /**
  * This component is a wrapper for the great jQuery DataTables - it provides an
  * additional functionality over the original one (e.g. adds support for loaders).
  */
-export default class DataTable {
+export default class DataTableComponent {
 
     /**
      * @param {object} config
@@ -21,11 +21,11 @@ export default class DataTable {
 
         // Initialize loader
         if (config.hasOwnProperty('loaderSelector')) {
-            this.$loader = new Loader(config.loaderSelector);
+            this.$loader = new LoaderComponent(config.loaderSelector);
         }
 
         // Prepare DataTable's columns
-        const columns = DataTable.$buildColumns(
+        const columns = DataTableComponent.$buildColumns(
             $(config.tableSelector),
         );
 
@@ -118,12 +118,12 @@ export default class DataTable {
             if (response.hasOwnProperty('data')) {
                 callback(response);
             } else {
-                DataTable.$showErrorMessage();
+                DataTableComponent.$showErrorMessage();
             }
         } catch (ex) {
             console.error(ex);
 
-            DataTable.$showErrorMessage();
+            DataTableComponent.$showErrorMessage();
 
             callback({
                 data: [],

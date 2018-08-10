@@ -9,7 +9,7 @@
         </h1>
     </div>
 
-    <div id="form"
+    <div id="page-form"
          data-method="post"
          data-url="{{ route('backend.pages.store') }}">
         @include('backend.pages.pages.create-edit.form', [

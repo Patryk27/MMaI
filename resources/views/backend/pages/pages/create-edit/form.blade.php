@@ -5,10 +5,8 @@
      */
 @endphp
 
-<div class="form-messages"></div>
-
-{{-- Tabs' titles --}}
-<ul class="form-navigation-tabs nav nav-tabs" role="tablist">
+{{-- Section tabs --}}
+<ul id="page-section-tabs" class="nav nav-tabs" role="tablist">
     @foreach($languages as $language)
         @include('backend.pages.pages.create-edit.form.page-variant.tab', [
             'language' => $language,
@@ -18,8 +16,8 @@
     @include('backend.pages.pages.create-edit.form.media-library.tab')
 </ul>
 
-{{-- Tabs' contents --}}
-<div class="form-navigation-contents tab-content">
+{{-- Section contents --}}
+<div id="page-section-contents" class="tab-content">
     @foreach($languages as $language)
         @include('backend.pages.pages.create-edit.form.page-variant.content', [
             'language' => $language,
@@ -31,8 +29,8 @@
 </div>
 
 {{-- Form's footer --}}
-<div class="form-footer">
-    <button type="submit" class="btn btn-primary">
+<div id="page-form-footer">
+    <button id="page-form-submit-button" class="btn btn-primary" type="button">
         Save
     </button>
 </div>

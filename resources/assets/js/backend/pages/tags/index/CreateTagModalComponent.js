@@ -1,5 +1,5 @@
 import swal from 'sweetalert';
-import Button from '../../../../base/components/Button';
+import ButtonComponent from '../../../../base/components/ButtonComponent.js';
 import TagsFacade from '../../../../base/api/TagsFacade';
 
 /**
@@ -25,11 +25,11 @@ export default class CreateTagModalComponent {
         };
 
         this.$buttons = {
-            submit: new Button(
+            submit: new ButtonComponent(
                 $modal.find('.btn-submit'),
             ),
 
-            close: new Button(
+            close: new ButtonComponent(
                 $modal.find('.btn-close'),
             ),
         };

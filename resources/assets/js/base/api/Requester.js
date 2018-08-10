@@ -37,6 +37,10 @@ export default class Requester {
                     Requester.$handleUnprocessableEntity(response);
                     break;
 
+                case 500:
+                    Requester.$handleInternalServerError(response);
+                    break;
+
                 default:
                     throw {
                         type: 'exception',
@@ -50,13 +54,11 @@ export default class Requester {
     /**
      * @param {AxiosResponse} response
      */
-    static $handleUnprocessableEntity(response) {
-        const data = response.data;
-
+    static $handleUnprocessableEntity({data}) {
         if (!data.hasOwnProperty('message')) {
             throw {
                 type: 'exception',
-                message: 'Response has invalid format (no [error] property).',
+                message: 'There has been a fatal error - please refresh the page and try again.',
             };
         }
 
@@ -64,6 +66,23 @@ export default class Requester {
             type: 'invalid-input',
             message: data.message,
             payload: data.errors,
+        };
+    }
+
+    /**
+     * @param {AxiosResponse} response
+     */
+    static $handleInternalServerError({data}) {
+        if (data.hasOwnProperty('message')) {
+            throw {
+                type: 'exception',
+                message: data.message,
+            };
+        }
+
+        throw {
+            type: 'exception',
+            message: 'There has been a fatal error - please refresh the page and try again.',
         };
     }
 
