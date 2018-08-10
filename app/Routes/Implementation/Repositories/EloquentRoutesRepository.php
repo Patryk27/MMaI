@@ -38,7 +38,7 @@ class EloquentRoutesRepository implements RoutesRepositoryInterface
      */
     public function getPointingAt(Morphable $morphable): Collection
     {
-        $stmt = Route::newQuery();
+        $stmt = $this->repository->newQuery();
         $stmt->where([
             'model_id' => $morphable->getMorphableId(),
             'model_type' => $morphable::getMorphableType(),

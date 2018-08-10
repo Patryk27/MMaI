@@ -3,6 +3,7 @@
 namespace App\Core\Repositories;
 
 use App\Core\Exceptions\RepositoryException;
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Throwable;
@@ -28,6 +29,13 @@ final class EloquentRepository
         Model $model
     ) {
         $this->model = $model;
+    }
+
+    /**
+     * @return EloquentBuilder
+     */
+    public function newQuery(): EloquentBuilder {
+        return $this->model->newQuery();
     }
 
     /**
