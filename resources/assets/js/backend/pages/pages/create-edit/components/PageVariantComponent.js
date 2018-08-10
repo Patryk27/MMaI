@@ -141,7 +141,7 @@ export default class PageVariantComponent {
         this.$dom.enabled.checkbox.attr('disabled', blocked);
 
         // Block / unblock the form
-        for ([_, component] of Object.entries(this.$form)) {
+        for (const [, component] of Object.entries(this.$form)) {
             if (blocked) {
                 component.block();
             } else {
