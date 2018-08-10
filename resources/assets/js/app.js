@@ -1,3 +1,4 @@
+import axios from 'axios';
 import $ from 'jquery';
 
 import 'bootstrap';
@@ -12,6 +13,8 @@ import './backend/pages';
 window.$ = window.jQuery = $;
 
 $(() => {
+    axios.defaults.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').val();
+
     Dispatcher.execute();
 
     $('[data-datatable]').each(function () {

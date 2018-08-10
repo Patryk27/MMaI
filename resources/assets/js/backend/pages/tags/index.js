@@ -22,5 +22,5 @@ export default function () {
         dataTable.refresh(form);
     });
 
-    createTagModal.show(0);
+    createTagModal.show(1);
 };

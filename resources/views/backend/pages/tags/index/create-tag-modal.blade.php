@@ -1,3 +1,9 @@
+@php
+    /**
+     * @var \Illuminate\Support\Collection|int[] $languages
+     */
+@endphp
+
 <div id="create-tag-modal" class="modal" role="dialog">
     <div class="modal-dialog" role="document">
         <form class="modal-content">
@@ -27,18 +33,18 @@
                 <div class="form-group">
                     {{ Form::label('language_id', 'Tag\'s language') }}
 
-                    {{ Form::select('language_id', [], null, [
+                    {{ Form::select('language_id', $languages, null, [
                         'class' => 'custom-select',
                     ]) }}
                 </div>
             </div>
 
             <div class="modal-footer">
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" class="btn btn-primary btn-submit">
                     Create tag
                 </button>
 
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                <button type="button" class="btn btn-secondary btn-close" data-dismiss="modal">
                     Close
                 </button>
             </div>

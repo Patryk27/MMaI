@@ -4,12 +4,8 @@ export default class Loader {
      * @param {jQuery|string} selector
      */
     constructor(selector) {
-        if (typeof selector === 'string') {
-            selector = $(selector);
-        }
-
         this.$dom = {
-            container: selector,
+            container: $(selector),
         };
 
         this.$dom.container.addClass('loader');
@@ -28,10 +24,16 @@ export default class Loader {
                 .appendTo(this.$dom.container);
     }
 
+    /**
+     * Shows the loader.
+     */
     show() {
         this.$dom.container.addClass('active');
     }
 
+    /**
+     * Hides the loader.
+     */
     hide() {
         this.$dom.container.removeClass('active');
     }
