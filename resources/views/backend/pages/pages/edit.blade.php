@@ -20,8 +20,6 @@
     <div id="page-form"
          data-method="put"
          data-url="{{ route('backend.pages.update', $page->id) }}">
-        @include('backend.pages.pages.create-edit.form', [
-            'page' => $page,
-        ])
+        @include('backend.pages.pages.create-edit.form')
     </div>
 @endsection

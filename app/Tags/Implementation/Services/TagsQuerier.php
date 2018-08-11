@@ -2,7 +2,10 @@
 
 namespace App\Tags\Implementation\Services;
 
+use App\Tags\Implementation\Repositories\TagsRepositoryInterface;
 use App\Tags\Models\Tag;
+use App\Tags\Queries\GetAllTagsQuery;
+use App\Tags\Queries\GetTagByIdQuery;
 use App\Tags\Queries\SearchTagsQuery;
 use App\Tags\Queries\TagsQueryInterface;
 use Illuminate\Support\Collection;
@@ -12,16 +15,24 @@ class TagsQuerier
 {
 
     /**
+     * @var TagsRepositoryInterface
+     */
+    private $tagsRepository;
+
+    /**
      * @var TagsSearcherInterface
      */
     private $tagsSearcher;
 
     /**
+     * @param TagsRepositoryInterface $tagsRepository
      * @param TagsSearcherInterface $tagsSearcher
      */
     public function __construct(
+        TagsRepositoryInterface $tagsRepository,
         TagsSearcherInterface $tagsSearcher
     ) {
+        $this->tagsRepository = $tagsRepository;
         $this->tagsSearcher = $tagsSearcher;
     }
 
@@ -34,6 +45,16 @@ class TagsQuerier
     public function query(TagsQueryInterface $query): Collection
     {
         switch (true) {
+            case $query instanceof GetAllTagsQuery:
+                return $this->tagsRepository->getAll();
+
+            case $query instanceof GetTagByIdQuery:
+                return collect_one(
+                    $this->tagsRepository->getById(
+                        $query->getId()
+                    )
+                );
+
             case $query instanceof SearchTagsQuery:
                 return $query->applyTo($this->tagsSearcher)->get();
 

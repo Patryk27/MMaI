@@ -5,6 +5,9 @@ namespace Tests\Unit\Pages;
 use App\Core\Exceptions\Exception as AppException;
 use App\Pages\Models\Page;
 use App\Pages\Models\PageVariant;
+use App\Tags\Models\Tag;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
+use Illuminate\Support\Collection;
 
 class UpdateTest extends TestCase
 {
@@ -26,6 +29,14 @@ class UpdateTest extends TestCase
     {
         parent::setUp();
 
+        /**
+         * @var Collection|Tag[] $tags
+         */
+        $tags = $this->tagsRepository
+            ->getAll()
+            ->where('language_id', 100)
+            ->values();
+
         // Create an example page variant
         $this->pageVariant = new PageVariant([
             'language_id' => 100,
@@ -33,6 +44,12 @@ class UpdateTest extends TestCase
             'title' => 'some title',
             'lead' => 'some lead',
             'content' => 'some content',
+        ]);
+
+        $this->pageVariant->setRelations([
+            'tags' => new EloquentCollection([
+                $tags[0],
+            ]),
         ]);
 
         // Create an example page and bind that page variant to it
@@ -341,6 +358,66 @@ class UpdateTest extends TestCase
                 ]
             ],
         ]);
+    }
+
+    /**
+     * This test makes sure that the update() method correctly adds new tags
+     * to an already existing page variant.
+     *
+     * @return void
+     *
+     * @throws AppException
+     */
+    public function testAddsTags(): void
+    {
+        /**
+         * @var Collection|Tag[] $tags
+         */
+        $tags = $this->tagsRepository
+            ->getAll()
+            ->where('language_id', 100)
+            ->values();
+
+        $this->pagesFacade->update($this->page, [
+            'pageVariants' => [
+                [
+                    'id' => $this->pageVariant->id,
+
+                    'tag_ids' => [
+                        $tags[0]->id,
+                        $tags[1]->id,
+                    ],
+                ],
+            ],
+        ]);
+
+        // Execute the assertions
+        $this->assertCount(2, $this->pageVariant->tags);
+        $this->assertEquals($tags[0]->id, $this->pageVariant->tags[0]->id);
+        $this->assertEquals($tags[0]->id, $this->pageVariant->tags[0]->id);
+    }
+
+    /**
+     * This test makes sure that the update() method correctly removes existing
+     * tags from an already existing page variant.
+     *
+     * @return void
+     *
+     * @throws AppException
+     */
+    public function testRemovesTags(): void
+    {
+        $this->pagesFacade->update($this->page, [
+            'pageVariants' => [
+                [
+                    'id' => $this->pageVariant->id,
+                    'tag_ids' => [],
+                ],
+            ],
+        ]);
+
+        // Execute the assertions
+        $this->assertCount(0, $this->pageVariant->tags);
     }
 
 }

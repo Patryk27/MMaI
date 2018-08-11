@@ -33,7 +33,7 @@ final class TagsFacade
      */
     public function create(array $tagData): Tag
     {
-
+        unimplemented();
     }
 
     /**

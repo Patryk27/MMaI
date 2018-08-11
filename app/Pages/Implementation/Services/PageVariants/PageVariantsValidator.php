@@ -32,9 +32,36 @@ class PageVariantsValidator
             }
         }
 
+        $this->validateRoute($pageVariant);
+        $this->validateTags($pageVariant);
+    }
+
+    /**
+     * @param PageVariant $pageVariant
+     * @return void
+     *
+     * @throws AppException
+     */
+    private function validateRoute(PageVariant $pageVariant): void
+    {
         if (isset($pageVariant->route)) {
             if (starts_with($pageVariant->route->url, 'backend/')) {
                 throw new AppException('It is not possible to create route in the [backend] namespace.');
+            }
+        }
+    }
+
+    /**
+     * @param PageVariant $pageVariant
+     * @return void
+     *
+     * @throws AppException
+     */
+    private function validateTags(PageVariant $pageVariant): void
+    {
+        foreach ($pageVariant->tags as $tag) {
+            if ($tag->language_id !== $pageVariant->language_id) {
+                throw new AppException('Page variant cannot contain tags from other language.');
             }
         }
     }

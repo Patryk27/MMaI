@@ -28,16 +28,20 @@ export default class PageVariantComponent {
                 container.find('[name="language_id"]'),
             ),
 
-            status: new InputComponent(
-                container.find('[name="status"]'),
-            ),
-
             route: new InputComponent(
                 container.find('[name="route"]'),
             ),
 
             title: new InputComponent(
                 container.find('[name="title"]'),
+            ),
+
+            tagIds: new InputComponent(
+                container.find('[name="tag_ids"]'),
+            ),
+
+            status: new InputComponent(
+                container.find('[name="status"]'),
             ),
 
             lead: new InputComponent(
@@ -102,9 +106,10 @@ export default class PageVariantComponent {
         return {
             id: $form.id.getValue(),
             language_id: $form.languageId.getValue(),
-            status: $form.status.getValue(),
             route: $form.route.getValue(),
             title: $form.title.getValue(),
+            tag_ids: $form.tagIds.getValue(),
+            status: $form.status.getValue(),
             lead: $form.lead.getValue(),
             content: $form.content.getValue(),
         };

@@ -4,6 +4,8 @@ namespace App\App\ViewComposers\Backend\Pages\Pages\CreateEdit;
 
 use App\Languages\LanguagesFacade;
 use App\Languages\Queries\GetAllLanguagesQuery;
+use App\Tags\Queries\GetAllTagsQuery;
+use App\Tags\TagsFacade;
 use Illuminate\Contracts\View\View as ViewContract;
 
 class FormComposer
@@ -15,12 +17,20 @@ class FormComposer
     private $languagesFacade;
 
     /**
+     * @var TagsFacade
+     */
+    private $tagsFacade;
+
+    /**
      * @param LanguagesFacade $languagesFacade
+     * @param TagsFacade $tagsFacade
      */
     public function __construct(
-        LanguagesFacade $languagesFacade
+        LanguagesFacade $languagesFacade,
+        TagsFacade $tagsFacade
     ) {
         $this->languagesFacade = $languagesFacade;
+        $this->tagsFacade = $tagsFacade;
     }
 
     /**
@@ -33,6 +43,10 @@ class FormComposer
             'languages' => $this->languagesFacade->queryMany(
                 new GetAllLanguagesQuery()
             ),
+
+            'tags' => $this->tagsFacade->queryMany(
+                new GetAllTagsQuery()
+            )
         ]);
     }
 

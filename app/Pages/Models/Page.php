@@ -79,7 +79,7 @@ class Page extends Model
      * @param int $languageId
      * @return PageVariant|null
      */
-    public function getPageVariantForLanguage(int $languageId): ?PageVariant
+    public function getVariantForLanguage(int $languageId): ?PageVariant
     {
         return $this->pageVariants
             ->where('language_id', $languageId)

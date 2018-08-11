@@ -4,6 +4,7 @@ import $ from 'jquery';
 import 'bootstrap';
 import 'datatables.net';
 import 'datatables.net-bs4/js/dataTables.bootstrap4';
+import 'select2';
 
 import DataTableComponent from './base/components/DataTableComponent';
 import Dispatcher from './base/Dispatcher';
@@ -23,5 +24,9 @@ $(() => {
 
         const dataTable = new DataTableComponent(config);
         dataTable.refresh();
+    });
+
+    $('.select2').each(function () {
+        $(this).select2();
     });
 });

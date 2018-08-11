@@ -11,6 +11,7 @@ use App\Pages\Implementation\Services\PageVariants\PageVariantsRenderer;
 use App\Pages\Implementation\Services\PageVariants\PageVariantsSearcherInterface;
 use App\Pages\Implementation\Services\PageVariants\PageVariantsUpdater;
 use App\Pages\Implementation\Services\PageVariants\PageVariantsValidator;
+use App\Tags\TagsFacade;
 
 final class PagesFactory
 {
@@ -20,17 +21,19 @@ final class PagesFactory
      *
      * @param PagesRepositoryInterface $pagesRepository
      * @param PageVariantsSearcherInterface $pageVariantsSearcher
+     * @param TagsFacade $tagsFacade
      * @return PagesFacade
      */
     public static function build(
         PagesRepositoryInterface $pagesRepository,
-        PageVariantsSearcherInterface $pageVariantsSearcher
+        PageVariantsSearcherInterface $pageVariantsSearcher,
+        TagsFacade $tagsFacade
     ): PagesFacade {
         $pageVariantsValidator = new PageVariantsValidator();
         $pageVariantsRenderer = new PageVariantsRenderer();
 
-        $pageVariantsCreator = new PageVariantsCreator($pageVariantsValidator);
-        $pageVariantsUpdater = new PageVariantsUpdater($pageVariantsValidator);
+        $pageVariantsCreator = new PageVariantsCreator($pageVariantsValidator, $tagsFacade);
+        $pageVariantsUpdater = new PageVariantsUpdater($pageVariantsValidator, $tagsFacade);
         $pagesQuerier = new PageVariantsQuerier($pageVariantsSearcher);
 
         $pagesCreator = new PagesCreator($pagesRepository, $pageVariantsCreator);

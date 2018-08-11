@@ -6,6 +6,9 @@ use App\Core\Exceptions\Exception as AppException;
 use App\Pages\Models\Page;
 use App\Pages\Models\PageVariant;
 use App\Routes\Models\Route;
+use App\Tags\Exceptions\TagNotFoundException;
+use App\Tags\Queries\GetTagByIdQuery;
+use App\Tags\TagsFacade;
 
 class PageVariantsCreator
 {
@@ -16,12 +19,20 @@ class PageVariantsCreator
     private $pageVariantsValidator;
 
     /**
+     * @var TagsFacade
+     */
+    private $tagsFacade;
+
+    /**
      * @param PageVariantsValidator $pageVariantsValidator
+     * @param TagsFacade $tagsFacade
      */
     public function __construct(
-        PageVariantsValidator $pageVariantsValidator
+        PageVariantsValidator $pageVariantsValidator,
+        TagsFacade $tagsFacade
     ) {
         $this->pageVariantsValidator = $pageVariantsValidator;
+        $this->tagsFacade = $tagsFacade;
     }
 
     /**
@@ -34,9 +45,10 @@ class PageVariantsCreator
     public function create(Page $page, array $pageVariantData): PageVariant
     {
         $pageVariant = $this->createPageVariant($page, $pageVariantData);
-        $this->createRoute($pageVariant, $pageVariantData);
 
-        $this->pageVariantsValidator->validate($pageVariant);
+        $this->createRoute($pageVariant, array_get($pageVariantData, 'route', ''));
+        $this->createTags($pageVariant, array_get($pageVariantData, 'tag_ids', []));
+        $this->validate($pageVariant);
 
         return $pageVariant;
     }
@@ -54,14 +66,14 @@ class PageVariantsCreator
         // Associate it with a page;
         // We cannot simply do `$pageVariant->page()->associate($page)`, because
         // the `$page` may not exist yet.
-        $pageVariant->setRelations([
-            'page' => $page,
-        ]);
+        $pageVariant->setRelation('page', $page);
 
         // Fill page with data from the request
         $pageVariant->fill(
             array_only($pageVariantData, ['language_id', 'status', 'title', 'lead', 'content'])
         );
+
+        $pageVariant->language_id = isset($pageVariant->language_id) ? (int)$pageVariant->language_id : null;
 
         // Set-up default values
         if (strlen($pageVariant->status) === 0) {
@@ -73,20 +85,47 @@ class PageVariantsCreator
 
     /**
      * @param PageVariant $pageVariant
-     * @param array $pageVariantData
+     * @param string $routeUrl
      * @return void
      */
-    private function createRoute(PageVariant $pageVariant, array $pageVariantData): void
+    private function createRoute(PageVariant $pageVariant, string $routeUrl): void
     {
-        $url = array_get($pageVariantData, 'route');
-
-        if (strlen($url) > 0) {
+        if (strlen($routeUrl) > 0) {
             $route = new Route([
-                'url' => $url,
+                'url' => $routeUrl,
             ]);
 
             $pageVariant->setRelation('route', $route);
         }
+    }
+
+    /**
+     * @param PageVariant $pageVariant
+     * @param int[] $tagIds
+     * @return void
+     *
+     * @throws TagNotFoundException
+     * @throws AppException
+     */
+    private function createTags(PageVariant $pageVariant, array $tagIds): void
+    {
+        foreach ($tagIds as $tagId) {
+            $pageVariant->tags->push(
+                $this->tagsFacade->queryOne(
+                    new GetTagByIdQuery($tagId)
+                )
+            );
+        }
+    }
+
+    /**
+     * @param PageVariant $pageVariant
+     *
+     * @throws AppException
+     */
+    private function validate(PageVariant $pageVariant): void
+    {
+        $this->pageVariantsValidator->validate($pageVariant);
     }
 
 }

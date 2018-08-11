@@ -1,8 +1,9 @@
 @php
     /**
+     * @var \Illuminate\Support\Collection|\App\Tags\Models\Tag[] $tags
      * @var \App\Languages\Models\Language $language
      * @var \App\Pages\Models\Page $page
-     * @var \App\Pages\Models\PageVariant|null $pageVariant
+     * @var \App\Pages\Models\PageVariant $pageVariant
      */
 @endphp
 
@@ -10,7 +11,7 @@
     This page variant is disabled - select the <code>Enable</code> checkbox to enable it and start working.
 </div>
 
-@if(is_null($pageVariant))
+@if(!$pageVariant->exists)
     {{-- Enabled --}}
     <div class="form-check is-enabled-checkbox">
         {{ Form::checkbox('is_enabled', 1, null, [
@@ -28,17 +29,6 @@
 {{ Form::hidden('id') }}
 {{ Form::hidden('language_id', $language->id) }}
 
-{{-- Status --}}
-<div class="form-group required" data-field="status">
-    <label>
-        Status
-    </label>
-
-    {{ Form::select('status', __('base/models/page-variant.enums.status'), null, [
-        'class' => 'custom-select',
-    ]) }}
-</div>
-
 {{-- Route --}}
 <div class="form-group">
     <label>
@@ -48,7 +38,7 @@
     @php
         $route = '';
 
-        if (isset($pageVariant) && isset($pageVariant->route)) {
+        if (isset($pageVariant->route)) {
             $route = $pageVariant->route->url;
         }
     @endphp
@@ -68,6 +58,29 @@
     {{ Form::text('title', null, [
         'class' => 'form-control',
         'placeholder' => 'My Awesome Page',
+    ]) }}
+</div>
+
+{{-- Tags --}}
+<div class="form-group">
+    <label>
+        Tags
+    </label>
+
+    {{ Form::select('tag_ids', $tags, $pageVariant->tags->pluck('id'), [
+        'class' => 'custom-select select2',
+        'multiple' => 'multiple',
+    ]) }}
+</div>
+
+{{-- Status --}}
+<div class="form-group required" data-field="status">
+    <label>
+        Status
+    </label>
+
+    {{ Form::select('status', __('base/models/page-variant.enums.status'), null, [
+        'class' => 'custom-select',
     ]) }}
 </div>
 

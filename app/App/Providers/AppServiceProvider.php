@@ -18,13 +18,14 @@ class AppServiceProvider extends ServiceProvider
         \App\Menus\Implementation\Repositories\MenuItemsRepositoryInterface::class => \App\Menus\Implementation\Repositories\EloquentMenuItemsRepository::class,
 
         // Pages
-        \App\Pages\Implementation\Services\PageVariants\PageVariantsSearcherInterface::class => \App\Pages\Implementation\Services\PageVariants\Searcher\EloquentPageVariantsSearcher::class,
         \App\Pages\Implementation\Repositories\PagesRepositoryInterface::class => \App\Pages\Implementation\Repositories\EloquentPagesRepository::class,
+        \App\Pages\Implementation\Services\PageVariants\PageVariantsSearcherInterface::class => \App\Pages\Implementation\Services\PageVariants\Searcher\EloquentPageVariantsSearcher::class,
 
         // Routes
         \App\Routes\Implementation\Repositories\RoutesRepositoryInterface::class => \App\Routes\Implementation\Repositories\EloquentRoutesRepository::class,
 
         // Tags
+        \App\Tags\Implementation\Repositories\TagsRepositoryInterface::class => \App\Tags\Implementation\Repositories\EloquentTagsRepository::class,
         \App\Tags\Implementation\Services\TagsSearcherInterface::class => \App\Tags\Implementation\Services\Searcher\EloquentTagsSearcher::class,
     ];
 

@@ -1,5 +1,6 @@
 @php
     /**
+     * @var \Illuminate\Support\Collection|\App\Tags\Models\Tag[] $tags
      * @var \Illuminate\Support\Collection|\App\Languages\Models\Language[] $languages
      * @var \App\Pages\Models\Page $page
      */
@@ -8,9 +9,7 @@
 {{-- Section tabs --}}
 <ul id="page-section-tabs" class="nav nav-tabs" role="tablist">
     @foreach($languages as $language)
-        @include('backend.pages.pages.create-edit.form.page-variant.tab', [
-            'language' => $language,
-        ])
+        @include('backend.pages.pages.create-edit.form.page-variant.tab')
     @endforeach
 
     @include('backend.pages.pages.create-edit.form.media-library.tab')
@@ -20,8 +19,8 @@
 <div id="page-section-contents" class="tab-content">
     @foreach($languages as $language)
         @include('backend.pages.pages.create-edit.form.page-variant.content', [
-            'language' => $language,
-            'pageVariant' => $page->getPageVariantForLanguage($language->id),
+            'tags' => $tags->where('language_id', $language->id)->pluck('name', 'id'),
+            'pageVariant' => $page->getVariantForLanguage($language->id) ?? new \App\Pages\Models\PageVariant(),
         ])
     @endforeach
 

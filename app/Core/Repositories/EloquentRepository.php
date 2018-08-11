@@ -34,7 +34,8 @@ final class EloquentRepository
     /**
      * @return EloquentBuilder
      */
-    public function newQuery(): EloquentBuilder {
+    public function newQuery(): EloquentBuilder
+    {
         return $this->model->newQuery();
     }
 

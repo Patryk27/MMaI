@@ -7,10 +7,20 @@ use App\Pages\Implementation\Repositories\InMemoryPagesRepository;
 use App\Pages\Implementation\Services\PageVariants\Searcher\InMemoryPageVariantsSearcher;
 use App\Pages\PagesFacade;
 use App\Pages\PagesFactory;
+use App\Tags\Implementation\Repositories\InMemoryTagsRepository;
+use App\Tags\Implementation\Services\Searcher\InMemoryTagsSearcher;
+use App\Tags\Models\Tag;
+use App\Tags\TagsFacade;
+use App\Tags\TagsFactory;
 use Tests\Unit\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
+
+    /**
+     * @var InMemoryTagsRepository
+     */
+    protected $tagsRepository;
 
     /**
      * @var InMemoryPagesRepository
@@ -18,9 +28,9 @@ abstract class TestCase extends BaseTestCase
     protected $pagesRepository;
 
     /**
-     * @var InMemoryPageVariantsSearcher
+     * @var TagsFacade
      */
-    protected $pageVariantsSearcher;
+    protected $tagsFacade;
 
     /**
      * @var PagesFacade
@@ -34,13 +44,34 @@ abstract class TestCase extends BaseTestCase
     {
         parent::setUp();
 
+        $this->tagsRepository = new InMemoryTagsRepository(
+            new InMemoryRepository([
+                new Tag([
+                    'language_id' => 100,
+                    'name' => 'First tag',
+                ]),
+
+                new Tag([
+                    'language_id' => 100,
+                    'name' => 'Second tag',
+                ]),
+
+                new Tag([
+                    'language_id' => 200,
+                    'name' => 'Third tag',
+                ]),
+            ])
+        );
+
         $this->pagesRepository = new InMemoryPagesRepository(
             new InMemoryRepository()
         );
 
-        $this->pageVariantsSearcher = new InMemoryPageVariantsSearcher();
+        $tagsSearcher = new InMemoryTagsSearcher();
+        $pageVariantsSearcher = new InMemoryPageVariantsSearcher();
 
-        $this->pagesFacade = PagesFactory::build($this->pagesRepository, $this->pageVariantsSearcher);
+        $this->tagsFacade = TagsFactory::build($this->tagsRepository, $tagsSearcher);
+        $this->pagesFacade = PagesFactory::build($this->pagesRepository, $pageVariantsSearcher, $this->tagsFacade);
     }
 
 }

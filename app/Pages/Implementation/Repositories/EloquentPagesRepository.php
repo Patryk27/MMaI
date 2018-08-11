@@ -83,6 +83,7 @@ class EloquentPagesRepository implements PagesRepositoryInterface
         $pageVariant->saveOrFail();
 
         $this->persistRoute($pageVariant, isset($originalPageVariant) ? $originalPageVariant->route : null, $pageVariant->route);
+        $this->persistTags($pageVariant);
     }
 
     /**
@@ -113,6 +114,17 @@ class EloquentPagesRepository implements PagesRepositoryInterface
                 $this->routesFacade->reroute($oldRoute, $newRoute);
             }
         }
+    }
+
+    /**
+     * @param PageVariant $pageVariant
+     * @return void
+     */
+    private function persistTags(PageVariant $pageVariant): void
+    {
+        $pageVariant->tags()->sync(
+            $pageVariant->tags->pluck('id')
+        );
     }
 
 }
