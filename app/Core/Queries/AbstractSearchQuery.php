@@ -52,12 +52,16 @@ abstract class AbstractSearchQuery
     }
 
     /**
-     * Applies this query to given searcher service.
+     * Applies this query to given searcher service and returns it.
+     *
+     * Technically there is no reason to return the given $searcher
+     * instance, but it allows to do a nice-looking, pleasant method chaining:
+     *   $query->applyTo($searcher)->get();
      *
      * @param SearcherInterface $searcher
-     * @return void
+     * @return SearcherInterface
      */
-    public function applyTo(SearcherInterface $searcher): void
+    public function applyTo(SearcherInterface $searcher): SearcherInterface
     {
         $searcher->search($this->getSearch());
         $searcher->filter($this->getFilters());
@@ -72,6 +76,8 @@ abstract class AbstractSearchQuery
                 $this->getPagination()['perPage']
             );
         }
+
+        return $searcher;
     }
 
     /**

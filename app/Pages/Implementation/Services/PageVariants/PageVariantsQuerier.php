@@ -37,9 +37,7 @@ class PageVariantsQuerier
     {
         switch (true) {
             case $query instanceof SearchPageVariantsQuery:
-                $query->applyTo($this->pagesSearcher);
-
-                return $this->pagesSearcher->get();
+                return $query->applyTo($this->pagesSearcher)->get();
 
             default:
                 throw new LogicException(
@@ -60,9 +58,7 @@ class PageVariantsQuerier
     {
         switch (true) {
             case $query instanceof SearchPageVariantsQuery:
-                $query->applyTo($this->pagesSearcher);
-
-                return $this->pagesSearcher->getCount();
+                return $query->applyTo($this->pagesSearcher)->getCount();
 
             default:
                 return $this->query($query)->count();

@@ -35,9 +35,7 @@ class TagsQuerier
     {
         switch (true) {
             case $query instanceof SearchTagsQuery:
-                $query->applyTo($this->tagsSearcher);
-
-                return $this->tagsSearcher->get();
+                return $query->applyTo($this->tagsSearcher)->get();
 
             default:
                 throw new LogicException(
@@ -56,9 +54,7 @@ class TagsQuerier
     {
         switch (true) {
             case $query instanceof SearchTagsQuery:
-                $query->applyTo($this->tagsSearcher);
-
-                return $this->tagsSearcher->getCount();
+                return $query->applyTo($this->tagsSearcher)->getCount();
 
             default:
                 return $this->query($query)->count();
