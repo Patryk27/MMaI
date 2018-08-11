@@ -9,8 +9,8 @@ export default function () {
     // noinspection JSUnusedLocalSymbols
     const
         createTagModal = new CreateTagModalComponent('#create-tag-modal'),
-        searchResults = new SearchResultsComponent(bus, '#tags-loader', '#tags-table'),
-        searchForm = new SearchFormComponent(bus, '#tags-search-form');
+        searchForm = new SearchFormComponent(bus, '#tags-search-form'),
+        searchResults = new SearchResultsComponent(bus, '#tags-loader', '#tags-table');
 
     $('#create-tag-button').on('click', () => {
         createTagModal.show();

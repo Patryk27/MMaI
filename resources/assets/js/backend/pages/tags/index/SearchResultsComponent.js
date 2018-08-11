@@ -33,7 +33,7 @@ export default class SearchResultsComponent {
      * @param {object} form
      */
     refresh(form) {
-        this.$state.form = {
+        this.$state.filters = {
             language_id: form.languageId,
         };
 
