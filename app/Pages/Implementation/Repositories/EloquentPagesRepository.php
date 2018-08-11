@@ -2,6 +2,7 @@
 
 namespace App\Pages\Implementation\Repositories;
 
+use App\Core\Exceptions\Exception as AppException;
 use App\Core\Repositories\EloquentRepository;
 use App\Pages\Models\Page;
 use App\Pages\Models\PageVariant;
@@ -81,9 +82,7 @@ class EloquentPagesRepository implements PagesRepositoryInterface
         $pageVariant->page()->associate($page);
         $pageVariant->saveOrFail();
 
-        if (isset($originalPageVariant)) {
-            $this->persistRoute($pageVariant, $originalPageVariant->route, $pageVariant->route);
-        }
+        $this->persistRoute($pageVariant, isset($originalPageVariant) ? $originalPageVariant->route : null, $pageVariant->route);
     }
 
     /**
@@ -91,6 +90,8 @@ class EloquentPagesRepository implements PagesRepositoryInterface
      * @param Route|null $oldRoute
      * @param Route|null $newRoute
      * @return void
+     *
+     * @throws AppException
      */
     private function persistRoute(PageVariant $pageVariant, ?Route $oldRoute, ?Route $newRoute): void
     {
