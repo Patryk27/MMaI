@@ -82,6 +82,7 @@ class TagsController extends Controller
             'id' => 'backend.pages.tags.search.columns.id',
             'name' => 'backend.pages.tags.search.columns.name',
             'page-count' => 'backend.pages.tags.search.columns.page-count',
+            'created-at' => 'backend.pages.tags.search.columns.created-at',
             'actions' => 'backend.pages.tags.search.columns.actions',
         ]);
 

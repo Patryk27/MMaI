@@ -29,6 +29,10 @@
                 Number of pages / posts
             </th>
 
+            <th data-datatable-column='{"name": "created_at", "orderable": true}'>
+                Created at
+            </th>
+
             <th data-datatable-column='{"name": "actions"}'>
                 &nbsp;
             </th>

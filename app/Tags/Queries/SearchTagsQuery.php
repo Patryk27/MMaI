@@ -14,6 +14,7 @@ final class SearchTagsQuery extends AbstractSearchQuery implements TagsQueryInte
     public const
         FIELD_ID = 'id',
         FIELD_NAME = 'name',
+        FIELD_CREATED_AT = 'created_at',
 
         FIELD_LANGUAGE_ID = 'language_id',
 

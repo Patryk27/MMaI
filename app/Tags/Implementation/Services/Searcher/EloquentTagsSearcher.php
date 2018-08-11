@@ -15,6 +15,7 @@ class EloquentTagsSearcher extends AbstractEloquentSearcher implements TagsSearc
     private const FIELDS_MAP = [
         SearchTagsQuery::FIELD_ID => 'tags.id',
         SearchTagsQuery::FIELD_NAME => 'tags.name',
+        SearchTagsQuery::FIELD_CREATED_AT => 'tags.created_at',
 
         SearchTagsQuery::FIELD_LANGUAGE_ID => 'tags.language_id',
 
