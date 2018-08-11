@@ -6,7 +6,7 @@
      */
 @endphp
 
-<div class="alert alert-info is-enabled-alert">
+<div class="alert alert-info is-disabled-alert">
     This page variant is disabled - select the <code>Enable</code> checkbox to enable it and start working.
 </div>
 

@@ -1,4 +1,6 @@
 import SimpleMDE from 'simplemde';
+
+import CheckboxComponent from '../../../../../base/components/CheckboxComponent';
 import InputComponent from '../../../../../base/components/InputComponent';
 
 export default class PageVariantComponent {
@@ -10,14 +12,14 @@ export default class PageVariantComponent {
     constructor(bus, container) {
         this.$dom = {
             form: container.find('form'),
-
-            enabled: {
-                alert: container.find('.is-enabled-alert'),
-                checkbox: container.find('[name="is_enabled"]'),
-            },
+            isDisabledAlert: container.find('.is-disabled-alert'),
         };
 
         this.$form = {
+            isEnabled: new CheckboxComponent(
+                container.find('[name="is_enabled"]')
+            ),
+
             id: new InputComponent(
                 container.find('[name="id"]'),
             ),
@@ -54,14 +56,14 @@ export default class PageVariantComponent {
         });
 
         // When user clicks on the "is enabled" checkbox, refresh the section
-        this.$dom.enabled.checkbox.on('change', () => {
-            this.refresh();
+        this.$form.isEnabled.on('change', () => {
+            this.$refresh();
         });
 
         // When user changes a tab, we may need to refresh ourselves, since SimpleMDE after going from "hidden" into
         // "visible" tends to forget that it should re-render
         bus.on('tabs::changed', () => {
-            this.refresh();
+            this.$refresh();
         });
 
         // When form is being submitted, block the section
@@ -74,21 +76,21 @@ export default class PageVariantComponent {
             this.$block(false);
         });
 
-        this.refresh();
+        this.$refresh();
     }
 
     /**
      * @returns {boolean}
      */
     isEnabled() {
-        const $enabled = this.$dom.enabled.checkbox;
+        const isEnabled = this.$form.isEnabled;
 
         // The "is enabled" checkbox may not be present when we are updating the page variant
-        if ($enabled.length === 0) {
+        if (!isEnabled.exists()) {
             return true;
         }
 
-        return $enabled.is(':checked');
+        return isEnabled.isChecked();
     }
 
     /**
@@ -109,9 +111,11 @@ export default class PageVariantComponent {
     }
 
     /**
+     * @private
+     *
      * Refreshes the section, brings the focus back etc.
      */
-    refresh() {
+    $refresh() {
         this.$toggle(
             this.isEnabled(),
         );
@@ -125,22 +129,23 @@ export default class PageVariantComponent {
     /**
      * @private
      *
+     * Shows / hides the component.
+     *
      * @param {boolean} enabled
      */
     $toggle(enabled) {
-        this.$dom.enabled.alert.toggle(!enabled);
         this.$dom.form.toggle(enabled);
+        this.$dom.isDisabledAlert.toggle(!enabled);
     }
 
     /**
      * @private
      *
+     * Blocks / unblocks the component.
+     *
      * @param {boolean} blocked
      */
     $block(blocked) {
-        this.$dom.enabled.checkbox.attr('disabled', blocked);
-
-        // Block / unblock the form
         for (const [, component] of Object.entries(this.$form)) {
             if (blocked) {
                 component.block();
