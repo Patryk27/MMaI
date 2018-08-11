@@ -67,6 +67,7 @@ class PagesController extends Controller
             'route' => 'backend.pages.pages.search.columns.route',
             'title' => 'backend.pages.pages.search.columns.title',
             'status' => 'backend.pages.pages.search.columns.status',
+            'created_at' => 'backend.pages.pages.search.columns.created-at',
             'actions' => 'backend.pages.pages.search.columns.actions',
         ]);
 

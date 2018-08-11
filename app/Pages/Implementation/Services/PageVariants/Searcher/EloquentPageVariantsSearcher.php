@@ -17,6 +17,7 @@ class EloquentPageVariantsSearcher extends AbstractEloquentSearcher implements P
         SearchPageVariantsQuery::FIELD_ID => 'page_variants.id',
         SearchPageVariantsQuery::FIELD_TITLE => 'page_variants.title',
         SearchPageVariantsQuery::FIELD_STATUS => 'page_variants.status',
+        SearchPageVariantsQuery::FIELD_CREATED_AT => 'page_variants.created_at',
 
         SearchPageVariantsQuery::FIELD_PAGE_ID => 'pages.id',
         SearchPageVariantsQuery::FIELD_PAGE_TYPE => 'pages.type',

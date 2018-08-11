@@ -15,6 +15,7 @@ final class SearchPageVariantsQuery extends AbstractSearchQuery implements PageV
         FIELD_ID = 'id',
         FIELD_TITLE = 'title',
         FIELD_STATUS = 'status',
+        FIELD_CREATED_AT = 'created_at',
 
         FIELD_PAGE_ID = 'page_id',
         FIELD_PAGE_TYPE = 'page_type',
