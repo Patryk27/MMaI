@@ -7,8 +7,9 @@ use Illuminate\Support\Collection;
 /**
  * This class provides a base for an in-memory-based searcher service.
  *
- * Since we have no unit tests covering in-memory searchers, this is basically
- * a dummy service doing nothing.
+ * Since we do not do unit tests covering searches, this is basically a dummy
+ * service doin' nottin', throwin' exceptions every time any of its methods is
+ * called.
  */
 abstract class AbstractInMemorySearcher implements SearcherInterface
 {
