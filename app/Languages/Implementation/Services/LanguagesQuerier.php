@@ -39,14 +39,14 @@ class LanguagesQuerier
                 return $this->languagesRepository->getAll();
 
             case $query instanceof GetLanguageByIdQuery:
-                return $this->createCollectionForNullable(
+                return collect_one(
                     $this->languagesRepository->getById(
                         $query->getId()
                     )
                 );
 
             case $query instanceof GetLanguageBySlugQuery:
-                return $this->createCollectionForNullable(
+                return collect_one(
                     $this->languagesRepository->getBySlug(
                         $query->getSlug()
                     )
@@ -57,21 +57,6 @@ class LanguagesQuerier
                     sprintf('Cannot handle query of class [%s].', get_class($query))
                 );
         }
-    }
-
-    /**
-     * @param Language|null $language
-     * @return Collection
-     */
-    private function createCollectionForNullable(?Language $language): Collection
-    {
-        $collection = new Collection();
-
-        if (isset($language)) {
-            $collection->push($language);
-        }
-
-        return $collection;
     }
 
 }

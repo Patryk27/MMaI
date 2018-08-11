@@ -34,7 +34,7 @@ class RoutesQuerier
     {
         switch (true) {
             case $query instanceof GetRouteByUrlQuery:
-                return $this->createCollectionForNullable(
+                return collect_one(
                     $this->routesRepository->getByUrl(
                         $query->getUrl()
                     )
@@ -45,21 +45,6 @@ class RoutesQuerier
                     sprintf('Cannot handle query of class [%s].', get_class($query))
                 );
         }
-    }
-
-    /**
-     * @param Route|null $route
-     * @return Collection
-     */
-    private function createCollectionForNullable(?Route $route): Collection
-    {
-        $collection = new Collection();
-
-        if (isset($route)) {
-            $collection->push($route);
-        }
-
-        return $collection;
     }
 
 }
