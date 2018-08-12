@@ -20,8 +20,15 @@ class CreatePageVariantTagTable extends Migration
 
             // -- foreign keys -- //
 
-            $table->foreign('page_variant_id')->references('id')->on('page_variants');
-            $table->foreign('tag_id')->references('id')->on('tags');
+            $table->foreign('page_variant_id')
+                ->references('id')
+                ->on('page_variants')
+                ->onDelete('cascade');
+
+            $table->foreign('tag_id')
+                ->references('id')
+                ->on('tags')
+                ->onDelete('cascade');
 
             // -- indexes -- //
 
