@@ -5,6 +5,7 @@ namespace App\Tags\Implementation\Repositories;
 use App\Core\Repositories\EloquentRepository;
 use App\Tags\Models\Tag;
 use Illuminate\Support\Collection;
+use Throwable;
 
 class EloquentTagsRepository implements TagsRepositoryInterface
 {
@@ -34,9 +35,34 @@ class EloquentTagsRepository implements TagsRepositoryInterface
     /**
      * @inheritDoc
      */
+    public function getByLanguageIdAndName(int $languageId, string $name): ?Tag
+    {
+        $stmt = $this->repository->newQuery();
+        $stmt
+            ->where('language_id', $languageId)
+            ->where('name', $name);
+
+        return $stmt->first();
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function getAll(): Collection
     {
-        return $this->repository->getAll()->sortBy('name');
+        return $this->repository
+            ->getAll()
+            ->sortBy('name');
+    }
+
+    /**
+     * @inheritDoc
+     *
+     * @throws Throwable
+     */
+    public function persist(Tag $tag): void
+    {
+        $this->repository->persist($tag);
     }
 
 }

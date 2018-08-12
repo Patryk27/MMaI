@@ -2,7 +2,9 @@
 
 namespace App\Tags;
 
+use App\Core\Exceptions\Exception as AppException;
 use App\Tags\Exceptions\TagNotFoundException;
+use App\Tags\Implementation\Services\TagsCreator;
 use App\Tags\Implementation\Services\TagsQuerier;
 use App\Tags\Models\Tag;
 use App\Tags\Queries\TagsQueryInterface;
@@ -12,28 +14,40 @@ final class TagsFacade
 {
 
     /**
+     * @var TagsCreator
+     */
+    private $tagsCreator;
+
+    /**
      * @var TagsQuerier
      */
     private $tagsQuerier;
 
     /**
+     * @param TagsCreator $tagsCreator
      * @param TagsQuerier $tagsQuerier
      */
     public function __construct(
+        TagsCreator $tagsCreator,
         TagsQuerier $tagsQuerier
     ) {
+        $this->tagsCreator = $tagsCreator;
         $this->tagsQuerier = $tagsQuerier;
     }
 
     /**
      * Creates a new brand-new tag from given data.
      *
+     * @see \App\App\Http\Requests\Backend\Tags\UpsertRequest
+     *
      * @param array $tagData
      * @return Tag
+     *
+     * @throws AppException
      */
     public function create(array $tagData): Tag
     {
-        unimplemented();
+        return $this->tagsCreator->create($tagData);
     }
 
     /**

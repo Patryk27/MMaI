@@ -15,19 +15,14 @@ export default class SearchFormComponent {
         };
 
         this.$dom.form.on('change', 'select', () => {
-            this.$submit();
+            this.submit();
         });
-
-        // In the next tick we're firing the "submit" event, so that the DataTable can refresh itself.
-        setTimeout(() => {
-            this.$submit();
-        }, 0);
     }
 
     /**
-     * @private
+     * Force-submits the form.
      */
-    $submit() {
+    submit() {
         this.$bus.emit('search-form::submit', {
             languageId: this.$dom.languageId.val(),
         });

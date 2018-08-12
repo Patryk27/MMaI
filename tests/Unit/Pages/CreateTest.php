@@ -148,29 +148,29 @@ class CreateTest extends TestCase
      *
      * @throws AppException
      */
-     public function testForbidsAddTagsFromOtherLanguages(): void
-     {
-         $this->expectExceptionMessage('Page variant cannot contain tags from other language.');
+    public function testForbidsAddTagsFromOtherLanguages(): void
+    {
+        $this->expectExceptionMessage('Page variant cannot contain tags from other language.');
 
-         /**
-          * @var Collection|Tag[] $tags
-          */
-         $tags = $this->tagsRepository
-             ->getAll()
-             ->where('language_id', 200)
-             ->values();
+        /**
+         * @var Collection|Tag[] $tags
+         */
+        $tags = $this->tagsRepository
+            ->getAll()
+            ->where('language_id', 200)
+            ->values();
 
-         $this->pagesFacade->create([
-             'pageVariants' => [
-                 [
-                     'language_id' => 100,
+        $this->pagesFacade->create([
+            'pageVariants' => [
+                [
+                    'language_id' => 100,
 
-                     'tag_ids' => [
-                         $tags[0]->id,
-                     ],
-                 ],
-             ],
-         ]);
-     }
+                    'tag_ids' => [
+                        $tags[0]->id,
+                    ],
+                ],
+            ],
+        ]);
+    }
 
 }

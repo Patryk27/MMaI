@@ -17,7 +17,7 @@ export default class TagsFacade {
      * @returns {Promise<number>}
      */
     static async create(tagData) {
-        return await Requester.execute('post', '/backend/tags', {tagData});
+        return await Requester.execute('post', '/backend/tags', tagData);
     }
 
 }

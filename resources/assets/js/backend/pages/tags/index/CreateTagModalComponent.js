@@ -10,9 +10,12 @@ import TagsFacade from '../../../../base/api/TagsFacade';
 export default class CreateTagModalComponent {
 
     /**
+     * @param {Bus} bus
      * @param {string} selector
      */
-    constructor(selector) {
+    constructor(bus, selector) {
+        this.$bus = bus;
+
         const $modal = $(selector);
 
         this.$dom = {
@@ -70,10 +73,17 @@ export default class CreateTagModalComponent {
     }
 
     /**
-     * Opens the "create tag" modal.
+     * Opens the modal.
      */
-    show() {
+    open() {
         this.$dom.modal.modal();
+    }
+
+    /**
+     * Closes the modal.
+     */
+    close() {
+        this.$dom.modal.modal('hide');
     }
 
     /**
@@ -114,15 +124,23 @@ export default class CreateTagModalComponent {
         const $form = this.$form;
 
         try {
-            // Clear form's errors
             for (const [, component] of Object.entries($form)) {
                 component.removeFeedback();
             }
 
-            // Do the request
             await TagsFacade.create({
                 name: $form.name.getValue(),
                 language_id: $form.languageId.getValue(),
+            });
+
+            this.$bus.emit('tag::created');
+
+            swal({
+                title: 'Success',
+                text: 'Tag has been created.',
+                icon: 'success',
+            }).then(() => {
+                this.close();
             });
         } catch (error) {
             if (error.type === 'invalid-input') {

@@ -4,6 +4,7 @@ namespace App\App\Http\Controllers\Backend;
 
 use App\App\Http\Controllers\Controller;
 use App\App\Http\Requests\Backend\Tags\UpsertRequest as TagUpsertRequest;
+use App\Core\Exceptions\Exception as AppException;
 use App\Core\Services\Collection\Renderer as CollectionRenderer;
 use App\Core\Services\DataTables\Handler as DataTablesHandler;
 use App\Languages\LanguagesFacade;
@@ -103,8 +104,18 @@ class TagsController extends Controller
         return $this->dataTablesHandler->handle($request);
     }
 
+    /**
+     * @param TagUpsertRequest $request
+     * @return array
+     *
+     * @throws AppException
+     */
     public function store(TagUpsertRequest $request)
     {
+        $this->tagsFacade->create(
+            $request->all()
+        );
+
         return [];
     }
 
