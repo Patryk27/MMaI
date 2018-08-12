@@ -24,10 +24,6 @@ class TagsCreator
     }
 
     /**
-     * Creates a new brand-new tag from given data.
-     *
-     * @see \App\App\Http\Requests\Backend\Tags\UpsertRequest
-     *
      * @param array $tagData
      * @return Tag
      *
