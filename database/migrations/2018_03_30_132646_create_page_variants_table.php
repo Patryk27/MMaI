@@ -25,8 +25,13 @@ class CreatePageVariantsTable extends Migration
 
             // -- foreign keys -- //
 
-            $table->foreign('page_id')->references('id')->on('pages');
-            $table->foreign('language_id')->references('id')->on('languages');
+            $table->foreign('page_id')
+                ->references('id')
+                ->on('pages');
+
+            $table->foreign('language_id')
+                ->references('id')
+                ->on('languages');
 
             // -- indexes -- //
 

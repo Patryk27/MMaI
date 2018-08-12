@@ -20,7 +20,9 @@ class CreateTagsTable extends Migration
 
             // -- foreign keys -- //
 
-            $table->foreign('language_id')->references('id')->on('languages');
+            $table->foreign('language_id')
+                ->references('id')
+                ->on('languages');
 
             // -- indexes -- //
 
