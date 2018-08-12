@@ -40,12 +40,12 @@
             </div>
 
             <div class="modal-footer">
-                <button type="submit" class="btn btn-primary btn-submit">
-                    Create tag
-                </button>
-
                 <button type="button" class="btn btn-secondary btn-close" data-dismiss="modal">
                     Close
+                </button>
+
+                <button type="submit" class="btn btn-primary btn-submit">
+                    Create tag
                 </button>
             </div>
         </form>
