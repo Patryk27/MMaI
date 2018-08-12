@@ -2,9 +2,7 @@
 
 namespace App\Menus\Exceptions;
 
-use App\Core\Exceptions\Exception;
-
-class MenuItemNotFoundException extends Exception
+class MenuItemNotFoundException extends MenuException
 {
 
     public function __construct()

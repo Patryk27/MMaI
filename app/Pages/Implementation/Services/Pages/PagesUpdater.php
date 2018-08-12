@@ -2,12 +2,13 @@
 
 namespace App\Pages\Implementation\Services\Pages;
 
-use App\Core\Exceptions\Exception as AppException;
+use App\Pages\Exceptions\PageException;
 use App\Pages\Implementation\Repositories\PagesRepositoryInterface;
 use App\Pages\Implementation\Services\PageVariants\PageVariantsCreator;
 use App\Pages\Implementation\Services\PageVariants\PageVariantsUpdater;
 use App\Pages\Models\Page;
 use App\Pages\Models\PageVariant;
+use App\Tags\Exceptions\TagException;
 
 class PagesUpdater
 {
@@ -47,7 +48,8 @@ class PagesUpdater
      * @param array $pageData
      * @return void
      *
-     * @throws AppException
+     * @throws PageException
+     * @throws TagException
      */
     public function update(Page $page, array $pageData): void
     {
@@ -63,7 +65,8 @@ class PagesUpdater
      * @param array $pageVariantData
      * @return void
      *
-     * @throws AppException
+     * @throws PageException
+     * @throws TagException
      */
     private function updatePageVariant(Page $page, array $pageVariantData): void
     {
@@ -74,7 +77,7 @@ class PagesUpdater
             $pageVariant = $page->pageVariants->firstWhere('id', $pageVariantData['id']);
 
             if (is_null($pageVariant)) {
-                throw new AppException(
+                throw new PageException(
                     sprintf('Page variant [id=%d] was not found inside page [id=%d].', $pageVariantData['id'], $page->id)
                 );
             }

@@ -3,9 +3,11 @@
 namespace App\Core\Services\Language;
 
 use App\Core\Exceptions\Exception as AppException;
+use App\Languages\Exceptions\LanguageException;
 use App\Languages\LanguagesFacade;
 use App\Languages\Models\Language;
 use App\Languages\Queries\GetLanguageBySlugQuery;
+use App\Routes\Exceptions\RouteException;
 use App\Routes\Models\Route;
 use App\Routes\Queries\GetRouteByUrlQuery;
 use App\Routes\RoutesFacade;
@@ -46,6 +48,9 @@ class Detector
 
     /**
      * @inheritdoc
+     *
+     * @throws RouteException
+     * @throws LanguageException
      */
     public function getLanguage(): ?Language
     {
@@ -88,6 +93,8 @@ class Detector
      *
      * @param string $url
      * @return Language|null
+     *
+     * @throws RouteException
      */
     private function detectByRoute(string $url): ?Language
     {
@@ -121,6 +128,8 @@ class Detector
      *
      * @param string $url
      * @return Language|null
+     *
+     * @throws LanguageException
      */
     private function detectByUrl(string $url): ?Language
     {

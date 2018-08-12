@@ -2,10 +2,10 @@
 
 namespace App\Pages\Implementation\Services\PageVariants;
 
-use App\Core\Exceptions\Exception as AppException;
+use App\Pages\Exceptions\PageException;
 use App\Pages\Models\PageVariant;
 use App\Routes\Models\Route;
-use App\Tags\Exceptions\TagNotFoundException;
+use App\Tags\Exceptions\TagException;
 use App\Tags\Queries\GetTagByIdQuery;
 use App\Tags\TagsFacade;
 use Carbon\Carbon;
@@ -40,7 +40,8 @@ class PageVariantsUpdater
      * @param array $pageVariantData
      * @return void
      *
-     * @throws AppException
+     * @throws PageException
+     * @throws TagException
      */
     public function update(PageVariant $pageVariant, array $pageVariantData): void
     {
@@ -116,8 +117,7 @@ class PageVariantsUpdater
      * @param int[] $tagIds
      * @return void
      *
-     * @throws TagNotFoundException
-     * @throws AppException
+     * @throws TagException
      */
     private function updateTags(PageVariant $pageVariant, array $tagIds): void
     {

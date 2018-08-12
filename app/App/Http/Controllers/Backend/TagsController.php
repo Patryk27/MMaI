@@ -7,6 +7,7 @@ use App\App\Http\Requests\Backend\Tags\UpsertRequest as TagUpsertRequest;
 use App\Core\Exceptions\Exception as AppException;
 use App\Core\Services\Collection\Renderer as CollectionRenderer;
 use App\Core\Services\DataTables\Handler as DataTablesHandler;
+use App\Languages\Exceptions\LanguageException;
 use App\Languages\LanguagesFacade;
 use App\Languages\Queries\GetAllLanguagesQuery;
 use App\Tags\Queries\SearchTagsQuery;
@@ -58,6 +59,8 @@ class TagsController extends Controller
 
     /**
      * @return ViewContract
+     *
+     * @throws LanguageException
      */
     public function index(): ViewContract
     {

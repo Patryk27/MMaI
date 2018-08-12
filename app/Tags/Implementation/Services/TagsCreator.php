@@ -2,7 +2,7 @@
 
 namespace App\Tags\Implementation\Services;
 
-use App\Core\Exceptions\Exception as AppException;
+use App\Tags\Exceptions\TagException;
 use App\Tags\Implementation\Repositories\TagsRepositoryInterface;
 use App\Tags\Models\Tag;
 
@@ -31,7 +31,7 @@ class TagsCreator
      * @param array $tagData
      * @return Tag
      *
-     * @throws AppException
+     * @throws TagException
      */
     public function create(array $tagData): Tag
     {
@@ -49,14 +49,14 @@ class TagsCreator
      * @param Tag $tag
      * @return void
      *
-     * @throws AppException
+     * @throws TagException
      */
     private function assertIsUnique(Tag $tag): void
     {
         $duplicatedTag = $this->tagsRepository->getByLanguageIdAndName($tag->language_id, $tag->name);
 
         if (isset($duplicatedTag)) {
-            throw new AppException('Tag with such name already exists.');
+            throw new TagException('Tag with such name already exists.');
         }
     }
 

@@ -2,7 +2,7 @@
 
 namespace App\Routes;
 
-use App\Core\Exceptions\Exception as AppException;
+use App\Routes\Exceptions\RouteException;
 use App\Routes\Exceptions\RouteNotFoundException;
 use App\Routes\Implementation\Repositories\RoutesRepositoryInterface;
 use App\Routes\Implementation\Services\RoutesDeleter;
@@ -76,7 +76,7 @@ final class RoutesFacade
      * @param Route $newRoute
      * @return void
      *
-     * @throws AppException
+     * @throws RouteException
      */
     public function reroute(Route $oldRoute, Route $newRoute): void
     {
@@ -90,7 +90,7 @@ final class RoutesFacade
      * @param Route $route
      * @return void
      *
-     * @throws AppException
+     * @throws RouteException
      */
     public function persist(Route $route): void
     {
@@ -102,6 +102,7 @@ final class RoutesFacade
      * @param RoutesQueryInterface $query
      * @return Route
      *
+     * @throws RouteException
      * @throws RouteNotFoundException
      */
     public function queryOne(RoutesQueryInterface $query): Route
@@ -118,6 +119,8 @@ final class RoutesFacade
     /**
      * @param RoutesQueryInterface $query
      * @return Collection|Route[]
+     *
+     * @throws RouteException
      */
     public function queryMany(RoutesQueryInterface $query): Collection
     {

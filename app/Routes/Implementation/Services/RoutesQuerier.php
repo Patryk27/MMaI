@@ -2,12 +2,12 @@
 
 namespace App\Routes\Implementation\Services;
 
+use App\Routes\Exceptions\RouteException;
 use App\Routes\Implementation\Repositories\RoutesRepositoryInterface;
 use App\Routes\Models\Route;
 use App\Routes\Queries\GetRouteByUrlQuery;
 use App\Routes\Queries\RoutesQueryInterface;
 use Illuminate\Support\Collection;
-use LogicException;
 
 class RoutesQuerier
 {
@@ -29,6 +29,8 @@ class RoutesQuerier
     /**
      * @param RoutesQueryInterface $query
      * @return Collection|Route[]
+     *
+     * @throws RouteException
      */
     public function query(RoutesQueryInterface $query): Collection
     {
@@ -41,7 +43,7 @@ class RoutesQuerier
                 );
 
             default:
-                throw new LogicException(
+                throw new RouteException(
                     sprintf('Cannot handle query of class [%s].', get_class($query))
                 );
         }

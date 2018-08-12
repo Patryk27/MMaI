@@ -2,7 +2,7 @@
 
 namespace App\Tags;
 
-use App\Core\Exceptions\Exception as AppException;
+use App\Tags\Exceptions\TagException;
 use App\Tags\Exceptions\TagNotFoundException;
 use App\Tags\Implementation\Services\TagsCreator;
 use App\Tags\Implementation\Services\TagsQuerier;
@@ -43,7 +43,7 @@ final class TagsFacade
      * @param array $tagData
      * @return Tag
      *
-     * @throws AppException
+     * @throws TagException
      */
     public function create(array $tagData): Tag
     {
@@ -56,6 +56,7 @@ final class TagsFacade
      * @param TagsQueryInterface $query
      * @return Tag
      *
+     * @throws TagException
      * @throws TagNotFoundException
      */
     public function queryOne(TagsQueryInterface $query): Tag
@@ -74,6 +75,8 @@ final class TagsFacade
      *
      * @param TagsQueryInterface $query
      * @return Collection|Tag[]
+     *
+     * @throws TagException
      */
     public function queryMany(TagsQueryInterface $query): Collection
     {
@@ -85,6 +88,8 @@ final class TagsFacade
      *
      * @param TagsQueryInterface $query
      * @return int
+     *
+     * @throws TagException
      */
     public function queryCount(TagsQueryInterface $query): int
     {

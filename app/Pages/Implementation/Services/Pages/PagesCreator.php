@@ -2,10 +2,11 @@
 
 namespace App\Pages\Implementation\Services\Pages;
 
-use App\Core\Exceptions\Exception as AppException;
+use App\Pages\Exceptions\PageException;
 use App\Pages\Implementation\Repositories\PagesRepositoryInterface;
 use App\Pages\Implementation\Services\PageVariants\PageVariantsCreator;
 use App\Pages\Models\Page;
+use App\Tags\Exceptions\TagException;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 
 class PagesCreator
@@ -37,7 +38,8 @@ class PagesCreator
      * @param array $pageData
      * @return Page
      *
-     * @throws AppException
+     * @throws PageException
+     * @throws TagException
      */
     public function create(array $pageData): Page
     {

@@ -2,11 +2,11 @@
 
 namespace App\Pages\Implementation\Services\PageVariants;
 
+use App\Pages\Exceptions\PageException;
 use App\Pages\Models\PageVariant;
 use App\Pages\Queries\PageVariantsQueryInterface;
 use App\Pages\Queries\SearchPageVariantsQuery;
 use Illuminate\Support\Collection;
-use LogicException;
 
 class PageVariantsQuerier
 {
@@ -31,7 +31,7 @@ class PageVariantsQuerier
      * @param PageVariantsQueryInterface $query
      * @return Collection|PageVariant[]
      *
-     * @throws LogicException
+     * @throws PageException
      */
     public function query(PageVariantsQueryInterface $query): Collection
     {
@@ -40,7 +40,7 @@ class PageVariantsQuerier
                 return $query->applyTo($this->pagesSearcher)->get();
 
             default:
-                throw new LogicException(
+                throw new PageException(
                     sprintf('Cannot handle query of class [%s].', get_class($query))
                 );
         }
@@ -52,7 +52,7 @@ class PageVariantsQuerier
      * @param PageVariantsQueryInterface $query
      * @return int
      *
-     * @throws LogicException
+     * @throws PageException
      */
     public function queryCount(PageVariantsQueryInterface $query): int
     {

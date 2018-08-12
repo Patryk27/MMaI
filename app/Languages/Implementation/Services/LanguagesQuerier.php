@@ -2,6 +2,7 @@
 
 namespace App\Languages\Implementation\Services;
 
+use App\Languages\Exceptions\LanguageException;
 use App\Languages\Implementation\Repositories\LanguagesRepositoryInterface;
 use App\Languages\Models\Language;
 use App\Languages\Queries\GetAllLanguagesQuery;
@@ -9,7 +10,6 @@ use App\Languages\Queries\GetLanguageByIdQuery;
 use App\Languages\Queries\GetLanguageBySlugQuery;
 use App\Languages\Queries\LanguagesQueryInterface;
 use Illuminate\Support\Collection;
-use LogicException;
 
 class LanguagesQuerier
 {
@@ -31,6 +31,8 @@ class LanguagesQuerier
     /**
      * @param LanguagesQueryInterface $query
      * @return Collection|Language[]
+     *
+     * @throws LanguageException
      */
     public function query(LanguagesQueryInterface $query): Collection
     {
@@ -53,7 +55,7 @@ class LanguagesQuerier
                 );
 
             default:
-                throw new LogicException(
+                throw new LanguageException(
                     sprintf('Cannot handle query of class [%s].', get_class($query))
                 );
         }

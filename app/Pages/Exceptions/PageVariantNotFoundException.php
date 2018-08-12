@@ -2,9 +2,7 @@
 
 namespace App\Pages\Exceptions;
 
-use App\Core\Exceptions\Exception;
-
-class PageVariantNotFoundException extends Exception
+class PageVariantNotFoundException extends PageException
 {
 
     public function __construct()

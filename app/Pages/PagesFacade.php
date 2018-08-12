@@ -2,7 +2,7 @@
 
 namespace App\Pages;
 
-use App\Core\Exceptions\Exception as AppException;
+use App\Pages\Exceptions\PageException;
 use App\Pages\Exceptions\PageVariantNotFoundException;
 use App\Pages\Implementation\Services\Pages\PagesCreator;
 use App\Pages\Implementation\Services\Pages\PagesUpdater;
@@ -12,6 +12,7 @@ use App\Pages\Models\Page;
 use App\Pages\Models\PageVariant;
 use App\Pages\Queries\PageVariantsQueryInterface;
 use App\Pages\ValueObjects\RenderedPage;
+use App\Tags\Exceptions\TagException;
 use Exception;
 use Illuminate\Support\Collection;
 
@@ -64,7 +65,8 @@ final class PagesFacade
      * @param array $pageData
      * @return Page
      *
-     * @throws AppException
+     * @throws PageException
+     * @throws TagException
      */
     public function create(array $pageData): Page
     {
@@ -80,7 +82,8 @@ final class PagesFacade
      * @param array $pageData
      * @return void
      *
-     * @throws AppException
+     * @throws PageException
+     * @throws TagException
      */
     public function update(Page $page, array $pageData): void
     {
@@ -106,6 +109,7 @@ final class PagesFacade
      * @param PageVariantsQueryInterface $query
      * @return PageVariant
      *
+     * @throws PageException
      * @throws PageVariantNotFoundException
      */
     public function queryOne(PageVariantsQueryInterface $query): PageVariant
@@ -124,6 +128,8 @@ final class PagesFacade
      *
      * @param PageVariantsQueryInterface $query
      * @return Collection|PageVariant[]
+     *
+     * @throws PageException
      */
     public function queryMany(PageVariantsQueryInterface $query): Collection
     {
@@ -135,6 +141,8 @@ final class PagesFacade
      *
      * @param PageVariantsQueryInterface $query
      * @return int
+     *
+     * @throws PageException
      */
     public function queryCount(PageVariantsQueryInterface $query): int
     {

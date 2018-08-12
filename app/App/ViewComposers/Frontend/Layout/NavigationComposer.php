@@ -5,6 +5,7 @@ namespace App\App\ViewComposers\Frontend\Layout;
 use App\Core\Exceptions\Exception;
 use App\Core\Services\Language\Detector as LanguageDetector;
 use App\Languages\Models\Language;
+use App\Menus\Exceptions\MenuException;
 use App\Menus\MenusFacade;
 use App\Menus\Models\MenuItem;
 use App\Menus\Queries\GetMenuItemsByLanguageIdQuery;
@@ -64,6 +65,8 @@ class NavigationComposer
     /**
      * @param Language $currentLanguage
      * @return Collection|MenuItem[]
+     *
+     * @throws MenuException
      */
     private function getMenuItems(Language $currentLanguage): Collection
     {

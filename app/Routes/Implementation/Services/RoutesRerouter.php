@@ -2,9 +2,9 @@
 
 namespace App\Routes\Implementation\Services;
 
+use App\Routes\Exceptions\RouteException;
 use App\Routes\Implementation\Repositories\RoutesRepositoryInterface;
 use App\Routes\Models\Route;
-use LogicException;
 
 /**
  * @see \Tests\Unit\Routes\RerouteTest
@@ -31,12 +31,14 @@ class RoutesRerouter
      * @param Route $newRoute
      * @return void
      *
-     * @todo utilize transactions
+     * @throws RouteException
+     *
+     * @todo utilize transactions / move to repository
      */
     public function reroute(Route $oldRoute, Route $newRoute): void
     {
         if (!$oldRoute->exists || !$newRoute->exists) {
-            throw new LogicException('Cannot re-route non-existing routes.');
+            throw new RouteException('Cannot re-route non-existing routes.');
         }
 
         $oldRoute->setPointsAt($newRoute);

@@ -2,6 +2,7 @@
 
 namespace App\Menus;
 
+use App\Menus\Exceptions\MenuException;
 use App\Menus\Exceptions\MenuItemNotFoundException;
 use App\Menus\Implementation\Services\MenuItems\MenuItemsQuerier;
 use App\Menus\Models\MenuItem;
@@ -29,6 +30,7 @@ final class MenusFacade
      * @param MenuItemsQueryInterface $query
      * @return MenuItem
      *
+     * @throws MenuException
      * @throws MenuItemNotFoundException
      */
     public function queryOne(MenuItemsQueryInterface $query): MenuItem
@@ -45,6 +47,8 @@ final class MenusFacade
     /**
      * @param MenuItemsQueryInterface $query
      * @return Collection|MenuItem[]
+     *
+     * @throws MenuException
      */
     public function queryMany(MenuItemsQueryInterface $query): Collection
     {

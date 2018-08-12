@@ -2,9 +2,7 @@
 
 namespace App\Tags\Exceptions;
 
-use App\Core\Exceptions\Exception;
-
-class TagNotFoundException extends Exception
+class TagNotFoundException extends TagException
 {
 
     public function __construct()

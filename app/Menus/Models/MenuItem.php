@@ -2,8 +2,8 @@
 
 namespace App\Menus\Models;
 
-use App\Core\Exceptions\Exception;
 use App\Languages\Models\Language;
+use App\Menus\Exceptions\MenuException;
 use App\Routes\Models\Route;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -73,7 +73,7 @@ class MenuItem extends Model
      *
      * @return string
      *
-     * @throws Exception
+     * @throws MenuException
      */
     public function getTargetUrl(): string
     {
@@ -85,7 +85,7 @@ class MenuItem extends Model
             return $this->route->getTargetUrl();
         }
 
-        throw new Exception(
+        throw new MenuException(
             sprintf('Menu item [id=%d] has no valid target URL.', $this->id)
         );
     }

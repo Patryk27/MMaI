@@ -2,8 +2,10 @@
 
 namespace App\App\ViewComposers\Backend\Pages\Pages\CreateEdit;
 
+use App\Languages\Exceptions\LanguageException;
 use App\Languages\LanguagesFacade;
 use App\Languages\Queries\GetAllLanguagesQuery;
+use App\Tags\Exceptions\TagException;
 use App\Tags\Queries\GetAllTagsQuery;
 use App\Tags\TagsFacade;
 use Illuminate\Contracts\View\View as ViewContract;
@@ -36,6 +38,9 @@ class FormComposer
     /**
      * @param ViewContract $view
      * @return void
+     *
+     * @throws LanguageException
+     * @throws TagException
      */
     public function compose(ViewContract $view): void
     {

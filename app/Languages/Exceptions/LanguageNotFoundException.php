@@ -2,9 +2,7 @@
 
 namespace App\Languages\Exceptions;
 
-use App\Core\Exceptions\Exception;
-
-class LanguageNotFoundException extends Exception
+class LanguageNotFoundException extends LanguageException
 {
 
     public function __construct()

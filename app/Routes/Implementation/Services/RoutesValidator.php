@@ -2,7 +2,7 @@
 
 namespace App\Routes\Implementation\Services;
 
-use App\Core\Exceptions\Exception as AppException;
+use App\Routes\Exceptions\RouteException;
 use App\Routes\Models\Route;
 
 class RoutesValidator
@@ -12,16 +12,16 @@ class RoutesValidator
      * @param Route $route
      * @return void
      *
-     * @throws AppException
+     * @throws RouteException
      */
     public function validate(Route $route): void
     {
         if (starts_with($route->url, '/')) {
-            throw new AppException('Route must not start with [/].');
+            throw new RouteException('Route must not start with [/].');
         }
 
         if ($route->model_id === null || $route->model_type === null) {
-            throw new AppException('Route must point at a model.');
+            throw new RouteException('Route must point at a model.');
         }
     }
 

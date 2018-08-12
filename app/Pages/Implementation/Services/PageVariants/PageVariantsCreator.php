@@ -2,11 +2,11 @@
 
 namespace App\Pages\Implementation\Services\PageVariants;
 
-use App\Core\Exceptions\Exception as AppException;
+use App\Pages\Exceptions\PageException;
 use App\Pages\Models\Page;
 use App\Pages\Models\PageVariant;
 use App\Routes\Models\Route;
-use App\Tags\Exceptions\TagNotFoundException;
+use App\Tags\Exceptions\TagException;
 use App\Tags\Queries\GetTagByIdQuery;
 use App\Tags\TagsFacade;
 
@@ -40,7 +40,8 @@ class PageVariantsCreator
      * @param array $pageVariantData
      * @return PageVariant
      *
-     * @throws AppException
+     * @throws PageException
+     * @throws TagException
      */
     public function create(Page $page, array $pageVariantData): PageVariant
     {
@@ -104,8 +105,7 @@ class PageVariantsCreator
      * @param int[] $tagIds
      * @return void
      *
-     * @throws TagNotFoundException
-     * @throws AppException
+     * @throws TagException
      */
     private function createTags(PageVariant $pageVariant, array $tagIds): void
     {
@@ -121,7 +121,7 @@ class PageVariantsCreator
     /**
      * @param PageVariant $pageVariant
      *
-     * @throws AppException
+     * @throws PageException
      */
     private function validate(PageVariant $pageVariant): void
     {
