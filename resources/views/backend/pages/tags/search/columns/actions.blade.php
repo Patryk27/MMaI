@@ -11,14 +11,14 @@
     </a>
 
     <div class="dropdown-menu">
-        <a class="dropdown-item" href="#">
+        <button class="dropdown-item btn-tag-action" data-action="edit" data-tag="{{ $row }}">
             <i class="fa fa-edit"></i>&nbsp;
             Edit
-        </a>
+        </button>
 
-        <a class="dropdown-item" href="#">
-            <i class="fa fa-delicious"></i>&nbsp;
+        <button class="dropdown-item btn-tag-action" data-action="delete" data-tag="{{ $row }}">
+            <i class="fa fa-trash"></i>&nbsp;
             Delete
-        </a>
+        </button>
     </div>
 </div>

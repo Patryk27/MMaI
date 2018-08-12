@@ -65,4 +65,14 @@ class EloquentTagsRepository implements TagsRepositoryInterface
         $this->repository->persist($tag);
     }
 
+    /**
+     * @inheritDoc
+     *
+     * @throws Throwable
+     */
+    public function delete(Tag $tag): void
+    {
+        $this->repository->delete($tag);
+    }
+
 }

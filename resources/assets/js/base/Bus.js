@@ -17,6 +17,16 @@ export default class Bus {
     }
 
     /**
+     * @param {array<string>} eventNames
+     * @param {function} eventHandler
+     */
+    onMany(eventNames, eventHandler) {
+        eventNames.forEach((eventName) => {
+            this.on(eventName, eventHandler);
+        });
+    }
+
+    /**
      * @param {string} eventName
      * @param {*} eventPayload
      */

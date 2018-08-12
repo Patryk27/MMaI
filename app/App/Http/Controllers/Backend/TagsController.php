@@ -10,6 +10,8 @@ use App\Core\Services\DataTables\Handler as DataTablesHandler;
 use App\Languages\Exceptions\LanguageException;
 use App\Languages\LanguagesFacade;
 use App\Languages\Queries\GetAllLanguagesQuery;
+use App\Tags\Exceptions\TagException;
+use App\Tags\Models\Tag;
 use App\Tags\Queries\SearchTagsQuery;
 use App\Tags\TagsFacade;
 use Illuminate\Contracts\View\View as ViewContract;
@@ -109,17 +111,24 @@ class TagsController extends Controller
 
     /**
      * @param TagUpsertRequest $request
-     * @return array
+     * @return void
      *
-     * @throws AppException
+     * @throws TagException
      */
     public function store(TagUpsertRequest $request)
     {
         $this->tagsFacade->create(
             $request->all()
         );
+    }
 
-        return [];
+    /**
+     * @param Tag $tag
+     * @return void
+     */
+    public function destroy(Tag $tag)
+    {
+        $this->tagsFacade->delete($tag);
     }
 
 }

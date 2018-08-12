@@ -5,6 +5,7 @@ namespace App\Tags;
 use App\Tags\Exceptions\TagException;
 use App\Tags\Exceptions\TagNotFoundException;
 use App\Tags\Implementation\Services\TagsCreator;
+use App\Tags\Implementation\Services\TagsDeleter;
 use App\Tags\Implementation\Services\TagsQuerier;
 use App\Tags\Models\Tag;
 use App\Tags\Queries\TagsQueryInterface;
@@ -19,19 +20,27 @@ final class TagsFacade
     private $tagsCreator;
 
     /**
+     * @var TagsDeleter
+     */
+    private $tagsDeleter;
+
+    /**
      * @var TagsQuerier
      */
     private $tagsQuerier;
 
     /**
      * @param TagsCreator $tagsCreator
+     * @param TagsDeleter $tagsDeleter
      * @param TagsQuerier $tagsQuerier
      */
     public function __construct(
         TagsCreator $tagsCreator,
+        TagsDeleter $tagsDeleter,
         TagsQuerier $tagsQuerier
     ) {
         $this->tagsCreator = $tagsCreator;
+        $this->tagsDeleter = $tagsDeleter;
         $this->tagsQuerier = $tagsQuerier;
     }
 
@@ -48,6 +57,19 @@ final class TagsFacade
     public function create(array $tagData): Tag
     {
         return $this->tagsCreator->create($tagData);
+    }
+
+    /**
+     * Removes given tag.
+     *
+     * All page variants assigned to this tag will be un-assigned from it.
+     *
+     * @param Tag $tag
+     * @return void
+     */
+    public function delete(Tag $tag): void
+    {
+        $this->tagsDeleter->delete($tag);
     }
 
     /**

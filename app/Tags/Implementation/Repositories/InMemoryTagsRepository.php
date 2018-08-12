@@ -59,4 +59,12 @@ class InMemoryTagsRepository implements TagsRepositoryInterface
         $this->repository->persist($tag);
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function delete(Tag $tag): void
+    {
+        $this->repository->delete($tag);
+    }
+
 }

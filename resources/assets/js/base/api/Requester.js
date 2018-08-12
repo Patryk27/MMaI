@@ -10,7 +10,7 @@ export default class Requester {
      * @param {object} data
      * @returns {Promise<*>}
      */
-    static async execute(method, url, data) {
+    static async execute(method, url, data = {}) {
         try {
             return await axios.request({
                 method,

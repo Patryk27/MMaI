@@ -11,13 +11,21 @@ export default class TagsFacade {
      *       language_id: number,
      *   }
      *
-     * This method returns a promise resolving to created tag's id.
-     *
      * @param {object} tagData
-     * @returns {Promise<number>}
+     * @returns {Promise<void>}
      */
     static async create(tagData) {
         return await Requester.execute('post', '/backend/tags', tagData);
+    }
+
+    /**
+     * Removes tag with specified id.
+     *
+     * @param {number} tagId
+     * @returns {Promise<void>}
+     */
+    static async delete(tagId) {
+        return await Requester.execute('delete', `/backend/tags/${tagId}`);
     }
 
 }

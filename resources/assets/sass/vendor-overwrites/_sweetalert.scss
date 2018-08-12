@@ -16,8 +16,19 @@
       @extend .btn;
       @extend .btn-primary;
 
+      transition: all 0.2s;
+
       &.swal-button--cancel {
         @extend .btn-secondary;
+      }
+
+      &.swal-button--danger {
+        @extend .btn-danger;
+      }
+
+      &.swal-button--loading {
+        opacity: 0.5;
+        pointer-events: none;
       }
     }
   }

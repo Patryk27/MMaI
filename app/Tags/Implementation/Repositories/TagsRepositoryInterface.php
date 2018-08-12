@@ -41,4 +41,12 @@ interface TagsRepositoryInterface
      */
     public function persist(Tag $tag): void;
 
+    /**
+     * Removes given tag from the database.
+     *
+     * @param Tag $tag
+     * @return void
+     */
+    public function delete(Tag $tag): void;
+
 }

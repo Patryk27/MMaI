@@ -7,7 +7,7 @@ import TagsFacade from '../../../../base/api/TagsFacade';
 /**
  * This component models the "create tag" modal.
  */
-export default class CreateTagModalComponent {
+export default class CreateTagComponent {
 
     /**
      * @param {Bus} bus
