@@ -2,8 +2,8 @@
 
 namespace App\IntrinsicPages\Implementation\Services;
 
+use App\IntrinsicPages\Exceptions\IntrinsicPageException;
 use App\IntrinsicPages\Models\IntrinsicPage;
-use LogicException;
 
 class IntrinsicPagesRenderer
 {
@@ -27,22 +27,19 @@ class IntrinsicPagesRenderer
         ];
     }
 
-    /**
-     * Returns given internal page and returns its response.
-     *
-     * Returned value may be a string value (i.e. a rendered view) or any
-     * other response handleable by Laravel (i.e. a redirection).
-     *
+    /***
      * @param IntrinsicPage $intrinsicPage
      * @return mixed
+     *
+     * @throws IntrinsicPageException
      */
     public function render(IntrinsicPage $intrinsicPage)
     {
         $renderer = $this->renderers[$intrinsicPage->type] ?? null;
 
         if (is_null($renderer)) {
-            throw new LogicException(
-                sprintf('Found no renderer for internal page of type [%s].', $intrinsicPage->type)
+            throw new IntrinsicPageException(
+                sprintf('Found no renderer for intrinsic page of type [%s].', $intrinsicPage->type)
             );
         }
 
