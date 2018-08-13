@@ -28,7 +28,7 @@ class SearchRenderer implements RendererInterface
     {
         unimplemented();
 
-        $view = $this->viewFactory->make('frontend.internal-pages.search');
+        $view = $this->viewFactory->make('frontend.intrinsic-pages.search');
 
         $view->with([
             'languages' => $this->languagesRepository->getAll(),

@@ -91,7 +91,7 @@ class HomeRenderer implements RendererInterface
         $posts = $posts->map([$this->pagesFacade, 'render']);
         $posts = $this->paginator->build($posts, $numberOfPosts, self::NUMBER_OF_POSTS_PER_PAGE);
 
-        $view = $this->viewFactory->make('frontend.internal-pages.home', [
+        $view = $this->viewFactory->make('frontend.intrinsic-pages.home', [
             'posts' => $posts,
         ]);
 

@@ -5,7 +5,7 @@
 @endphp
 
 @extends('frontend.layout', [
-    'pageClass' => 'frontend--internal-pages--home',
+    'pageClass' => 'frontend--intrinsic-pages--home',
 ])
 
 @section('title', config('app.name'))

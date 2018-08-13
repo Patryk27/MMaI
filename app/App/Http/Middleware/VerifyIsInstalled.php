@@ -76,7 +76,7 @@ class VerifyIsInstalled
     private function buildResponse(array $viewData): Response
     {
         return new Response(
-            view('frontend.internal-pages.not-installed', $viewData)
+            view('frontend.intrinsic-pages.not-installed', $viewData)
         );
     }
 
