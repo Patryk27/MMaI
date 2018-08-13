@@ -47,12 +47,13 @@ final class TagsFacade
     /**
      * Creates a new brand-new tag from given data.
      *
-     * @see \App\App\Http\Requests\Backend\Tags\UpsertRequest
-     *
      * @param array $tagData
      * @return Tag
      *
      * @throws TagException
+     *
+     * @see \App\App\Http\Requests\Backend\Tags\UpsertRequest
+     * @see \Tests\Unit\Tags\CreateTest
      */
     public function create(array $tagData): Tag
     {
@@ -61,7 +62,6 @@ final class TagsFacade
 
     /**
      * Removes given tag.
-     *
      * All page variants assigned to this tag will be un-assigned from it.
      *
      * @param Tag $tag
@@ -73,7 +73,8 @@ final class TagsFacade
     }
 
     /**
-     * Returns first tag matching given query.
+     * Returns the first tag matching given query.
+     * Throws an exception if no such tag exists.
      *
      * @param TagsQueryInterface $query
      * @return Tag

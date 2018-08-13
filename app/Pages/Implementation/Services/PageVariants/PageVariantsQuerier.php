@@ -26,8 +26,6 @@ class PageVariantsQuerier
     }
 
     /**
-     * Returns all page variants matching given query.
-     *
      * @param PageVariantsQueryInterface $query
      * @return Collection|PageVariant[]
      *

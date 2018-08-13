@@ -37,8 +37,6 @@ class TagsQuerier
     }
 
     /**
-     * Returns all tags matching given query.
-     *
      * @param TagsQueryInterface $query
      * @return Collection|Tag[]
      *

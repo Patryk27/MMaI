@@ -6,6 +6,9 @@ use App\Tags\Exceptions\TagException;
 use App\Tags\Implementation\Repositories\TagsRepositoryInterface;
 use App\Tags\Models\Tag;
 
+/**
+ * @see \Tests\Unit\Tags\CreateTest
+ */
 class TagsCreator
 {
 

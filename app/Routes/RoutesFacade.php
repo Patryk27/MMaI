@@ -63,8 +63,12 @@ final class RoutesFacade
     }
 
     /**
+     * Deletes given route.
+     *
      * @param Route $route
      * @return void
+     *
+     * @see \Tests\Unit\Routes\DeleteTest
      */
     public function delete(Route $route): void
     {
@@ -72,11 +76,15 @@ final class RoutesFacade
     }
 
     /**
+     * Re-routes given route.
+     *
      * @param Route $oldRoute
      * @param Route $newRoute
      * @return void
      *
      * @throws RouteException
+     *
+     * @see \Tests\Unit\Routes\RerouteTest
      */
     public function reroute(Route $oldRoute, Route $newRoute): void
     {
@@ -87,10 +95,14 @@ final class RoutesFacade
     }
 
     /**
+     * Saves given route.
+     *
      * @param Route $route
      * @return void
      *
      * @throws RouteException
+     *
+     * @todo shouldn't it be "$routesFacade->create()" and "$routesFacade->update()", similarly to all the other facades?
      */
     public function persist(Route $route): void
     {
@@ -99,6 +111,9 @@ final class RoutesFacade
     }
 
     /**
+     * Returns the first route matching given query.
+     * Throws an exception if no such route exists.
+     *
      * @param RoutesQueryInterface $query
      * @return Route
      *
@@ -117,6 +132,8 @@ final class RoutesFacade
     }
 
     /**
+     * Returns all routes matching given query.
+     *
      * @param RoutesQueryInterface $query
      * @return Collection|Route[]
      *

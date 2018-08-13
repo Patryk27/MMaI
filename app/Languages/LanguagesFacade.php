@@ -27,6 +27,9 @@ final class LanguagesFacade
     }
 
     /**
+     * Returns the first language matching given query.
+     * Throws an exception if no such language exists.
+     *
      * @param LanguagesQueryInterface $query
      * @return Language
      *
@@ -45,6 +48,8 @@ final class LanguagesFacade
     }
 
     /**
+     * Returns all languages matching given query.
+     *
      * @param LanguagesQueryInterface $query
      * @return Collection|Language[]
      *

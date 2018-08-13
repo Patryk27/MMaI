@@ -60,13 +60,14 @@ final class PagesFacade
     /**
      * Creates a brand-new page from given data.
      *
-     * @see \App\App\Http\Requests\Backend\Pages\UpsertRequest
-     *
      * @param array $pageData
      * @return Page
      *
      * @throws PageException
      * @throws TagException
+     *
+     * @see \App\App\Http\Requests\Backend\Pages\UpsertRequest
+     * @see \Tests\Unit\Pages\CreateTest
      */
     public function create(array $pageData): Page
     {
@@ -76,14 +77,15 @@ final class PagesFacade
     /**
      * Updates an already existing page.
      *
-     * @see \App\App\Http\Requests\Backend\Pages\UpsertRequest
-     *
      * @param Page $page
      * @param array $pageData
      * @return void
      *
      * @throws PageException
      * @throws TagException
+     *
+     * @see \App\App\Http\Requests\Backend\Pages\UpsertRequest
+     * @see \Tests\Unit\Pages\UpdateTest
      */
     public function update(Page $page, array $pageData): void
     {
@@ -104,7 +106,8 @@ final class PagesFacade
     }
 
     /**
-     * Returns first page variant matching given query.
+     * Returns the first page variant matching given query.
+     * Throws an exception if no such page variant exists.
      *
      * @param PageVariantsQueryInterface $query
      * @return PageVariant

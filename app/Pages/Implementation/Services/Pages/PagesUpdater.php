@@ -10,6 +10,9 @@ use App\Pages\Models\Page;
 use App\Pages\Models\PageVariant;
 use App\Tags\Exceptions\TagException;
 
+/**
+ * @see \Tests\Unit\Pages\UpdateTest
+ */
 class PagesUpdater
 {
 

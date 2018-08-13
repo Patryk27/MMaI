@@ -27,6 +27,9 @@ final class MenusFacade
     }
 
     /**
+     * Returns the first menu item matching given query.
+     * Throws an exception if no such menu item exists.
+     *
      * @param MenuItemsQueryInterface $query
      * @return MenuItem
      *
@@ -45,6 +48,8 @@ final class MenusFacade
     }
 
     /**
+     * Returns all menu items matching given query.
+     *
      * @param MenuItemsQueryInterface $query
      * @return Collection|MenuItem[]
      *

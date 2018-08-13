@@ -9,6 +9,9 @@ use App\Pages\Models\Page;
 use App\Tags\Exceptions\TagException;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 
+/**
+ * @see \Tests\Unit\Pages\CreateTest
+ */
 class PagesCreator
 {
 
