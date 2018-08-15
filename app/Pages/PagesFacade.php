@@ -66,7 +66,7 @@ final class PagesFacade
      * @throws PageException
      * @throws TagException
      *
-     * @see \App\App\Http\Requests\Backend\Pages\UpsertRequest
+     * @see \App\App\Http\Requests\Backend\Pages\PageCreateRequest
      * @see \Tests\Unit\Pages\CreateTest
      */
     public function create(array $pageData): Page
@@ -84,7 +84,7 @@ final class PagesFacade
      * @throws PageException
      * @throws TagException
      *
-     * @see \App\App\Http\Requests\Backend\Pages\UpsertRequest
+     * @see \App\App\Http\Requests\Backend\Pages\PageUpdateRequest
      * @see \Tests\Unit\Pages\UpdateTest
      */
     public function update(Page $page, array $pageData): void

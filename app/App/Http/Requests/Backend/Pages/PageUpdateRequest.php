@@ -4,7 +4,7 @@ namespace App\App\Http\Requests\Backend\Pages;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpsertRequest extends FormRequest
+class PageUpdateRequest extends FormRequest
 {
 
     /**
@@ -21,8 +21,6 @@ class UpsertRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'page.type' => 'required',
-            'pageVariants.*.language_id' => 'numeric',
             'pageVariants.*.route' => ['nullable', 'string', 'regex:/^[a-zA-Z0-9\-\/]*$/'],
             'pageVariants.*.title' => 'string',
             'pageVariants.*.tag_ids' => ['nullable', 'array'],

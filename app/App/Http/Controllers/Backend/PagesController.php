@@ -3,7 +3,8 @@
 namespace App\App\Http\Controllers\Backend;
 
 use App\App\Http\Controllers\Controller;
-use App\App\Http\Requests\Backend\Pages\UpsertRequest as PageUpsertRequest;
+use App\App\Http\Requests\Backend\Pages\PageCreateRequest;
+use App\App\Http\Requests\Backend\Pages\PageUpdateRequest;
 use App\Core\Exceptions\Exception as AppException;
 use App\Core\Services\Collection\Renderer as CollectionRenderer;
 use App\Core\Services\DataTables\Handler as DataTablesHandler;
@@ -97,12 +98,12 @@ class PagesController extends Controller
     }
 
     /**
-     * @param PageUpsertRequest $request
+     * @param PageCreateRequest $request
      * @return array
      *
      * @throws AppException
      */
-    public function store(PageUpsertRequest $request): array
+    public function store(PageCreateRequest $request): array
     {
         $page = $this->pagesFacade->create(
             $request->all()
@@ -125,15 +126,18 @@ class PagesController extends Controller
     }
 
     /**
+     * @param PageUpdateRequest $request
      * @param Page $page
-     * @param PageUpsertRequest $request
      * @return array
      *
      * @throws AppException
      */
-    public function update(Page $page, PageUpsertRequest $request): array
+    public function update(PageUpdateRequest $request, Page $page): array
     {
-        $this->pagesFacade->update($page, $request->all());
+        $this->pagesFacade->update(
+            $page,
+            $request->all()
+        );
 
         return [
             'redirectTo' => $page->getBackendEditUrl(),
