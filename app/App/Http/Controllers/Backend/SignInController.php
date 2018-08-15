@@ -3,7 +3,7 @@
 namespace App\App\Http\Controllers\Backend;
 
 use App\App\Http\Controllers\Controller;
-use App\App\Http\Requests\Backend\Auth\InRequest as AuthInRequest;
+use App\App\Http\Requests\Backend\Auth\SignInRequest;
 use App\Core\Services\Layout\Flasher;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Contracts\Auth\StatefulGuard as StatefulGuardContract;
@@ -48,10 +48,10 @@ class SignInController extends Controller
     }
 
     /**
-     * @param AuthInRequest $request
+     * @param SignInRequest $request
      * @return mixed
      */
-    public function doIn(AuthInRequest $request)
+    public function doIn(SignInRequest $request)
     {
         if ($this->authGuard->check()) {
             return redirect()->route(self::AFTER_SIGN_IN_ROUTE);

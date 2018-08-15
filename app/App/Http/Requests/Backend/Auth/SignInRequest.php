@@ -4,7 +4,7 @@ namespace App\App\Http\Requests\Backend\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class InRequest extends FormRequest
+class SignInRequest extends FormRequest
 {
 
     /**
