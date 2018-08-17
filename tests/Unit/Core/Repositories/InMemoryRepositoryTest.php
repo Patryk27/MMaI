@@ -10,6 +10,8 @@ class InMemoryRepositoryTest extends TestCase
 {
 
     /**
+     * This test checks basic functionality of the "getBy" method.
+     *
      * @return void
      */
     public function testGetBy(): void
@@ -31,47 +33,47 @@ class InMemoryRepositoryTest extends TestCase
             ]),
         ]);
 
-        $userB = $repository->getBy('name', 'Second');
-
-        // Assertion: make sure user was found
-        $this->assertNotNull($userB);
-
-        // Assertion: make sure it was that precise user we are looking for
-        $this->assertEquals(
-            'B', $userB->getAttribute('login')
+        // Find user & make sure it was found
+        $this->assertNotNull(
+            $userB = $repository->getBy('name', 'Second')
         );
 
-        $userD = $repository->getBy('name', 'Fourth');
+        // Make sure it was that precise user we are looking for
+        $this->assertEquals('B', $userB->login);
 
-        // Assertion: make sure repository returns `null` for non-existing
-        // models
-        $this->assertNull($userD);
-
-        $userB->setAttribute('login', 'New login');
+        // Make sure repository returns `null` for non-existing
+        $this->assertNull(
+            $repository->getBy('name', 'Fourth')
+        );
     }
 
     /**
+     * This test makes sure that "getBy" returns clones, so that user cannot
+     * "accidentally" overwrite repository without explicit "persist" call.
+     *
      * @return void
      */
     public function testGetByReturnsClones(): void
     {
         $repository = new InMemoryRepository([
             new User([
-                'name' => 'First',
+                'login' => 'First',
             ]),
         ]);
 
-        $user1 = $repository->getBy('name', 'First');
-        $user2 = $repository->getBy('name', 'First');
+        $user1 = $repository->getBy('login', 'First');
+        $user2 = $repository->getBy('login', 'First');
 
-        $user1->setAttribute('name', 'First - modified');
+        $user1->login = 'First - modified';
 
-        $this->assertEquals(
-            'First', $user2->getAttribute('name')
-        );
+        // If repository hasn't returned a clone of $user1, both instances would
+        // be modified right now - make sure that did not happen.
+        $this->assertEquals('First', $user2->login);
     }
 
     /**
+     * This test checks basic functionality of the "persist" method.
+     *
      * @return void
      */
     public function testPersist(): void
@@ -87,36 +89,56 @@ class InMemoryRepositoryTest extends TestCase
         ]);
 
         $repository->persist($userA);
-
-        // Assertion: make sure user A has been assigned an identifier
-        $this->assertNotNull(
-            $userA->getAttribute('id')
-        );
-
         $repository->persist($userB);
 
-        // Assertion: make sure user B has been assigned an identifier
-        $this->assertNotNull(
-            $userB->getAttribute('id')
-        );
+        // Repository should assign each new model a unique identifier - make
+        // sure it happened
+        $this->assertNotNull($userA->id);
+        $this->assertNotNull($userB->id);
+        $this->assertNotEquals($userA->id, $userB->id);
 
-        // Assertion: make sure both identifiers are unique
-        $this->assertNotEquals(
-            $userA->getAttribute('id'), $userB->getAttribute('id')
-        );
-
-        $currentUserAId = $userA->getAttribute('id');
+        // When saving an already existing model, its it should remain unchanged
+        $userAId = $userA->id;
 
         $repository->persist($userA);
 
-        // Assertion: make sure updating user's id does not change when we're
-        // only updating user
-        $this->assertEquals(
-            $currentUserAId, $userA->getAttribute('id')
+        $this->assertEquals($userAId, $userA->id);
+    }
+
+    /**
+     * This test makes sure that mutating a model after persisting it does not
+     * make it change in the in-memory repository.
+     *
+     * @return void
+     */
+    public function testPersistsSavesClones(): void
+    {
+        $repository = new InMemoryRepository();
+
+        // Create some dummy user
+        $user = new User([
+            'login' => 'A',
+        ]);
+
+        // Save it;
+        // Right now, repository should save a *copy* of that model instead of
+        // the original instance, so that mutating it in a moment will not
+        // affect the repository.
+        $repository->persist($user);
+
+        // Mutate the model, but do not save the changes
+        $user->login = 'B';
+
+        // Make sure that repository still contains the "user A" model, not
+        // "user B"
+        $this->assertNotNull(
+            $repository->getBy('login', 'A')
         );
     }
 
     /**
+     * This test checks basic functionality of the "delete" method.
+     *
      * @return void
      */
     public function testDelete(): void
@@ -139,10 +161,10 @@ class InMemoryRepositoryTest extends TestCase
 
         $users = $repository->getAll();
 
-        // Assertion: make sure we are left with only one user
+        // Make sure we are left with only one user
         $this->assertCount(1, $users);
 
-        // Assertion: make sure the left user is the correct one
+        // Make sure the left user is the correct one
         $this->assertNotNull(
             $repository->getBy('name', 'Second')
         );
