@@ -71,7 +71,11 @@ final class InMemoryRepository
      */
     public function getByMany(string $attributeName, $attributeValue): Collection
     {
-        return $this->items->where($attributeName, $attributeValue);
+        return $this->items
+            ->where($attributeName, $attributeValue)
+            ->map(function (Model $model): Model {
+                return clone $model;
+            });
     }
 
     /**
