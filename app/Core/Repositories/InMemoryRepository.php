@@ -137,7 +137,7 @@ final class InMemoryRepository
         }
 
         // Save model into the collection
-        $this->items[$this->incrementingId] = $model;
+        $this->items[$this->incrementingId] = clone $model;
 
         // Flag model as "existing"
         $model->exists = true;
