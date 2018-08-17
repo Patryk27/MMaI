@@ -55,13 +55,13 @@ final class InMemoryRepository
      */
     public function getBy(string $attributeName, $attributeValue)
     {
-        $model = $this->getByMany($attributeName, $attributeValue);
+        $models = $this->getByMany($attributeName, $attributeValue);
 
-        if ($model->isEmpty()) {
+        if ($models->isEmpty()) {
             return null;
         }
 
-        return clone $model->first();
+        return clone $models->first();
     }
 
     /**
