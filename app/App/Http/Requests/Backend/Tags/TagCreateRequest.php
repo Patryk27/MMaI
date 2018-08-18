@@ -4,7 +4,7 @@ namespace App\App\Http\Requests\Backend\Tags;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpsertRequest extends FormRequest
+class TagCreateRequest extends FormRequest
 {
 
     /**

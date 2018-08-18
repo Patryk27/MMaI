@@ -15,7 +15,23 @@ export default class TagsFacade {
      * @returns {Promise<void>}
      */
     static async create(tagData) {
-        return await Requester.execute('post', '/backend/tags', tagData);
+        return Requester.execute('post', '/backend/tags', tagData);
+    }
+
+    /**
+     * Updates an already existing tag.
+     *
+     * Passed object should have following structure:
+     *   {
+     *       name: string,
+     *   }
+     *
+     * @param {number} tagId
+     * @param {object} tagData
+     * @returns {Promise<void>}
+     */
+    static async update(tagId, tagData) {
+        return Requester.execute('put', `/backend/tags/${tagId}`, tagData);
     }
 
     /**
@@ -25,7 +41,7 @@ export default class TagsFacade {
      * @returns {Promise<void>}
      */
     static async delete(tagId) {
-        return await Requester.execute('delete', `/backend/tags/${tagId}`);
+        return Requester.execute('delete', `/backend/tags/${tagId}`);
     }
 
 }

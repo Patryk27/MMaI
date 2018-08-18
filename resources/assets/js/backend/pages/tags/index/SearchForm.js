@@ -1,13 +1,11 @@
-export default class SearchFormComponent {
+export default class SearchForm {
 
     /**
      * @param {Bus} bus
-     * @param {string} formSelector
+     * @param {jQuery} $form
      */
-    constructor(bus, formSelector) {
+    constructor(bus, $form) {
         this.$bus = bus;
-
-        const $form = $(formSelector);
 
         this.$dom = {
             form: $form,

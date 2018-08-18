@@ -10,7 +10,7 @@ class InMemoryRepositoryTest extends TestCase
 {
 
     /**
-     * This test checks basic functionality of the "getBy" method.
+     * This test checks basic functionality of the "getBy()" method.
      *
      * @return void
      */
@@ -72,7 +72,7 @@ class InMemoryRepositoryTest extends TestCase
     }
 
     /**
-     * This test checks basic functionality of the "persist" method.
+     * This test checks basic functionality of the "persist()" method.
      *
      * @return void
      */
@@ -137,7 +137,7 @@ class InMemoryRepositoryTest extends TestCase
     }
 
     /**
-     * This test checks basic functionality of the "delete" method.
+     * This test checks basic functionality of the "delete()" method.
      *
      * @return void
      */

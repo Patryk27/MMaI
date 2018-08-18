@@ -1,18 +1,18 @@
 import DataTableComponent from '../../../../base/components/DataTableComponent';
 
-export default class SearchResultsComponent {
+export default class TagsList {
 
     /**
      * @param {Bus} bus
-     * @param {string} loaderSelector
-     * @param {string} tableSelector
+     * @param {jQuery} $loader
+     * @param {jQuery} $table
      */
-    constructor(bus, loaderSelector, tableSelector) {
+    constructor(bus, $loader, $table) {
         this.$bus = bus;
 
         this.$dataTable = new DataTableComponent({
-            loaderSelector,
-            tableSelector,
+            loaderSelector: $loader,
+            tableSelector: $table,
 
             autofocus: true,
             source: '/backend/tags/search',

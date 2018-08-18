@@ -7,6 +7,8 @@ use App\Tags\Implementation\Services\TagsCreator;
 use App\Tags\Implementation\Services\TagsDeleter;
 use App\Tags\Implementation\Services\TagsQuerier;
 use App\Tags\Implementation\Services\TagsSearcherInterface;
+use App\Tags\Implementation\Services\TagsUpdater;
+use App\Tags\Implementation\Services\TagsValidator;
 
 final class TagsFactory
 {
@@ -22,12 +24,16 @@ final class TagsFactory
         TagsRepositoryInterface $tagsRepository,
         TagsSearcherInterface $tagsSearcher
     ): TagsFacade {
-        $tagsCreator = new TagsCreator($tagsRepository);
+        $tagsValidator = new TagsValidator($tagsRepository);
+
+        $tagsCreator = new TagsCreator($tagsRepository, $tagsValidator);
+        $tagsUpdater = new TagsUpdater($tagsRepository, $tagsValidator);
         $tagsDeleter = new TagsDeleter($tagsRepository);
         $tagsQuerier = new TagsQuerier($tagsRepository, $tagsSearcher);
 
         return new TagsFacade(
             $tagsCreator,
+            $tagsUpdater,
             $tagsDeleter,
             $tagsQuerier
         );

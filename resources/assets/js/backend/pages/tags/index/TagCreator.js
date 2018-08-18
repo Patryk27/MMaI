@@ -7,16 +7,14 @@ import TagsFacade from '../../../../base/api/TagsFacade';
 /**
  * This component models the "create tag" modal.
  */
-export default class CreateTagComponent {
+export default class TagCreator {
 
     /**
      * @param {Bus} bus
-     * @param {string} selector
+     * @param {jQuery} $modal
      */
-    constructor(bus, selector) {
+    constructor(bus, $modal) {
         this.$bus = bus;
-
-        const $modal = $(selector);
 
         this.$dom = {
             modal: $modal,
@@ -33,18 +31,19 @@ export default class CreateTagComponent {
             ),
         };
 
+        // @todo rename this field + reduce DRY in these modals
         this.$formFieldsMapping = {
             name: 'name',
             language_id: 'languageId',
         };
 
         this.$buttons = {
-            submit: new ButtonComponent(
-                $modal.find('.btn-submit'),
-            ),
-
             close: new ButtonComponent(
                 $modal.find('.btn-close'),
+            ),
+
+            submit: new ButtonComponent(
+                $modal.find('.btn-submit'),
             ),
         };
 
@@ -54,7 +53,7 @@ export default class CreateTagComponent {
             this.$form.name.focus();
         });
 
-        // Bind custom handler for the "submit" action
+        // Bind custom handler for the form's "submit" event
         this.$dom.form.on('submit', () => {
             // noinspection JSIgnoredPromiseFromCall
             this.$submit();
@@ -64,7 +63,7 @@ export default class CreateTagComponent {
     }
 
     /**
-     * Changes the modal's active language id.
+     * Changes the active language id.
      *
      * @param {number} languageId
      */
@@ -73,16 +72,16 @@ export default class CreateTagComponent {
     }
 
     /**
-     * Opens the modal.
+     * Opens the tag creator.
      */
-    open() {
+    run() {
         this.$dom.modal.modal();
     }
 
     /**
-     * Closes the modal.
+     * @private
      */
-    close() {
+    $close() {
         this.$dom.modal.modal('hide');
     }
 
@@ -96,18 +95,18 @@ export default class CreateTagComponent {
 
         switch (state) {
             case 'submitting':
+                buttons.close.block();
+
                 buttons.submit.block();
                 buttons.submit.showSpinner();
-
-                buttons.close.block();
 
                 break;
 
             case 'ready':
+                buttons.close.unblock();
+
                 buttons.submit.unblock();
                 buttons.submit.hideSpinner();
-
-                buttons.close.unblock();
 
                 break;
         }
@@ -124,24 +123,29 @@ export default class CreateTagComponent {
         const $form = this.$form;
 
         try {
+            // Clear the form's errors
             for (const [, component] of Object.entries($form)) {
                 component.removeFeedback();
             }
 
+            // Execute request to the API
             await TagsFacade.create({
                 name: $form.name.getValue(),
                 language_id: $form.languageId.getValue(),
             });
 
+            // Emit "tag created" event
             this.$bus.emit('tag::created');
 
-            swal({
+            // Show confirmation to the user
+            await swal({
                 title: 'Success',
                 text: 'Tag has been created.',
                 icon: 'success',
-            }).then(() => {
-                this.close();
             });
+
+            // Eventually - close the modal
+            this.$close();
         } catch (error) {
             if (error.type === 'invalid-input') {
                 for (const [fieldName, [fieldError]] of Object.entries(error.payload)) {

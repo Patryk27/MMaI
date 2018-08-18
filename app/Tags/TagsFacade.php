@@ -7,6 +7,7 @@ use App\Tags\Exceptions\TagNotFoundException;
 use App\Tags\Implementation\Services\TagsCreator;
 use App\Tags\Implementation\Services\TagsDeleter;
 use App\Tags\Implementation\Services\TagsQuerier;
+use App\Tags\Implementation\Services\TagsUpdater;
 use App\Tags\Models\Tag;
 use App\Tags\Queries\TagsQueryInterface;
 use Illuminate\Support\Collection;
@@ -20,6 +21,11 @@ final class TagsFacade
     private $tagsCreator;
 
     /**
+     * @var TagsUpdater
+     */
+    private $tagsUpdater;
+
+    /**
      * @var TagsDeleter
      */
     private $tagsDeleter;
@@ -31,15 +37,18 @@ final class TagsFacade
 
     /**
      * @param TagsCreator $tagsCreator
+     * @param TagsUpdater $tagsUpdater
      * @param TagsDeleter $tagsDeleter
      * @param TagsQuerier $tagsQuerier
      */
     public function __construct(
         TagsCreator $tagsCreator,
+        TagsUpdater $tagsUpdater,
         TagsDeleter $tagsDeleter,
         TagsQuerier $tagsQuerier
     ) {
         $this->tagsCreator = $tagsCreator;
+        $this->tagsUpdater = $tagsUpdater;
         $this->tagsDeleter = $tagsDeleter;
         $this->tagsQuerier = $tagsQuerier;
     }
@@ -52,12 +61,28 @@ final class TagsFacade
      *
      * @throws TagException
      *
-     * @see \App\App\Http\Requests\Backend\Tags\UpsertRequest
+     * @see \App\App\Http\Requests\Backend\Tags\TagCreateRequest
      * @see \Tests\Unit\Tags\CreateTest
      */
     public function create(array $tagData): Tag
     {
         return $this->tagsCreator->create($tagData);
+    }
+
+    /**
+     * Updates an already existing tag.
+     *
+     * @param Tag $tag
+     * @param array $tagData
+     *
+     * @throws TagException
+     *
+     * @see \App\App\Http\Requests\Backend\Tags\TagUpdateRequest
+     * @see \Tests\Unit\Tags\UpdateTest
+     */
+    public function update(Tag $tag, array $tagData): void
+    {
+        $this->tagsUpdater->update($tag, $tagData);
     }
 
     /**

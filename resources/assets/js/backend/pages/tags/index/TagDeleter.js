@@ -1,7 +1,7 @@
 import swal from 'sweetalert';
 import TagsFacade from '../../../../base/api/TagsFacade';
 
-export default class DeleteTagComponent {
+export default class TagDeleter {
 
     /**
      * @param {Bus} bus
@@ -16,7 +16,7 @@ export default class DeleteTagComponent {
      * @param {object} tag
      * @returns {Promise<void>}
      */
-    async deleteTag(tag) {
+    async run(tag) {
         const result = await swal({
             title: 'Are you sure?',
             text: `Do you want to remove tag [${tag.name}]?`,

@@ -41,14 +41,14 @@ class CreateTest extends TestCase
     }
 
     /**
-     * This test makes sure it is not possible to create tag with duplicated
+     * This test makes sure it is not possible to create a tag with a duplicated
      * name in the same language.
      *
      * @return void
      *
      * @throws AppException
      */
-    public function testCreateForbidsDuplicates(): void
+    public function testForbidsDuplicates(): void
     {
         $this->tagsFacade->create([
             'language_id' => 100,

@@ -6,10 +6,7 @@ use App\Tags\Exceptions\TagException;
 use App\Tags\Implementation\Repositories\TagsRepositoryInterface;
 use App\Tags\Models\Tag;
 
-/**
- * @see \Tests\Unit\Tags\CreateTest
- */
-class TagsCreator
+class TagsUpdater
 {
 
     /**
@@ -35,21 +32,20 @@ class TagsCreator
     }
 
     /**
+     * @param Tag $tag
      * @param array $tagData
-     * @return Tag
+     * @return void
      *
      * @throws TagException
      */
-    public function create(array $tagData): Tag
+    public function update(Tag $tag, array $tagData): void
     {
-        $tag = new Tag(
-            array_only($tagData, ['language_id', 'name'])
-        );
+        if (isset($tagData['name'])) {
+            $tag->name = $tagData['name'];
+        }
 
         $this->tagsValidator->validate($tag);
         $this->tagsRepository->persist($tag);
-
-        return $tag;
     }
 
 }
