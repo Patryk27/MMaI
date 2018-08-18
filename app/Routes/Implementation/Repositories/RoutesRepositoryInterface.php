@@ -18,6 +18,14 @@ interface RoutesRepositoryInterface
     public function getByUrl(string $url): ?Route;
 
     /**
+     * Returns all routes partially matching given URL.
+     *
+     * @param string $url
+     * @return Collection|Route[]
+     */
+    public function getLikeUrl(string $url): Collection;
+
+    /**
      * Returns all routes that point at given morphable.
      *
      * @param Morphable $morphable

@@ -36,6 +36,14 @@ class InMemoryRoutesRepository implements RoutesRepositoryInterface
     /**
      * @inheritDoc
      */
+    public function getLikeUrl(string $url): Collection
+    {
+        unimplemented();
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function getPointingAt(Morphable $morphable): Collection
     {
         return $this->repository

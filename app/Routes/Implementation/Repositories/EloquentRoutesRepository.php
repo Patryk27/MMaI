@@ -36,15 +36,26 @@ class EloquentRoutesRepository implements RoutesRepositoryInterface
     /**
      * @inheritDoc
      */
+    public function getLikeUrl(string $url): Collection
+    {
+        return $this->repository
+            ->newQuery()
+            ->where('url', 'like', $url)
+            ->get();
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function getPointingAt(Morphable $morphable): Collection
     {
-        $stmt = $this->repository->newQuery();
-        $stmt->where([
-            'model_id' => $morphable->getMorphableId(),
-            'model_type' => $morphable::getMorphableType(),
-        ]);
-
-        return $stmt->get();
+        return $this->repository
+            ->newQuery()
+            ->where([
+                'model_id' => $morphable->getMorphableId(),
+                'model_type' => $morphable::getMorphableType(),
+            ])
+            ->get();
     }
 
     /**

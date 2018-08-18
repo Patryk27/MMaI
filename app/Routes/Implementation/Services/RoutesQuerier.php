@@ -6,6 +6,7 @@ use App\Routes\Exceptions\RouteException;
 use App\Routes\Implementation\Repositories\RoutesRepositoryInterface;
 use App\Routes\Models\Route;
 use App\Routes\Queries\GetRouteByUrlQuery;
+use App\Routes\Queries\GetRoutesLikeUrlQuery;
 use App\Routes\Queries\RoutesQueryInterface;
 use Illuminate\Support\Collection;
 
@@ -40,6 +41,11 @@ class RoutesQuerier
                     $this->routesRepository->getByUrl(
                         $query->getUrl()
                     )
+                );
+
+            case $query instanceof GetRoutesLikeUrlQuery:
+                return $this->routesRepository->getLikeUrl(
+                    $query->getUrl()
                 );
 
             default:
