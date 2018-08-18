@@ -94,6 +94,7 @@ class UpdateTest extends TestCase
      */
     public function testCreatesNewPageVariant(): void
     {
+        // Update page
         $this->pagesFacade->update($this->page, [
             'pageVariants' => [
                 [
@@ -103,8 +104,13 @@ class UpdateTest extends TestCase
             ],
         ]);
 
+        // Re-load it
+        $this->page = $this->pagesRepository->getById($this->page->id);
+
+        // Make sure update() created a new page variant
         $this->assertCount(2, $this->page->pageVariants);
 
+        // Make sure that newly-created page variant has everything filled correctly
         $pageVariant = $this->page->pageVariants[1];
 
         $this->assertEquals(200, $pageVariant->language_id);
@@ -121,6 +127,7 @@ class UpdateTest extends TestCase
      */
     public function testUpdatesExistingPageVariant(): void
     {
+        // Update page
         $this->pagesFacade->update($this->page, [
             'pageVariants' => [
                 [
@@ -130,15 +137,17 @@ class UpdateTest extends TestCase
             ],
         ]);
 
+        // Re-load it
+        $this->page = $this->pagesRepository->getById($this->page->id);
+
+        // Make sure update() did not create any new page variant
         $this->assertCount(1, $this->page->pageVariants);
 
+        // Make sure appropriate values were updated
         $pageVariant = $this->page->pageVariants[0];
 
         $this->assertEquals(100, $pageVariant->language_id);
-        $this->assertEquals(PageVariant::STATUS_DRAFT, $pageVariant->status);
-        $this->assertEquals('some title', $pageVariant->title);
         $this->assertEquals('some updated lead', $pageVariant->lead);
-        $this->assertEquals('some content', $pageVariant->content);
     }
 
     /**
@@ -151,6 +160,7 @@ class UpdateTest extends TestCase
      */
     public function testDoesNotChangeLanguage(): void
     {
+        // Update page
         $this->pagesFacade->update($this->page, [
             'pageVariants' => [
                 [
@@ -160,6 +170,10 @@ class UpdateTest extends TestCase
             ],
         ]);
 
+        // Re-load it
+        $this->page = $this->pagesRepository->getById($this->page->id);
+
+        // Make sure the language has not been changed
         $this->assertCount(1, $this->page->pageVariants);
         $this->assertEquals(100, $this->page->pageVariants[0]->language_id);
     }
@@ -174,6 +188,7 @@ class UpdateTest extends TestCase
      */
     public function testSetsPublishedAt(): void
     {
+        // Update page
         $this->pagesFacade->update($this->page, [
             'pageVariants' => [
                 [
@@ -184,7 +199,14 @@ class UpdateTest extends TestCase
             ],
         ]);
 
+        // Re-load it
+        $this->page = $this->pagesRepository->getById($this->page->id);
+
+        // Make sure it has been filled the values we provided
+        $this->assertNotNull($this->pageVariant->route);
         $this->assertEquals(PageVariant::STATUS_PUBLISHED, $this->pageVariant->status);
+
+        // Make sure update() automatically set the "published at" property
         $this->assertNotNull($this->pageVariant->published_at);
     }
 
@@ -198,6 +220,7 @@ class UpdateTest extends TestCase
      */
     public function testCreatesRoute(): void
     {
+        // Update page
         $this->pagesFacade->update($this->page, [
             'pageVariants' => [
                 [
@@ -207,6 +230,10 @@ class UpdateTest extends TestCase
             ],
         ]);
 
+        // Re-load it
+        $this->page = $this->pagesRepository->getById($this->page->id);
+
+        // Make sure update() created appropriate route
         $this->assertNotNull($this->pageVariant->route);
         $this->assertEquals('somewhere', $this->pageVariant->route->url);
     }
@@ -232,6 +259,8 @@ class UpdateTest extends TestCase
             ],
         ]);
 
+        $this->page = $this->pagesRepository->getById($this->page->id);
+
         // Step 2: remove that route
         $this->pagesFacade->update($this->page, [
             'pageVariants' => [
@@ -241,6 +270,8 @@ class UpdateTest extends TestCase
                 ]
             ],
         ]);
+
+        $this->page = $this->pagesRepository->getById($this->page->id);
 
         $this->assertNotNull($this->pageVariant->route);
         $this->assertEquals('somewhere-else', $this->pageVariant->route->url);
@@ -267,6 +298,8 @@ class UpdateTest extends TestCase
             ],
         ]);
 
+        $this->page = $this->pagesRepository->getById($this->page->id);
+
         // Step 2: remove that route
         $this->pagesFacade->update($this->page, [
             'pageVariants' => [
@@ -276,6 +309,8 @@ class UpdateTest extends TestCase
                 ]
             ],
         ]);
+
+        $this->page = $this->pagesRepository->getById($this->page->id);
 
         $this->assertNull($this->pageVariant->route);
     }
