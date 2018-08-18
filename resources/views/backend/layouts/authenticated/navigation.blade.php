@@ -1,6 +1,6 @@
 @php
     /**
-     * @see \App\App\ViewComposers\Backend\Layout\NavigationComposer
+     * @see \App\Application\ViewComposers\Backend\Layout\NavigationComposer
      */
 
     /**

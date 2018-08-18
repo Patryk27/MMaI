@@ -61,7 +61,7 @@ final class TagsFacade
      *
      * @throws TagException
      *
-     * @see \App\App\Http\Requests\Backend\Tags\TagCreateRequest
+     * @see \App\Application\Http\Requests\Backend\Tags\TagCreateRequest
      * @see \Tests\Unit\Tags\CreateTest
      */
     public function create(array $tagData): Tag
@@ -77,7 +77,7 @@ final class TagsFacade
      *
      * @throws TagException
      *
-     * @see \App\App\Http\Requests\Backend\Tags\TagUpdateRequest
+     * @see \App\Application\Http\Requests\Backend\Tags\TagUpdateRequest
      * @see \Tests\Unit\Tags\UpdateTest
      */
     public function update(Tag $tag, array $tagData): void
