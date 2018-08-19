@@ -35,7 +35,7 @@
                 </th>
 
                 <th data-datatable-column='{"name": "route_url", "orderable": true}'>
-                    Route
+                    URL
                 </th>
 
                 <th data-datatable-column='{"name": "title", "orderable": true}'>

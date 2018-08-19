@@ -118,10 +118,11 @@ $dropdown-link-hover-bg: lighten($dropdown-bg, 8%);
 $input-bg: $light;
 $input-color: $white;
 $input-border-color: $light;
+$input-disabled-bg: $dark;
 
 $input-placeholder-color: lighten($light, 15%);
 
-$input-disabled-bg: $dark;
+$input-group-addon-bg: lighten($input-bg, 10%);
 
 // =================== //
 // == Custom select == //

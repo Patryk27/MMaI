@@ -375,27 +375,6 @@ class UpdateTest extends TestCase
     }
 
     /**
-     * This test makes sure it is not possible to create a page / post with
-     * route located in the "backend" namespace (e.g. "/backend/foo").
-     *
-     * @return void
-     *
-     * @throws AppException
-     */
-    public function testForbidsToCreateRouteInCertainNamespaces(): void
-    {
-        $this->expectExceptionMessage('It is not possible to create route in the [backend] namespace.');
-
-        $this->pagesFacade->update($this->page, [
-            'pageVariants' => [
-                [
-                    'route' => 'backend/bar',
-                ]
-            ],
-        ]);
-    }
-
-    /**
      * This test makes sure that the update() method correctly adds new tags
      * to an already existing page variant.
      *

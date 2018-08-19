@@ -71,7 +71,13 @@ class SearchRoutesCommand extends Command
             ->queryMany(
                 new GetRoutesLikeUrlQuery($query)
             )
-            ->sortBy('url');
+            ->sort(function (Route $routeA, Route $routeB): int {
+                if ($routeA->subdomain === $routeB->subdomain) {
+                    return $routeA->url <=> $routeB->url;
+                }
+
+                return $routeA->subdomain <=> $routeB->subdomain;
+            });
     }
 
     /**
@@ -82,6 +88,7 @@ class SearchRoutesCommand extends Command
     {
         $tableHeaders = [
             'id' => 'Id',
+            'subdomain' => 'Subdomain',
             'url' => 'URL',
             'points_at' => 'Points at',
             'created_at' => 'Created at',
@@ -90,6 +97,7 @@ class SearchRoutesCommand extends Command
         $tableRows = $routes->map(function (Route $route): array {
             return [
                 'id' => $route->id,
+                'subdomain' => $route->subdomain,
                 'url' => $route->url,
                 'points_at' => sprintf('%s [id=%d]', $route->model_type, $route->model_id),
                 'created_at' => $route->created_at->format('Y-m-d'),

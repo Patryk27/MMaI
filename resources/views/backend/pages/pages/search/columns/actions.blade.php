@@ -12,7 +12,7 @@
 
     <div class="dropdown-menu">
         @isset($row->route)
-            <a class="dropdown-item" href="{{ '/' . $row->route->url }}">
+            <a class="dropdown-item" href="{{ $row->route->getTargetUrl() }}">
                 <i class="fa fa-link"></i>&nbsp;
                 Show
             </a>

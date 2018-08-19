@@ -28,9 +28,12 @@ class InMemoryRoutesRepository implements RoutesRepositoryInterface
     /**
      * @inheritDoc
      */
-    public function getByUrl(string $url): ?Routes
+    public function getBySubdomainAndUrl(string $subdomain, string $url): ?Routes
     {
-        return $this->repository->getBy('url', $url);
+        return $this->repository
+            ->getByMany('subdomain', $subdomain)
+            ->where('url', $url)
+            ->first();
     }
 
     /**

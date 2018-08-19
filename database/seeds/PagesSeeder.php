@@ -31,11 +31,6 @@ class PagesSeeder extends Seeder
     /**
      * Creates default "about me" pages.
      *
-     * Language | Page URL
-     * -------- | --------
-     * English  | en/about-me
-     * Polish   | pl/o-mnie
-     *
      * @return void
      *
      * @throws Throwable
@@ -47,7 +42,7 @@ class PagesSeeder extends Seeder
 
             'variants' => [
                 'en' => [
-                    'url' => 'en/about-me',
+                    'url' => 'about-me',
                     'status' => PageVariant::STATUS_PUBLISHED,
 
                     'title' => 'About me',
@@ -57,7 +52,7 @@ class PagesSeeder extends Seeder
                 ],
 
                 'pl' => [
-                    'url' => 'pl/o-mnie',
+                    'url' => 'o-mnie',
                     'status' => PageVariant::STATUS_PUBLISHED,
 
                     'title' => 'O mnie',
@@ -72,53 +67,20 @@ class PagesSeeder extends Seeder
     /**
      * Creates default example posts.
      *
-     * Language | Post URL
-     * -------- | --------
-     * English  | en/xxxx-yy/hi
-     * Polish   | pl/xxxx-yy/hejo
-     *
-     * The "xxxx-yy" part depends on current date.
-     *
      * @return void
      *
      * @throws Throwable
      */
     private function createExamplePosts(): void
     {
-        $date = sprintf('%04d-%02d', $this->now->year, $this->now->month);
-
-        $faker = Faker\Factory::create('en');
-
-        for ($i = 0; $i < 50; ++$i) {
-            $this->createPage([
-                'type' => Page::TYPE_BLOG,
-
-                'variants' => [
-                    'en' => [
-                        'url' => sprintf('%s/%s/%s', 'en', $date, $i),
-                        'status' => PageVariant::STATUS_PUBLISHED,
-
-                        'title' => $faker->words(mt_rand(2, 8), true),
-                        'lead' => $faker->realText(),
-                        'content' => $faker->paragraphs(mt_rand(1, 10), true),
-
-                        'published_at' => $this->now,
-
-                        'tags' => [
-                            'programming',
-                            'music',
-                        ],
-                    ],
-                ],
-            ]);
-        }
+        $date = sprintf('%04d/%02d', $this->now->year, $this->now->month);
 
         $this->createPage([
             'type' => Page::TYPE_BLOG,
 
             'variants' => [
                 'en' => [
-                    'url' => sprintf('%s/%s/%s', 'en', $date, 'hi'),
+                    'url' => sprintf('%s/%s', $date, 'welcome'),
                     'status' => PageVariant::STATUS_PUBLISHED,
 
                     'title' => 'My first post',
@@ -134,7 +96,7 @@ class PagesSeeder extends Seeder
                 ],
 
                 'pl' => [
-                    'url' => sprintf('%s/%s/%s', 'pl', $date, 'hejo'),
+                    'url' => sprintf('%s/%s', $date, 'witaj'),
                     'status' => PageVariant::STATUS_PUBLISHED,
 
                     'title' => 'Mój pierwszy post',
@@ -214,6 +176,7 @@ class PagesSeeder extends Seeder
 
         // Create PV's route
         Route::buildFor(
+            $language->slug,
             $pageVariantData['url'],
             $pageVariant
         )->saveOrFail();

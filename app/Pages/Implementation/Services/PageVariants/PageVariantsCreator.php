@@ -47,7 +47,7 @@ class PageVariantsCreator
     {
         $pageVariant = $this->createPageVariant($page, $pageVariantData);
 
-        $this->createRoute($pageVariant, array_get($pageVariantData, 'route', ''));
+        $this->createRoute($pageVariant, array_get($pageVariantData, 'url', ''));
         $this->createTags($pageVariant, array_get($pageVariantData, 'tag_ids', []));
         $this->validate($pageVariant);
 
@@ -93,6 +93,7 @@ class PageVariantsCreator
     {
         if (strlen($routeUrl) > 0) {
             $route = new Route([
+                'subdomain' => $pageVariant->language->slug,
                 'url' => $routeUrl,
             ]);
 

@@ -4,7 +4,6 @@
      */
 
     /**
-     * @var string $homeUrl
      * @var \Illuminate\Support\Collection|\App\Menus\Models\MenuItem[] $menuItems
      */
 @endphp
@@ -12,7 +11,7 @@
 <nav class="site-navigation">
     <!-- Title -->
     <div class="nav-title">
-        <a class="title" href="{{ $homeUrl }}">
+        <a class="title" href="/">
             {{ config('app.name') }}
         </a>
 
@@ -55,7 +54,7 @@
 
         <div class="nav-menu-items">
             @foreach($menuItems as $menuItem)
-                <a class="nav-menu-item" href="{{ $menuItem->getTargetUrl() }}">
+                <a class="nav-menu-item" href="{{ $menuItem->url }}">
                     {{ $menuItem->title }}
                 </a>
             @endforeach

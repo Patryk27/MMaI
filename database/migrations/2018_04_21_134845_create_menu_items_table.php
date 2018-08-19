@@ -16,14 +16,9 @@ class CreateMenuItemsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('language_id');
             $table->unsignedInteger('position');
-            $table->unsignedInteger('route_id')->nullable();
-            $table->text('url')->nullable();
+            $table->text('url');
             $table->char('title', 64);
             $table->timestamps();
-
-            // -- foreign keys -- //
-
-            $table->foreign('route_id')->references('id')->on('routes');
 
             // -- indexes -- //
 

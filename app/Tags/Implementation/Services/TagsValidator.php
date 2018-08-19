@@ -42,7 +42,8 @@ class TagsValidator
      *
      * @throws TagException
      */
-    private function assertHasName(Tag $tag): void {
+    private function assertHasName(Tag $tag): void
+    {
         if (strlen($tag->name) === 0) {
             throw new TagException('Tag must be assigned a name.');
         }
@@ -54,7 +55,8 @@ class TagsValidator
      *
      * @throws TagException
      */
-    private function assertHasLanguage(Tag $tag): void {
+    private function assertHasLanguage(Tag $tag): void
+    {
         if (is_null($tag->language_id)) {
             throw new TagException('Tag must be assigned a language.');
         }

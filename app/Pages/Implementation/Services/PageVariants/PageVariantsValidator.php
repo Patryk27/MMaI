@@ -32,23 +32,7 @@ class PageVariantsValidator
             }
         }
 
-        $this->validateRoute($pageVariant);
         $this->validateTags($pageVariant);
-    }
-
-    /**
-     * @param PageVariant $pageVariant
-     * @return void
-     *
-     * @throws PageException
-     */
-    private function validateRoute(PageVariant $pageVariant): void
-    {
-        if (isset($pageVariant->route)) {
-            if (starts_with($pageVariant->route->url, 'backend/')) {
-                throw new PageException('It is not possible to create route in the [backend] namespace.');
-            }
-        }
     }
 
     /**

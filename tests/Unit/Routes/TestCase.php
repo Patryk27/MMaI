@@ -40,31 +40,45 @@ abstract class TestCase extends BaseTestCase
     }
 
     /**
+     * @param string $subdomain
      * @param string $url
      * @return void
      */
-    protected function assertRouteExists(string $url): void
+    protected function assertRouteExists(string $subdomain, string $url): void
     {
-        $this->assertThat($url, new RouteExistsAssertion($this->routesFacade));
+        $payload = [
+            'subdomain' => $subdomain,
+            'url' => $url,
+        ];
+
+        $this->assertThat($payload, new RouteExistsAssertion($this->routesFacade));
     }
 
     /**
+     * @param string $subdomain
      * @param string $url
      * @return void
      */
-    protected function assertRouteDoesNotExist(string $url): void
+    protected function assertRouteDoesNotExist(string $subdomain, string $url): void
     {
-        $this->assertThat($url, new RouteDoesNotExistAssertion($this->routesFacade));
+        $payload = [
+            'subdomain' => $subdomain,
+            'url' => $url,
+        ];
+
+        $this->assertThat($payload, new RouteDoesNotExistAssertion($this->routesFacade));
     }
 
     /**
+     * @param string $subdomain
      * @param string $url
      * @param Morphable $morphable
      * @return void
      */
-    protected function assertRoutePointsAt(string $url, Morphable $morphable): void
+    protected function assertRoutePointsAt(string $subdomain, string $url, Morphable $morphable): void
     {
         $payload = [
+            'subdomain' => $subdomain,
             'url' => $url,
             'morphable' => $morphable,
         ];

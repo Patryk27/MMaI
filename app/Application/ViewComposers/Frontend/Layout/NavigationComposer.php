@@ -48,18 +48,8 @@ class NavigationComposer
         $currentLanguage = $this->languageDetector->getLanguageOrFail();
 
         $view->with([
-            'homeUrl' => $this->getHomeUrl($currentLanguage),
             'menuItems' => $this->getMenuItems($currentLanguage),
         ]);
-    }
-
-    /**
-     * @param Language $currentLanguage
-     * @return string
-     */
-    private function getHomeUrl(Language $currentLanguage): string
-    {
-        return '/' . $currentLanguage->slug;
     }
 
     /**

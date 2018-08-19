@@ -28,9 +28,15 @@ class EloquentRoutesRepository implements RoutesRepositoryInterface
     /**
      * @inheritDoc
      */
-    public function getByUrl(string $url): ?Route
+    public function getBySubdomainAndUrl(string $subdomain, string $url): ?Route
     {
-        return $this->repository->getBy('url', $url);
+        return $this->repository
+            ->newQuery()
+            ->where([
+                'subdomain' => $subdomain,
+                'url' => $url,
+            ])
+            ->first();
     }
 
     /**

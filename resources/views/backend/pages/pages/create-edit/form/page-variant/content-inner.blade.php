@@ -29,24 +29,32 @@
 {{ Form::hidden('id') }}
 {{ Form::hidden('language_id', $language->id) }}
 
-{{-- Route --}}
+{{-- URL --}}
 <div class="form-group">
     <label>
-        Route
+        URL
     </label>
 
     @php
-        $route = '';
+        $url = '';
 
         if (isset($pageVariant->route)) {
-            $route = $pageVariant->route->url;
+            $url = $pageVariant->route->url;
         }
     @endphp
 
-    {{ Form::text('route', $route, [
-        'class' => 'form-control',
-        'placeholder' => 'my-awesome-page',
-    ]) }}
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <div class="input-group-text">
+                {{ env('APP_PROTOCOL') }}://{{ $language->slug }}.{{ env('APP_DOMAIN') }}/
+            </div>
+        </div>
+
+        {{ Form::text('url', $url, [
+            'class' => 'form-control',
+            'placeholder' => 'my-awesome-page',
+        ]) }}
+    </div>
 </div>
 
 {{-- Title --}}

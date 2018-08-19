@@ -1,17 +1,19 @@
 <?php
 
-namespace App\IntrinsicPages\Implementation\Services\Renderers;
+namespace App\Application\Http\Controllers\Frontend;
 
+use App\Application\Http\Controllers\Controller;
+use App\Core\Exceptions\Exception as CoreException;
 use App\Core\Services\Collection\Paginator as CollectionPaginator;
 use App\Core\Services\Language\Detector as LanguageDetector;
+use App\Pages\Exceptions\PageException;
 use App\Pages\Models\Page;
 use App\Pages\Models\PageVariant;
 use App\Pages\PagesFacade;
 use App\Pages\Queries\SearchPageVariantsQuery;
-use Exception;
 use Illuminate\Contracts\View\Factory as ViewFactoryContract;
 
-class HomeRenderer implements RendererInterface
+class HomeController extends Controller
 {
 
     const NUMBER_OF_POSTS_PER_PAGE = 10;
@@ -55,11 +57,14 @@ class HomeRenderer implements RendererInterface
     }
 
     /**
-     * @inheritdoc
+     * @return mixed
      *
-     * @throws Exception
+     * @throws CoreException
+     * @throws PageException
+     *
+     * @todo a bit too much is happening in here
      */
-    public function render()
+    public function index()
     {
         $language = $this->languageDetector->getLanguageOrFail();
 
@@ -91,11 +96,9 @@ class HomeRenderer implements RendererInterface
         $posts = $posts->map([$this->pagesFacade, 'render']);
         $posts = $this->paginator->build($posts, $numberOfPosts, self::NUMBER_OF_POSTS_PER_PAGE);
 
-        $view = $this->viewFactory->make('frontend.intrinsic-pages.home', [
+        return view('frontend.pages.home', [
             'posts' => $posts,
         ]);
-
-        return $view->render();
     }
 
 }

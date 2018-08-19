@@ -5,6 +5,8 @@ namespace App\Routes\Queries;
 /**
  * This class defines a query which will return all the routes with URL
  * partially matching given one.
+ *
+ * @todo include subdomain
  */
 final class GetRoutesLikeUrlQuery implements RoutesQueryInterface
 {

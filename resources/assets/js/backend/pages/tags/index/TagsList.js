@@ -15,7 +15,7 @@ export default class TagsList {
             tableSelector: $table,
 
             autofocus: true,
-            source: '/backend/tags/search',
+            source: '/tags/search',
 
             prepareRequest: (request) => {
                 request.filters = this.$state.filters;

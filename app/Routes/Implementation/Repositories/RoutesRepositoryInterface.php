@@ -10,12 +10,14 @@ interface RoutesRepositoryInterface
 {
 
     /**
-     * Returns route with given URL or `null` if no such route exists.
+     * Returns route with given subdomain and URL, or `null` if no such route
+     * exists.
      *
+     * @param string $subdomain
      * @param string $url
      * @return Route|null
      */
-    public function getByUrl(string $url): ?Route;
+    public function getBySubdomainAndUrl(string $subdomain, string $url): ?Route;
 
     /**
      * Returns all routes partially matching given URL.

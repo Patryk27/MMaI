@@ -11,12 +11,12 @@ use Illuminate\Database\Eloquent\Model;
  *
  * It can point at:
  *   - a page variant,
- *   - an intrinsic page,
  *   - a route (in which case it is a redirection).
  *
  * -----
  *
  * @property-read int $id
+ * @property string $subdomain
  * @property string $url
  * @property string $model_type
  * @property int $model_id
@@ -34,6 +34,7 @@ class Route extends Model implements Morphable
      * @var string[]
      */
     protected $fillable = [
+        'subdomain',
         'url',
         'model_type',
         'model_id',
@@ -42,13 +43,15 @@ class Route extends Model implements Morphable
     /**
      * Builds route for given morphable.
      *
+     * @param string $subdomain
      * @param string $url
      * @param Morphable $morphable
      * @return Route
      */
-    public static function buildFor(string $url, Morphable $morphable): Route
+    public static function buildFor(string $subdomain, string $url, Morphable $morphable): Route
     {
         return new self([
+            'subdomain' => $subdomain,
             'url' => $url,
             'model_type' => $morphable->getMorphableType(),
             'model_id' => $morphable->getMorphableId(),
@@ -84,7 +87,7 @@ class Route extends Model implements Morphable
      */
     public function getTargetUrl(): string
     {
-        return '/' . $this->url;
+        return sprintf('%s://%s.%s/%s', env('APP_PROTOCOL'), $this->subdomain, env('APP_DOMAIN'), $this->url);
     }
 
     /**

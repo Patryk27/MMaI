@@ -3,13 +3,11 @@
 namespace App\Application\Http\Controllers\Frontend;
 
 use App\Application\Http\Controllers\Controller;
-use App\IntrinsicPages\IntrinsicPagesFacade;
-use App\IntrinsicPages\Models\IntrinsicPage;
 use App\Pages\Models\PageVariant;
 use App\Pages\PagesFacade;
 use App\Routes\Exceptions\RouteNotFoundException;
 use App\Routes\Models\Route;
-use App\Routes\Queries\GetRouteByUrlQuery;
+use App\Routes\Queries\GetRouteBySubdomainAndUrlQuery;
 use App\Routes\RoutesFacade;
 use Illuminate\Http\RedirectResponse;
 use LogicException;
@@ -18,11 +16,6 @@ use Throwable;
 
 class DispatchController extends Controller
 {
-
-    /**
-     * @var IntrinsicPagesFacade
-     */
-    private $intrinsicPagesFacade;
 
     /**
      * @var PagesFacade
@@ -35,41 +28,35 @@ class DispatchController extends Controller
     private $routesFacade;
 
     /**
-     * @param IntrinsicPagesFacade $intrinsicPagesFacade
      * @param PagesFacade $pagesFacade
      * @param RoutesFacade $routesFacade
      */
     public function __construct(
-        IntrinsicPagesFacade $intrinsicPagesFacade,
         PagesFacade $pagesFacade,
         RoutesFacade $routesFacade
     ) {
-        $this->intrinsicPagesFacade = $intrinsicPagesFacade;
         $this->pagesFacade = $pagesFacade;
         $this->routesFacade = $routesFacade;
     }
 
     /**
-     * @param string|null $url
+     * @param string $subdomain
+     * @param string $url
      * @return mixed
      *
      * @throws Throwable
      */
-    public function show(?string $url = null)
+    public function show(string $subdomain, string $url)
     {
         try {
             $route = $this->routesFacade->queryOne(
-                new GetRouteByUrlQuery(empty($url) ? '/' : $url)
+                new GetRouteBySubdomainAndUrlQuery($subdomain, $url)
             );
         } catch (RouteNotFoundException $ex) {
             throw new NotFoundHttpException();
         }
 
         switch ($route->model_type) {
-            case IntrinsicPage::getMorphableType():
-                /** @noinspection PhpParamsInspection */
-                return $this->intrinsicPagesFacade->render($route->model);
-
             case PageVariant::getMorphableType():
                 /** @noinspection PhpParamsInspection */
                 return view('frontend.pages.pages.show', [

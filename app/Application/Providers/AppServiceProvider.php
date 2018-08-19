@@ -51,7 +51,6 @@ class AppServiceProvider extends ServiceProvider
         Schema::defaultStringLength(191);
 
         Relation::morphMap([
-            \App\IntrinsicPages\Models\IntrinsicPage::getMorphableType() => \App\IntrinsicPages\Models\IntrinsicPage::class,
             \App\Pages\Models\PageVariant::getMorphableType() => \App\Pages\Models\PageVariant::class,
             \App\Routes\Models\Route::getMorphableType() => \App\Routes\Models\Route::class,
         ]);

@@ -52,14 +52,17 @@ class RerouteTest extends TestCase
         // Set up routes
         $this->routes = [
             'first' => new Route([
+                'subdomain' => 'test',
                 'url' => 'first-route',
             ]),
 
             'second' => new Route([
+                'subdomain' => 'test',
                 'url' => 'second-route',
             ]),
 
             'third' => new Route([
+                'subdomain' => 'test',
                 'url' => 'third-route',
             ]),
         ];
@@ -94,9 +97,9 @@ class RerouteTest extends TestCase
             $this->routes['third']
         );
 
-        $this->assertRoutePointsAt('first-route', $this->routes['third']);
-        $this->assertRoutePointsAt('second-route', $this->routes['third']);
-        $this->assertRoutePointsAt('third-route', $this->pageVariants['second']);
+        $this->assertRoutePointsAt('test', 'first-route', $this->routes['third']);
+        $this->assertRoutePointsAt('test', 'second-route', $this->routes['third']);
+        $this->assertRoutePointsAt('test', 'third-route', $this->pageVariants['second']);
     }
 
 }

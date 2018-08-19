@@ -5,7 +5,9 @@
 @endphp
 
 @isset ($row->route)
-    {{ $row->route->url }}
+    <span title="{{ $row->route->getTargetUrl() }}">
+        {{ $row->route->url }}
+    </span>
 @else
     -
 @endisset

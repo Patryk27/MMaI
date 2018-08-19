@@ -46,7 +46,7 @@ class PageVariantsUpdater
     public function update(PageVariant $pageVariant, array $pageVariantData): void
     {
         $this->updatePublishedAt($pageVariant, $pageVariantData);
-        $this->updateRoute($pageVariant, array_get($pageVariantData, 'route', ''));
+        $this->updateRoute($pageVariant, array_get($pageVariantData, 'url', ''));
         $this->updateTags($pageVariant, array_get($pageVariantData, 'tag_ids', []));
 
         $pageVariant->fill(
@@ -91,6 +91,7 @@ class PageVariantsUpdater
                     $pageVariant->setRelation('route', null);
                 } else {
                     $newRoute = new Route([
+                        'subdomain' => $pageVariant->language->slug,
                         'url' => $routeUrl,
                     ]);
 
@@ -104,6 +105,7 @@ class PageVariantsUpdater
 
             if (strlen($routeUrl) > 0) {
                 $newRoute = new Route([
+                    'subdomain' => $pageVariant->language->slug,
                     'url' => $routeUrl,
                 ]);
 

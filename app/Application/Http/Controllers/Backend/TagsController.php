@@ -129,7 +129,8 @@ class TagsController extends Controller
      *
      * @throws TagException
      */
-    public function update(TagUpdateRequest $request, Tag $tag) {
+    public function update(TagUpdateRequest $request, Tag $tag)
+    {
         $this->tagsFacade->update(
             $tag,
             $request->all()

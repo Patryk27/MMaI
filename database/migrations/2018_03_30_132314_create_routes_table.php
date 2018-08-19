@@ -14,13 +14,14 @@ class CreateRoutesTable extends Migration
     {
         Schema::create('routes', function (Blueprint $table) {
             $table->increments('id');
+            $table->char('subdomain', 16);
             $table->char('url', 128);
             $table->morphs('model');
             $table->timestamps();
 
             // -- indexes -- //
 
-            $table->unique('url');
+            $table->unique(['subdomain', 'url']);
         });
     }
 
