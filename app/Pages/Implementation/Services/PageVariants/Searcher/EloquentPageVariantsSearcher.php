@@ -53,7 +53,7 @@ class EloquentPageVariantsSearcher extends AbstractEloquentSearcher implements P
 
             // We have to do whereRaw() here instead of regular where() here,
             // because when using bindings, MySQL fails to prove functional
-            // dependency between 'posts' and 'routes' tables, which causes some
+            // dependency between 'pages' and 'routes' tables, which causes some
             // search cases to fail (e.g. when sorting by routes):
             $join->whereRaw(
                 sprintf('routes.model_type = "%s"', PageVariant::getMorphableType())

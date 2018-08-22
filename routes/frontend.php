@@ -8,8 +8,11 @@ Route::domain('{subdomain}.' . env('APP_DOMAIN'))->group(function () {
     // /
     Route::get('/', HomeController::class . '@index');
 
-    // --search
-    Route::get('--search', SearchController::class . '@index');
+    // !search
+    Route::get('!search', SearchController::class . '@index');
+
+    // !search
+    Route::post('!search', SearchController::class . '@search');
 
     // catch-all for slugs
     Route::get('{url}', DispatchController::class . '@show')

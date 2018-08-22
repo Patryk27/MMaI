@@ -5,7 +5,7 @@
 @endphp
 
 @extends('frontend.layout', [
-    'pageClass' => 'frontend--pages--home',
+    'pageClass' => 'frontend--pages--search--index',
 ])
 
 @section('title', config('app.name'))
@@ -15,7 +15,7 @@
         Search
     </h1>
 
-    <form id="search-form">
+    <form id="search-form" method="post" action="#">
         {{-- Query --}}
         <div class="form-group">
             {{ Form::label('query', 'Search for:') }}

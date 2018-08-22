@@ -10,6 +10,6 @@
 
 /vendor
 
-.env
-.phpstorm.meta.php
-_ide_helper.php
+/.env
+/.phpstorm.meta.php
+/_ide_helper.php
