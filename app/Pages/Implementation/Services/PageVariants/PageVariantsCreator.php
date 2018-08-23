@@ -93,7 +93,7 @@ class PageVariantsCreator
     {
         if (strlen($routeUrl) > 0) {
             $route = new Route([
-                'subdomain' => $pageVariant->language->slug,
+                'subdomain' => $pageVariant->language->slug ?? '',
                 'url' => $routeUrl,
             ]);
 

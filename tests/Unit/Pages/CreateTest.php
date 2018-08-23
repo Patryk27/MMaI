@@ -85,7 +85,7 @@ class CreateTest extends TestCase
         $page = $this->pagesFacade->create([
             'pageVariants' => [
                 [
-                    'route' => 'somewhere',
+                    'url' => 'somewhere',
                 ],
             ],
         ]);

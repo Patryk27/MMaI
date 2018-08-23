@@ -193,7 +193,7 @@ class UpdateTest extends TestCase
             'pageVariants' => [
                 [
                     'id' => $this->pageVariant->id,
-                    'route' => 'somewhere',
+                    'url' => 'somewhere',
                     'status' => PageVariant::STATUS_PUBLISHED,
                 ]
             ],
@@ -225,7 +225,7 @@ class UpdateTest extends TestCase
             'pageVariants' => [
                 [
                     'id' => $this->pageVariant->id,
-                    'route' => 'somewhere',
+                    'url' => 'somewhere',
                 ]
             ],
         ]);
@@ -254,7 +254,7 @@ class UpdateTest extends TestCase
             'pageVariants' => [
                 [
                     'id' => $this->pageVariant->id,
-                    'route' => 'somewhere',
+                    'url' => 'somewhere',
                 ]
             ],
         ]);
@@ -266,7 +266,7 @@ class UpdateTest extends TestCase
             'pageVariants' => [
                 [
                     'id' => $this->pageVariant->id,
-                    'route' => 'somewhere-else',
+                    'url' => 'somewhere-else',
                 ]
             ],
         ]);
@@ -293,7 +293,7 @@ class UpdateTest extends TestCase
             'pageVariants' => [
                 [
                     'id' => $this->pageVariant->id,
-                    'route' => 'somewhere',
+                    'url' => 'somewhere',
                 ]
             ],
         ]);
@@ -305,7 +305,7 @@ class UpdateTest extends TestCase
             'pageVariants' => [
                 [
                     'id' => $this->pageVariant->id,
-                    'route' => '',
+                    'url' => '',
                 ]
             ],
         ]);
@@ -367,7 +367,7 @@ class UpdateTest extends TestCase
             'pageVariants' => [
                 [
                     'id' => $pageVariant->id,
-                    'route' => 'somewhere',
+                    'url' => 'somewhere',
                     'status' => PageVariant::STATUS_PUBLISHED,
                 ]
             ],

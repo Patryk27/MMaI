@@ -91,7 +91,7 @@ class PageVariantsUpdater
                     $pageVariant->setRelation('route', null);
                 } else {
                     $newRoute = new Route([
-                        'subdomain' => $pageVariant->language->slug,
+                        'subdomain' => $pageVariant->language->slug ?? '',
                         'url' => $routeUrl,
                     ]);
 
@@ -105,7 +105,7 @@ class PageVariantsUpdater
 
             if (strlen($routeUrl) > 0) {
                 $newRoute = new Route([
-                    'subdomain' => $pageVariant->language->slug,
+                    'subdomain' => $pageVariant->language->slug ?? '',
                     'url' => $routeUrl,
                 ]);
 
