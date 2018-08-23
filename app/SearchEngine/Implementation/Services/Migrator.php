@@ -55,10 +55,6 @@ class Migrator
                 'mappings' => [
                     'page_variants' => [
                         'properties' => [
-                            'status' => [
-                                'type' => 'keyword',
-                            ],
-
                             'title' => [
                                 'type' => 'text',
                                 'analyzer' => 'autocomplete',
@@ -78,8 +74,16 @@ class Migrator
                                 'type' => 'keyword',
                             ],
 
+                            'language_id' => [
+                                'type' => 'integer',
+                            ],
+
                             'language' => [
                                 'type' => 'keyword',
+                            ],
+
+                            'tag_ids' => [
+                                'type' => 'integer',
                             ],
 
                             'tags' => [

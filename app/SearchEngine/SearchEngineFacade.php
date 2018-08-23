@@ -4,12 +4,18 @@ namespace App\SearchEngine;
 
 use App\Pages\Models\Page;
 use App\Pages\Models\PageVariant;
+use App\SearchEngine\Implementation\Listeners\PagesListener;
 use App\SearchEngine\Implementation\Services\Migrator;
 use App\SearchEngine\Implementation\Services\PagesIndexer;
 use Illuminate\Support\Collection;
 
-class SearchEngineFacade
+final class SearchEngineFacade
 {
+
+    /**
+     * @var PagesListener
+     */
+    private $pagesListener;
 
     /**
      * @var Migrator
@@ -22,13 +28,18 @@ class SearchEngineFacade
     private $pagesIndexer;
 
     /**
+     * @param PagesListener $pagesListener
      * @param Migrator $migrator
      * @param PagesIndexer $pagesIndexer
      */
     public function __construct(
+        PagesListener $pagesListener,
         Migrator $migrator,
         PagesIndexer $pagesIndexer
     ) {
+        $this->pagesListener = $pagesListener;
+        $this->pagesListener->boot();
+
         $this->migrator = $migrator;
         $this->pagesIndexer = $pagesIndexer;
     }
@@ -50,6 +61,7 @@ class SearchEngineFacade
     public function search(array $query): Collection
     {
         $this->migrator->migrate();
+        unimplemented();
     }
 
 }

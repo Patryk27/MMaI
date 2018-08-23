@@ -12,6 +12,8 @@ use App\Tags\Implementation\Services\Searcher\InMemoryTagsSearcher;
 use App\Tags\Models\Tag;
 use App\Tags\TagsFacade;
 use App\Tags\TagsFactory;
+use Illuminate\Events\Dispatcher as EventsDispatcher;
+use Illuminate\Support\Testing\Fakes\EventFake;
 use Tests\Unit\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
@@ -44,6 +46,10 @@ abstract class TestCase extends BaseTestCase
     {
         parent::setUp();
 
+        $eventsDispatcher = new EventFake(
+            $this->app->make(EventsDispatcher::class)
+        );
+
         $this->tagsRepository = new InMemoryTagsRepository(
             new InMemoryRepository([
                 new Tag([
@@ -70,8 +76,17 @@ abstract class TestCase extends BaseTestCase
         $tagsSearcher = new InMemoryTagsSearcher();
         $pageVariantsSearcher = new InMemoryPageVariantsSearcher();
 
-        $this->tagsFacade = TagsFactory::build($this->tagsRepository, $tagsSearcher);
-        $this->pagesFacade = PagesFactory::build($this->pagesRepository, $pageVariantsSearcher, $this->tagsFacade);
+        $this->tagsFacade = TagsFactory::build(
+            $this->tagsRepository,
+            $tagsSearcher
+        );
+
+        $this->pagesFacade = PagesFactory::build(
+            $eventsDispatcher,
+            $this->pagesRepository,
+            $pageVariantsSearcher,
+            $this->tagsFacade
+        );
     }
 
 }

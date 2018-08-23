@@ -2,11 +2,13 @@
 
 namespace App\Pages\Implementation\Services\Pages;
 
+use App\Pages\Events\PageCreated;
 use App\Pages\Exceptions\PageException;
 use App\Pages\Implementation\Repositories\PagesRepositoryInterface;
 use App\Pages\Implementation\Services\PageVariants\PageVariantsCreator;
 use App\Pages\Models\Page;
 use App\Tags\Exceptions\TagException;
+use Illuminate\Contracts\Events\Dispatcher as EventsDispatcherContract;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 
 /**
@@ -14,6 +16,11 @@ use Illuminate\Database\Eloquent\Collection as EloquentCollection;
  */
 class PagesCreator
 {
+
+    /**
+     * @var EventsDispatcherContract
+     */
+    private $eventsDispatcher;
 
     /**
      * @var PagesRepositoryInterface
@@ -26,13 +33,16 @@ class PagesCreator
     private $pageVariantsCreator;
 
     /**
+     * @param EventsDispatcherContract $eventsDispatcher
      * @param PagesRepositoryInterface $pagesRepository
      * @param PageVariantsCreator $pageVariantsCreator
      */
     public function __construct(
+        EventsDispatcherContract $eventsDispatcher,
         PagesRepositoryInterface $pagesRepository,
         PageVariantsCreator $pageVariantsCreator
     ) {
+        $this->eventsDispatcher = $eventsDispatcher;
         $this->pagesRepository = $pagesRepository;
         $this->pageVariantsCreator = $pageVariantsCreator;
     }
@@ -63,6 +73,10 @@ class PagesCreator
         }
 
         $this->pagesRepository->persist($page);
+
+        $this->eventsDispatcher->dispatch(
+            new PageCreated($page)
+        );
 
         return $page;
     }

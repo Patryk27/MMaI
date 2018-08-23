@@ -90,17 +90,20 @@ class ReindexAllCommand extends Command
             sprintf('About to reindex <info>%d</info> pages...', $pages->count())
         );
 
+        // Prepare progress bar
         $progressBar = $this->output->createProgressBar(
             $pages->count()
         );
 
         $progressBar->display();
 
+        // Begin to re-index all the pages
         foreach ($pages as $page) {
             $this->searchEngineFacade->index($page);
             $progressBar->advance();
         }
 
+        // Finish progress bar
         $progressBar->finish();
         $this->output->writeln('');
     }

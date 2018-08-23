@@ -2,6 +2,7 @@
 
 namespace App\Pages\Implementation\Services\Pages;
 
+use App\Pages\Events\PageUpdated;
 use App\Pages\Exceptions\PageException;
 use App\Pages\Implementation\Repositories\PagesRepositoryInterface;
 use App\Pages\Implementation\Services\PageVariants\PageVariantsCreator;
@@ -9,12 +10,18 @@ use App\Pages\Implementation\Services\PageVariants\PageVariantsUpdater;
 use App\Pages\Models\Page;
 use App\Pages\Models\PageVariant;
 use App\Tags\Exceptions\TagException;
+use Illuminate\Contracts\Events\Dispatcher as EventsDispatcherContract;
 
 /**
  * @see \Tests\Unit\Pages\UpdateTest
  */
 class PagesUpdater
 {
+
+    /**
+     * @var EventsDispatcherContract
+     */
+    private $eventsDispatcher;
 
     /**
      * @var PagesRepositoryInterface
@@ -32,15 +39,18 @@ class PagesUpdater
     private $pageVariantsUpdater;
 
     /**
+     * @param EventsDispatcherContract $eventsDispatcher
      * @param PagesRepositoryInterface $pagesRepository
      * @param PageVariantsCreator $pageVariantsCreator
      * @param PageVariantsUpdater $pageVariantsUpdater
      */
     public function __construct(
+        EventsDispatcherContract $eventsDispatcher,
         PagesRepositoryInterface $pagesRepository,
         PageVariantsCreator $pageVariantsCreator,
         PageVariantsUpdater $pageVariantsUpdater
     ) {
+        $this->eventsDispatcher = $eventsDispatcher;
         $this->pagesRepository = $pagesRepository;
         $this->pageVariantsCreator = $pageVariantsCreator;
         $this->pageVariantsUpdater = $pageVariantsUpdater;
@@ -61,6 +71,10 @@ class PagesUpdater
         }
 
         $this->pagesRepository->persist($page);
+
+        $this->eventsDispatcher->dispatch(
+            new PageUpdated($page)
+        );
     }
 
     /**

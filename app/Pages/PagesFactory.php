@@ -12,6 +12,7 @@ use App\Pages\Implementation\Services\PageVariants\PageVariantsSearcherInterface
 use App\Pages\Implementation\Services\PageVariants\PageVariantsUpdater;
 use App\Pages\Implementation\Services\PageVariants\PageVariantsValidator;
 use App\Tags\TagsFacade;
+use Illuminate\Contracts\Events\Dispatcher as EventsDispatcherContract;
 
 final class PagesFactory
 {
@@ -19,12 +20,14 @@ final class PagesFactory
     /**
      * Builds an instance of @see PagesFacade.
      *
+     * @param EventsDispatcherContract $eventsDispatcher
      * @param PagesRepositoryInterface $pagesRepository
      * @param PageVariantsSearcherInterface $pageVariantsSearcher
      * @param TagsFacade $tagsFacade
      * @return PagesFacade
      */
     public static function build(
+        EventsDispatcherContract $eventsDispatcher,
         PagesRepositoryInterface $pagesRepository,
         PageVariantsSearcherInterface $pageVariantsSearcher,
         TagsFacade $tagsFacade
@@ -36,8 +39,8 @@ final class PagesFactory
         $pageVariantsUpdater = new PageVariantsUpdater($pageVariantsValidator, $tagsFacade);
         $pagesQuerier = new PageVariantsQuerier($pageVariantsSearcher);
 
-        $pagesCreator = new PagesCreator($pagesRepository, $pageVariantsCreator);
-        $pagesUpdater = new PagesUpdater($pagesRepository, $pageVariantsCreator, $pageVariantsUpdater);
+        $pagesCreator = new PagesCreator($eventsDispatcher, $pagesRepository, $pageVariantsCreator);
+        $pagesUpdater = new PagesUpdater($eventsDispatcher, $pagesRepository, $pageVariantsCreator, $pageVariantsUpdater);
 
         return new PagesFacade(
             $pagesCreator,

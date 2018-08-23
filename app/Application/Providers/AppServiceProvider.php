@@ -7,7 +7,7 @@ use Illuminate\Support\ServiceProvider;
 use Schema;
 use View;
 
-class AppServiceProvider extends ServiceProvider
+final class AppServiceProvider extends ServiceProvider
 {
 
     private const BINDS = [
