@@ -85,17 +85,17 @@ export default class TagEditor {
 
         switch (state) {
             case 'submitting':
-                buttons.close.block();
+                buttons.close.disable();
 
-                buttons.submit.block();
+                buttons.submit.disable();
                 buttons.submit.showSpinner();
 
                 break;
 
             case 'ready':
-                buttons.close.unblock();
+                buttons.close.enable();
 
-                buttons.submit.unblock();
+                buttons.submit.enable();
                 buttons.submit.hideSpinner();
 
                 break;

@@ -56,12 +56,12 @@ export default function () {
         formSubmitter = new FormSubmitter(bus, dom.form, formSections);
 
     bus.on('form::submitting', () => {
-        formSubmitButton.block();
+        formSubmitButton.disable();
         formSubmitButton.showSpinner();
     });
 
     bus.on('form::submitted', ({response}) => {
-        formSubmitButton.unblock();
+        formSubmitButton.enable();
         formSubmitButton.hideSpinner();
 
         if (response) {

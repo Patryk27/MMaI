@@ -1,34 +1,6 @@
-export default class InputComponent {
+import Component from './Component';
 
-    /**
-     * @param {jQuery|string} selector
-     */
-    constructor(selector) {
-        this.$dom = {
-            input: $(selector),
-        };
-    }
-
-    /**
-     * Focuses on the input.
-     */
-    focus() {
-        this.$dom.input.focus();
-    }
-
-    /**
-     * Blocks the input, yielding it uneditable.
-     */
-    block() {
-        this.$dom.input.attr('disabled', true);
-    }
-
-    /**
-     * Unblocks the input, making it editable again.
-     */
-    unblock() {
-        this.$dom.input.attr('disabled', false);
-    }
+export default class InputComponent extends Component {
 
     /**
      * Adds a feedback to the input.
@@ -41,7 +13,7 @@ export default class InputComponent {
      * @param {string} message
      */
     setFeedback(type, message) {
-        // We can only have one feedback - if at least one is present right now, we force-delete it
+        // We can only have one feedback - if at least one is present right now, remove it
         if (this.$dom.hasOwnProperty('feedback')) {
             this.removeFeedback();
         }
@@ -50,7 +22,7 @@ export default class InputComponent {
         const isValid = type === 'valid';
 
         // Change the input's class
-        this.$dom.input
+        this.$dom.el
             .removeClass(isValid ? 'is-invalid' : 'is-valid')
             .addClass(isValid ? 'is-valid' : 'is-invalid');
 
@@ -60,7 +32,7 @@ export default class InputComponent {
                 .addClass(isValid ? 'valid-feedback' : 'invalid-feedback')
                 .text(message)
                 .appendTo(
-                    this.$dom.input.parent()
+                    this.$dom.el.parent()
                 );
     }
 
@@ -80,7 +52,7 @@ export default class InputComponent {
      * @returns {*}
      */
     getValue() {
-        return this.$dom.input.val();
+        return this.$dom.el.val();
     }
 
     /**
@@ -89,7 +61,7 @@ export default class InputComponent {
      * @param {*} value
      */
     setValue(value) {
-        this.$dom.input.val(value);
+        this.$dom.el.val(value);
     }
 
 }

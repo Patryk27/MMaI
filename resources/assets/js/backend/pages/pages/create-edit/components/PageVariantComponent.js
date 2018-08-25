@@ -64,18 +64,18 @@ export default class PageVariantComponent {
             this.$refresh();
         });
 
-        // When user changes a tab, we may need to refresh ourselves, since SimpleMDE after going from "hidden" into
-        // "visible" tends to forget that it should re-render
+        // When user changes a tab, we may need to refresh ourselves, since SimpleMDE - after becoming visible - tends
+        // to forget that it should repaint automatically.
         bus.on('tabs::changed', () => {
             this.$refresh();
         });
 
-        // When form is being submitted, block the section
+        // When form is being submitted, block the form
         bus.on('form::submitting', () => {
             this.$block(true);
         });
 
-        // When form has been submitted, unblock the section
+        // After form has been submitted, unblock the form
         bus.on('form::submitted', () => {
             this.$block(false);
         });
@@ -153,9 +153,9 @@ export default class PageVariantComponent {
     $block(blocked) {
         for (const [, component] of Object.entries(this.$form)) {
             if (blocked) {
-                component.block();
+                component.disable();
             } else {
-                component.unblock();
+                component.enable();
             }
         }
 
