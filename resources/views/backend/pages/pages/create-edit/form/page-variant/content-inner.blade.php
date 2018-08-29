@@ -54,6 +54,16 @@
             'class' => 'form-control',
             'placeholder' => 'my-awesome-page',
         ]) }}
+
+        @if(strlen($url) > 0)
+            <div class="input-group-append">
+                <a class="btn btn-secondary btn-icon-only"
+                   href="{{ $pageVariant->route->getTargetUrl() }}"
+                   title="Navigate to the page">
+                    <i class="fa fa-external-link-alt"></i>
+                </a>
+            </div>
+        @endif
     </div>
 </div>
 
