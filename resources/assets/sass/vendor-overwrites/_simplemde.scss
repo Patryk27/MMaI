@@ -42,6 +42,18 @@
     border-left: 1px solid $input-border-color;
     border-right: 1px solid $input-border-color;
   }
+
+  // SimpleMDE works on Font Awesome 4, whereas MMaI requires FA5 - code below is responsible for translating names of
+  // icons present in FA4, but missing in FA5.
+  .fa {
+    &-header {
+      @extend .fa-heading;
+    }
+
+    &-picture-o {
+      @extend .fa-image;
+    }
+  }
 }
 
 .editor-preview,

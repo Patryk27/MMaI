@@ -55,6 +55,7 @@ export default class PageVariantComponent {
 
         // Initialize SimpleMDE
         this.$simpleMde = new SimpleMDE({
+            autoDownloadFontAwesome: false,
             element: this.$dom.form.find('[name="content"]')[0],
             forceSync: true,
         });
