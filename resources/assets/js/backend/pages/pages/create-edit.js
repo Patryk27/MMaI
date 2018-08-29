@@ -55,6 +55,11 @@ export default function () {
         formSubmitButton = new ButtonComponent(dom.formSubmitButton),
         formSubmitter = new FormSubmitter(bus, dom.form, formSections);
 
+    bus.on('form::submit', () => {
+        // noinspection JSIgnoredPromiseFromCall
+        formSubmitter.submit();
+    });
+
     bus.on('form::submitting', () => {
         formSubmitButton.disable();
         formSubmitButton.showSpinner();

@@ -64,6 +64,14 @@ export default class PageVariantComponent {
             this.$refresh();
         });
 
+        // When user presses enter when inside the URL or title inputs, consider it equal to clicking the "submit"
+        // button
+        this.$dom.form.on('keypress', (evt) => {
+            if (evt.originalEvent.code === 'Enter') {
+                bus.emit('form::submit');
+            }
+        });
+
         // When user changes a tab, we may need to refresh ourselves, since SimpleMDE - after becoming visible - tends
         // to forget that it should repaint automatically.
         bus.on('tabs::changed', () => {
