@@ -4,6 +4,7 @@ namespace Tests\Unit\Pages;
 
 use App\Core\Repositories\InMemoryRepository;
 use App\Pages\Implementation\Repositories\InMemoryPagesRepository;
+use App\Pages\Implementation\Repositories\InMemoryPageVariantsRepository;
 use App\Pages\Implementation\Services\PageVariants\Searcher\InMemoryPageVariantsSearcher;
 use App\Pages\PagesFacade;
 use App\Pages\PagesFactory;
@@ -28,6 +29,11 @@ abstract class TestCase extends BaseTestCase
      * @var InMemoryPagesRepository
      */
     protected $pagesRepository;
+
+    /**
+     * @var InMemoryPageVariantsRepository
+     */
+    protected $pageVariantsRepository;
 
     /**
      * @var TagsFacade
@@ -73,6 +79,8 @@ abstract class TestCase extends BaseTestCase
             new InMemoryRepository()
         );
 
+        $this->pageVariantsRepository = new InMemoryPageVariantsRepository();
+
         $tagsSearcher = new InMemoryTagsSearcher();
         $pageVariantsSearcher = new InMemoryPageVariantsSearcher();
 
@@ -84,6 +92,7 @@ abstract class TestCase extends BaseTestCase
         $this->pagesFacade = PagesFactory::build(
             $eventsDispatcher,
             $this->pagesRepository,
+            $this->pageVariantsRepository,
             $pageVariantsSearcher,
             $this->tagsFacade
         );

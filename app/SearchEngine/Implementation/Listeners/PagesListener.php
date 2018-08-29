@@ -35,7 +35,7 @@ class PagesListener
     /**
      * @return void
      */
-    public function boot(): void
+    public function initialize(): void
     {
         $this->eventsDispatcher->listen(PageCreated::class, [$this, 'handlePageCreated']);
         $this->eventsDispatcher->listen(PageUpdated::class, [$this, 'handlePageUpdated']);

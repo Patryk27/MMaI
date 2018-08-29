@@ -5,7 +5,7 @@ namespace App\SearchEngine\Implementation\Services;
 use Cviebrock\LaravelElasticsearch\Manager as ElasticsearchManager;
 use Elasticsearch\Client as ElasticsearchClient;
 
-class Migrator
+class ElasticsearchMigrator
 {
 
     /**
@@ -94,6 +94,8 @@ class Migrator
                 ],
 
                 'settings' => [
+                    'number_of_shards' => 1, // @todo
+
                     'analysis' => [
                         'filter' => [
                             'autocomplete_filter' => [

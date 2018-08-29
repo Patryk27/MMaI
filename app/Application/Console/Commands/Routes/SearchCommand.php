@@ -9,7 +9,7 @@ use App\Routes\RoutesFacade;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
 
-class SearchRoutesCommand extends Command
+final class SearchCommand extends Command
 {
 
     /**
@@ -88,8 +88,7 @@ class SearchRoutesCommand extends Command
     {
         $tableHeaders = [
             'id' => 'Id',
-            'subdomain' => 'Subdomain',
-            'url' => 'URL',
+            'route' => 'Route',
             'points_at' => 'Points at',
             'created_at' => 'Created at',
         ];
@@ -97,8 +96,7 @@ class SearchRoutesCommand extends Command
         $tableRows = $routes->map(function (Route $route): array {
             return [
                 'id' => $route->id,
-                'subdomain' => $route->subdomain,
-                'url' => $route->url,
+                'route' => $route->getTargetUrl(),
                 'points_at' => sprintf('%s [id=%d]', $route->model_type, $route->model_id),
                 'created_at' => $route->created_at->format('Y-m-d'),
             ];

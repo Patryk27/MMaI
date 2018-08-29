@@ -3,7 +3,9 @@
 namespace App\Pages\Implementation\Services\PageVariants;
 
 use App\Pages\Exceptions\PageException;
+use App\Pages\Implementation\Repositories\PageVariantsRepositoryInterface;
 use App\Pages\Models\PageVariant;
+use App\Pages\Queries\GetPageVariantsByIdsQuery;
 use App\Pages\Queries\PageVariantsQueryInterface;
 use App\Pages\Queries\SearchPageVariantsQuery;
 use Illuminate\Support\Collection;
@@ -12,16 +14,24 @@ class PageVariantsQuerier
 {
 
     /**
+     * @var PageVariantsRepositoryInterface
+     */
+    private $pageVariantsRepository;
+
+    /**
      * @var PageVariantsSearcherInterface
      */
     private $pagesSearcher;
 
     /**
+     * @param PageVariantsRepositoryInterface $pageVariantsRepository
      * @param PageVariantsSearcherInterface $pageVariantsSearcher
      */
     public function __construct(
+        PageVariantsRepositoryInterface $pageVariantsRepository,
         PageVariantsSearcherInterface $pageVariantsSearcher
     ) {
+        $this->pageVariantsRepository = $pageVariantsRepository;
         $this->pagesSearcher = $pageVariantsSearcher;
     }
 
@@ -36,6 +46,11 @@ class PageVariantsQuerier
         switch (true) {
             case $query instanceof SearchPageVariantsQuery:
                 return $query->applyTo($this->pagesSearcher)->get();
+
+            case $query instanceof GetPageVariantsByIdsQuery:
+                return $this->pageVariantsRepository->getByIds(
+                    $query->getIds()
+                );
 
             default:
                 throw new PageException(

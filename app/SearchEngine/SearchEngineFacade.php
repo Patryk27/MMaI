@@ -2,11 +2,13 @@
 
 namespace App\SearchEngine;
 
+use App\Pages\Exceptions\PageException;
 use App\Pages\Models\Page;
 use App\Pages\Models\PageVariant;
 use App\SearchEngine\Implementation\Listeners\PagesListener;
-use App\SearchEngine\Implementation\Services\Migrator;
+use App\SearchEngine\Implementation\Services\ElasticsearchMigrator;
 use App\SearchEngine\Implementation\Services\PagesIndexer;
+use App\SearchEngine\Implementation\Services\PageVariantsSearcher;
 use Illuminate\Support\Collection;
 
 final class SearchEngineFacade
@@ -18,9 +20,9 @@ final class SearchEngineFacade
     private $pagesListener;
 
     /**
-     * @var Migrator
+     * @var ElasticsearchMigrator
      */
-    private $migrator;
+    private $elasticsearchMigrator;
 
     /**
      * @var PagesIndexer
@@ -28,20 +30,28 @@ final class SearchEngineFacade
     private $pagesIndexer;
 
     /**
+     * @var PageVariantsSearcher
+     */
+    private $pageVariantsSearcher;
+
+    /**
      * @param PagesListener $pagesListener
-     * @param Migrator $migrator
+     * @param ElasticsearchMigrator $elasticsearchMigrator
      * @param PagesIndexer $pagesIndexer
+     * @param PageVariantsSearcher $pageVariantsSearcher
      */
     public function __construct(
         PagesListener $pagesListener,
-        Migrator $migrator,
-        PagesIndexer $pagesIndexer
+        ElasticsearchMigrator $elasticsearchMigrator,
+        PagesIndexer $pagesIndexer,
+        PageVariantsSearcher $pageVariantsSearcher
     ) {
         $this->pagesListener = $pagesListener;
-        $this->pagesListener->boot();
+        $this->pagesListener->initialize();
 
-        $this->migrator = $migrator;
+        $this->elasticsearchMigrator = $elasticsearchMigrator;
         $this->pagesIndexer = $pagesIndexer;
+        $this->pageVariantsSearcher = $pageVariantsSearcher;
     }
 
     /**
@@ -50,18 +60,21 @@ final class SearchEngineFacade
      */
     public function index(Page $page): void
     {
-        $this->migrator->migrate();
+        $this->elasticsearchMigrator->migrate();
         $this->pagesIndexer->index($page);
     }
 
     /**
-     * @param array $query
+     * @param string $query
      * @return Collection|PageVariant[]
+     *
+     * @throws PageException
      */
-    public function search(array $query): Collection
+    public function search(string $query): Collection
     {
-        $this->migrator->migrate();
-        unimplemented();
+        $this->elasticsearchMigrator->migrate();
+
+        return $this->pageVariantsSearcher->search($query);
     }
 
 }

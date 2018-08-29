@@ -19,6 +19,7 @@ final class AppServiceProvider extends ServiceProvider
 
         // Pages
         \App\Pages\Implementation\Repositories\PagesRepositoryInterface::class => \App\Pages\Implementation\Repositories\EloquentPagesRepository::class,
+        \App\Pages\Implementation\Repositories\PageVariantsRepositoryInterface::class => \App\Pages\Implementation\Repositories\EloquentPageVariantsRepository::class,
         \App\Pages\Implementation\Services\PageVariants\PageVariantsSearcherInterface::class => \App\Pages\Implementation\Services\PageVariants\Searcher\EloquentPageVariantsSearcher::class,
 
         // Routes

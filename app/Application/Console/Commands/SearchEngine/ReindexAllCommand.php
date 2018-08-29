@@ -10,7 +10,7 @@ use App\SearchEngine\SearchEngineFacade;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
 
-class ReindexAllCommand extends Command
+final class ReindexAllCommand extends Command
 {
 
     /**

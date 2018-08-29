@@ -4,9 +4,6 @@ namespace App\Application\Http\Controllers\Frontend;
 
 use App\Application\Http\Controllers\Controller;
 use App\Application\Http\Requests\Frontend\SearchRequest;
-use App\Languages\Exceptions\LanguageException;
-use App\Languages\LanguagesFacade;
-use App\Languages\Queries\GetAllLanguagesQuery;
 use App\Pages\Exceptions\PageException;
 use App\Pages\PagesFacade;
 use App\Pages\Queries\SearchPageVariantsQuery;
@@ -21,45 +18,32 @@ class SearchController extends Controller
     private $viewFactory;
 
     /**
-     * @var LanguagesFacade
-     */
-    private $languagesFacade;
-
-    /**
      * @var PagesFacade
      */
     private $pagesFacade;
 
     /**
      * @param ViewFactoryContract $viewFactory
-     * @param LanguagesFacade $languagesFacade
      * @param PagesFacade $pagesFacade
      */
     public function __construct(
         ViewFactoryContract $viewFactory,
-        LanguagesFacade $languagesFacade,
         PagesFacade $pagesFacade
     ) {
         $this->viewFactory = $viewFactory;
-        $this->languagesFacade = $languagesFacade;
         $this->pagesFacade = $pagesFacade;
     }
 
     /**
      * @return mixed
-     *
-     * @throws LanguageException
      */
     public function index()
     {
-        return view('frontend.pages.search.index', [
-            'languages' => $this->languagesFacade->queryMany(
-                new GetAllLanguagesQuery()
-            )
-        ]);
+        return view('frontend.pages.search.index');
     }
 
     /**
+     * @param SearchRequest $request
      * @return mixed
      *
      * @throws PageException
