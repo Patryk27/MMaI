@@ -150,10 +150,10 @@ class PagesSeeder extends Seeder
      */
     private function createPageVariant(Page $page, string $languageName, array $pageVariantData): void
     {
-        // Find language to which this PV is going to be bound
+        // Find language to which this page variant is going to be bound
         $language = Language::where('slug', $languageName)->firstOrFail();
 
-        // Create the page variant
+        // Create a new page variant
         $pageVariant = PageVariant::create([
             'page_id' => $page->id,
             'language_id' => $language->id,
@@ -164,7 +164,7 @@ class PagesSeeder extends Seeder
             'published_at' => $pageVariantData['published_at'],
         ]);
 
-        // Create page variant's tags
+        // Bind this new page variant to some tags
         foreach (array_get($pageVariantData, 'tags', []) as $tagName) {
             $tag = Tag::query()
                 ->where('language_id', $language->id)
@@ -174,12 +174,9 @@ class PagesSeeder extends Seeder
             $pageVariant->tags()->attach($tag->id);
         }
 
-        // Create PV's route
-        Route::buildFor(
-            $language->slug,
-            $pageVariantData['url'],
-            $pageVariant
-        )->saveOrFail();
+        // Create page variant's route
+        $route = Route::buildFor($language->slug, $pageVariantData['url'], $pageVariant);
+        $route->saveOrFail();
     }
 
 }
