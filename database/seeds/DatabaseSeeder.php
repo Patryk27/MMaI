@@ -24,6 +24,12 @@ class DatabaseSeeder extends Seeder
         $this->call(TagsSeeder::class);
         $this->call(PagesSeeder::class);
         $this->call(MenuItemsSeeder::class);
+
+        $this->command->info('');
+        $this->command->call('app:search-engine:reindex-all');
+
+        $this->command->info('');
+        $this->command->info('MMaI\'s database has been initialized.');
     }
 
 }
