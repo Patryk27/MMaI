@@ -47,7 +47,6 @@ class Detector
     /**
      * @inheritdoc
      *
-     * @throws AppException
      * @throws LanguageException
      */
     public function getLanguage(): ?Language
