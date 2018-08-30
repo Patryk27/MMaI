@@ -9,6 +9,7 @@ use App\SearchEngine\Implementation\Listeners\PagesListener;
 use App\SearchEngine\Implementation\Services\ElasticsearchMigrator;
 use App\SearchEngine\Implementation\Services\PagesIndexer;
 use App\SearchEngine\Implementation\Services\PageVariantsSearcher;
+use App\SearchEngine\Queries\SearchQuery;
 use Illuminate\Support\Collection;
 
 final class SearchEngineFacade
@@ -65,12 +66,12 @@ final class SearchEngineFacade
     }
 
     /**
-     * @param string $query
+     * @param SearchQuery $query
      * @return Collection|PageVariant[]
      *
      * @throws PageException
      */
-    public function search(string $query): Collection
+    public function search(SearchQuery $query): Collection
     {
         $this->elasticsearchMigrator->migrate();
 

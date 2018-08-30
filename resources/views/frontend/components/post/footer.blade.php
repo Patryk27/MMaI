@@ -11,7 +11,7 @@
             <i class="fas fa-tags"></i>
 
             @foreach($pageVariant->tags as $tag)
-                <a class="tag" href="@todo">
+                <a class="tag" href="/!search?query={{ $tag->name }}">
                     {{ $tag->name }}
                 </a>
             @endforeach

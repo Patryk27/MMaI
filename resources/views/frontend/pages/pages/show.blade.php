@@ -1,10 +1,10 @@
 @php
     /**
-     * @var \App\Pages\ValueObjects\RenderedPage $renderedPage
+     * @var \App\Pages\ValueObjects\RenderedPageVariant $renderedPageVariant
      */
 
-    $page = $renderedPage->getPage();
-    $pageVariant = $renderedPage->getPageVariant();
+    $page = $renderedPageVariant->getPage();
+    $pageVariant = $renderedPageVariant->getPageVariant();
 @endphp
 
 @extends('frontend.layout', [
@@ -22,7 +22,7 @@
         </header>
 
         <article class="page-content">
-            {!! $renderedPage->getContent() !!}
+            {!! $renderedPageVariant->getContent() !!}
         </article>
     </main>
 

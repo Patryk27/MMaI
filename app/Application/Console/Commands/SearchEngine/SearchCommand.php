@@ -4,12 +4,15 @@ namespace App\Application\Console\Commands\SearchEngine;
 
 use App\Pages\Exceptions\PageException;
 use App\Pages\Models\PageVariant;
+use App\SearchEngine\Queries\SearchQuery;
 use App\SearchEngine\SearchEngineFacade;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
 
 final class SearchCommand extends Command
 {
+
+    public const NAME = 'app:search-engine:search';
 
     /**
      * @var string
@@ -45,14 +48,22 @@ final class SearchCommand extends Command
     public function handle(): void
     {
         $pageVariants = $this->searchEngineFacade->search(
-            $this->input->getArgument('query')
+            new SearchQuery([
+                'query' => $this->input->getArgument('query'),
+            ])
         );
 
-        $this->output->writeln(
-            sprintf('Found <info>%d</info> page variants(s):', $pageVariants->count())
-        );
+        if ($pageVariants->isEmpty()) {
+            $this->output->writeln(
+                '<comment>No page variant matches given query.</comment>'
+            );
+        } else {
+            $this->output->writeln(
+                sprintf('Found <info>%d</info> matching page variants(s):', $pageVariants->count())
+            );
 
-        $this->renderTable($pageVariants);
+            $this->renderTable($pageVariants);
+        }
     }
 
     /**

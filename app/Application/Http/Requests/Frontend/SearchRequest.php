@@ -22,7 +22,6 @@ class SearchRequest extends FormRequest
     {
         return [
             'query' => 'required',
-            'language_ids' => 'nullable|array',
         ];
     }
 

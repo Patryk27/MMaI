@@ -3,7 +3,7 @@
 namespace App\Pages\Implementation\Services\PageVariants;
 
 use App\Pages\Models\PageVariant;
-use App\Pages\ValueObjects\RenderedPage;
+use App\Pages\ValueObjects\RenderedPageVariant;
 use League\CommonMark\CommonMarkConverter;
 
 class PageVariantsRenderer
@@ -21,11 +21,11 @@ class PageVariantsRenderer
 
     /**
      * @param PageVariant $pageVariant
-     * @return RenderedPage
+     * @return RenderedPageVariant
      */
-    public function render(PageVariant $pageVariant): RenderedPage
+    public function render(PageVariant $pageVariant): RenderedPageVariant
     {
-        return new RenderedPage([
+        return new RenderedPageVariant([
             'pageVariant' => $pageVariant,
 
             'lead' => $this->commonMarkConverter->convertToHtml($pageVariant->lead ?? ''),

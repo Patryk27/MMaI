@@ -1,6 +1,6 @@
 @php
     /**
-     * @var \Illuminate\Contracts\Pagination\LengthAwarePaginator|\App\Pages\ValueObjects\RenderedPage[] $posts
+     * @var \Illuminate\Contracts\Pagination\LengthAwarePaginator|\App\Pages\ValueObjects\RenderedPageVariant[] $posts
      */
 @endphp
 
@@ -14,7 +14,7 @@
     @foreach($posts as $post)
         @php
             /**
-             * @var \App\Pages\ValueObjects\RenderedPage $post
+             * @var \App\Pages\ValueObjects\RenderedPageVariant $post
              */
 
             $pageVariant = $post->getPageVariant();

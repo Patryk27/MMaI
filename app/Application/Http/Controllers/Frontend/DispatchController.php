@@ -60,7 +60,7 @@ class DispatchController extends Controller
             case PageVariant::getMorphableType():
                 /** @noinspection PhpParamsInspection */
                 return view('frontend.pages.pages.show', [
-                    'renderedPage' => $this->pagesFacade->render($route->model),
+                    'renderedPageVariant' => $this->pagesFacade->render($route->model),
                 ]);
 
             case Route::getMorphableType():

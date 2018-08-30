@@ -6,7 +6,7 @@ use App\Core\ValueObjects\HasInitializationConstructor;
 use App\Pages\Models\Page;
 use App\Pages\Models\PageVariant;
 
-class RenderedPage
+final class RenderedPageVariant
 {
 
     use HasInitializationConstructor;

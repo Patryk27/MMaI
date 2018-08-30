@@ -4,18 +4,28 @@ namespace App\Application\Http\Controllers\Frontend;
 
 use App\Application\Http\Controllers\Controller;
 use App\Application\Http\Requests\Frontend\SearchRequest;
+use App\Core\Exceptions\Exception as AppException;
+use App\Core\Services\Language\Detector as LanguageDetector;
 use App\Pages\Exceptions\PageException;
+use App\Pages\Models\PageVariant;
 use App\Pages\PagesFacade;
-use App\Pages\Queries\SearchPageVariantsQuery;
-use Illuminate\Contracts\View\Factory as ViewFactoryContract;
+use App\Pages\ValueObjects\RenderedPageVariant;
+use App\SearchEngine\Queries\SearchQuery;
+use App\SearchEngine\SearchEngineFacade;
+use Illuminate\Support\Collection;
 
 class SearchController extends Controller
 {
 
     /**
-     * @var ViewFactoryContract
+     * @var LanguageDetector
      */
-    private $viewFactory;
+    private $languageDetector;
+
+    /**
+     * @var SearchEngineFacade
+     */
+    private $searchEngineFacade;
 
     /**
      * @var PagesFacade
@@ -23,14 +33,17 @@ class SearchController extends Controller
     private $pagesFacade;
 
     /**
-     * @param ViewFactoryContract $viewFactory
+     * @param LanguageDetector $languageDetector
+     * @param SearchEngineFacade $searchEngineFacade
      * @param PagesFacade $pagesFacade
      */
     public function __construct(
-        ViewFactoryContract $viewFactory,
+        LanguageDetector $languageDetector,
+        SearchEngineFacade $searchEngineFacade,
         PagesFacade $pagesFacade
     ) {
-        $this->viewFactory = $viewFactory;
+        $this->languageDetector = $languageDetector;
+        $this->searchEngineFacade = $searchEngineFacade;
         $this->pagesFacade = $pagesFacade;
     }
 
@@ -47,19 +60,32 @@ class SearchController extends Controller
      * @return mixed
      *
      * @throws PageException
+     * @throws AppException
      */
     public function search(SearchRequest $request)
     {
-        $query = [
-            'search' => $request->get('search'),
-            'filters' => $request->get('filters'),
-        ];
+        $language = $this->languageDetector->getLanguageOrFail();
 
-        $pages = $this->pagesFacade->queryMany(
-            new SearchPageVariantsQuery($query)
+        /**
+         * @var Collection|PageVariant[] $posts
+         */
+        $posts = $this->searchEngineFacade->search(
+            new SearchQuery([
+                'query' => $request->get('query'),
+                'language' => $language,
+                'postsOnly' => true,
+            ])
         );
 
-        dd($pages);
+        /**
+         * @var Collection|RenderedPageVariant[] $posts
+         */
+        $posts = $posts->map([$this->pagesFacade, 'render']);
+
+        return view('frontend.pages.search', [
+            'query' => $request->get('query'),
+            'posts' => $posts,
+        ]);
     }
 
 }

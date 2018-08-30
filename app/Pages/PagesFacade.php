@@ -11,7 +11,7 @@ use App\Pages\Implementation\Services\PageVariants\PageVariantsRenderer;
 use App\Pages\Models\Page;
 use App\Pages\Models\PageVariant;
 use App\Pages\Queries\PageVariantsQueryInterface;
-use App\Pages\ValueObjects\RenderedPage;
+use App\Pages\ValueObjects\RenderedPageVariant;
 use App\Tags\Exceptions\TagException;
 use Exception;
 use Illuminate\Support\Collection;
@@ -96,11 +96,11 @@ final class PagesFacade
      * Renders given page variant and returns the rendered VO.
      *
      * @param PageVariant $pageVariant
-     * @return RenderedPage
+     * @return RenderedPageVariant
      *
      * @throws Exception
      */
-    public function render(PageVariant $pageVariant): RenderedPage
+    public function render(PageVariant $pageVariant): RenderedPageVariant
     {
         return $this->pageVariantsRenderer->render($pageVariant);
     }
