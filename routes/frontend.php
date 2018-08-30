@@ -18,3 +18,5 @@ Route::domain('{subdomain}.' . env('APP_DOMAIN'))->group(function () {
     Route::get('{url}', DispatchController::class . '@show')
         ->where('url', '(.+)');
 });
+
+Route::redirect('/', sprintf('%s://%s.%s', env('APP_PROTOCOL'), 'en', env('APP_DOMAIN')));
