@@ -55,6 +55,10 @@ class ElasticsearchMigrator
                 'mappings' => [
                     'page_variants' => [
                         'properties' => [
+                            'id' => [
+                                'type' => 'integer',
+                            ],
+
                             'title' => [
                                 'type' => 'text',
                                 'analyzer' => 'autocomplete',
@@ -71,6 +75,14 @@ class ElasticsearchMigrator
                             ],
 
                             'created_at' => [
+                                'type' => 'keyword',
+                            ],
+
+                            'page_id' => [
+                                'type' => 'integer',
+                            ],
+
+                            'page_type' => [
                                 'type' => 'keyword',
                             ],
 
@@ -94,14 +106,14 @@ class ElasticsearchMigrator
                 ],
 
                 'settings' => [
-                    'number_of_shards' => 1, // @todo
+                    'number_of_shards' => 1,
 
                     'analysis' => [
                         'filter' => [
                             'autocomplete_filter' => [
                                 'type' => 'edge_ngram',
-                                'min_gram' => 1,
-                                'max_gram' => 20,
+                                'min_gram' => 2,
+                                'max_gram' => 10,
                             ],
                         ],
 

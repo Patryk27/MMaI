@@ -7,7 +7,7 @@ use App\Pages\Events\PageUpdated;
 use App\SearchEngine\Implementation\Services\PagesIndexer;
 use Illuminate\Contracts\Events\Dispatcher as EventsDispatcherContract;
 
-class PagesListener
+final class PagesListener
 {
 
     /**

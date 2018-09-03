@@ -44,36 +44,57 @@ class PageVariantsSearcher
      */
     public function search(SearchQuery $query): Collection
     {
-        // Query Elasticsearch for ids of page variants matching given text
-        // query
-        $pageVariantIds = $this->getMatchingPageVariantIds(
-            $query->getQuery()
-        );
+        // Step 1: Retrieve ids of matching page variants from the Elasticsearch
+        $pageVariantIds = $this->getMatchingPageVariantIds($query);
 
-        // Fetch actual page variant models from the database
-        $pageVariants = $this->pagesFacade->queryMany(
+        // Step 2: Retrieve actual page variant models from the MySQL
+        return $this->pagesFacade->queryMany(
             new GetPageVariantsByIdsQuery(
                 $pageVariantIds->all()
             )
         );
-
-        // Remove all the non-matching page variants; e.g. those with different
-        // language id.
-        return $this->filterPageVariants($pageVariants, $query);
     }
 
     /**
-     * @param string $query
+     * @param SearchQuery $query
      * @return Collection|int[]
      */
-    private function getMatchingPageVariantIds(string $query): Collection
+    private function getMatchingPageVariantIds(SearchQuery $query): Collection
     {
+        $filters = [];
+
+        if ($query->hasPageType()) {
+            $filters[] = [
+                'term' => [
+                    'page_type' => $query->getPageType(),
+                ],
+            ];
+        }
+
+        if ($query->hasLanguage()) {
+            $filters[] = [
+                'term' => [
+                    'language_id' => $query->getLanguage()->id,
+                ],
+            ];
+        }
+
         $response = $this->elasticsearch->search([
+            'explain' => true,
+
             'body' => [
+                'size' => 100,
+
                 'query' => [
-                    'simple_query_string' => [
-                        'query' => $query,
-                        'default_operator' => 'and',
+                    'bool' => [
+                        'must' => [
+                            'simple_query_string' => [
+                                'query' => $query->getQuery(),
+                                'default_operator' => 'and',
+                            ],
+                        ],
+
+                        'filter' => $filters,
                     ],
                 ],
             ],
@@ -84,31 +105,6 @@ class PageVariantsSearcher
         );
 
         return $hits->pluck('_id');
-    }
-
-    /**
-     * @param Collection|PageVariant[] $pageVariants
-     * @param SearchQuery $query
-     * @return Collection|PageVariant[]
-     */
-    private function filterPageVariants(Collection $pageVariants, SearchQuery $query): Collection
-    {
-        return $pageVariants->filter(function (PageVariant $pageVariant) use ($query): bool {
-            // If query has been set a "language" filter and the current page
-            // variant does not match it - filter it out
-            if ($query->hasLanguage() && $pageVariant->language_id !== $query->getLanguage()->id) {
-                return false;
-            }
-
-            // If query has been set a "posts only" filter and the current page
-            // variant does not match it - filter it out
-            if ($query->isPostsOnly() && !$pageVariant->page->isBlogPost()) {
-                return false;
-            }
-
-            // Otherwise we're pretty good
-            return true;
-        });
     }
 
 }

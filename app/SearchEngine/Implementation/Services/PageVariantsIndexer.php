@@ -6,6 +6,7 @@ use App\Pages\Models\PageVariant;
 use App\SearchEngine\Implementation\Policies\PageVariantsIndexerPolicy;
 use Cviebrock\LaravelElasticsearch\Manager as ElasticsearchManager;
 use Elasticsearch\Client as ElasticsearchClient;
+use Elasticsearch\Common\Exceptions\Missing404Exception as ElasticsearchMissing404Exception;
 
 class PageVariantsIndexer
 {
@@ -61,20 +62,26 @@ class PageVariantsIndexer
             'id' => $pageVariant->id,
 
             'body' => [
+                // Include information about PV
+                'id' => $pageVariant->id,
                 'title' => $pageVariant->title,
                 'lead' => $pageVariant->lead,
                 'content' => $pageVariant->content,
                 'created_at' => $pageVariant->created_at->format('Y-m-d'),
 
-                'language_id' => $pageVariant->language_id,
+                // Include information about PV's page
+                'page_id' => $pageVariant->page->id,
+                'page_type' => $pageVariant->page->type,
 
+                // Include information about PV's language
+                'language_id' => $pageVariant->language_id,
                 'language' => [
                     $pageVariant->language->native_name,
                     $pageVariant->language->english_name,
                 ],
 
+                // Include information about PV's tags
                 'tag_ids' => $pageVariant->tags->pluck('id'),
-
                 'tags' => $pageVariant->tags->pluck('name'),
             ],
         ]);
@@ -86,11 +93,15 @@ class PageVariantsIndexer
      */
     private function deleteIndex(PageVariant $pageVariant): void
     {
-        $this->elasticsearch->delete([
-            'index' => 'pages',
-            'type' => 'page_variants',
-            'id' => $pageVariant->id,
-        ]);
+        try {
+            $this->elasticsearch->delete([
+                'index' => 'pages',
+                'type' => 'page_variants',
+                'id' => $pageVariant->id,
+            ]);
+        } catch (ElasticsearchMissing404Exception $ex) {
+            // nottin' here
+        }
     }
 
 }

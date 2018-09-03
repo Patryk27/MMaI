@@ -4,16 +4,26 @@ namespace App\SearchEngine\Queries;
 
 use App\Languages\Models\Language;
 
-class SearchQuery
+final class SearchQuery
 {
 
     /**
-     * Query which will be used to find posts / pages.
-     * E.g. "favourite food".
+     * Text query which will be used to find posts / pages.
+     * E.g. "arduino".
      *
      * @var string
      */
     private $query;
+
+    /**
+     * If set, returned page variants are limited to those matching given
+     * page type.
+     *
+     * Default: null.
+     *
+     * @var string|null
+     */
+    private $pageType;
 
     /**
      * If set, returned page variants are limited to those matching given
@@ -26,23 +36,14 @@ class SearchQuery
     private $language;
 
     /**
-     * If set, only post-typed page variants are returned.
-     *
-     * Default: false.
-     *
-     * @var bool
-     */
-    private $postsOnly;
-
-    /**
      * @param array $payload
      */
     public function __construct(
         array $payload
     ) {
         $this->query = array_get($payload, 'query', '');
-        $this->language = array_get($payload, 'language', null);
-        $this->postsOnly = array_get($payload, 'postsOnly', false);
+        $this->pageType = array_get($payload, 'pageType');
+        $this->language = array_get($payload, 'language');
     }
 
     /**
@@ -72,9 +73,17 @@ class SearchQuery
     /**
      * @return bool
      */
-    public function isPostsOnly(): bool
+    public function hasPageType(): bool
     {
-        return $this->postsOnly;
+        return isset($this->pageType);
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getPageType(): ?string
+    {
+        return $this->pageType;
     }
 
 }

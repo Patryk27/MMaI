@@ -4,7 +4,7 @@ namespace App\SearchEngine\Implementation\Policies;
 
 use App\Pages\Models\PageVariant;
 
-class PageVariantsIndexerPolicy
+final class PageVariantsIndexerPolicy
 {
 
     /**

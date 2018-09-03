@@ -7,6 +7,7 @@ use App\Application\Http\Requests\Frontend\SearchRequest;
 use App\Core\Exceptions\Exception as AppException;
 use App\Core\Services\Language\Detector as LanguageDetector;
 use App\Pages\Exceptions\PageException;
+use App\Pages\Models\Page;
 use App\Pages\Models\PageVariant;
 use App\Pages\PagesFacade;
 use App\Pages\ValueObjects\RenderedPageVariant;
@@ -72,8 +73,8 @@ class SearchController extends Controller
         $posts = $this->searchEngineFacade->search(
             new SearchQuery([
                 'query' => $request->get('query'),
+                'pageType' => Page::TYPE_BLOG,
                 'language' => $language,
-                'postsOnly' => true,
             ])
         );
 
