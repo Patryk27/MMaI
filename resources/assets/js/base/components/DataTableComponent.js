@@ -31,6 +31,7 @@ export default class DataTableComponent {
 
         // Initialize the DataTable
         this.$dt = $(config.tableSelector).DataTable({
+            autoWidth: false,
             columns: columns,
             deferLoading: true,
             orderMulti: false,
