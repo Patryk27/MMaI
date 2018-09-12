@@ -1,11 +1,11 @@
 @php
     /**
-     * @var \Illuminate\Support\Collection|int[] $languages
+     * @var int[] $languages
      */
 @endphp
 
 {{ Form::open([
-    'id' => 'tags-search-form',
+    'id' => 'tags-filters',
     'class' => 'form-inline',
 ]) }}
 

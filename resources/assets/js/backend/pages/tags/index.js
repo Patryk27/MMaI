@@ -14,7 +14,7 @@ export default function () {
         tagDeleter = new TagDeleter(bus);
 
     const
-        searchForm = new SearchForm(bus, $('#tags-search-form')),
+        searchForm = new SearchForm(bus, $('#tags-filters')),
         tagsList = new TagsList(bus, $('#tags-loader'), $('#tags-table'));
 
     $('#create-tag-button').on('click', () => {
