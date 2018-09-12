@@ -20,19 +20,10 @@ class NavigationComposer
             'title' => 'Pages',
         ],
 
-        'backend.posts' => [
-            'icon' => 'fa fa-file',
-            'title' => 'Posts',
-        ],
-
         'backend.tags' => [
             'icon' => 'fa fa-tag',
             'title' => 'Tags',
         ],
-
-//        'backend.routes' => 'Routes',
-//        'backend.languages' => 'Languages',
-//        'backend.users' => 'Users',
 
         'backend.about' => [
             'icon' => 'fa fa-box',

@@ -4,7 +4,7 @@
      */
 @endphp
 
-<div class="dropdown dropleft show float-right">
+<div class="dropdown dropleft show float-right" data-column="actions">
     <a class="btn btn-primary btn-sm dropdown-toggle"
        data-toggle="dropdown">
 

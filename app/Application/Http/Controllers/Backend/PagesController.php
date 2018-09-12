@@ -8,6 +8,9 @@ use App\Application\Http\Requests\Backend\Pages\PageUpdateRequest;
 use App\Core\Exceptions\Exception as AppException;
 use App\Core\Services\Collection\Renderer as CollectionRenderer;
 use App\Core\Services\DataTables\Handler as DataTablesHandler;
+use App\Languages\Exceptions\LanguageException;
+use App\Languages\LanguagesFacade;
+use App\Languages\Queries\GetAllLanguagesQuery;
 use App\Pages\Models\Page;
 use App\Pages\PagesFacade;
 use App\Pages\Queries\SearchPageVariantsQuery;
@@ -34,26 +37,47 @@ class PagesController extends Controller
     private $pagesFacade;
 
     /**
+     * @var LanguagesFacade
+     */
+    private $languagesFacade;
+
+    /**
      * @param CollectionRenderer $collectionRenderer
      * @param DataTablesHandler $dataTablesHandler
      * @param PagesFacade $pagesFacade
+     * @param LanguagesFacade $languagesFacade
      */
     public function __construct(
         CollectionRenderer $collectionRenderer,
         DataTablesHandler $dataTablesHandler,
-        PagesFacade $pagesFacade
+        PagesFacade $pagesFacade,
+        LanguagesFacade $languagesFacade
     ) {
         $this->collectionRenderer = $collectionRenderer;
         $this->dataTablesHandler = $dataTablesHandler;
         $this->pagesFacade = $pagesFacade;
+        $this->languagesFacade = $languagesFacade;
     }
 
     /**
      * @return ViewContract
+     *
+     * @throws LanguageException
      */
     public function index(): ViewContract
     {
-        return view('backend.pages.pages.index');
+        $languages = $this->languagesFacade->queryMany(
+            new GetAllLanguagesQuery()
+        );
+
+        $languages = $languages->sortBy('english_name');
+        $languages = $languages->pluck('english_name', 'id');
+
+        return view('backend.pages.pages.index', [
+            'types' => __('base/models/page.enums.type'),
+            'languages' => $languages,
+            'statuses' => __('base/models/page-variant.enums.status'),
+        ]);
     }
 
     /**
@@ -64,10 +88,11 @@ class PagesController extends Controller
     {
         $this->collectionRenderer->addColumns([
             'id' => 'backend.pages.pages.search.columns.id',
+            'type' => 'backend.pages.pages.search.columns.type',
             'language' => 'backend.pages.pages.search.columns.language',
             'title' => 'backend.pages.pages.search.columns.title',
             'status' => 'backend.pages.pages.search.columns.status',
-            'created_at' => 'backend.pages.pages.search.columns.created-at',
+            'created_at' => 'backend.pages.pages.search.columns.created-at', // @todo shouldn't it say "created-at", just like the tags do?
             'actions' => 'backend.pages.pages.search.columns.actions',
         ]);
 

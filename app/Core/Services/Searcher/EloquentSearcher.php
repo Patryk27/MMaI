@@ -62,7 +62,6 @@ class EloquentSearcher
      *     ->where(fieldToColumn('firstField'), 'like', '%something%')
      *     ->orWhere(fieldToColumn('secondField'), 'like', '%something%');
      *
-     *
      * @param string $search
      * @param array $fieldsToInclude
      * @return void
@@ -104,31 +103,54 @@ class EloquentSearcher
      */
     public function filter(array $fields, array $fieldFilters): void
     {
-        foreach ($fields as $field => $fieldValue) {
-            if (!array_has($fieldFilters, $field)) {
+        foreach ($fields as $fieldName => $fieldValue) {
+            // Make sure that this field is filterable
+            if (!array_has($fieldFilters, $fieldName)) {
                 throw new AppException(
-                    sprintf('Field [%s] it not filterable', $field)
+                    sprintf('Field [%s] it not filterable.', $fieldName)
                 );
             }
 
-            $column = $this->fieldToColumn($field);
+            // Automatically skip over all the `null`-valued fields
+            if (is_null($fieldValue)) {
+                continue;
+            }
 
-            switch ($fieldFilters[$field]) {
+            $columnName = $this->fieldToColumn($fieldName);
+
+            switch ($fieldFilters[$fieldName]) {
                 case self::FILTER_EQUAL:
-                    $this->builder->where($column, $fieldValue);
+                    if (is_array($fieldValue)) {
+                        $this->builder->whereIn($columnName, $fieldValue);
+                    } else {
+                        $this->builder->where($columnName, $fieldValue);
+                    }
+
                     break;
 
                 case self::FILTER_NOT_EQUAL:
-                    $this->builder->where($column, '!=', $fieldValue);
+                    if (is_array($fieldValue)) {
+                        $this->builder->whereNotIn($columnName, $fieldValue);
+                    } else {
+                        $this->builder->where($columnName, '!=', $fieldValue);
+                    }
+
                     break;
 
-                case self::FILTER_LIKE;
-                    $this->builder->where($column, 'like', '%' . $fieldValue . '%');
+                case self::FILTER_LIKE:
+                    if (is_string($fieldValue)) {
+                        $this->builder->where($columnName, 'like', '%' . $fieldValue . '%');
+                    } else {
+                        throw new AppException(
+                            sprintf('Field [%s] has invalid type (expected: string).', $fieldName)
+                        );
+                    }
+
                     break;
 
                 default:
                     throw new LogicException(
-                        sprintf('Unknown field filter: [%s].', $fieldFilters[$field])
+                        sprintf('Unknown field filter: [%s].', $fieldFilters[$fieldName])
                     );
             }
         }

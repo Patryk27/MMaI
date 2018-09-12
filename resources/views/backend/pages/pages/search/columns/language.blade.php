@@ -4,4 +4,6 @@
      */
 @endphp
 
-{{ $row->language->english_name }}
+<span data-column="language">
+    {{ $row->language->english_name }}
+</span>

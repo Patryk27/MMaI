@@ -4,4 +4,6 @@
      */
 @endphp
 
-{{ $row->title }}
+<span data-column="title">
+    {{ $row->title }}
+</span>
