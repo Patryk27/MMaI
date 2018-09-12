@@ -85,6 +85,7 @@ abstract class TestCase extends BaseTestCase
         $pageVariantsSearcher = new InMemoryPageVariantsSearcher();
 
         $this->tagsFacade = TagsFactory::build(
+            $eventsDispatcher,
             $this->tagsRepository,
             $tagsSearcher
         );

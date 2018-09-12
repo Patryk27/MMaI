@@ -16,4 +16,12 @@ interface PageVariantsRepositoryInterface
      */
     public function getByIds(array $ids): Collection;
 
+    /**
+     * Returns all page variants assigned to given tag.
+     *
+     * @param int $tagId
+     * @return Collection|PageVariant[]
+     */
+    public function getByTagId(int $tagId): Collection;
+
 }

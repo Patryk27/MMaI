@@ -15,4 +15,12 @@ class InMemoryPageVariantsRepository implements PageVariantsRepositoryInterface
         unimplemented();
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function getByTagId(int $tagId): Collection
+    {
+        unimplemented();
+    }
+
 }

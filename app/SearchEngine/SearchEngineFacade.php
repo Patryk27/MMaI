@@ -2,23 +2,23 @@
 
 namespace App\SearchEngine;
 
+use App\Pages\Events\PageCreated;
+use App\Pages\Events\PageUpdated;
 use App\Pages\Exceptions\PageException;
 use App\Pages\Models\Page;
 use App\Pages\Models\PageVariant;
-use App\SearchEngine\Implementation\Listeners\PagesListener;
+use App\SearchEngine\Implementation\Listeners\PageCreatedListener;
+use App\SearchEngine\Implementation\Listeners\PageUpdatedListener;
+use App\SearchEngine\Implementation\Listeners\TagUpdatedListener;
 use App\SearchEngine\Implementation\Services\ElasticsearchMigrator;
 use App\SearchEngine\Implementation\Services\PagesIndexer;
 use App\SearchEngine\Implementation\Services\PageVariantsSearcher;
 use App\SearchEngine\Queries\SearchQuery;
+use App\Tags\Events\TagUpdated;
 use Illuminate\Support\Collection;
 
 final class SearchEngineFacade
 {
-
-    /**
-     * @var PagesListener
-     */
-    private $pagesListener;
 
     /**
      * @var ElasticsearchMigrator
@@ -36,20 +36,15 @@ final class SearchEngineFacade
     private $pageVariantsSearcher;
 
     /**
-     * @param PagesListener $pagesListener
      * @param ElasticsearchMigrator $elasticsearchMigrator
      * @param PagesIndexer $pagesIndexer
      * @param PageVariantsSearcher $pageVariantsSearcher
      */
     public function __construct(
-        PagesListener $pagesListener,
         ElasticsearchMigrator $elasticsearchMigrator,
         PagesIndexer $pagesIndexer,
         PageVariantsSearcher $pageVariantsSearcher
     ) {
-        $this->pagesListener = $pagesListener;
-        $this->pagesListener->initialize();
-
         $this->elasticsearchMigrator = $elasticsearchMigrator;
         $this->pagesIndexer = $pagesIndexer;
         $this->pageVariantsSearcher = $pageVariantsSearcher;
@@ -76,6 +71,20 @@ final class SearchEngineFacade
         $this->elasticsearchMigrator->migrate();
 
         return $this->pageVariantsSearcher->search($query);
+    }
+
+    /**
+     * @return array
+     */
+    public static function getListeners(): array
+    {
+        return [
+            PageCreated::class => PageCreatedListener::class,
+            PageUpdated::class => PageUpdatedListener::class,
+
+            TagUpdated::class => TagUpdatedListener::class,
+            // @todo TagDeleted::class => TagDeletedListener::class,
+        ];
     }
 
 }

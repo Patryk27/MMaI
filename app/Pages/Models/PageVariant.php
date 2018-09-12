@@ -157,6 +157,33 @@ class PageVariant extends Model implements Morphable, Presentable
     }
 
     /**
+     * @return array
+     */
+    public function getQueueableRelations()
+    {
+        /**
+         * By the default, when Laravel tries to serialize a @see Page model,
+         * following recursion happens:
+         *
+         *   serialize($page)
+         *     -> serialize($page->pageVariants)
+         *        -> serialize($page->pageVariants[0])
+         *          -> serialize($page->pageVariants[0]->page)
+         *             -> serialize($page->pageVariants[0]->page->pageVariants)
+         *                  ...
+         *
+         * It's caused by the fact that there is a circular dependency between
+         * a Page and a PageVariant, which we cannot overcome (they are related
+         * with each other after all).
+         *
+         * Returning an empty array here means that only the page and all its
+         * variants get to be serialized, skipping `$this->page`.
+         */
+
+        return [];
+    }
+
+    /**
      * @inheritDoc
      */
     public function getMorphableId(): int

@@ -4,6 +4,7 @@ namespace App\Pages\Implementation\Repositories;
 
 use App\Core\Repositories\EloquentRepository;
 use App\Pages\Models\PageVariant;
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Support\Collection;
 
 class EloquentPageVariantsRepository implements PageVariantsRepositoryInterface
@@ -42,6 +43,18 @@ class EloquentPageVariantsRepository implements PageVariantsRepositoryInterface
             );
 
         return $stmt->get();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getByTagId(int $tagId): Collection
+    {
+        return $this->repository->newQuery()
+            ->whereHas('tags', function (EloquentBuilder $query) use ($tagId): void {
+                $query->where('tags.id', $tagId);
+            })
+            ->get();
     }
 
 }

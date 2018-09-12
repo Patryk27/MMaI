@@ -6,6 +6,7 @@ use App\Pages\Exceptions\PageException;
 use App\Pages\Implementation\Repositories\PageVariantsRepositoryInterface;
 use App\Pages\Models\PageVariant;
 use App\Pages\Queries\GetPageVariantsByIdsQuery;
+use App\Pages\Queries\GetPageVariantsByTagIdQuery;
 use App\Pages\Queries\PageVariantsQueryInterface;
 use App\Pages\Queries\SearchPageVariantsQuery;
 use Illuminate\Support\Collection;
@@ -44,13 +45,18 @@ class PageVariantsQuerier
     public function query(PageVariantsQueryInterface $query): Collection
     {
         switch (true) {
-            case $query instanceof SearchPageVariantsQuery:
-                return $query->applyTo($this->pagesSearcher)->get();
-
             case $query instanceof GetPageVariantsByIdsQuery:
                 return $this->pageVariantsRepository->getByIds(
                     $query->getIds()
                 );
+
+            case $query instanceof GetPageVariantsByTagIdQuery:
+                return $this->pageVariantsRepository->getByTagId(
+                    $query->getTagId()
+                );
+
+            case $query instanceof SearchPageVariantsQuery:
+                return $query->applyTo($this->pagesSearcher)->get();
 
             default:
                 throw new PageException(

@@ -8,6 +8,7 @@ use App\Pages\PagesFacade;
 use App\Routes\RoutesFacade;
 use App\SearchEngine\SearchEngineFacade;
 use App\Tags\TagsFacade;
+use Event;
 use Illuminate\Support\ServiceProvider;
 
 final class FacadeServiceProvider extends ServiceProvider
@@ -28,21 +29,23 @@ final class FacadeServiceProvider extends ServiceProvider
     public function boot(): void
     {
         foreach (self::FACADES as $facadeClass) {
-            /**
-             * Registering facade as singleton and executing its constructor is
-             * vital here, since it allows the facade to set up all its event
-             * listeners.
-             *
-             * If we were to skip this step, the @see SearchEngineFacade for
-             * instance would have no place to register the "page created" event
-             * listener and thus would never know when to update the
-             * Elasticsearch's index.
-             *
-             * Luckily, we do the registering thing.
-             */
+            $this->bootFacade($facadeClass);
+        }
+    }
 
-            $this->app->singleton($facadeClass);
-            $this->app->make($facadeClass);
+    /**
+     * @param string $facadeClass
+     * @return void
+     */
+    private function bootFacade(string $facadeClass): void
+    {
+        $this->app->singleton($facadeClass);
+        $facade = $this->app->make($facadeClass);
+
+        if (method_exists($facade, 'getListeners')) {
+            foreach ($facade::getListeners() as $eventName => $listenerClass) {
+                Event::listen($eventName, $listenerClass);
+            }
         }
     }
 
