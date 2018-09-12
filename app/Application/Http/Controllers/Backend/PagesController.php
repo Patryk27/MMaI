@@ -65,7 +65,6 @@ class PagesController extends Controller
         $this->collectionRenderer->addColumns([
             'id' => 'backend.pages.pages.search.columns.id',
             'language' => 'backend.pages.pages.search.columns.language',
-            'route' => 'backend.pages.pages.search.columns.route',
             'title' => 'backend.pages.pages.search.columns.title',
             'status' => 'backend.pages.pages.search.columns.status',
             'created_at' => 'backend.pages.pages.search.columns.created-at',
