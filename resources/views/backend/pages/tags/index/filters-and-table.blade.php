@@ -1,3 +1,9 @@
+@php
+    /**
+     * @var \Illuminate\Support\Collection|int[] $languages
+     */
+@endphp
+
 <div id="tags-loader" data-loader-type="tile">
     {{ Form::open([
         'id' => 'tags-search-form',
