@@ -2,7 +2,7 @@ import Bus from '../../../base/Bus';
 import TagCreator from './index/TagCreator';
 import TagDeleter from './index/TagDeleter';
 import TagEditor from './index/TagEditor';
-import SearchForm from './index/SearchForm';
+import TagsFilters from './index/TagsFilters';
 import TagsList from './index/TagsList';
 
 export default function () {
@@ -14,7 +14,7 @@ export default function () {
         tagDeleter = new TagDeleter(bus);
 
     const
-        searchForm = new SearchForm(bus, $('#tags-filters')),
+        tagsFilters = new TagsFilters(bus, $('#tags-filters')),
         tagsList = new TagsList(bus, $('#tags-loader'), $('#tags-table'));
 
     $('#create-tag-button').on('click', () => {
@@ -29,6 +29,7 @@ export default function () {
     });
 
     bus.on('tag::delete', ({tag}) => {
+        // noinspection JSIgnoredPromiseFromCall
         tagDeleter.delete(tag);
     });
 
@@ -37,13 +38,16 @@ export default function () {
     });
 
     bus.onAny(['tag::created', 'tag::updated', 'tag::deleted'], () => {
-        searchForm.submit();
+        tagsFilters.submit();
     });
 
-    bus.on('search-form::submit', (form) => {
-        tagCreator.setLanguageId(form.languageId);
-        tagsList.refresh(form);
+    bus.on('filters::submitted', (filters) => {
+        if (filters.languageIds.length === 1) {
+            tagCreator.setLanguageId(filters.languageIds[0]);
+        }
+
+        tagsList.refresh(filters);
     });
 
-    searchForm.submit();
+    tagsFilters.submit();
 };

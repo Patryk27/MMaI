@@ -37,11 +37,11 @@ export default class TagsList {
     }
 
     /**
-     * @param {object} form
+     * @param {object} filters
      */
-    refresh(form) {
+    refresh(filters) {
         this.$state.filters = {
-            language_id: form.languageId,
+            language_id: filters.languageIds,
         };
 
         this.$dataTable.refresh();

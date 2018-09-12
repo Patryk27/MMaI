@@ -6,15 +6,17 @@
 
 {{ Form::open([
     'id' => 'tags-filters',
-    'class' => 'form-inline',
 ]) }}
 
-<div class="form-group">
-    {{ Form::label('language_id', 'Language:') }}
+<div class="row w-100">
+    <div class="col-xs-12 col-sm-4 form-group">
+        {{ Form::label('language_ids[]', 'Language:') }}
 
-    {{ Form::select('language_id', $languages, null, [
-        'class' => 'custom-select',
-    ]) }}
+        {{ Form::select('language_ids[]', $languages, null, [
+            'class' => 'custom-select select2',
+            'multiple' => 'multiple',
+        ]) }}
+    </div>
 </div>
 
 {{ Form::close() }}

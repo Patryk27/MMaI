@@ -1,4 +1,4 @@
-export default class SearchForm {
+export default class TagsFilters {
 
     /**
      * @param {Bus} bus
@@ -9,7 +9,7 @@ export default class SearchForm {
 
         this.$dom = {
             form: $form,
-            languageId: $form.find('[name="language_id"]'),
+            languageIds: $form.find('[name="language_ids[]"]'),
         };
 
         this.$dom.form.on('change', 'select', () => {
@@ -21,8 +21,8 @@ export default class SearchForm {
      * Force-submits the form.
      */
     submit() {
-        this.$bus.emit('search-form::submit', {
-            languageId: this.$dom.languageId.val(),
+        this.$bus.emit('filters::submitted', {
+            languageIds: this.$dom.languageIds.val(),
         });
     }
 
