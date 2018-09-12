@@ -18,9 +18,9 @@ export default class TagsList {
             source: '/tags/search',
 
             prepareRequest: (request) => {
-                request.filters = this.$state.filters;
-
-                return request;
+                return Object.assign(request, {
+                    filters: this.$state.filters,
+                });
             },
         });
 
