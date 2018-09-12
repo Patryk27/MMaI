@@ -16,10 +16,10 @@ export default class TagDeleter {
      * @param {object} tag
      * @returns {Promise<void>}
      */
-    async run(tag) {
+    async delete(tag) {
         const result = await swal({
             title: 'Are you sure?',
-            text: `Do you want to remove tag [${tag.name}]?`,
+            text: `Do you want to delete tag [${tag.name}]?`,
             icon: 'warning',
             dangerMode: true,
 

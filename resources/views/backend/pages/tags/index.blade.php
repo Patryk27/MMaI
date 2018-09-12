@@ -5,9 +5,13 @@
 @section('title', 'Tags')
 
 @section('content')
-    @include('backend.pages.tags.index.create-modal')
-    @include('backend.pages.tags.index.edit-modal')
+    @include('backend.pages.tags.index.modals.create-tag')
+    @include('backend.pages.tags.index.modals.edit-tag')
 
     @include('backend.pages.tags.index.header')
-    @include('backend.pages.tags.index.filters-and-table')
+
+    <div id="tags-loader" data-loader-type="tile">
+        @include('backend.pages.tags.index.filters')
+        @include('backend.pages.tags.index.table')
+    </div>
 @endsection

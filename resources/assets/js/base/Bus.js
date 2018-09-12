@@ -5,6 +5,12 @@ export default class Bus {
     }
 
     /**
+     * Binds a handler to be run when given event is emitted.
+     *
+     * Example:
+     *   bus.on('something', () => alert('Something happened!'))
+     *   bus.emit('something')
+     *
      * @param {string} eventName
      * @param {function} eventHandler
      */
@@ -17,16 +23,25 @@ export default class Bus {
     }
 
     /**
+     * Binds a handler to be run when any of given events is emitted.
+     *
+     * Example:
+     *   bus.onAny(['something', 'something-else'], () => alert('Something (else) happened!'))
+     *   bus.emit('something')
+     *   bus.emit('something-else')
+     *
      * @param {array<string>} eventNames
      * @param {function} eventHandler
      */
-    onMany(eventNames, eventHandler) {
+    onAny(eventNames, eventHandler) {
         eventNames.forEach((eventName) => {
             this.on(eventName, eventHandler);
         });
     }
 
     /**
+     * Emits given event.
+     *
      * @param {string} eventName
      * @param {*} eventPayload
      */

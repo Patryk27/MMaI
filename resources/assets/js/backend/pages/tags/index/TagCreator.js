@@ -74,7 +74,7 @@ export default class TagCreator {
     /**
      * Opens the tag creator.
      */
-    run() {
+    create() {
         this.$dom.modal.modal();
     }
 

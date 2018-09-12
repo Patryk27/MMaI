@@ -61,7 +61,7 @@ export default class TagEditor {
      *
      * @param {object} tag
      */
-    run(tag) {
+    edit(tag) {
         this.$state.tag = tag;
 
         this.$form.name.setValue(tag.name);

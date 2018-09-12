@@ -51,6 +51,39 @@ export default class DataTableComponent {
     }
 
     /**
+     * Binds an event handler for the entire table.
+     *
+     * Example:
+     *   on('click', () => { ... })
+     *
+     * @param {string} eventName
+     * @param {function} eventHandler
+     */
+    on(eventName, eventHandler) {
+        this.$dom.table.on(eventName, eventHandler);
+    }
+
+    /**
+     * Binds an event handler for given column.
+     *
+     * Example:
+     *   onColumn('some-column', 'click', () => { ... })
+     *
+     * The column must be explicitly wrapped in an element with "data-column"
+     * property.
+     *
+     * Please search code for "data-column" string to see how it should be
+     * implemented.
+     *
+     * @param {string} columnName
+     * @param {string} eventName
+     * @param {function} eventHandler
+     */
+    onColumn(columnName, eventName, eventHandler) {
+        this.$dom.table.on(eventName, `[data-column="${columnName}"]`, eventHandler);
+    }
+
+    /**
      * Force-refreshes the DataTable.
      */
     refresh() {

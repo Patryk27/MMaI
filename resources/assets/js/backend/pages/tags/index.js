@@ -8,7 +8,6 @@ import TagsList from './index/TagsList';
 export default function () {
     const bus = new Bus();
 
-    // noinspection JSUnusedLocalSymbols
     const
         tagCreator = new TagCreator(bus, $('#create-tag-modal')),
         tagEditor = new TagEditor(bus, $('#edit-tag-modal')),
@@ -18,35 +17,29 @@ export default function () {
         searchForm = new SearchForm(bus, $('#tags-search-form')),
         tagsList = new TagsList(bus, $('#tags-loader'), $('#tags-table'));
 
-    // When user clicks on the "create tag" button, open the "create tag" modal
     $('#create-tag-button').on('click', () => {
-        tagCreator.run();
+        tagCreator.create();
     });
 
-    // When user clicks on the "edit tag" / "delete tag" buttons, execute appropriate action
-    $('#tags-table').on('click', '.btn-tag-action', (evt) => {
-        const
-            $target = $(evt.currentTarget),
-            tag = $target.data('tag');
-
-        switch ($target.data('action')) {
-            case 'edit':
-                tagEditor.run(tag);
-                break;
-
-            case 'delete':
-                // noinspection JSIgnoredPromiseFromCall
-                tagDeleter.run(tag);
-                break;
-        }
+    // Bind handlers for the "edit tag" & "delete tag" buttons
+    $('#tags-table').on('click', '.btn-tag-action', function () {
+        bus.emit('tag::' + $(this).data('action'), {
+            tag: $(this).data('tag'),
+        });
     });
 
-    // When a new tag is created or updated, refresh the search results
-    bus.onMany(['tag::created', 'tag::updated', 'tag::deleted'], () => {
+    bus.on('tag::delete', ({tag}) => {
+        tagDeleter.delete(tag);
+    });
+
+    bus.on('tag::edit', ({tag}) => {
+        tagEditor.edit(tag);
+    });
+
+    bus.onAny(['tag::created', 'tag::updated', 'tag::deleted'], () => {
         searchForm.submit();
     });
 
-    // When the search form is being submitted, refresh the search results
     bus.on('search-form::submit', (form) => {
         tagCreator.setLanguageId(form.languageId);
         tagsList.refresh(form);

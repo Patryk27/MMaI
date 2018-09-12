@@ -24,6 +24,13 @@ export default class TagsList {
             },
         });
 
+        // Double-clicking the tag's name is a shorthand for opening the tag editor
+        this.$dataTable.onColumn('name', 'dblclick', function () {
+            bus.emit('tag::edit', {
+                tag: $(this).data('tag'),
+            });
+        });
+
         this.$state = {
             filters: {},
         };

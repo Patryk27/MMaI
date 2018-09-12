@@ -87,7 +87,7 @@ class TagsController extends Controller
         $this->collectionRenderer->addColumns([
             'id' => 'backend.pages.tags.search.columns.id',
             'name' => 'backend.pages.tags.search.columns.name',
-            'page-count' => 'backend.pages.tags.search.columns.page-count',
+            'page-variant-count' => 'backend.pages.tags.search.columns.page-variant-count',
             'created-at' => 'backend.pages.tags.search.columns.created-at',
             'actions' => 'backend.pages.tags.search.columns.actions',
         ]);

@@ -4,4 +4,6 @@
      */
 @endphp
 
-{{ $row->id }}
+<span data-column="id">
+    {{ $row->id }}
+</span>
