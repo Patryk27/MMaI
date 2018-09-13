@@ -16,7 +16,7 @@ use Illuminate\Contracts\View\Factory as ViewFactoryContract;
 class HomeController extends Controller
 {
 
-    const NUMBER_OF_POSTS_PER_PAGE = 10;
+    private const NUMBER_OF_POSTS_PER_PAGE = 10;
 
     /**
      * @var ViewFactoryContract

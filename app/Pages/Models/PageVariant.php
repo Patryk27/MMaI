@@ -45,7 +45,7 @@ class PageVariant extends Model implements Morphable, Presentable
 
     use HasPresenter;
 
-    const
+    public const
         STATUS_DRAFT = 'draft',
         STATUS_PUBLISHED = 'published',
         STATUS_DELETED = 'deleted';

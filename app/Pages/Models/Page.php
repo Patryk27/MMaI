@@ -26,7 +26,7 @@ use Illuminate\Database\Eloquent\Model;
 class Page extends Model
 {
 
-    const
+    public const
         TYPE_BLOG = 'blog',
         TYPE_CMS = 'cms';
 
