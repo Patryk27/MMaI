@@ -3,8 +3,8 @@
 namespace App\Application\Http\Controllers\Backend;
 
 use App\Application\Http\Controllers\Controller;
-use App\Application\Http\Requests\Backend\Tags\TagCreateRequest;
-use App\Application\Http\Requests\Backend\Tags\TagUpdateRequest;
+use App\Application\Http\Requests\Backend\Tags\CreateTagRequest;
+use App\Application\Http\Requests\Backend\Tags\UpdateTagRequest;
 use App\Core\Services\Collection\Renderer as CollectionRenderer;
 use App\Core\Services\DataTables\Handler as DataTablesHandler;
 use App\Languages\Exceptions\LanguageException;
@@ -110,12 +110,12 @@ class TagsController extends Controller
     }
 
     /**
-     * @param TagCreateRequest $request
+     * @param CreateTagRequest $request
      * @return void
      *
      * @throws TagException
      */
-    public function store(TagCreateRequest $request)
+    public function store(CreateTagRequest $request)
     {
         $this->tagsFacade->create(
             $request->all()
@@ -123,13 +123,13 @@ class TagsController extends Controller
     }
 
     /**
-     * @param TagUpdateRequest $request
+     * @param UpdateTagRequest $request
      * @param Tag $tag
      * @return void
      *
      * @throws TagException
      */
-    public function update(TagUpdateRequest $request, Tag $tag)
+    public function update(UpdateTagRequest $request, Tag $tag)
     {
         $this->tagsFacade->update(
             $tag,

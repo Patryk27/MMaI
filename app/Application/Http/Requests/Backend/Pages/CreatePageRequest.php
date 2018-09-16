@@ -4,7 +4,7 @@ namespace App\Application\Http\Requests\Backend\Pages;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PageCreateRequest extends FormRequest
+class CreatePageRequest extends FormRequest
 {
 
     /**

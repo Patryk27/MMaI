@@ -3,8 +3,8 @@
 namespace App\Application\Http\Controllers\Backend;
 
 use App\Application\Http\Controllers\Controller;
-use App\Application\Http\Requests\Backend\Pages\PageCreateRequest;
-use App\Application\Http\Requests\Backend\Pages\PageUpdateRequest;
+use App\Application\Http\Requests\Backend\Pages\CreatePageRequest;
+use App\Application\Http\Requests\Backend\Pages\UpdatePageRequest;
 use App\Core\Exceptions\Exception as AppException;
 use App\Core\Services\Collection\Renderer as CollectionRenderer;
 use App\Core\Services\DataTables\Handler as DataTablesHandler;
@@ -32,31 +32,31 @@ class PagesController extends Controller
     private $dataTablesHandler;
 
     /**
-     * @var PagesFacade
-     */
-    private $pagesFacade;
-
-    /**
      * @var LanguagesFacade
      */
     private $languagesFacade;
 
     /**
+     * @var PagesFacade
+     */
+    private $pagesFacade;
+
+    /**
      * @param CollectionRenderer $collectionRenderer
      * @param DataTablesHandler $dataTablesHandler
-     * @param PagesFacade $pagesFacade
      * @param LanguagesFacade $languagesFacade
+     * @param PagesFacade $pagesFacade
      */
     public function __construct(
         CollectionRenderer $collectionRenderer,
         DataTablesHandler $dataTablesHandler,
-        PagesFacade $pagesFacade,
-        LanguagesFacade $languagesFacade
+        LanguagesFacade $languagesFacade,
+        PagesFacade $pagesFacade
     ) {
         $this->collectionRenderer = $collectionRenderer;
         $this->dataTablesHandler = $dataTablesHandler;
-        $this->pagesFacade = $pagesFacade;
         $this->languagesFacade = $languagesFacade;
+        $this->pagesFacade = $pagesFacade;
     }
 
     /**
@@ -122,12 +122,12 @@ class PagesController extends Controller
     }
 
     /**
-     * @param PageCreateRequest $request
+     * @param CreatePageRequest $request
      * @return array
      *
      * @throws AppException
      */
-    public function store(PageCreateRequest $request): array
+    public function store(CreatePageRequest $request): array
     {
         $page = $this->pagesFacade->create(
             $request->all()
@@ -150,13 +150,13 @@ class PagesController extends Controller
     }
 
     /**
-     * @param PageUpdateRequest $request
+     * @param UpdatePageRequest $request
      * @param Page $page
      * @return array
      *
      * @throws AppException
      */
-    public function update(PageUpdateRequest $request, Page $page): array
+    public function update(UpdatePageRequest $request, Page $page): array
     {
         $this->pagesFacade->update(
             $page,
