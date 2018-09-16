@@ -2,6 +2,7 @@
 
 namespace App\Core\Repositories;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use LogicException;
@@ -16,25 +17,22 @@ final class InMemoryRepository
 {
 
     /**
-     * List of all the items this repository contains.
+     * List of all the items present in this repository.
      *
      * @var Collection|Model[]
      */
     private $items;
 
     /**
-     * Number which the next inserted item is going to be assigned.
-     * It is automatically incremented then.
+     * Auto-incrementing id used for counting models - works in the same fashion
+     * as e.g. the MySQL's "auto increment" column.
      *
      * @var int
      */
     private $incrementingId = 1000;
 
     /**
-     * Constructs an in-memory repository.
-     *
-     * Given list of items is automatically inserted into the repository, in
-     * form of fixtures.
+     * Constructs an in-memory repository pre-feeded with given items.
      *
      * @param array $items
      */
@@ -49,6 +47,9 @@ final class InMemoryRepository
     }
 
     /**
+     * Returns a single model matching given criteria.
+     * Returns `null` if no such model exists.
+     *
      * @param string $attributeName
      * @param mixed $attributeValue
      * @return mixed|null
@@ -65,6 +66,8 @@ final class InMemoryRepository
     }
 
     /**
+     * Returns a list of models matching given criteria.
+     *
      * @param string $attributeName
      * @param mixed $attributeValue
      * @return Collection|Model[]
@@ -79,7 +82,9 @@ final class InMemoryRepository
     }
 
     /**
-     * @return Collection
+     * Returns all the models this repository contains.
+     *
+     * @return Collection|Model[]
      */
     public function getAll(): Collection
     {
@@ -89,6 +94,8 @@ final class InMemoryRepository
     }
 
     /**
+     * Creates / updates given model in the repository.
+     *
      * @param Model $model
      * @return void
      */
@@ -102,21 +109,22 @@ final class InMemoryRepository
     }
 
     /**
+     * Deletes given model from the repository.
+     *
      * @param Model $model
      * @return void
      */
     public function delete(Model $model): void
     {
-        $modelId = $model->getAttribute('id');
+        $id = $model->getAttribute('id');
 
-        // Make sure we have that model in the collection
-        if (!$this->items->has($modelId)) {
+        if (!$this->items->has($id)) {
             throw new LogicException(
                 'Tried to remove model not present in the in-memory repository.'
             );
         }
 
-        $this->items->forget($modelId);
+        $this->items->forget($id);
     }
 
     /**
@@ -125,24 +133,31 @@ final class InMemoryRepository
      */
     private function insert(Model $model): void
     {
-        $model->setAttribute('id', $this->incrementingId);
-
-        // It may be the case that, for some weird reason, our target slot is
-        // already taken - this is an error and so we are throwing a logic
-        // exception in such cases.
         if ($this->items->has($this->incrementingId)) {
             throw new LogicException(
                 sprintf('In-memory repository already contains model [id=%d].', $this->incrementingId)
             );
         }
 
-        // Save model into the collection
-        $this->items[$this->incrementingId] = clone $model;
+        // Fill-in the "id" attribute
+        $model->setAttribute('id', $this->incrementingId);
 
-        // Flag model as "existing"
+        // Fill-in the "created at" attribute
+        if ($model->getAttribute('created_at') === null) {
+            $model->setAttribute('created_at', Carbon::now());
+        }
+
+        // Fill-in the "updated at" attribute
+        if ($model->getAttribute('updated_at') === null) {
+            $model->setAttribute('updated_at', Carbon::now());
+        }
+
+        // Mark model as "existing"
         $model->exists = true;
 
-        ++$this->incrementingId;
+        // Persist it
+        $this->items[$this->incrementingId] = clone $model;
+        $this->incrementingId += 1;
     }
 
     /**
@@ -151,16 +166,19 @@ final class InMemoryRepository
      */
     private function update(Model $model): void
     {
-        $modelId = $model->getAttribute('id');
+        $id = $model->getAttribute('id');
 
-        // Make sure we have that model in the collection
-        if (!$this->items->has($modelId)) {
+        if (!$this->items->has($id)) {
             throw new LogicException(
-                'Tried to update model not present in the in-memory repository.'
+                sprintf('Tried to update a model not present in the in-memory repository (id=%d).', $id)
             );
         }
 
-        $this->items[$modelId] = $model;
+        // Fill-in the "updated at" attribute
+        $model->setAttribute('updated_at', Carbon::now());
+
+        // Persist the model
+        $this->items[$id] = clone $model;
     }
 
 }

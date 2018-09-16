@@ -113,18 +113,11 @@ class InMemoryRepositoryTest extends TestCase
      */
     public function testPersistsSavesClones(): void
     {
-        $repository = new InMemoryRepository();
-
-        // Create some dummy user
-        $user = new User([
-            'login' => 'A',
+        $repository = new InMemoryRepository([
+            $user = new User([
+                'login' => 'A',
+            ])
         ]);
-
-        // Save it;
-        // Right now, repository should save a *copy* of that model instead of
-        // the original instance, so that mutating it in a moment will not
-        // affect the repository.
-        $repository->persist($user);
 
         // Mutate the model, but do not save the changes
         $user->login = 'B';
@@ -137,7 +130,25 @@ class InMemoryRepositoryTest extends TestCase
     }
 
     /**
-     * This test checks basic functionality of the "delete()" method.
+     * This test makes sure that the "persist()" method automatically fills-in
+     * the "created at" and "updated at" properties.
+     *
+     * @return void
+     */
+    public function testPersistSetsTimestamps(): void
+    {
+        new InMemoryRepository([
+            $user = new User([
+                'login' => 'A',
+            ]),
+        ]);
+
+        $this->assertNotNull($user->created_at);
+        $this->assertNotNull($user->updated_at);
+    }
+
+    /**
+     * This test checks the basic functionality of the "delete()" method.
      *
      * @return void
      */
