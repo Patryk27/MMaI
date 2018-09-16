@@ -61,7 +61,8 @@ final class EloquentRepository
      */
     public function persist(Model $model): void
     {
-        $this->assertModelIsOfCorrectType($model);
+        $this->assertModelHasCorrectType($model);
+
         $model->saveOrFail();
     }
 
@@ -75,7 +76,8 @@ final class EloquentRepository
      */
     public function delete(Model $model): void
     {
-        $this->assertModelIsOfCorrectType($model);
+        $this->assertModelHasCorrectType($model);
+
         $model->delete();
     }
 
@@ -125,7 +127,7 @@ final class EloquentRepository
      *
      * @throws RepositoryException
      */
-    private function assertModelIsOfCorrectType($model): void
+    private function assertModelHasCorrectType($model): void
     {
         if (!$model instanceof $this->model) {
             throw RepositoryException::makeModelIsInvalid(
