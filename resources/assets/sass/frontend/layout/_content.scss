@@ -1,15 +1,15 @@
 .content-container {
   flex-grow: 1;
-  padding: $frontend-content-padding;
+  padding: 80px;
 
   .content {
     h1 {
-      margin-bottom: $content-footer-margin-top;
+      margin-bottom: 45px;
       line-height: 1;
     }
   }
 
   .content-footer {
-    margin-top: $content-footer-margin-top;
+    margin-top: 45px;
   }
 }

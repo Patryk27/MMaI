@@ -3,29 +3,55 @@
     margin-bottom: 3em;
   }
 
-  .post {
-    margin-bottom: 4em;
+  .post-item {
+    margin-bottom: 3em;
+    padding-bottom: 3em;
 
-    > header {
+    border-bottom: 1px solid #222222;
+
+    // Header //
+    .post-header {
       font-weight: bold;
       font-size: 1.5em;
 
-      > a {
+      a {
+        display: block;
         color: $body-color;
-        font-family: $secondary-font-family-base;
       }
     }
 
-    > .lead {
-      margin: 0.5em 0 0 0;
-      color: $gray-400;
-      font-size: 1em;
+    // Lead //
+    .post-lead {
+      margin-top: 0.8em;
+      opacity: 0.5;
     }
 
-    > footer {
+    // Footer //
+    .post-footer {
       display: flex;
+      justify-content: right;
+      margin-top: 0.8em;
+      opacity: 0.4;
 
-      .link {
+      // Tags //
+      .footer-tags {
+        margin-right: 1em;
+
+        .fas {
+          position: relative;
+          top: 2px;
+          left: -2px;
+        }
+      }
+
+      // Published at //
+      .footer-published-at {
+        .fas {
+          margin-right: 2px;
+        }
+      }
+
+      .continue-reading-button {
         flex-grow: 1;
       }
     }

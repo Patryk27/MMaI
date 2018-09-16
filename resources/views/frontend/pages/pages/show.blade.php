@@ -26,11 +26,13 @@
         </article>
     </main>
 
-    @if ($page->isBlogPost())
-        <footer class="content-footer">
-            @include('frontend.components.post.footer', [
-                'pageVariant' => $pageVariant,
-            ])
-        </footer>
-    @endif
+    <footer class="content-footer">
+        @if ($page->attachments->isNotEmpty())
+            <div class="page-attachments">
+                <h5>Attachments</h5> {{-- @todo translation --}}
+            </div>
+        @endif
+
+        {{-- @todo footer --}}
+    </footer>
 @endsection

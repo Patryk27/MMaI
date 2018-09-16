@@ -1,10 +1,5 @@
-// Primary font is used in about 95% of the site - basically everywhere but the pages' titles
-$font-family-base: 'Open Sans';
-$font-family-base-url-name: 'Open+Sans';
-
-// Secondary font is used in pages' titles
-$secondary-font-family-base: 'Montserrat';
-$secondary-font-family-base-url-name: 'Montserrat';
+$font-family-base: 'Noto Sans';
+$font-family-base-url-name: 'Noto+Sans';
 
 // I hate rounded corners.
 $enable-rounded: false;
@@ -37,15 +32,6 @@ $selection-color: lighten($blue, 5%);
 $body-bg: $dark;
 $body-color: $white;
 
-// ============= //
-// == Content == //
-// ============= //
-
-$frontend-content-padding: 80px;
-$backend-content-padding: 30px;
-
-$content-footer-margin-top: 45px;
-
 // ========== //
 // == Link == //
 // ========== //
@@ -64,11 +50,9 @@ $link-dimmed-hover-color: lighten($link-dimmed-color, 15%);
 $frontend-navbar-width: 300px;
 $backend-navbar-width: 150px;
 
-$navbar-padding: 25px;
+$navbar-padding: 30px;
 
 $navbar-bg: $light;
-$navbar-section-color: lighten($light, 35%);
-$navbar-section-border-color: $light;
 
 // ==================== //
 // == Navigation Tab == //

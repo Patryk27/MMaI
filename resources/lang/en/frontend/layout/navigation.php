@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'search' => 'Search',
+    'recent-posts' => 'Recent posts',
     'menu' => 'Menu',
 ];

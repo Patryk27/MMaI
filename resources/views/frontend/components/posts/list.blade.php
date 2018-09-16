@@ -20,32 +20,40 @@
             $pageVariant = $post->getPageVariant();
         @endphp
 
-        <article class="post">
+        <article class="post-item">
             {{-- Header --}}
-            <header>
+            <header class="post-header">
                 <a href="{{ $pageVariant->route->getTargetUrl()  }}">
                     {{ $pageVariant->title }}
                 </a>
             </header>
 
             {{-- Lead --}}
-            <section class="lead">
+            <section class="post-lead">
                 {!! $post->getLead() !!}
             </section>
 
             {{-- Footer --}}
-            <footer>
-                {{-- Link --}}
-                <div class="link">
-                    <a href="{{ $pageVariant->route->getTargetUrl() }}">
-                        Continue reading&nbsp;
-                        <i class="fas fa-angle-double-right"></i>
-                    </a>
-                </div>
+            <footer class="post-footer">
+                {{-- Tags --}}
+                @if($pageVariant->tags->isNotEmpty())
+                    <div class="footer-tags">
+                        <i class="fas fa-tags"></i>
 
-                @include('frontend.components.post.footer', [
-                    'pageVariant' => $pageVariant,
-                ])
+                        @foreach($pageVariant->tags as $tag)
+                            <a class="footer-tag" href="/!search?query={{ $tag->name }}">
+                                {{ $tag->name }}
+                            </a>
+                        @endforeach
+                    </div>
+                @endif
+
+                {{-- Published at --}}
+                <div class="footer-published-at">
+                    <i class="fas fa-calendar"></i>
+
+                    {{ $pageVariant->published_at->format(config('mmai.posts.date-format')) }}
+                </div>
             </footer>
         </article>
     @endforeach
