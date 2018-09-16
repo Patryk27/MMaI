@@ -5,6 +5,7 @@
 @import 'base/loader';
 @import 'base/modal';
 @import 'base/tab';
+@import 'base/table';
 
 @import url('https://fonts.googleapis.com/css?family=#{$font-family-base-url-name}');
 @import url('https://fonts.googleapis.com/css?family=#{$secondary-font-family-base-url-name}');
@@ -19,4 +20,8 @@ body {
 
 ::selection {
   background-color: $selection-color;
+}
+
+.template {
+  display: none;
 }

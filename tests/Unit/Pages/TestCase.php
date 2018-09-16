@@ -2,6 +2,9 @@
 
 namespace Tests\Unit\Pages;
 
+use App\Attachments\AttachmentsFacade;
+use App\Attachments\AttachmentsFactory;
+use App\Attachments\Implementation\Repositories\InMemoryAttachmentsRepository;
 use App\Core\Repositories\InMemoryRepository;
 use App\Pages\Implementation\Repositories\InMemoryPagesRepository;
 use App\Pages\Implementation\Repositories\InMemoryPageVariantsRepository;
@@ -14,16 +17,27 @@ use App\Tags\Models\Tag;
 use App\Tags\TagsFacade;
 use App\Tags\TagsFactory;
 use Illuminate\Events\Dispatcher as EventsDispatcher;
+use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Support\Testing\Fakes\EventFake;
+use League\Flysystem\Filesystem;
+use League\Flysystem\Memory\MemoryAdapter;
 use Tests\Unit\TestCase as BaseTestCase;
+use Tests\Unit\Traits\CreatesAttachments;
 
 abstract class TestCase extends BaseTestCase
 {
 
+    use CreatesAttachments;
+
     /**
-     * @var InMemoryTagsRepository
+     * @var FilesystemAdapter
      */
-    protected $tagsRepository;
+    protected $attachmentsFs;
+
+    /**
+     * @var InMemoryAttachmentsRepository
+     */
+    protected $attachmentsRepository;
 
     /**
      * @var InMemoryPagesRepository
@@ -36,14 +50,24 @@ abstract class TestCase extends BaseTestCase
     protected $pageVariantsRepository;
 
     /**
-     * @var TagsFacade
+     * @var InMemoryTagsRepository
      */
-    protected $tagsFacade;
+    protected $tagsRepository;
+
+    /**
+     * @var AttachmentsFacade
+     */
+    protected $attachmentsFacade;
 
     /**
      * @var PagesFacade
      */
     protected $pagesFacade;
+
+    /**
+     * @var TagsFacade
+     */
+    protected $tagsFacade;
 
     /**
      * @return void
@@ -55,6 +79,32 @@ abstract class TestCase extends BaseTestCase
         $eventsDispatcher = new EventFake(
             $this->app->make(EventsDispatcher::class)
         );
+
+        /**
+         * Prepare filesystems
+         * -------------------
+         */
+
+        $this->attachmentsFs = new FilesystemAdapter(
+            new Filesystem(
+                new MemoryAdapter()
+            )
+        );
+
+        /**
+         * Prepare repositories
+         * --------------------
+         */
+
+        $this->attachmentsRepository = new InMemoryAttachmentsRepository(
+            new InMemoryRepository()
+        );
+
+        $this->pagesRepository = new InMemoryPagesRepository(
+            new InMemoryRepository()
+        );
+
+        $this->pageVariantsRepository = new InMemoryPageVariantsRepository();
 
         $this->tagsRepository = new InMemoryTagsRepository(
             new InMemoryRepository([
@@ -75,14 +125,23 @@ abstract class TestCase extends BaseTestCase
             ])
         );
 
-        $this->pagesRepository = new InMemoryPagesRepository(
-            new InMemoryRepository()
-        );
-
-        $this->pageVariantsRepository = new InMemoryPageVariantsRepository();
+        /**
+         * Prepare miscellaneous services
+         * ------------------------------
+         */
 
         $tagsSearcher = new InMemoryTagsSearcher();
         $pageVariantsSearcher = new InMemoryPageVariantsSearcher();
+
+        /**
+         * Instantiate facades
+         * -------------------
+         */
+
+        $this->attachmentsFacade = AttachmentsFactory::build(
+            $this->attachmentsFs,
+            $this->attachmentsRepository
+        );
 
         $this->tagsFacade = TagsFactory::build(
             $eventsDispatcher,
@@ -95,6 +154,7 @@ abstract class TestCase extends BaseTestCase
             $this->pagesRepository,
             $this->pageVariantsRepository,
             $pageVariantsSearcher,
+            $this->attachmentsFacade,
             $this->tagsFacade
         );
     }

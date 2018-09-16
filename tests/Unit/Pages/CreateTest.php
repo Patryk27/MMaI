@@ -34,42 +34,17 @@ class CreateTest extends TestCase
             ],
         ]);
 
-        $pageVariant = $page->pageVariants[0];
-
-        // Execute the assertions
+        // Execute the page-related assertions
         $this->assertEquals(Page::TYPE_CMS, $page->type);
+
+        // Execute the page-variant-related assertions
+        $pageVariant = $page->pageVariants[0];
 
         $this->assertEquals(100, $pageVariant->language_id);
         $this->assertEquals(PageVariant::STATUS_DRAFT, $pageVariant->status);
         $this->assertEquals('some title', $pageVariant->title);
         $this->assertEquals('some lead', $pageVariant->lead);
         $this->assertEquals('some content', $pageVariant->content);
-    }
-
-    /**
-     * This test makes sure that the created page variant is not assigned any
-     * route, if user passes none in the input.
-     *
-     * @return void
-     *
-     * @throws AppException
-     */
-    public function testDoesNotCreateRouteWhenUnnecessary(): void
-    {
-        $page = $this->pagesFacade->create([
-            'pageVariants' => [
-                [
-                    'language_id' => 100,
-                ],
-            ],
-        ]);
-
-        $pageVariant = $page->pageVariants[0];
-
-        // Execute the assertions
-        $this->assertNotNull($pageVariant);
-        $this->assertEquals(100, $pageVariant->language_id);
-        $this->assertNull($pageVariant->route);
     }
 
     /**
@@ -96,6 +71,32 @@ class CreateTest extends TestCase
         $this->assertNotNull($pageVariant);
         $this->assertNotNull($pageVariant->route);
         $this->assertEquals('somewhere', $pageVariant->route->url);
+    }
+
+    /**
+     * This test makes sure that the created page variant is not assigned any
+     * route, if user passes none in the input.
+     *
+     * @return void
+     *
+     * @throws AppException
+     */
+    public function testDoesNotCreateRouteWhenUnnecessary(): void
+    {
+        $page = $this->pagesFacade->create([
+            'pageVariants' => [
+                [
+                    'language_id' => 100,
+                ],
+            ],
+        ]);
+
+        $pageVariant = $page->pageVariants[0];
+
+        // Execute the assertions
+        $this->assertNotNull($pageVariant);
+        $this->assertEquals(100, $pageVariant->language_id);
+        $this->assertNull($pageVariant->route);
     }
 
     /**
@@ -129,14 +130,11 @@ class CreateTest extends TestCase
             ],
         ]);
 
-        $pageVariant = $page->pageVariants->first();
-
-        // Execute the assertions
-        $this->assertNotNull($pageVariant);
+        $pageVariant = $page->pageVariants[0];
 
         $this->assertCount(2, $pageVariant->tags);
-        $this->assertEquals($tags[0]->id, $pageVariant->tags[0]->id);
-        $this->assertEquals($tags[0]->id, $pageVariant->tags[0]->id);
+        $this->assertEquals($tags[0], $pageVariant->tags[0]);
+        $this->assertEquals($tags[1], $pageVariant->tags[1]);
     }
 
     /**
@@ -148,9 +146,9 @@ class CreateTest extends TestCase
      *
      * @throws AppException
      */
-    public function testForbidsAddTagsFromOtherLanguages(): void
+    public function testForbidsToAddTagFromOtherLanguage(): void
     {
-        $this->expectExceptionMessage('Page variant cannot contain tags from other language.');
+        $this->expectExceptionMessage('Page variant cannot contain tags from other languages.');
 
         /**
          * @var Collection|Tag[] $tags
@@ -169,6 +167,52 @@ class CreateTest extends TestCase
                         $tags[0]->id,
                     ],
                 ],
+            ],
+        ]);
+    }
+
+    /**
+     * @return void
+     *
+     * @throws AppException
+     */
+    public function testAddsAttachments(): void
+    {
+        $attachmentA = $this->createAttachment('attachment-a');
+        $attachmentB = $this->createAttachment('attachment-b');
+
+        $page = $this->pagesFacade->create([
+            'page' => [
+                'type' => Page::TYPE_CMS,
+            ],
+
+            'attachment_ids' => [
+                $attachmentA->id,
+                $attachmentB->id,
+            ],
+        ]);
+
+        $this->assertCount(2, $page->attachments);
+        $this->assertEquals($attachmentA, $page->attachments[0]);
+        $this->assertEquals($attachmentB, $page->attachments[1]);
+    }
+
+    /**
+     * @return void
+     *
+     * @throws AppException
+     */
+    public function testFailsOnNonExistingAttachment(): void
+    {
+        $this->expectExceptionMessage('Attachment was not found.');
+
+        $this->pagesFacade->create([
+            'page' => [
+                'type' => Page::TYPE_CMS,
+            ],
+
+            'attachment_ids' => [
+                100,
             ],
         ]);
     }

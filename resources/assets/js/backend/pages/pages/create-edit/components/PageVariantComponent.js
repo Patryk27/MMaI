@@ -7,60 +7,53 @@ export default class PageVariantComponent {
 
     /**
      * @param {Bus} bus
-     * @param {jQuery} container
+     * @param {jQuery} $container
      */
-    constructor(bus, container) {
+    constructor(bus, $container) {
         this.$dom = {
-            form: container.find('form'),
-            isDisabledAlert: container.find('.is-disabled-alert'),
+            form: $container.find('form'),
+            isDisabledAlert: $container.find('.is-disabled-alert'),
         };
 
         this.$form = {
             isEnabled: new CheckboxComponent(
-                container.find('[name="is_enabled"]')
+                $container.find('[name="is_enabled"]'),
             ),
 
             id: new InputComponent(
-                container.find('[name="id"]'),
+                $container.find('[name="id"]'),
             ),
 
             languageId: new InputComponent(
-                container.find('[name="language_id"]'),
+                $container.find('[name="language_id"]'),
             ),
 
             url: new InputComponent(
-                container.find('[name="url"]'),
+                $container.find('[name="url"]'),
             ),
 
             title: new InputComponent(
-                container.find('[name="title"]'),
+                $container.find('[name="title"]'),
             ),
 
             tagIds: new InputComponent(
-                container.find('[name="tag_ids"]'),
+                $container.find('[name="tag_ids"]'),
             ),
 
             status: new InputComponent(
-                container.find('[name="status"]'),
+                $container.find('[name="status"]'),
             ),
 
             lead: new InputComponent(
-                container.find('[name="lead"]'),
+                $container.find('[name="lead"]'),
             ),
 
             content: new InputComponent(
-                container.find('[name="content"]'),
+                $container.find('[name="content"]'),
             ),
         };
 
-        // Initialize SimpleMDE
-        this.$simpleMde = new SimpleMDE({
-            autoDownloadFontAwesome: false,
-            element: this.$dom.form.find('[name="content"]')[0],
-            forceSync: true,
-        });
-
-        // When user clicks on the "is enabled" checkbox, refresh the section
+        // When user clicks on the "is enabled" checkbox, let's re-render ourselves
         this.$form.isEnabled.on('change', () => {
             this.$refresh();
         });
@@ -73,18 +66,23 @@ export default class PageVariantComponent {
             }
         });
 
-        // When user changes a tab, we may need to refresh ourselves, since SimpleMDE - after becoming visible - tends
-        // to forget that it should repaint automatically.
+        // Initialize SimpleMDE
+        this.$simpleMde = new SimpleMDE({
+            autoDownloadFontAwesome: false,
+            element: this.$dom.form.find('[name="content"]')[0],
+            forceSync: true,
+        });
+
+        // When user changes a tab, we may have to refresh ourselves. since SimpleMDE - after becoming visible - tends
+        // to forget that it should repaint
         bus.on('tabs::changed', () => {
             this.$refresh();
         });
 
-        // When form is being submitted, block the form
         bus.on('form::submitting', () => {
             this.$block(true);
         });
 
-        // After form has been submitted, unblock the form
         bus.on('form::submitted', () => {
             this.$block(false);
         });
@@ -93,12 +91,31 @@ export default class PageVariantComponent {
     }
 
     /**
+     * @returns {object}
+     */
+    serialize() {
+        const form = this.$form;
+
+        return {
+            id: form.id.getValue(),
+            language_id: form.languageId.getValue(),
+            url: form.url.getValue(),
+            title: form.title.getValue(),
+            tag_ids: form.tagIds.getValue(),
+            status: form.status.getValue(),
+            lead: form.lead.getValue(),
+            content: form.content.getValue(),
+        };
+    }
+
+    /**
      * @returns {boolean}
      */
     isEnabled() {
         const isEnabled = this.$form.isEnabled;
 
-        // The "is enabled" checkbox may not be present when we are updating the page variant
+        // The "is enabled" checkbox is not present when we are updating an already existing page variant - we need to
+        // force-enable ourselves in such cases
         if (!isEnabled.exists()) {
             return true;
         }
@@ -107,27 +124,9 @@ export default class PageVariantComponent {
     }
 
     /**
-     * @returns {object}
-     */
-    serialize() {
-        const $form = this.$form;
-
-        return {
-            id: $form.id.getValue(),
-            language_id: $form.languageId.getValue(),
-            url: $form.url.getValue(),
-            title: $form.title.getValue(),
-            tag_ids: $form.tagIds.getValue(),
-            status: $form.status.getValue(),
-            lead: $form.lead.getValue(),
-            content: $form.content.getValue(),
-        };
-    }
-
-    /**
      * @private
      *
-     * Refreshes the section, brings the focus back etc.
+     * Re-renders the component.
      */
     $refresh() {
         this.$toggle(
@@ -161,14 +160,9 @@ export default class PageVariantComponent {
      */
     $block(blocked) {
         for (const [, component] of Object.entries(this.$form)) {
-            if (blocked) {
-                component.disable();
-            } else {
-                component.enable();
-            }
+            component.disable(blocked);
         }
 
-        // Block / unblock the SimpleMDE
         this.$simpleMde.codemirror.setOption('readOnly', blocked);
     }
 

@@ -9,6 +9,7 @@ use App\Tags\Exceptions\TagException;
 use App\Tags\Queries\GetTagByIdQuery;
 use App\Tags\TagsFacade;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 
 class PageVariantsUpdater
 {
@@ -123,29 +124,14 @@ class PageVariantsUpdater
      */
     private function updateTags(PageVariant $pageVariant, array $tagIds): void
     {
-        $tagIds = array_map('intval', $tagIds);
+        $pageVariant->setRelation('tags', new EloquentCollection());
 
-        // Step 1: remove tags present in the page variant, but not present
-        // inside given tag ids
-        $pageVariant->setRelation(
-            'tags',
-            $pageVariant->tags->whereIn('id', $tagIds)
-        );
-
-        // Step 2: add tags present in the given tag ids, but not present inside
-        // the page variant
         foreach ($tagIds as $tagId) {
-            // If page variant already contains this tag, skip it (we do not
-            // want tags to be duplicated, after all)
-            if ($pageVariant->tags->contains('id', $tagId)) {
-                continue;
-            }
-
-            $pageVariant->tags->push(
-                $this->tagsFacade->queryOne(
-                    new GetTagByIdQuery($tagId)
-                )
+            $tag = $this->tagsFacade->queryOne(
+                new GetTagByIdQuery($tagId)
             );
+
+            $pageVariant->tags->push($tag);
         }
     }
 

@@ -1,5 +1,6 @@
 <?php
 
+use App\Application\Http\Controllers\Backend\AttachmentsController;
 use App\Application\Http\Controllers\Backend\DashboardController;
 use App\Application\Http\Controllers\Backend\PagesController;
 use App\Application\Http\Controllers\Backend\SignInController;
@@ -31,6 +32,17 @@ Route::domain('backend.' . env('APP_DOMAIN'))->group(function () {
                 ->name('backend.dashboard.index');
         });
 
+        // /attachments
+        Route::group(['prefix' => 'attachments'], function () {
+            // /attachments
+            Route::post('/', AttachmentsController::class . '@store')
+                ->name('backend.attachments.store');
+
+            // /attachments/{attachment}/download
+            Route::get('{attachment}/download', AttachmentsController::class . '@download')
+                ->name('backend.attachments.download');
+        });
+
         // /pages/search
         Route::get('pages/search', PagesController::class . '@search')
             ->name('backend.pages.search');
@@ -39,13 +51,6 @@ Route::domain('backend.' . env('APP_DOMAIN'))->group(function () {
         Route::resource('pages', PagesController::class, [
             'as' => 'backend',
         ]);
-
-        // /posts
-        Route::group(['prefix' => 'posts'], function () {
-            // /posts/index
-            Route::get('index')
-                ->name('backend.posts.index');
-        });
 
         // /tags/search
         Route::get('tags/search', TagsController::class . '@search')

@@ -58,7 +58,7 @@ class TagsCreator
 
         $this->tagsValidator->validate($tag);
         $this->tagsRepository->persist($tag);
-        
+
         $this->eventsDispatcher->dispatch(
             new TagCreated($tag)
         );

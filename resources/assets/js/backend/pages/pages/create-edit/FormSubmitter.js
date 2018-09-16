@@ -29,18 +29,16 @@ export default class FormSubmitter {
         try {
             const $form = this.$dom.form;
 
-            const response = await Requester.execute(
-                $form.data('method'),
-                $form.data('url'),
-                this.$serialize()
-            );
-
-            this.$bus.emit('form::submitted', {
-                response,
+            const response = await Requester.execute({
+                method: $form.data('method'),
+                url: $form.data('url'),
+                data: this.$serialize(),
             });
+
+            this.$bus.emit('form::submitted', { response });
         } catch (error) {
             if (error.type === 'invalid-input') {
-                this.$bus.emit('form::invalid-input', error.payload); // @todo
+                this.$bus.emit('form::invalid-input', error.payload); // @todo highlight the invalid input
             } else {
                 // noinspection JSIgnoredPromiseFromCall
                 swal({
@@ -50,9 +48,7 @@ export default class FormSubmitter {
                 });
             }
 
-            this.$bus.emit('form::submitted', {
-                response: null,
-            });
+            this.$bus.emit('form::submitted', { response: null });
         }
     }
 
@@ -60,19 +56,18 @@ export default class FormSubmitter {
      * @returns {object}
      */
     $serialize() {
-        const pageVariants = this.$state.formSections.pageVariants
-            .filter((component) => component.isEnabled())
-            .map((component) => component.serialize());
-
-        const mediaLibrary = this.$state.formSections.mediaLibrary.serialize();
+        const { pageVariants, attachments } = this.$state.formSections;
 
         return {
             page: {
-                type: 'cms', // @todo shouldn't be hard-coded; maybe we can fetch it from this.$dom.form?
+                type: 'cms', // @todo shouldn't be hard-coded - maybe we can fetch it from this.$dom.form?
             },
 
-            pageVariants,
-            mediaLibrary,
+            pageVariants: pageVariants
+                .filter((pageVariant) => pageVariant.isEnabled())
+                .map((pageVariant) => pageVariant.serialize()),
+
+            attachment_ids: attachments.serialize(),
         };
     }
 

@@ -95,23 +95,6 @@ final class RoutesFacade
     }
 
     /**
-     * Saves given route.
-     *
-     * @param Route $route
-     * @return void
-     *
-     * @throws RouteException
-     *
-     * @todo shouldn't it be "$routesFacade->create()" and "$routesFacade->update()", similarly to all the other facades?
-     * @todo shouldn't allow to create routes in the "backend" subdomain
-     */
-    public function persist(Route $route): void
-    {
-        $this->routesValidator->validate($route);
-        $this->routesRepository->persist($route);
-    }
-
-    /**
      * Returns the first route matching given query.
      * Throws an exception if no such route exists.
      *

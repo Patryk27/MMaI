@@ -4,7 +4,6 @@ namespace App\SearchEngine\Implementation\Services;
 
 use App\Pages\Models\PageVariant;
 use App\SearchEngine\Implementation\Policies\PageVariantsIndexerPolicy;
-use Cviebrock\LaravelElasticsearch\Manager as ElasticsearchManager;
 use Elasticsearch\Client as ElasticsearchClient;
 use Elasticsearch\Common\Exceptions\Missing404Exception as ElasticsearchMissing404Exception;
 
@@ -22,14 +21,14 @@ class PageVariantsIndexer
     private $pageVariantsIndexerPolicy;
 
     /**
-     * @param ElasticsearchManager $elasticsearchManager
+     * @param ElasticsearchClient $elasticsearch
      * @param PageVariantsIndexerPolicy $pageVariantsIndexerPolicy
      */
     public function __construct(
-        ElasticsearchManager $elasticsearchManager,
+        ElasticsearchClient $elasticsearch,
         PageVariantsIndexerPolicy $pageVariantsIndexerPolicy
     ) {
-        $this->elasticsearch = $elasticsearchManager->connection();
+        $this->elasticsearch = $elasticsearch;
         $this->pageVariantsIndexerPolicy = $pageVariantsIndexerPolicy;
     }
 

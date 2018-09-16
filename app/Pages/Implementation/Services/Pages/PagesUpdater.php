@@ -2,6 +2,9 @@
 
 namespace App\Pages\Implementation\Services\Pages;
 
+use App\Attachments\AttachmentsFacade;
+use App\Attachments\Exceptions\AttachmentException;
+use App\Attachments\Queries\GetAttachmentByIdQuery;
 use App\Pages\Events\PageUpdated;
 use App\Pages\Exceptions\PageException;
 use App\Pages\Implementation\Repositories\PagesRepositoryInterface;
@@ -11,6 +14,7 @@ use App\Pages\Models\Page;
 use App\Pages\Models\PageVariant;
 use App\Tags\Exceptions\TagException;
 use Illuminate\Contracts\Events\Dispatcher as EventsDispatcherContract;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 
 /**
  * @see \Tests\Unit\Pages\UpdateTest
@@ -39,21 +43,29 @@ class PagesUpdater
     private $pageVariantsUpdater;
 
     /**
+     * @var AttachmentsFacade
+     */
+    private $attachmentsFacade;
+
+    /**
      * @param EventsDispatcherContract $eventsDispatcher
      * @param PagesRepositoryInterface $pagesRepository
      * @param PageVariantsCreator $pageVariantsCreator
      * @param PageVariantsUpdater $pageVariantsUpdater
+     * @param AttachmentsFacade $attachmentsFacade
      */
     public function __construct(
         EventsDispatcherContract $eventsDispatcher,
         PagesRepositoryInterface $pagesRepository,
         PageVariantsCreator $pageVariantsCreator,
-        PageVariantsUpdater $pageVariantsUpdater
+        PageVariantsUpdater $pageVariantsUpdater,
+        AttachmentsFacade $attachmentsFacade
     ) {
         $this->eventsDispatcher = $eventsDispatcher;
         $this->pagesRepository = $pagesRepository;
         $this->pageVariantsCreator = $pageVariantsCreator;
         $this->pageVariantsUpdater = $pageVariantsUpdater;
+        $this->attachmentsFacade = $attachmentsFacade;
     }
 
     /**
@@ -61,20 +73,18 @@ class PagesUpdater
      * @param array $pageData
      * @return void
      *
+     * @throws AttachmentException
      * @throws PageException
      * @throws TagException
      */
     public function update(Page $page, array $pageData): void
     {
         foreach (array_get($pageData, 'pageVariants', []) as $pageVariantData) {
-            $this->updatePageVariant($page, $pageVariantData);
+            $this->savePageVariant($page, $pageVariantData);
         }
 
-        $this->pagesRepository->persist($page);
-
-        $this->eventsDispatcher->dispatch(
-            new PageUpdated($page)
-        );
+        $this->saveAttachments($page, array_get($pageData, 'attachment_ids', []));
+        $this->save($page);
     }
 
     /**
@@ -85,7 +95,7 @@ class PagesUpdater
      * @throws PageException
      * @throws TagException
      */
-    private function updatePageVariant(Page $page, array $pageVariantData): void
+    private function savePageVariant(Page $page, array $pageVariantData): void
     {
         if (array_has($pageVariantData, 'id')) {
             /**
@@ -105,6 +115,39 @@ class PagesUpdater
                 $this->pageVariantsCreator->create($page, $pageVariantData)
             );
         }
+    }
+
+    /**
+     * @param Page $page
+     * @param int[] $attachmentIds
+     * @return void
+     *
+     * @throws AttachmentException
+     */
+    private function saveAttachments(Page $page, array $attachmentIds): void
+    {
+        $page->setRelation('attachments', new EloquentCollection());
+
+        foreach ($attachmentIds as $attachmentId) {
+            $attachment = $this->attachmentsFacade->queryOne(
+                new GetAttachmentByIdQuery($attachmentId)
+            );
+
+            $page->attachments->push($attachment);
+        }
+    }
+
+    /**
+     * @param Page $page
+     * @return void
+     */
+    private function save(Page $page): void
+    {
+        $this->pagesRepository->persist($page);
+
+        $this->eventsDispatcher->dispatch(
+            new PageUpdated($page)
+        );
     }
 
 }

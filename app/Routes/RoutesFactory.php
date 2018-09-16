@@ -12,6 +12,8 @@ final class RoutesFactory
 {
 
     /**
+     * Builds an instance of @see RoutesFacade.
+     *
      * @param RoutesRepositoryInterface $routesRepository
      * @return RoutesFacade
      */

@@ -1,8 +1,8 @@
 <li class="nav-item">
     <a class="nav-link"
-       href="#form--mediaLibrary"
+       href="#form--attachments"
        role="tab"
        data-toggle="tab">
-        Media library
+        Attachments
     </a>
 </li>

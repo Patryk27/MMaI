@@ -2,6 +2,7 @@
 
 namespace App\Pages;
 
+use App\Attachments\Exceptions\AttachmentException;
 use App\Pages\Exceptions\PageException;
 use App\Pages\Exceptions\PageVariantNotFoundException;
 use App\Pages\Implementation\Services\Pages\PagesCreator;
@@ -63,10 +64,11 @@ final class PagesFacade
      * @param array $pageData
      * @return Page
      *
+     * @throws AttachmentException
      * @throws PageException
      * @throws TagException
      *
-     * @see \App\Application\Http\Requests\Backend\Pages\PageCreateRequest
+     * @see \App\Application\Http\Requests\Backend\Pages\CreatePageRequest
      * @see \Tests\Unit\Pages\CreateTest
      */
     public function create(array $pageData): Page
@@ -81,10 +83,11 @@ final class PagesFacade
      * @param array $pageData
      * @return void
      *
+     * @throws AttachmentException
      * @throws PageException
      * @throws TagException
      *
-     * @see \App\Application\Http\Requests\Backend\Pages\PageUpdateRequest
+     * @see \App\Application\Http\Requests\Backend\Pages\UpdatePageRequest
      * @see \Tests\Unit\Pages\UpdateTest
      */
     public function update(Page $page, array $pageData): void

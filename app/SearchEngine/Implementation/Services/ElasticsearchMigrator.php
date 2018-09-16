@@ -2,7 +2,6 @@
 
 namespace App\SearchEngine\Implementation\Services;
 
-use Cviebrock\LaravelElasticsearch\Manager as ElasticsearchManager;
 use Elasticsearch\Client as ElasticsearchClient;
 
 class ElasticsearchMigrator
@@ -14,12 +13,12 @@ class ElasticsearchMigrator
     private $elasticsearch;
 
     /**
-     * @param ElasticsearchManager $elasticsearchManager
+     * @param ElasticsearchClient $elasticsearch
      */
     public function __construct(
-        ElasticsearchManager $elasticsearchManager
+        ElasticsearchClient $elasticsearch
     ) {
-        $this->elasticsearch = $elasticsearchManager->connection();
+        $this->elasticsearch = $elasticsearch;
     }
 
     /**

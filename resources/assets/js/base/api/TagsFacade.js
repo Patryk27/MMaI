@@ -11,11 +11,15 @@ export default class TagsFacade {
      *       language_id: number,
      *   }
      *
-     * @param {object} tagData
+     * @param {object} tag
      * @returns {Promise<void>}
      */
-    static async create(tagData) {
-        return Requester.execute('post', '/tags', tagData);
+    static async create(tag) {
+        return Requester.execute({
+            method: 'post',
+            url: '/tags',
+            data: tag,
+        });
     }
 
     /**
@@ -26,22 +30,29 @@ export default class TagsFacade {
      *       name: string,
      *   }
      *
-     * @param {number} tagId
-     * @param {object} tagData
+     * @param {number} id
+     * @param {object} tag
      * @returns {Promise<void>}
      */
-    static async update(tagId, tagData) {
-        return Requester.execute('put', `/tags/${tagId}`, tagData);
+    static async update(id, tag) {
+        return Requester.execute({
+            method: 'put',
+            url: `/tags/${id}`,
+            data: tag,
+        });
     }
 
     /**
      * Removes tag with specified id.
      *
-     * @param {number} tagId
+     * @param {number} id
      * @returns {Promise<void>}
      */
-    static async delete(tagId) {
-        return Requester.execute('delete', `/tags/${tagId}`);
+    static async delete(id) {
+        return Requester.execute({
+            method: 'delete',
+            url: `/tags/${id}`,
+        });
     }
 
 }

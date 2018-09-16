@@ -2,6 +2,8 @@
 
 namespace App\Pages\Models;
 
+use App\Attachments\Models\Attachment;
+use App\Attachments\Models\Interfaces\Attachable;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
@@ -22,8 +24,9 @@ use Illuminate\Database\Eloquent\Model;
  * -----
  *
  * @property-read EloquentCollection|PageVariant[] $pageVariants
+ * @property-read EloquentCollection|Attachment[] $attachments
  */
-class Page extends Model
+class Page extends Model implements Attachable
 {
 
     public const
@@ -47,10 +50,19 @@ class Page extends Model
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @todo rename to just variants()
      */
     public function pageVariants()
     {
         return $this->hasMany(PageVariant::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function attachments()
+    {
+        return $this->morphMany(Attachment::class, 'attachable');
     }
 
     /**
@@ -96,6 +108,22 @@ class Page extends Model
     public function getBackendEditUrl(): string
     {
         return route('backend.pages.edit', $this->id);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getMorphableId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public static function getMorphableType(): string
+    {
+        return 'page';
     }
 
 }

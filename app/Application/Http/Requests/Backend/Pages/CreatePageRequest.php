@@ -22,6 +22,10 @@ class CreatePageRequest extends FormRequest
     {
         return [
             'page.type' => 'required',
+
+            'attachment_ids' => 'array',
+
+            // @todo rename to just `variants`
             'pageVariants.*.language_id' => 'numeric',
             'pageVariants.*.url' => ['nullable', 'string', 'regex:/^[a-zA-Z0-9\-\/]*$/'],
             'pageVariants.*.title' => 'string',

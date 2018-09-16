@@ -28,16 +28,20 @@ export default class Component {
 
     /**
      * Unblocks the component.
+     *
+     * @param {boolean} enabled
      */
-    enable() {
-        this.$dom.el.attr('disabled', false);
+    enable(enabled = true) {
+        this.$dom.el.attr('disabled', !enabled);
     }
 
     /**
      * Blocks the component.
+     *
+     * @param {boolean} disabled
      */
-    disable() {
-        this.$dom.el.attr('disabled', true);
+    disable(disabled = true) {
+        this.enable(!disabled);
     }
 
     /**

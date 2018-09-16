@@ -2,7 +2,6 @@
 
 namespace App\Pages\Implementation\Repositories;
 
-use App\Core\Exceptions\Exception as AppException;
 use App\Core\Repositories\EloquentRepository;
 use App\Pages\Models\Page;
 use App\Pages\Models\PageVariant;
@@ -65,6 +64,8 @@ class EloquentPagesRepository implements PagesRepositoryInterface
             foreach ($page->pageVariants as $pageVariant) {
                 $this->persistPageVariant($page, $pageVariant);
             }
+
+            $this->persistAttachments($page);
         });
     }
 
@@ -92,27 +93,33 @@ class EloquentPagesRepository implements PagesRepositoryInterface
      * @param Route|null $newRoute
      * @return void
      *
-     * @throws AppException
+     * @throws Throwable
      */
     private function persistRoute(PageVariant $pageVariant, ?Route $oldRoute, ?Route $newRoute): void
     {
         if (isset($oldRoute) && is_null($newRoute)) {
             $this->routesFacade->delete($oldRoute);
+
+            return;
         }
 
         if (is_null($oldRoute) && isset($newRoute)) {
             $newRoute->setPointsAt($pageVariant);
+            $newRoute->saveOrFail();
 
-            $this->routesFacade->persist($newRoute);
+            return;
         }
 
         if (isset($oldRoute) && isset($newRoute)) {
             $newRoute->setPointsAt($pageVariant);
 
             if ($newRoute->url !== $oldRoute->url) {
-                $this->routesFacade->persist($newRoute);
+                $newRoute->saveOrFail();
+
                 $this->routesFacade->reroute($oldRoute, $newRoute);
             }
+
+            return;
         }
     }
 
@@ -125,6 +132,39 @@ class EloquentPagesRepository implements PagesRepositoryInterface
         $pageVariant->tags()->sync(
             $pageVariant->tags->pluck('id')
         );
+    }
+
+    /**
+     * @param Page $page
+     * @return void
+     *
+     * @throws Throwable
+     */
+    private function persistAttachments(Page $page): void
+    {
+        $originalPage = $page->fresh();
+
+        // Detach all the attachments which were also detached by the user
+        foreach ($originalPage->attachments as $attachment) {
+            if (!$page->attachments->contains('id', $attachment->id)) {
+                $attachment->fill([
+                    'attachable_type' => null,
+                    'attachable_id' => null,
+                ]);
+
+                $attachment->saveOrFail();
+            }
+        }
+
+        // Save all the given attachments
+        foreach ($page->attachments as $attachment) {
+            $attachment->fill([
+                'attachable_type' => Page::getMorphableType(),
+                'attachable_id' => $page->id,
+            ]);
+
+            $attachment->saveOrFail();
+        }
     }
 
 }

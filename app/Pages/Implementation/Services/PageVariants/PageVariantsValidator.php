@@ -45,7 +45,7 @@ class PageVariantsValidator
     {
         foreach ($pageVariant->tags as $tag) {
             if ($tag->language_id !== $pageVariant->language_id) {
-                throw new PageException('Page variant cannot contain tags from other language.');
+                throw new PageException('Page variant cannot contain tags from other languages.');
             }
         }
     }

@@ -37,7 +37,11 @@ class UpdateTest extends TestCase
             ->where('language_id', 100)
             ->values();
 
-        // Create an example page variant
+        // Let's build an example page, so that we have something we can update
+        $this->page = new Page([
+            'type' => Page::TYPE_CMS,
+        ]);
+
         $this->pageVariant = new PageVariant([
             'language_id' => 100,
             'status' => PageVariant::STATUS_DRAFT,
@@ -52,14 +56,8 @@ class UpdateTest extends TestCase
             ]),
         ]);
 
-        // Create an example page and bind that page variant to it
-        $this->page = new Page([
-            'type' => Page::TYPE_CMS,
-        ]);
-
         $this->page->pageVariants->push($this->pageVariant);
 
-        // Save the example page so that we can update it in a second
         $this->pagesRepository->persist($this->page);
     }
 
@@ -94,7 +92,6 @@ class UpdateTest extends TestCase
      */
     public function testCreatesNewPageVariant(): void
     {
-        // Update page
         $this->pagesFacade->update($this->page, [
             'pageVariants' => [
                 [
@@ -104,7 +101,6 @@ class UpdateTest extends TestCase
             ],
         ]);
 
-        // Re-load it
         $this->page = $this->pagesRepository->getById($this->page->id);
 
         // Make sure update() created a new page variant
@@ -127,7 +123,6 @@ class UpdateTest extends TestCase
      */
     public function testUpdatesExistingPageVariant(): void
     {
-        // Update page
         $this->pagesFacade->update($this->page, [
             'pageVariants' => [
                 [
@@ -137,7 +132,6 @@ class UpdateTest extends TestCase
             ],
         ]);
 
-        // Re-load it
         $this->page = $this->pagesRepository->getById($this->page->id);
 
         // Make sure update() did not create any new page variant
@@ -160,7 +154,6 @@ class UpdateTest extends TestCase
      */
     public function testDoesNotChangeLanguage(): void
     {
-        // Update page
         $this->pagesFacade->update($this->page, [
             'pageVariants' => [
                 [
@@ -170,7 +163,6 @@ class UpdateTest extends TestCase
             ],
         ]);
 
-        // Re-load it
         $this->page = $this->pagesRepository->getById($this->page->id);
 
         // Make sure the language has not been changed
@@ -188,7 +180,6 @@ class UpdateTest extends TestCase
      */
     public function testSetsPublishedAt(): void
     {
-        // Update page
         $this->pagesFacade->update($this->page, [
             'pageVariants' => [
                 [
@@ -199,7 +190,6 @@ class UpdateTest extends TestCase
             ],
         ]);
 
-        // Re-load it
         $this->page = $this->pagesRepository->getById($this->page->id);
 
         // Make sure it has been filled the values we provided
@@ -220,7 +210,6 @@ class UpdateTest extends TestCase
      */
     public function testCreatesRoute(): void
     {
-        // Update page
         $this->pagesFacade->update($this->page, [
             'pageVariants' => [
                 [
@@ -230,7 +219,6 @@ class UpdateTest extends TestCase
             ],
         ]);
 
-        // Re-load it
         $this->page = $this->pagesRepository->getById($this->page->id);
 
         // Make sure update() created appropriate route
@@ -405,10 +393,9 @@ class UpdateTest extends TestCase
             ],
         ]);
 
-        // Execute the assertions
         $this->assertCount(2, $this->pageVariant->tags);
-        $this->assertEquals($tags[0]->id, $this->pageVariant->tags[0]->id);
-        $this->assertEquals($tags[0]->id, $this->pageVariant->tags[0]->id);
+        $this->assertEquals($tags[0], $this->pageVariant->tags[0]);
+        $this->assertEquals($tags[1], $this->pageVariant->tags[1]);
     }
 
     /**
@@ -430,8 +417,58 @@ class UpdateTest extends TestCase
             ],
         ]);
 
-        // Execute the assertions
         $this->assertCount(0, $this->pageVariant->tags);
+    }
+
+    /**
+     * This test makes sure that the update() method correctly adds new
+     * attachments to an already existing page.
+     *
+     * @throws AppException
+     */
+    public function testAddsAttachments(): void
+    {
+        $attachmentA = $this->createAttachment('attachment-a');
+        $attachmentB = $this->createAttachment('attachment-b');
+
+        $this->pagesFacade->update($this->page, [
+            'attachment_ids' => [
+                $attachmentA->id,
+                $attachmentB->id,
+            ],
+        ]);
+
+        $this->assertCount(2, $this->page->attachments);
+        $this->assertEquals($attachmentA, $this->page->attachments[0]);
+        $this->assertEquals($attachmentB, $this->page->attachments[1]);
+    }
+
+    /**
+     * This test makes sure that the update() method correctly removes existing
+     * attachments from an already existing page.
+     *
+     * @throws AppException
+     */
+    public function testRemovesAttachments(): void
+    {
+        $attachmentA = $this->createAttachment('attachment-a');
+        $attachmentB = $this->createAttachment('attachment-b');
+
+        $this->pagesFacade->update($this->page, [
+            'attachment_ids' => [
+                $attachmentA->id,
+                $attachmentB->id,
+            ],
+        ]);
+
+        $this->pagesFacade->update($this->page, [
+            'attachment_ids' => [
+                $attachmentB->id,
+            ],
+        ]);
+
+        $this->assertCount(1, $this->page->attachments);
+        $this->assertEquals($attachmentB, $this->page->attachments[0]);
     }
 
 }

@@ -2,6 +2,7 @@
 
 namespace App\Pages;
 
+use App\Attachments\AttachmentsFacade;
 use App\Pages\Implementation\Repositories\PagesRepositoryInterface;
 use App\Pages\Implementation\Repositories\PageVariantsRepositoryInterface;
 use App\Pages\Implementation\Services\Pages\PagesCreator;
@@ -25,6 +26,7 @@ final class PagesFactory
      * @param PagesRepositoryInterface $pagesRepository
      * @param PageVariantsRepositoryInterface $pageVariantsRepository
      * @param PageVariantsSearcherInterface $pageVariantsSearcher
+     * @param AttachmentsFacade $attachmentsFacade
      * @param TagsFacade $tagsFacade
      * @return PagesFacade
      */
@@ -33,6 +35,7 @@ final class PagesFactory
         PagesRepositoryInterface $pagesRepository,
         PageVariantsRepositoryInterface $pageVariantsRepository,
         PageVariantsSearcherInterface $pageVariantsSearcher,
+        AttachmentsFacade $attachmentsFacade,
         TagsFacade $tagsFacade
     ): PagesFacade {
         $pageVariantsValidator = new PageVariantsValidator();
@@ -42,8 +45,8 @@ final class PagesFactory
         $pageVariantsUpdater = new PageVariantsUpdater($pageVariantsValidator, $tagsFacade);
         $pagesQuerier = new PageVariantsQuerier($pageVariantsRepository, $pageVariantsSearcher);
 
-        $pagesCreator = new PagesCreator($eventsDispatcher, $pagesRepository, $pageVariantsCreator);
-        $pagesUpdater = new PagesUpdater($eventsDispatcher, $pagesRepository, $pageVariantsCreator, $pageVariantsUpdater);
+        $pagesCreator = new PagesCreator($eventsDispatcher, $pagesRepository, $pageVariantsCreator, $attachmentsFacade);
+        $pagesUpdater = new PagesUpdater($eventsDispatcher, $pagesRepository, $pageVariantsCreator, $pageVariantsUpdater, $attachmentsFacade);
 
         return new PagesFacade(
             $pagesCreator,

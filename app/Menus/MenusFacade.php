@@ -4,7 +4,7 @@ namespace App\Menus;
 
 use App\Menus\Exceptions\MenuException;
 use App\Menus\Exceptions\MenuItemNotFoundException;
-use App\Menus\Implementation\Services\MenuItems\MenuItemsQuerier;
+use App\Menus\Implementation\Services\MenuItemsQuerier;
 use App\Menus\Models\MenuItem;
 use App\Menus\Queries\MenuItemsQueryInterface;
 use Illuminate\Support\Collection;

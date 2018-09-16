@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Menus\Implementation\Services\MenuItems;
+namespace App\Menus\Implementation\Services;
 
 use App\Menus\Exceptions\MenuException;
 use App\Menus\Implementation\Repositories\MenuItemsRepositoryInterface;

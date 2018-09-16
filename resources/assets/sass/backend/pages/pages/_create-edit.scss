@@ -9,6 +9,33 @@
     }
   }
 
+  #add-attachment-wrapper {
+    text-align: right;
+
+    #add-attachment-button {
+      margin-bottom: 1em;
+    }
+  }
+
+  #attachments-table {
+    tbody {
+      tr {
+        td {
+          &[data-column="name"] {
+            .progress {
+              margin-top: 0.5em;
+            }
+          }
+
+          &[data-column="actions"] {
+            padding-right: 0;
+            text-align: right;
+          }
+        }
+      }
+    }
+  }
+
   #page-form-footer {
     text-align: right;
   }

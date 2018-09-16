@@ -7,7 +7,6 @@ use App\Pages\Models\PageVariant;
 use App\Pages\PagesFacade;
 use App\Pages\Queries\GetPageVariantsByIdsQuery;
 use App\SearchEngine\Queries\SearchQuery;
-use Cviebrock\LaravelElasticsearch\Manager as ElasticsearchManager;
 use Elasticsearch\Client as ElasticsearchClient;
 use Illuminate\Support\Collection;
 
@@ -25,14 +24,14 @@ class PageVariantsSearcher
     private $pagesFacade;
 
     /**
-     * @param ElasticsearchManager $elasticsearchManager
+     * @param ElasticsearchClient $elasticsearch
      * @param PagesFacade $pagesFacade
      */
     public function __construct(
-        ElasticsearchManager $elasticsearchManager,
+        ElasticsearchClient $elasticsearch,
         PagesFacade $pagesFacade
     ) {
-        $this->elasticsearch = $elasticsearchManager->connection();
+        $this->elasticsearch = $elasticsearch;
         $this->pagesFacade = $pagesFacade;
     }
 

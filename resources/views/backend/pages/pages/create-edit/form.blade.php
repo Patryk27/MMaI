@@ -12,7 +12,7 @@
         @include('backend.pages.pages.create-edit.form.page-variant.tab')
     @endforeach
 
-    @include('backend.pages.pages.create-edit.form.media-library.tab')
+    @include('backend.pages.pages.create-edit.form.attachments.tab')
 </ul>
 
 {{-- Section contents --}}
@@ -24,7 +24,7 @@
         ])
     @endforeach
 
-    @include('backend.pages.pages.create-edit.form.media-library.content')
+    @include('backend.pages.pages.create-edit.form.attachments.content')
 </div>
 
 {{-- Form's footer --}}

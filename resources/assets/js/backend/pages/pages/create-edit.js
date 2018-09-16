@@ -3,7 +3,7 @@ import swal from 'sweetalert';
 import Bus from '../../../base/Bus';
 import ButtonComponent from '../../../base/components/ButtonComponent';
 import FormSubmitter from './create-edit/FormSubmitter';
-import MediaLibraryComponent from './create-edit/components/MediaLibraryComponent';
+import AttachmentsComponent from './create-edit/components/AttachmentsComponent';
 import PageVariantComponent from './create-edit/components/PageVariantComponent';
 
 export default function () {
@@ -19,12 +19,12 @@ export default function () {
 
     const formSections = {
         pageVariants: [],
-        mediaLibrary: null,
+        attachments: null,
     };
 
     dom.sectionTabs.on('click', '.nav-link', () => {
-        // The tabs-changing thing is handled by Bootstrap and it will happen in the next tick - that is also why are
-        // going to emit that event then.
+        // Bootstrap handles switching the tabs on its own - we do not have to touch DOM here.
+        // Since it happens in the next tick, that is also the reason we are emitting "tabs changed" event then.
         setTimeout(() => {
             bus.emit('tabs::changed');
         });
@@ -41,8 +41,8 @@ export default function () {
 
                 break;
 
-            case 'media-library':
-                formSections.mediaLibrary = new MediaLibraryComponent(bus, $tab);
+            case 'attachments':
+                formSections.attachments = new AttachmentsComponent(bus, $tab);
 
                 break;
 

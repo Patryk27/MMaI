@@ -111,11 +111,11 @@ class PageVariantsCreator
     private function createTags(PageVariant $pageVariant, array $tagIds): void
     {
         foreach ($tagIds as $tagId) {
-            $pageVariant->tags->push(
-                $this->tagsFacade->queryOne(
-                    new GetTagByIdQuery($tagId)
-                )
+            $tag = $this->tagsFacade->queryOne(
+                new GetTagByIdQuery($tagId)
             );
+
+            $pageVariant->tags->push($tag);
         }
     }
 
