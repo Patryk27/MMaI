@@ -1,0 +1,17 @@
+&--error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .site-container {
+    margin-right: 0;
+
+    .content {
+      text-align: center;
+
+      .error-cta {
+        margin-top: 2em;
+      }
+    }
+  }
+}
