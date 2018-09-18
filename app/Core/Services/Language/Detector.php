@@ -55,7 +55,7 @@ class Detector
             $subdomain = $this->request->route('subdomain');
 
             return $this->languagesFacade->queryOne(
-                new GetLanguageBySlugQuery($subdomain)
+                new GetLanguageBySlugQuery($subdomain ?? 'en')
             );
         } catch (LanguageNotFoundException $ex) {
             return null;
