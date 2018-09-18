@@ -16,14 +16,14 @@
     <form id="search-form" method="get" action="#">
         <div class="input-group">
             {{ Form::search('query', $query, [
-                'class' => 'form-control',
+                'class' => 'form-control input-light',
                 'placeholder' => 'Search...',
                 'aria-label' => 'Search',
                 'autofocus' => true,
             ]) }}
 
             <div class="input-group-append">
-                <button type="submit" class="btn btn-primary btn-icon-only">
+                <button type="submit" class="btn btn-light btn-icon-only">
                     <i class="fa fa-search"></i>
                     <span class="sr-only">Search</span>
                 </button>

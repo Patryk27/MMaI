@@ -3,7 +3,7 @@
         <div class="input-group">
             <input name="query"
                    type="search"
-                   class="form-control"
+                   class="form-control input-light"
                    placeholder="Search..."
                    aria-label="Search"/>
 

@@ -35,23 +35,6 @@
     }
   }
 
-  // Search //
-  .nav-search {
-    // @todo style the `!search`'s input the same as this one
-
-    input, .btn {
-      color: #000000;
-      background: #aaaaaa;
-      border: none;
-    }
-
-    .btn {
-      &:hover {
-        background: #888888;
-      }
-    }
-  }
-
   // Menu //
   .nav-menu {
     .nav-menu-item {

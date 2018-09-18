@@ -19,17 +19,17 @@ $yellow: #ffce00;
 // == Base == //
 // ========== //
 
-$light: $gray;
-$dark: #080808;
+$light: #aaaaaa;
+$dark: #111111;
 
-$border-color: lighten($light, 5%);
+$border-color: lighten($dark, 5%);
 $selection-color: lighten($blue, 5%);
 
 // ========== //
 // == Body == //
 // ========== //
 
-$body-bg: $dark;
+$body-bg: $black;
 $body-color: $white;
 
 // ========== //
@@ -52,7 +52,7 @@ $backend-navbar-width: 150px;
 
 $navbar-padding: 30px;
 
-$navbar-bg: $light;
+$navbar-bg: $dark;
 
 // ==================== //
 // == Navigation Tab == //
@@ -70,26 +70,26 @@ $tab-pane-padding-top: 1em;
 // == Pagination == //
 // ================ //
 
-$pagination-bg: $light;
+$pagination-bg: $dark;
 $pagination-color: $body-color;
-$pagination-border-color: $light;
+$pagination-border-color: $dark;
 
 $pagination-hover-bg: $pagination-bg;
 $pagination-hover-color: $pagination-color;
 $pagination-hover-border-color: #404040;
 
-$pagination-disabled-bg: $light;
+$pagination-disabled-bg: $dark;
 $pagination-disabled-color: $black;
-$pagination-disabled-border-color: $light;
+$pagination-disabled-border-color: $dark;
 
 $pagination-active-bg: darken($yellow, 10%);
-$pagination-active-color: $light;
+$pagination-active-color: $dark;
 
 // ============== //
 // == Dropdown == //
 // ============== //
 
-$dropdown-bg: $light;
+$dropdown-bg: $dark;
 
 $dropdown-link-color: $white;
 $dropdown-link-hover-color: $white;
@@ -99,12 +99,12 @@ $dropdown-link-hover-bg: lighten($dropdown-bg, 8%);
 // == Input == //
 // =========== //
 
-$input-bg: $light;
+$input-bg: $dark;
 $input-color: $white;
-$input-border-color: $light;
+$input-border-color: $dark;
 $input-disabled-bg: $dark;
 
-$input-placeholder-color: lighten($light, 15%);
+$input-placeholder-color: lighten($dark, 15%);
 
 $input-group-addon-bg: lighten($input-bg, 10%);
 
