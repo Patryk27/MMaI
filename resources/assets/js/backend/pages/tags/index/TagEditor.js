@@ -19,7 +19,7 @@ export default class TagEditor {
 
         this.$form = {
             name: new InputComponent(
-                $modal.find('[name="name"]')
+                $modal.find('[name="name"]'),
             ),
         };
 

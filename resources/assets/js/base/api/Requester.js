@@ -164,7 +164,7 @@ export default class Requester {
      *
      * @param {AxiosResponse} response
      */
-    static $handleUnprocessableEntity({data}) {
+    static $handleUnprocessableEntity({ data }) {
         if (!data.hasOwnProperty('message')) {
             throw {
                 type: 'exception',
@@ -184,7 +184,7 @@ export default class Requester {
      *
      * @param {AxiosResponse} response
      */
-    static $handleInternalServerError({data}) {
+    static $handleInternalServerError({ data }) {
         if (data.hasOwnProperty('message')) {
             throw {
                 type: 'exception',

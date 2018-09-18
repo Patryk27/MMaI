@@ -32,7 +32,7 @@ export default class InputComponent extends Component {
                 .addClass(isValid ? 'valid-feedback' : 'invalid-feedback')
                 .text(message)
                 .appendTo(
-                    this.$dom.el.parent()
+                    this.$dom.el.parent(),
                 );
     }
 

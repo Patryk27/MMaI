@@ -28,12 +28,12 @@ export default function () {
         });
     });
 
-    bus.on('tag::delete', ({tag}) => {
+    bus.on('tag::delete', ({ tag }) => {
         // noinspection JSIgnoredPromiseFromCall
         tagDeleter.delete(tag);
     });
 
-    bus.on('tag::edit', ({tag}) => {
+    bus.on('tag::edit', ({ tag }) => {
         tagEditor.edit(tag);
     });
 

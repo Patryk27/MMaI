@@ -65,7 +65,7 @@ export default function () {
         formSubmitButton.showSpinner();
     });
 
-    bus.on('form::submitted', ({response}) => {
+    bus.on('form::submitted', ({ response }) => {
         formSubmitButton.enable();
         formSubmitButton.hideSpinner();
 

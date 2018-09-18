@@ -25,11 +25,11 @@ export default new class Dispatcher {
     execute() {
         const $body = $('body');
 
-        this.$handlers.forEach(({viewClass, viewHandler}) => {
+        this.$handlers.forEach(({ viewClass, viewHandler }) => {
             if ($body.hasClass(viewClass)) {
                 viewHandler();
             }
         });
     }
 
-}
+};
