@@ -10,7 +10,7 @@
     'id' => 'pages-filters',
 ]) }}
 
-<div class="row w-100">
+<div class="row">
     {{-- Type --}}
     <div class="col-xs-12 col-sm-6 col-md-3 form-group">
         {{ Form::label('types[]', 'Type:') }}
