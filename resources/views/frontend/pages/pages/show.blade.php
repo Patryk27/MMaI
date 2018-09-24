@@ -15,8 +15,14 @@
 
 @section('content')
     <main class="content">
-        <header>
-            <h1>
+        <header class="content-header">
+            @can('edit', $page)
+                <a href="{{ route('backend.pages.edit', $page) }}" class="btn btn-primary btn-icon-only">
+                    <i class="fa fa-edit"></i>
+                </a>
+            @endcan
+
+            <h1 class="content-title">
                 {{ $pageVariant->title }}
             </h1>
         </header>

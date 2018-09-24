@@ -11,10 +11,12 @@ use App\Pages\Implementation\Services\PageVariants\PageVariantsQuerier;
 use App\Pages\Implementation\Services\PageVariants\PageVariantsRenderer;
 use App\Pages\Models\Page;
 use App\Pages\Models\PageVariant;
+use App\Pages\Policies\PagePolicy;
 use App\Pages\Queries\PageVariantsQueryInterface;
 use App\Pages\ValueObjects\RenderedPageVariant;
 use App\Tags\Exceptions\TagException;
 use Exception;
+use Gate;
 use Illuminate\Support\Collection;
 
 final class PagesFacade
@@ -56,6 +58,14 @@ final class PagesFacade
         $this->pagesUpdater = $pagesUpdater;
         $this->pageVariantsQuerier = $pageVariantsQuerier;
         $this->pageVariantsRenderer = $pageVariantsRenderer;
+    }
+
+    /**
+     * @return void
+     */
+    public function boot(): void
+    {
+        Gate::policy(Page::class, PagePolicy::class);
     }
 
     /**

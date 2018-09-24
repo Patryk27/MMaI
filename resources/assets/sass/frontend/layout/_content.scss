@@ -3,9 +3,21 @@
   padding: 80px;
 
   .content {
-    h1 {
-      margin-bottom: 45px;
-      line-height: 1;
+    .content-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 2em;
+
+      .btn {
+        width: 42px;
+        height: 42px;
+
+        margin-right: 1em;
+      }
+
+      .content-title {
+        line-height: 1;
+      }
     }
   }
 
