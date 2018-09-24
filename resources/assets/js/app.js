@@ -27,6 +27,8 @@ $(() => {
     });
 
     $('.select2').each(function () {
-        $(this).select2();
+        $(this).select2({
+            width: '100%',
+        });
     });
 });
