@@ -40,12 +40,12 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary btn-close" data-dismiss="modal">
-                    Close
+                <button type="submit" class="btn btn-success btn-submit">
+                    Create
                 </button>
 
-                <button type="submit" class="btn btn-primary btn-submit">
-                    Create
+                <button type="button" class="btn btn-secondary btn-close" data-dismiss="modal">
+                    Cancel
                 </button>
             </div>
         </form>
