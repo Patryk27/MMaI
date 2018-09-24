@@ -3,6 +3,9 @@
 namespace App\Attachments\Models;
 
 use App\Attachments\Models\Interfaces\Attachable;
+use App\Attachments\Presenters\AttachmentPresenter;
+use App\Core\Models\Interfaces\Presentable;
+use App\Core\Models\Traits\HasPresenter;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,7 +13,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read int $id
  * @property string|null $attachable_type
  * @property int|null $attachable_id
- * @property string $status
  * @property string $name
  * @property int $size
  * @property string $path
@@ -20,13 +22,15 @@ use Illuminate\Database\Eloquent\Model;
  * -----
  *
  * @property-read Model|Attachable|null $attachable
+ *
+ * -----
+ *
+ * @method AttachmentPresenter getPresenter()
  */
-class Attachment extends Model
+class Attachment extends Model implements Presentable
 {
 
-    public const
-        STATUS_HIDDEN = 'hidden',
-        STATUS_VISIBLE = 'visible';
+    use HasPresenter;
 
     /**
      * @var string[]
@@ -34,7 +38,6 @@ class Attachment extends Model
     protected $fillable = [
         'attachable_type',
         'attachable_id',
-        'status',
         'name',
         'size',
         'path',
@@ -78,6 +81,14 @@ class Attachment extends Model
         }
 
         return sprintf('%.2f TB', $size);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public static function getPresenterClass(): string
+    {
+        return AttachmentPresenter::class;
     }
 
 }

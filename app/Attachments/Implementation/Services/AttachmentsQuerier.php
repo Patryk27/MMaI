@@ -7,6 +7,7 @@ use App\Attachments\Implementation\Repositories\AttachmentsRepositoryInterface;
 use App\Attachments\Models\Attachment;
 use App\Attachments\Queries\AttachmentsQueryInterface;
 use App\Attachments\Queries\GetAttachmentByIdQuery;
+use App\Attachments\Queries\GetAttachmentByPathQuery;
 use Illuminate\Support\Collection;
 
 class AttachmentsQuerier
@@ -39,6 +40,13 @@ class AttachmentsQuerier
                 return collect_one(
                     $this->attachmentsRepository->getById(
                         $query->getId()
+                    )
+                );
+
+            case $query instanceof GetAttachmentByPathQuery:
+                return collect_one(
+                    $this->attachmentsRepository->getByPath(
+                        $query->getPath()
                     )
                 );
 

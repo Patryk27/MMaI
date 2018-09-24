@@ -60,9 +60,6 @@ final class AttachmentsFacade
     /**
      * Creates an unbound attachment.
      *
-     * By the default the returned attachment is marked as hidden - you must
-     * make it visible manually.
-     *
      * @param UploadedFile $file
      * @return Attachment
      *
@@ -94,12 +91,12 @@ final class AttachmentsFacade
     }
 
     /**
-     * Returns stream which reads given attachment.
+     * Returns a stream which reads given attachment.
      *
      * @param Attachment $attachment
      * @return resource
      *
-     * @throws FileNotFoundException
+     * @throws AttachmentException
      */
     public function stream(Attachment $attachment)
     {

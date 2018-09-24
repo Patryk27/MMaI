@@ -42,7 +42,6 @@ class AttachmentsCreator
     public function createFromFile(UploadedFile $file): Attachment
     {
         $attachment = new Attachment([
-            'status' => Attachment::STATUS_HIDDEN,
             'name' => $file->getClientOriginalName() ?? $file->getFilename(),
             'size' => $file->getSize(),
 
@@ -51,7 +50,7 @@ class AttachmentsCreator
             ),
         ]);
 
-        $this->attachmentsFs->put($attachment->path, $file);
+        $this->attachmentsFs->put($attachment->path, $file->get());
 
         try {
             $this->attachmentsRepository->persist($attachment);

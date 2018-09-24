@@ -35,6 +35,14 @@ class EloquentAttachmentsRepository implements AttachmentsRepositoryInterface
     /**
      * @inheritDoc
      */
+    public function getByPath(string $path): ?Attachment
+    {
+        return $this->repository->getBy('path', $path);
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function getAll(): Collection
     {
         return $this->repository->getAll();

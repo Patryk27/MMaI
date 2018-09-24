@@ -9,17 +9,17 @@
 
 @section('layout-content')
     <div class="site-container">
-        <div class="content-container">
-            <main class="content">
+        <div class="content">
+            <main>
                 @yield('content')
-
-                <div class="error-cta">
-                    <a href="/" class="btn btn-primary">
-                        {{-- @todo translation --}}
-                        Go back to the home page
-                    </a>
-                </div>
             </main>
+
+            <div class="error-cta">
+                <a href="/" class="btn btn-primary">
+                    {{-- @todo translation --}}
+                    Go back to the home page
+                </a>
+            </div>
         </div>
     </div>
 @endsection

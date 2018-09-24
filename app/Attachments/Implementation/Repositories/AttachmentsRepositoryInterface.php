@@ -17,6 +17,15 @@ interface AttachmentsRepositoryInterface
     public function getById(int $id): ?Attachment;
 
     /**
+     * Returns attachment with given path or `null` if no such attachment
+     * exists.
+     *
+     * @param string $path
+     * @return Attachment|null
+     */
+    public function getByPath(string $path): ?Attachment;
+
+    /**
      * Returns all the attachments.
      *
      * @return Collection|Attachment[]

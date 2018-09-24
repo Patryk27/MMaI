@@ -17,12 +17,9 @@
     <div class="site-container">
         @include('backend.layouts.authenticated.navigation')
 
-        <div class="content-container">
+        <div class="content">
             @include('base.components.layout.messages')
-
-            <div class="content">
-                @yield('content')
-            </div>
+            @yield('content')
         </div>
     </div>
 @endsection

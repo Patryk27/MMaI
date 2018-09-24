@@ -15,7 +15,7 @@
 
 @section('layout-content')
     <div class="site-container">
-        <div class="content-container">
+        <div class="content">
             @yield('content')
         </div>
 

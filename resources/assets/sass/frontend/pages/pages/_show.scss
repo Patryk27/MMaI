@@ -1,16 +1,30 @@
 &--show {
-  .content-container {
-    .content {
-      .page-content {
-        > :last-child {
-          margin-bottom: 0;
-        }
+  .content {
+    .content-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 2em;
+
+      .btn {
+        width: 42px;
+        height: 42px;
+
+        margin-right: 1em;
+      }
+
+      .page-title {
+        line-height: 1;
       }
     }
 
-    .content-footer {
-      .post-footer {
-        justify-content: right;
+    .page-attachments-container {
+      margin-top: 2em;
+      padding-top: 1em;
+
+      border-top: 1px solid $border-color;
+
+      .page-attachments {
+        max-width: 500px;
       }
     }
   }

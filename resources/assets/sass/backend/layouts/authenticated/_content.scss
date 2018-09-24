@@ -1,23 +1,17 @@
-.content-container {
+.content {
   margin-left: $backend-navbar-width;
   padding: 30px;
 
-  .content {
-    > h1, .content-header {
-      margin-bottom: 0.7em;
-    }
+  .content-header {
+    display: flex;
+    padding-bottom: 1em;
+    margin-bottom: 2em;
 
-    .content-header {
-      display: flex;
-      padding-bottom: 1em;
-      margin-bottom: 2em;
+    border-bottom: 1px solid $border-color;
 
-      border-bottom: 1px solid $border-color;
-
-      .title {
-        flex-grow: 1;
-        font-size: 2em;
-      }
+    .title {
+      flex-grow: 1;
+      font-size: 2em;
     }
   }
 }

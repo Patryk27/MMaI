@@ -2,6 +2,7 @@
 
 namespace App\Attachments\Implementation\Services;
 
+use App\Attachments\Exceptions\AttachmentException;
 use App\Attachments\Models\Attachment;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Contracts\Filesystem\Filesystem as FilesystemContract;
@@ -27,11 +28,27 @@ class AttachmentsStreamer
      * @param Attachment $attachment
      * @return resource
      *
-     * @throws FileNotFoundException
+     * @throws AttachmentException
      */
     public function stream(Attachment $attachment)
     {
-        return $this->attachmentsFs->readStream($attachment->path);
+        try {
+            $stream = $this->attachmentsFs->readStream($attachment->path);
+        } catch (FileNotFoundException $ex) {
+            throw new AttachmentException(
+                sprintf('Attachment [id=%d] was not found in the storage.', $attachment->id)
+            );
+        }
+
+        if (is_null($stream)) {
+            throw new AttachmentException(
+                sprintf('Failed to initialize stream for attachment [id=%d].', $attachment->id)
+            );
+        }
+
+        dd(fread($stream, 123));
+
+        return $stream;
     }
 
 }
