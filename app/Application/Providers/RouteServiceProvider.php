@@ -18,8 +18,7 @@ final class RouteServiceProvider extends BaseRouteServiceProvider
                 base_path('routes/backend.php')
             );
 
-        Route::middleware('web')
-            ->middleware('web:frontend')
+        Route::middleware(['web', 'web:frontend'])
             ->group(
                 base_path('routes/frontend.php')
             );
