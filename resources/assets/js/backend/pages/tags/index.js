@@ -22,7 +22,7 @@ export default function () {
     });
 
     // Bind handlers for the "edit tag" & "delete tag" buttons
-    $('#tags-table').on('click', '.btn-tag-action', function () {
+    $('#tags-table').on('click', '[data-action]', function () {
         bus.emit('tag::' + $(this).data('action'), {
             tag: $(this).data('tag'),
         });

@@ -4,27 +4,12 @@
      */
 @endphp
 
-<div class="dropdown dropleft show float-right">
-    <a class="btn btn-primary btn-sm dropdown-toggle"
-       data-toggle="dropdown">
+<div data-column="actions">
+    <button type="button" class="btn btn-sm btn-primary btn-icon-only" data-action="edit" data-tag="{{ $row }}">
+        <i class="fa fa-edit"></i>
+    </button>
 
-    </a>
-
-    <div class="dropdown-menu">
-        <button type="button"
-                class="dropdown-item btn-tag-action"
-                data-action="edit"
-                data-tag="{{ $row }}">
-            <i class="fa fa-edit"></i>&nbsp;
-            Edit
-        </button>
-
-        <button type="button"
-                class="dropdown-item btn-tag-action"
-                data-action="delete"
-                data-tag="{{ $row }}">
-            <i class="fa fa-trash"></i>&nbsp;
-            Delete
-        </button>
-    </div>
+    <button type="button" class="btn btn-sm btn-danger btn-icon-only" data-action="delete" data-tag="{{ $row }}">
+        <i class="fa fa-trash"></i>
+    </button>
 </div>

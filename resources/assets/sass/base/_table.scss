@@ -1,7 +1,8 @@
 table {
   tr {
     td {
-      &[data-column="actions"] {
+      &[data-column="actions"], [data-column="actions"] {
+        padding-right: 0;
         text-align: right;
       }
     }

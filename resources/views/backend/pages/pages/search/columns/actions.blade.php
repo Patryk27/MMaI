@@ -4,23 +4,12 @@
      */
 @endphp
 
-<div class="dropdown dropleft show float-right" data-column="actions">
-    <a class="btn btn-primary btn-sm dropdown-toggle"
-       data-toggle="dropdown">
-
+<div data-column="actions">
+    <a class="btn btn-sm btn-success btn-icon-only" href="{{ $row->route->getTargetUrl() }}">
+        <i class="fa fa-link"></i>
     </a>
 
-    <div class="dropdown-menu">
-        @isset($row->route)
-            <a class="dropdown-item" href="{{ $row->route->getTargetUrl() }}">
-                <i class="fa fa-link"></i>&nbsp;
-                Show
-            </a>
-        @endisset
-
-        <a class="dropdown-item" href="{{ $row->getBackendEditUrl() }}">
-            <i class="fa fa-edit"></i>&nbsp;
-            Edit
-        </a>
-    </div>
+    <a class="btn btn-sm btn-primary btn-icon-only" href="{{ $row->getBackendEditUrl() }}">
+        <i class="fa fa-edit"></i>
+    </a>
 </div>
