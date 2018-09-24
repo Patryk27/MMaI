@@ -26,7 +26,6 @@ use App\Tags\Implementation\Services\Searcher\EloquentTagsSearcher;
 use App\Tags\TagsFacade;
 use App\Tags\TagsFactory;
 use Cviebrock\LaravelElasticsearch\Manager as ElasticsearchManager;
-use Event;
 use Illuminate\Contracts\Filesystem\Factory as FilesystemFactoryContract;
 use Illuminate\Events\Dispatcher as EventsDispatcher;
 use Illuminate\Support\ServiceProvider;
@@ -39,7 +38,7 @@ final class FacadeServiceProvider extends ServiceProvider
         LanguagesFacade::class,
         MenusFacade::class,
         PagesFacade::class,
-        RoutesFacade::class .
+        RoutesFacade::class,
         SearchEngineFacade::class,
         TagsFacade::class,
     ];
@@ -49,7 +48,7 @@ final class FacadeServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        // Unit tests instantiate facades on their own, so we might just as well
+        // Unit tests instantiate facades on their own, so we might as well just
         // skip this step
         if ($this->app->runningUnitTests()) {
             return;
@@ -119,20 +118,17 @@ final class FacadeServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        foreach (self::FACADES as $facadeClass) {
-            $this->bootFacade($facadeClass);
+        // Unit tests instantiate facades on their own, so we might as well just
+        // skip this step
+        if ($this->app->runningUnitTests()) {
+            return;
         }
-    }
 
-    /**
-     * @param string $facadeClass
-     * @return void
-     */
-    private function bootFacade(string $facadeClass): void
-    {
-        if (method_exists($facadeClass, 'getListeners')) {
-            foreach ($facadeClass::getListeners() as $event => $listener) {
-                Event::listen($event, $listener);
+        foreach (self::FACADES as $facadeClass) {
+            $facade = $this->app->make($facadeClass);
+
+            if (method_exists($facade, 'boot')) {
+                $facade->boot();
             }
         }
     }

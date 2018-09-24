@@ -15,6 +15,7 @@ use App\SearchEngine\Implementation\Services\PagesIndexer;
 use App\SearchEngine\Implementation\Services\PageVariantsSearcher;
 use App\SearchEngine\Queries\SearchQuery;
 use App\Tags\Events\TagUpdated;
+use Event;
 use Illuminate\Support\Collection;
 
 final class SearchEngineFacade
@@ -51,6 +52,17 @@ final class SearchEngineFacade
     }
 
     /**
+     * @return void
+     */
+    public function boot(): void
+    {
+        Event::listen(PageCreated::class, PageCreatedListener::class);
+        Event::listen(PageUpdated::class, PageUpdatedListener::class);
+
+        Event::listen(TagUpdated::class, TagUpdatedListener::class);
+    }
+
+    /**
      * @param Page $page
      * @return void
      */
@@ -71,20 +83,6 @@ final class SearchEngineFacade
         $this->elasticsearchMigrator->migrate();
 
         return $this->pageVariantsSearcher->search($query);
-    }
-
-    /**
-     * @return array
-     */
-    public static function getListeners(): array
-    {
-        return [
-            PageCreated::class => PageCreatedListener::class,
-            PageUpdated::class => PageUpdatedListener::class,
-
-            TagUpdated::class => TagUpdatedListener::class,
-            // @todo TagDeleted::class => TagDeletedListener::class,
-        ];
     }
 
 }
