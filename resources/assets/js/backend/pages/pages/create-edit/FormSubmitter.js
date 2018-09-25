@@ -56,11 +56,12 @@ export default class FormSubmitter {
      * @returns {object}
      */
     $serialize() {
-        const { pageVariants, attachments } = this.$state.formSections;
+        const { attachments, notes, pageVariants } = this.$state.formSections;
 
         return {
             page: {
                 type: 'cms', // @todo shouldn't be hard-coded - maybe we can fetch it from this.$dom.form?
+                notes: notes.serialize(),
             },
 
             pageVariants: pageVariants

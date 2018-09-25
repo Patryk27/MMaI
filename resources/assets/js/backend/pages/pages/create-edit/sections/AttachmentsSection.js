@@ -2,7 +2,7 @@ import AttachmentsTable from './Attachments/AttachmentsTable';
 import AttachmentsUploader from './Attachments/AttachmentsUploader';
 import swal from 'sweetalert';
 
-export default class AttachmentsComponent {
+export default class AttachmentsSection {
 
     /**
      * @param {Bus} bus

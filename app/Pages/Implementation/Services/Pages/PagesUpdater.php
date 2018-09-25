@@ -79,6 +79,10 @@ class PagesUpdater
      */
     public function update(Page $page, array $pageData): void
     {
+        $page->fill([
+            'notes' => array_get($pageData, 'page.notes'),
+        ]);
+
         foreach (array_get($pageData, 'pageVariants', []) as $pageVariantData) {
             $this->savePageVariant($page, $pageVariantData);
         }

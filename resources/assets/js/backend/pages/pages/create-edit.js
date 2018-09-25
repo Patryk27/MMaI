@@ -1,10 +1,11 @@
 import swal from 'sweetalert';
 
+import AttachmentsSection from './create-edit/sections/AttachmentsSection';
 import Bus from '../../../base/Bus';
 import ButtonComponent from '../../../base/components/ButtonComponent';
 import FormSubmitter from './create-edit/FormSubmitter';
-import AttachmentsComponent from './create-edit/components/AttachmentsComponent';
-import PageVariantComponent from './create-edit/components/PageVariantComponent';
+import NotesSection from './create-edit/sections/NotesSection';
+import PageVariantSection from './create-edit/sections/PageVariantSection';
 
 export default function () {
     const bus = new Bus();
@@ -22,11 +23,14 @@ export default function () {
         attachments: null,
     };
 
-    dom.sectionTabs.on('click', '.nav-link', () => {
-        // Bootstrap handles switching the tabs on its own - we do not have to touch DOM here.
-        // Since it happens in the next tick, that is also the reason we are emitting "tabs changed" event then.
+    // When user changes a tab, let's emit a `tabs changed` to let components know that they might have to re-render.
+    // Precisely: SimpleMDE has to be manually refreshed when its state changes from `hidden` to `visible` - otherwise
+    // it glitches out.
+    dom.sectionTabs.on('click', '.nav-link', (evt) => {
         setTimeout(() => {
-            bus.emit('tabs::changed');
+            bus.emit('tabs::changed', {
+                activatedTabName: $(evt.target).attr('href').substring(1),
+            });
         });
     });
 
@@ -34,15 +38,20 @@ export default function () {
         const $tab = $(tab);
 
         switch ($tab.data('section-type')) {
-            case 'page-variant':
-                formSections.pageVariants.push(
-                    new PageVariantComponent(bus, $tab),
-                );
+            case 'attachments':
+                formSections.attachments = new AttachmentsSection(bus, $tab);
 
                 break;
 
-            case 'attachments':
-                formSections.attachments = new AttachmentsComponent(bus, $tab);
+            case 'notes':
+                formSections.notes = new NotesSection(bus, $tab);
+
+                break;
+
+            case 'page-variant':
+                formSections.pageVariants.push(
+                    new PageVariantSection(bus, $tab),
+                );
 
                 break;
 

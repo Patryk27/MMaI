@@ -21,6 +21,7 @@ class CreateTest extends TestCase
         $page = $this->pagesFacade->create([
             'page' => [
                 'type' => Page::TYPE_CMS,
+                'notes' => 'some notes',
             ],
 
             'pageVariants' => [
@@ -36,6 +37,7 @@ class CreateTest extends TestCase
 
         // Execute the page-related assertions
         $this->assertEquals(Page::TYPE_CMS, $page->type);
+        $this->assertEquals('some notes', $page->notes);
 
         // Execute the page-variant-related assertions
         $pageVariant = $page->pageVariants[0];

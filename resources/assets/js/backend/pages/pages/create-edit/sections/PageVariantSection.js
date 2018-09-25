@@ -3,7 +3,7 @@ import SimpleMDE from 'simplemde';
 import CheckboxComponent from '../../../../../base/components/CheckboxComponent';
 import InputComponent from '../../../../../base/components/InputComponent';
 
-export default class PageVariantComponent {
+export default class PageVariantSection {
 
     /**
      * @param {Bus} bus
@@ -75,8 +75,10 @@ export default class PageVariantComponent {
 
         // When user changes a tab, we may have to refresh ourselves. since SimpleMDE - after becoming visible - tends
         // to forget that it should repaint
-        bus.on('tabs::changed', () => {
-            this.$refresh();
+        bus.on('tabs::changed', ({ activatedTabName }) => {
+            if (activatedTabName.includes('page-variant')) {
+                this.$refresh();
+            }
         });
 
         bus.on('form::submitting', () => {

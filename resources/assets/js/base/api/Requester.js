@@ -117,12 +117,12 @@ export default class Requester {
             progress: _ => _,
         };
 
-        request.onUploadProgress = (event) => {
+        request.onUploadProgress = (evt) => {
             eventHandlers.progress({
-                uploadedBytes: event.loaded,
-                totalBytes: event.total,
+                uploadedBytes: evt.loaded,
+                totalBytes: evt.total,
 
-                uploadedPercentage: Math.floor(100 * event.loaded / event.total),
+                uploadedPercentage: Math.floor(100 * evt.loaded / evt.total),
             });
         };
 

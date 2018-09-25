@@ -69,6 +69,7 @@ class PagesCreator
     {
         $page = new Page([
             'type' => array_get($pageData, 'page.type'),
+            'notes' => array_get($pageData, 'page.notes'),
         ]);
 
         $this->savePageVariants($page, array_get($pageData, 'pageVariants', []));

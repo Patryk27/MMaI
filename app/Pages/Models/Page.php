@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property-read int $id
  * @property string $type
+ * @property string $notes
  * @property-read Carbon $created_at
  * @property-read Carbon $updated_at
  *
@@ -38,6 +39,7 @@ class Page extends Model implements Attachable
      */
     protected $fillable = [
         'type',
+        'notes',
     ];
 
     /**

@@ -21,13 +21,15 @@ class UpdatePageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'attachment_ids' => 'array',
+            'page.notes' => ['nullable', 'string'],
 
             // @todo rename to just `variants`
             'pageVariants.*.route' => ['nullable', 'string', 'regex:/^[a-zA-Z0-9\-\/]*$/'],
             'pageVariants.*.title' => 'string',
             'pageVariants.*.tag_ids' => ['nullable', 'array'],
             'pageVariants.*.status' => 'string',
+
+            'attachment_ids' => ['nullable', 'array'],
         ];
     }
 

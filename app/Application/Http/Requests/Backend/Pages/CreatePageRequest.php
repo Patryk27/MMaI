@@ -22,8 +22,7 @@ class CreatePageRequest extends FormRequest
     {
         return [
             'page.type' => 'required',
-
-            'attachment_ids' => 'array',
+            'page.notes' => ['nullable', 'string'],
 
             // @todo rename to just `variants`
             'pageVariants.*.language_id' => 'numeric',
@@ -31,6 +30,8 @@ class CreatePageRequest extends FormRequest
             'pageVariants.*.title' => 'string',
             'pageVariants.*.tag_ids' => ['nullable', 'array'],
             'pageVariants.*.status' => 'string',
+
+            'attachment_ids' => ['nullable', 'array'],
         ];
     }
 

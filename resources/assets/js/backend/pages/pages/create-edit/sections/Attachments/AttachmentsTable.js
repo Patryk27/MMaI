@@ -18,7 +18,7 @@ export default class AttachmentsTable {
      */
     onAction(actionName, actionHandler) {
         this.$dom.table.on('click', `[data-action=${actionName}]`, (evt) => {
-            const $tr = $(evt.originalEvent.target).closest('tr');
+            const $tr = $(evt.target).closest('tr');
 
             actionHandler(
                 $tr.data('attachment'),

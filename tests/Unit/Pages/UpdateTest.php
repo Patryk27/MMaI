@@ -40,6 +40,7 @@ class UpdateTest extends TestCase
         // Let's build an example page, so that we have something we can update
         $this->page = new Page([
             'type' => Page::TYPE_CMS,
+            'notes' => 'some notes',
         ]);
 
         $this->pageVariant = new PageVariant([
@@ -59,6 +60,29 @@ class UpdateTest extends TestCase
         $this->page->pageVariants->push($this->pageVariant);
 
         $this->pagesRepository->persist($this->page);
+    }
+
+    /**
+     * This test makes sure that the update() method correctly updates all the
+     * basic page properties.
+     *
+     * Since it's just `$page->notes` for now, this does not do too much.
+     *
+     * @return void
+     *
+     * @throws AppException
+     */
+    public function testUpdatesBasicProperties(): void
+    {
+        $this->pagesFacade->update($this->page, [
+            'page' => [
+                'notes' => 'some updated notes',
+            ],
+        ]);
+
+        $this->page = $this->pagesRepository->getById($this->page->id);
+
+        $this->assertEquals('some updated notes', $this->page->notes);
     }
 
     /**
