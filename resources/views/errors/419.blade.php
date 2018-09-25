@@ -10,6 +10,6 @@
     </h1>
 
     <div class="error-description">
-        Sorry, there has been an error trying to authorize you - please try again in a minute.
+        Sorry - there has been an error trying to authorize you; please try again in a minute.
     </div>
 @endsection
