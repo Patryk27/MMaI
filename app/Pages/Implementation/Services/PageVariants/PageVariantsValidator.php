@@ -18,10 +18,6 @@ class PageVariantsValidator
     {
         $page = $pageVariant->page;
 
-        if (is_null($page)) {
-            throw new PageException('Page variant must be associated with a page.');
-        }
-
         if ($pageVariant->isPublished()) {
             if (is_null($pageVariant->route)) {
                 throw new PageException('Published page must have a route.');

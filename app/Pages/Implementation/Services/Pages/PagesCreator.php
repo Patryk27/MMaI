@@ -35,6 +35,11 @@ class PagesCreator
     private $pageVariantsCreator;
 
     /**
+     * @var PagesValidator
+     */
+    private $pagesValidator;
+
+    /**
      * @var AttachmentsFacade
      */
     private $attachmentsFacade;
@@ -43,17 +48,20 @@ class PagesCreator
      * @param EventsDispatcherContract $eventsDispatcher
      * @param PagesRepositoryInterface $pagesRepository
      * @param PageVariantsCreator $pageVariantsCreator
+     * @param PagesValidator $pagesValidator
      * @param AttachmentsFacade $attachmentsFacade
      */
     public function __construct(
         EventsDispatcherContract $eventsDispatcher,
         PagesRepositoryInterface $pagesRepository,
         PageVariantsCreator $pageVariantsCreator,
+        PagesValidator $pagesValidator,
         AttachmentsFacade $attachmentsFacade
     ) {
         $this->eventsDispatcher = $eventsDispatcher;
         $this->pagesRepository = $pagesRepository;
         $this->pageVariantsCreator = $pageVariantsCreator;
+        $this->pagesValidator = $pagesValidator;
         $this->attachmentsFacade = $attachmentsFacade;
     }
 
@@ -117,9 +125,13 @@ class PagesCreator
     /**
      * @param Page $page
      * @return void
+     *
+     * @throws PageException
      */
     private function save(Page $page): void
     {
+        $this->pagesValidator->validate($page);
+
         $this->pagesRepository->persist($page);
 
         $this->eventsDispatcher->dispatch(

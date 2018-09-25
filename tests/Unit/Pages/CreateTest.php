@@ -12,6 +12,25 @@ class CreateTest extends TestCase
 {
 
     /**
+     * Since it does not make sense to create a page with no variants, let's
+     * make sure that's forbidden.
+     *
+     * @return void
+     *
+     * @throws AppException
+     */
+    public function testForbidsToCreatePageWithNoVariants(): void
+    {
+        $this->expectExceptionMessage('Each page must contain at least one variant.');
+
+        $this->pagesFacade->create([
+            'page' => [
+                'type' => Page::TYPE_CMS,
+            ],
+        ]);
+    }
+
+    /**
      * @return void
      *
      * @throws AppException
@@ -186,6 +205,12 @@ class CreateTest extends TestCase
         $page = $this->pagesFacade->create([
             'page' => [
                 'type' => Page::TYPE_CMS,
+            ],
+
+            'pageVariants' => [
+                [
+                    'status' => PageVariant::STATUS_DRAFT,
+                ],
             ],
 
             'attachment_ids' => [
