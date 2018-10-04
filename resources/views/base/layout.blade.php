@@ -11,6 +11,8 @@
     <meta charset="utf-8"/>
     <meta name="csrf-token" content="{{ csrf_token() }}"/>
 
+    @yield('layout-meta')
+
     <title>
         @yield('layout-title')
     </title>

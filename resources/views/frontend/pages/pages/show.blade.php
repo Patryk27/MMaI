@@ -11,6 +11,12 @@
     'pageClass' => 'frontend--pages--pages--show',
 ])
 
+@section('layout-meta')
+    @if (strlen($pageVariant->lead) > 0)
+        <meta name="description" content="{{ $pageVariant->lead }}">
+    @endif
+@endsection
+
 @section('title', $pageVariant->title)
 
 @section('content')
