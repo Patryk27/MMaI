@@ -14,7 +14,7 @@ class CreatePagesTable extends Migration
     {
         Schema::create('pages', function (Blueprint $table) {
             $table->increments('id');
-            $table->char('type', 16);
+            $table->string('type');
             $table->text('notes')->nullable();
             $table->timestamps();
         });

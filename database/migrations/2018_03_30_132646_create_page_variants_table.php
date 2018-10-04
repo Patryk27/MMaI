@@ -16,7 +16,7 @@ class CreatePageVariantsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('page_id');
             $table->unsignedInteger('language_id');
-            $table->char('status', 16);
+            $table->string('status');
             $table->text('title');
             $table->text('lead')->nullable();
             $table->mediumText('content');

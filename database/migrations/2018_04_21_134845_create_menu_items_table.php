@@ -17,7 +17,7 @@ class CreateMenuItemsTable extends Migration
             $table->unsignedInteger('language_id');
             $table->unsignedInteger('position');
             $table->text('url');
-            $table->char('title', 64);
+            $table->string('title');
             $table->timestamps();
 
             // -- indexes -- //
