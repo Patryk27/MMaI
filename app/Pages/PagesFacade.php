@@ -12,6 +12,7 @@ use App\Pages\Implementation\Services\PageVariants\PageVariantsRenderer;
 use App\Pages\Models\Page;
 use App\Pages\Models\PageVariant;
 use App\Pages\Policies\PagePolicy;
+use App\Pages\Policies\PageVariantPolicy;
 use App\Pages\Queries\PageVariantsQueryInterface;
 use App\Pages\ValueObjects\RenderedPageVariant;
 use App\Tags\Exceptions\TagException;
@@ -66,6 +67,7 @@ final class PagesFacade
     public function boot(): void
     {
         Gate::policy(Page::class, PagePolicy::class);
+        Gate::policy(PageVariant::class, PageVariantPolicy::class);
     }
 
     /**

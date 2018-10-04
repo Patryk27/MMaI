@@ -17,7 +17,7 @@ Route::domain('{subdomain}.' . env('APP_DOMAIN'))->group(function () {
     Route::get('!attachments/{path}', AttachmentsController::class . '@attachment');
 
     // catch-all for slugs
-    Route::get('{url}', DispatchController::class . '@show')
+    Route::get('{url}', DispatchController::class . '@dispatch')
         ->where('url', '(.+)');
 });
 
