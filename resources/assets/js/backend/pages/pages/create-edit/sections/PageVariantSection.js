@@ -60,7 +60,7 @@ export default class PageVariantSection {
 
         // When user presses enter when inside the URL or title inputs, consider it equal to clicking the "submit"
         // button
-        this.$dom.form.on('keypress', (evt) => {
+        this.$dom.form.on('keypress', 'input', (evt) => {
             if (evt.originalEvent.code === 'Enter') {
                 bus.emit('form::submit');
             }
