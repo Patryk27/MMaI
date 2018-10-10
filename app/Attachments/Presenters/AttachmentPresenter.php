@@ -16,17 +16,11 @@ final class AttachmentPresenter extends Presenter
     /**
      * @return string
      */
-    public function getBackendDownloadUrl(): string
+    public function getUrl(): string
     {
-        return route('backend.attachments.download', $this->model->path);
-    }
-
-    /**
-     * @return string
-     */
-    public function getFrontendDownloadUrl(): string
-    {
-        return route('frontend.attachments.download', $this->model->path);
+        return route('frontend.attachments.download', [
+            'path' => $this->model->path,
+        ]);
     }
 
 }

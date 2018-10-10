@@ -16,13 +16,23 @@ export default class AttachmentsTable {
      * @param {string} actionName
      * @param {function} actionHandler
      */
-    onAction(actionName, actionHandler) {
+    onRowAction(actionName, actionHandler) {
         this.$dom.table.on('click', `[data-action=${actionName}]`, (evt) => {
-            const $tr = $(evt.target).closest('tr');
+            const $row = $(evt.target).closest('tr');
 
-            actionHandler(
-                $tr.data('attachment'),
-            );
+            const
+                attachment = $row.data('attachment'),
+                attachmentUrl = $row.data('attachment-url');
+
+            if (attachmentUrl !== undefined) {
+                attachment.url = attachmentUrl;
+            }
+
+            actionHandler({
+                attachment,
+                row: $row,
+                target: $(evt.target),
+            });
 
             evt.stopPropagation();
         });
@@ -30,7 +40,7 @@ export default class AttachmentsTable {
 
     /**
      * Adds an attachment to the table.
-     * For convenience, this method returns given attachment parameter.
+     * For convenience, this method returns given attachment.
      *
      * @param {object} attachment
      * @returns {object}
@@ -50,7 +60,7 @@ export default class AttachmentsTable {
 
     /**
      * Updates given attachment and refreshes its DOM.
-     * For convenience, this method returns given attachment parameter.
+     * For convenience, this method returns given attachment.
      *
      * @param {object} attachment
      * @returns {object}
@@ -60,15 +70,20 @@ export default class AttachmentsTable {
 
         $row.data('attachment', attachment);
 
-        // Update the DOM
+        // If attachment's being uploaded, do not show the `id` column
         if (attachment.status !== 'being-uploaded') {
             $row.find('[data-column="id"]').text(attachment.id);
         }
 
+        // Update the MIME type, name and size
         $row.find('[data-column="name"] .name').text(attachment.name);
+        $row.find('[data-column="mime"]').text(attachment.mime);
         $row.find('[data-column="size"]').text(attachment.size);
 
-        // Update the progress bar
+        // Update the `download` button
+        $row.find('[data-action="download"]').attr('href', attachment.url);
+
+        // If attachment's being uploaded, show the progress bar
         if (attachment.status === 'being-uploaded') {
             $row.find('.progress-bar').css({
                 width: attachment.statusPayload.uploadedPercentage + '%',
@@ -90,7 +105,7 @@ export default class AttachmentsTable {
     }
 
     /**
-     * Returns all table's rows.
+     * Returns all table's rows as a jQuery selector.
      *
      * @returns {jQuery}
      */
@@ -108,21 +123,21 @@ export default class AttachmentsTable {
      * @returns {jQuery|null}
      */
     $findRow(attachmentId) {
-        let $tr = null;
+        let $row = null;
 
         this.$dom.table.find('tbody tr').each((_, el) => {
-            const $el = $(el);
+            const $rowCandidate = $(el);
 
-            if ($el.data('attachment').id === attachmentId) {
-                $tr = $(el);
+            if ($rowCandidate.data('attachment').id === attachmentId) {
+                $row = $rowCandidate;
             }
         });
 
-        if ($tr === null) {
+        if ($row === null) {
             throw `Could not find attachment [id=${attachmentId}] in the table.`;
         }
 
-        return $tr;
+        return $row;
     }
 
 }

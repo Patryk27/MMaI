@@ -17,7 +17,7 @@
                 @endphp
 
                 <li>
-                    <a href="{{ $attachmentPresenter->getFrontendDownloadUrl() }}" rel="nofollow">
+                    <a href="{{ $attachmentPresenter->getUrl() }}" rel="nofollow">
                         {{ $attachment->name }}
                     </a>
 

@@ -94,6 +94,10 @@ export default class Requester {
      *   data,
      * });
      *
+     * uploader.onProgress(({ uploadedPercentage }) => {
+     *   console.log(`Uploaded ${uploadedPercentage}%`);
+     * });
+     *
      * uploader.onSuccess(() => {
      *   console.log('File has been uploaded.');
      * });
@@ -101,27 +105,22 @@ export default class Requester {
      * uploader.onFailure((error) => {
      *   console.error(error);
      * });
-     *
-     * uploader.onProgress(({ uploadedPercentage }) => {
-     *   console.log(`Uploaded ${uploadedPercentage}%`);
-     * });
      * ```
      *
      * @param {object} request
-     * @returns {{onSuccess: function, onFailure: function, onProgress: function}}
+     * @returns {{onProgress: function, onSuccess: function, onFailure: function}}
      */
     static executeProgressable(request) {
         const eventHandlers = {
+            progress: _ => _,
             success: _ => _,
             failure: _ => _,
-            progress: _ => _,
         };
 
         request.onUploadProgress = (evt) => {
             eventHandlers.progress({
                 uploadedBytes: evt.loaded,
                 totalBytes: evt.total,
-
                 uploadedPercentage: Math.floor(100 * evt.loaded / evt.total),
             });
         };
@@ -132,6 +131,11 @@ export default class Requester {
             .catch((error) => eventHandlers.failure(error));
 
         return {
+            onProgress(fn) {
+                eventHandlers.progress = fn;
+                return this;
+            },
+
             onSuccess(fn) {
                 eventHandlers.success = fn;
                 return this;
@@ -139,11 +143,6 @@ export default class Requester {
 
             onFailure(fn) {
                 eventHandlers.failure = fn;
-                return this;
-            },
-
-            onProgress(fn) {
-                eventHandlers.progress = fn;
                 return this;
             },
         };

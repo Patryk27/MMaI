@@ -37,10 +37,6 @@ Route::domain('backend.' . env('APP_DOMAIN'))->group(function () {
             // /attachments
             Route::post('/', AttachmentsController::class . '@store')
                 ->name('backend.attachments.store');
-
-            // /attachments/{attachment}/download
-            Route::get('{attachment}/download', AttachmentsController::class . '@download')
-                ->name('backend.attachments.download');
         });
 
         // /pages/search

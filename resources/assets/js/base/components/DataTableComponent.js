@@ -188,7 +188,7 @@ export default class DataTableComponent {
                 this.$dom.table
                     .find('.dataTables_filter input')
                     .focus();
-            }, 0);
+            });
         }
     }
 

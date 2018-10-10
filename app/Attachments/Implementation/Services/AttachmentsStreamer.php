@@ -46,8 +46,6 @@ class AttachmentsStreamer
             );
         }
 
-        dd(fread($stream, 123));
-
         return $stream;
     }
 

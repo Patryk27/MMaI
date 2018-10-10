@@ -5,7 +5,6 @@ namespace App\Application\Http\Controllers\Backend;
 use App\Application\Http\Controllers\Controller;
 use App\Application\Http\Requests\Backend\Attachments\CreateAttachmentRequest;
 use App\Attachments\AttachmentsFacade;
-use App\Attachments\Models\Attachment;
 use Throwable;
 
 class AttachmentsController extends Controller
@@ -37,22 +36,15 @@ class AttachmentsController extends Controller
             $request->file('attachment')
         );
 
+        $attachmentPresenter = $attachment->getPresenter();
+
         return [
             'id' => $attachment->id,
             'name' => $attachment->name,
+            'mime' => $attachment->mime,
             'size' => $attachment->getSizeForHumans(),
+            'url' => $attachmentPresenter->getUrl(),
         ];
-    }
-
-    /**
-     * @param Attachment $attachment
-     * @return mixed
-     */
-    public function download(Attachment $attachment)
-    {
-        return response()->streamDownload(function () use ($attachment) {
-            return $this->attachmentsFacade->stream($attachment);
-        }, $attachment->name);
     }
 
 }

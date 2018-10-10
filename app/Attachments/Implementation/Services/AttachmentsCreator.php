@@ -44,6 +44,7 @@ class AttachmentsCreator
         $attachment = new Attachment([
             'name' => $file->getClientOriginalName() ?? $file->getFilename(),
             'size' => $file->getSize(),
+            'mime' => $file->getMimeType(),
 
             'path' => bin2hex(
                 random_bytes(32)

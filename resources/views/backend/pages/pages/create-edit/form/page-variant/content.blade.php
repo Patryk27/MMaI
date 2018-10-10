@@ -61,7 +61,7 @@
                     <a class="btn btn-secondary btn-icon-only"
                        href="{{ $pageVariant->route->getTargetUrl() }}"
                        title="Navigate to the page">
-                        <i class="fa fa-external-link-alt"></i>
+                        <i class="fa fa-link"></i>
                     </a>
                 </div>
             @endif

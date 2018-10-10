@@ -21,7 +21,7 @@ Route::domain('{subdomain}.' . env('APP_DOMAIN'))->group(function () {
         ->where('url', '(.+)');
 });
 
-Route::domain(env('APP_DOMAIN'))->group(function() {
+Route::domain(env('APP_DOMAIN'))->group(function () {
     // /attachments
     Route::group(['prefix' => 'attachments'], function () {
         // /attachments/{path}

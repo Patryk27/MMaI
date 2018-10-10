@@ -6,7 +6,7 @@ export default class AttachmentsFacade {
      * Uploads an attachment.
      *
      * @param {File} file
-     * @returns {{onSuccess: function, onFailure: function, onProgress: function}}
+     * @returns {{onProgress: function, onSuccess: function, onFailure: function}}
      */
     static create(file) {
         const data = new FormData();

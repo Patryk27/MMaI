@@ -19,6 +19,7 @@
         <tr>
             <th>Id</th>
             <th>Name</th>
+            <th>MIME type</th>
             <th>Size</th>
             <th>&nbsp;</th>
         </tr>
@@ -26,7 +27,11 @@
 
         <tbody>
         @foreach ($page->attachments as $attachment)
-            <tr data-attachment="{{ $attachment }}">
+            @php
+                $attachmentPresenter = $attachment->getPresenter();
+            @endphp
+
+            <tr data-attachment="{{ $attachment }}" data-attachment-url="{{ $attachmentPresenter->getUrl() }}">
                 @include('backend.pages.pages.create-edit.form.attachments.content.attachment')
             </tr>
         @endforeach

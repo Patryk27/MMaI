@@ -39,9 +39,15 @@ class AttachmentsController extends Controller
             throw new NotFoundHttpException('This attachment could not have been found.');
         }
 
-        return response()->streamDownload(function () use ($attachment) {
-            return $this->attachmentsFacade->stream($attachment);
-        }, $attachment->name);
+        return response()->streamDownload(function () use ($attachment): void {
+            $stream = $this->attachmentsFacade->stream($attachment);
+
+            while ($chunk = fread($stream, 1024 * 1024)) {
+                echo $chunk;
+            }
+        }, $attachment->name, [
+            'Content-Type' => $attachment->mime,
+        ]);
     }
 
 }

@@ -2,6 +2,8 @@
     /**
      * @var \App\Attachments\Models\Attachment $attachment
      */
+
+    $attachmentPresenter = $attachment->getPresenter();
 @endphp
 
 <td data-column="id">
@@ -9,7 +11,7 @@
 </td>
 
 <td data-column="name">
-    <a class="name" href="#" data-action="show">
+    <a href="{{ $attachmentPresenter->getUrl() }}" class="name" data-action="download">
         {{ $attachment->name }}
     </a>
 
@@ -20,16 +22,22 @@
     @endif
 </td>
 
+<td data-column="mime">
+    {{ $attachment->mime }}
+</td>
+
 <td data-column="size">
     {{ $attachment->getSizeForHumans() }}
 </td>
 
 <td data-column="actions">
-    <button type="button" class="btn btn-sm btn-primary btn-icon-only" data-action="show">
-        <i class="fa fa-external-link-alt"></i>
+    <button type="button" class="btn btn-sm btn-primary btn-icon-only" data-action="copy-url"
+            title="Copy attachment's URL to the clipboard.">
+        <i class="fa fa-copy"></i>
     </button>
 
-    <button type="button" class="btn btn-sm btn-danger btn-icon-only" data-action="delete">
+    <button type="button" class="btn btn-sm btn-danger btn-icon-only" data-action="delete"
+            title="Delete attachment">
         <i class="fa fa-trash"></i>
     </button>
 </td>

@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $attachable_type
  * @property int|null $attachable_id
  * @property string $name
+ * @property string $mime
  * @property int $size
  * @property string $path
  * @property Carbon $created_at
@@ -39,6 +40,7 @@ class Attachment extends Model implements Presentable
         'attachable_type',
         'attachable_id',
         'name',
+        'mime',
         'size',
         'path',
     ];
