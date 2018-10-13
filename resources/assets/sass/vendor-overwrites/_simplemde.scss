@@ -7,11 +7,8 @@
 
   border-radius: 0;
 
-  background: $dark;
-  opacity: 1;
-
-  &:hover {
-    background: $dark;
+  &, &:hover {
+    background: #111920;
     opacity: 1;
   }
 
@@ -29,22 +26,22 @@
   }
 
   a {
-    color: #ffffff !important;
+    color: lighten(#111920, 30%) !important;
     background: none;
+    border: none;
 
     &:hover, &.active {
-      color: #000000 !important;
-      background: #ffffff;
+      background: darken(#111920, 5%);
     }
   }
 
   i.separator {
-    border-left: 1px solid $input-border-color;
-    border-right: 1px solid $input-border-color;
+    border-left: 1px solid lighten(#111920, 10%);
+    border-right: 1px solid lighten(#111920, 10%);
   }
 
-  // SimpleMDE works on Font Awesome 4, whereas MMaI requires FA5 - code below is responsible for translating names of
-  // icons present in FA4, but missing in FA5.
+  // SimpleMDE uses Font Awesome 4, whereas MMaI requires FA5 - code below is responsible for translating names of icons
+  // present in FA4, but missing in FA5.
   .fa {
     &-header {
       @extend .fa-heading;

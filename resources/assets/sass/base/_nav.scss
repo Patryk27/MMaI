@@ -1,0 +1,14 @@
+.nav {
+  &.nav-tabs {
+    .nav-item {
+      .nav-link {
+        opacity: 0.4;
+        color: $body-color;
+
+        &:hover, &.active {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}

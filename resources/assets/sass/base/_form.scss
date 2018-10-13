@@ -16,9 +16,12 @@
 
 .form-control {
   &.input-light {
-    color: $dark;
     background: $light;
     border: 1px solid $light;
+
+    &::placeholder {
+      color: lighten($light, 35%);
+    }
   }
 }
 

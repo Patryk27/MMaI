@@ -34,12 +34,12 @@
     {{-- Posts' counter --}}
     @if($posts->isEmpty())
         <div class="alert alert-warning">
-            Unfortunately, no posts match given criteria.
+            Unfortunately, no posts match given criteria. {{-- @todo translation --}}
         </div>
     @else
-        <p>
-            Found {{ $posts->count() }} post(s). {{-- @todo --}}
-        </p>
+        <div class="alert alert-info">
+            Found {{ $posts->count() }} post(s). {{-- @todo translation --}}
+        </div>
 
         {{-- Posts --}}
         @include('frontend.components.posts.list', [

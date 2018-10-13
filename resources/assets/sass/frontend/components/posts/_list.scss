@@ -7,7 +7,7 @@
     margin-bottom: 2em;
     padding-bottom: 2em;
 
-    border-bottom: 1px solid #222222;
+    border-bottom: 1px solid $border-color;
 
     // Header //
     .post-header {
@@ -34,7 +34,7 @@
       opacity: 0.4;
 
       // Tags //
-      .footer-tags {
+      .post-footer-tags {
         margin-right: 1em;
 
         .fas {
@@ -45,14 +45,10 @@
       }
 
       // Published at //
-      .footer-published-at {
+      .post-footer-published-at {
         .fas {
           margin-right: 2px;
         }
-      }
-
-      .continue-reading-button {
-        flex-grow: 1;
       }
     }
   }

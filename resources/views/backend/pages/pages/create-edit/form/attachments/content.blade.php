@@ -7,7 +7,7 @@
 <div id="page-attachments" data-section-type="attachments" class="tab-pane" role="tabpanel">
     {{-- Add an attachment --}}
     <div id="add-attachment-wrapper">
-        <button id="add-attachment-button" type="button" class="btn btn-sm btn-success">
+        <button id="add-attachment-button" type="button" class="btn btn-sm btn-primary">
             <i class="fa fa-upload"></i>
             Add an attachment
         </button>

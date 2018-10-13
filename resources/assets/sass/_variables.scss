@@ -19,8 +19,8 @@ $yellow: #ffce00;
 // == Base == //
 // ========== //
 
-$light: #aaaaaa;
-$dark: #111111;
+$dark: #1a2631;
+$light: adjust-hue(lighten($dark, 20%), -10deg);
 
 $border-color: lighten($dark, 5%);
 $selection-color: lighten($blue, 5%);
@@ -29,7 +29,7 @@ $selection-color: lighten($blue, 5%);
 // == Body == //
 // ========== //
 
-$body-bg: $black;
+$body-bg: adjust-hue(darken($dark, 5%), 10deg);
 $body-color: $white;
 
 // ========== //
@@ -37,11 +37,8 @@ $body-color: $white;
 // ========== //
 
 $link-color: $yellow;
-
-$link-active-color: lighten($link-color, 25%);
-
-$link-dimmed-color: darken($yellow, 30%);
-$link-dimmed-hover-color: lighten($link-dimmed-color, 15%);
+$link-hover-color: $yellow;
+$link-active-color: $yellow;
 
 // ================ //
 // == Navigation == //
@@ -51,7 +48,6 @@ $frontend-navbar-width: 300px;
 $backend-navbar-width: 150px;
 
 $navbar-padding: 30px;
-
 $navbar-bg: $dark;
 
 // ==================== //
@@ -59,7 +55,7 @@ $navbar-bg: $dark;
 // ==================== //
 
 $nav-tabs-border-color: $border-color;
-$nav-tabs-link-hover-border-color: $border-color $border-color $border-color $border-color;
+$nav-tabs-link-hover-border-color: none;
 
 $nav-tabs-link-active-color: $link-active-color;
 $nav-tabs-link-active-border-color: $border-color $border-color $body-bg $border-color;
@@ -79,11 +75,11 @@ $pagination-hover-color: $pagination-color;
 $pagination-hover-border-color: #404040;
 
 $pagination-disabled-bg: $dark;
-$pagination-disabled-color: $black;
+$pagination-disabled-color: darken($dark, 5%);
 $pagination-disabled-border-color: $dark;
 
-$pagination-active-bg: darken($yellow, 10%);
-$pagination-active-color: $dark;
+$pagination-active-bg: $blue;
+$pagination-active-color: $white;
 
 // ============== //
 // == Dropdown == //
@@ -102,11 +98,9 @@ $dropdown-link-hover-bg: lighten($dropdown-bg, 8%);
 $input-bg: $dark;
 $input-color: $white;
 $input-border-color: $dark;
-$input-disabled-bg: $dark;
-
-$input-placeholder-color: lighten($dark, 15%);
-
+$input-placeholder-color: lighten($input-bg, 35%);
 $input-group-addon-bg: lighten($input-bg, 10%);
+$input-disabled-bg: $dark;
 
 // =================== //
 // == Custom select == //
@@ -128,7 +122,6 @@ $table-dark-color: $white;
 
 $badge-padding-x: 6px;
 $badge-padding-y: 6px;
-
 $badge-pill-border-radius: 8px;
 
 // =========== //
@@ -136,6 +129,7 @@ $badge-pill-border-radius: 8px;
 // =========== //
 
 $modal-backdrop-opacity: 0.8;
+
 $modal-header-color: #333333;
 $modal-body-color: #333333;
 
