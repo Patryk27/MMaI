@@ -4,8 +4,20 @@
     </h1>
 
     <div class="toolbar">
-        <a class="btn btn-primary" href="{{ route('backend.pages.create') }}">
-            Create a page
-        </a>
+        <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                Create new
+            </button>
+
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="{{ route('backend.pages.create-page') }}">
+                    Page
+                </a>
+
+                <a class="dropdown-item" href="{{ route('backend.pages.create-post') }}">
+                    Post
+                </a>
+            </div>
+        </div>
     </div>
 </div>

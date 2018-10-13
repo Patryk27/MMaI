@@ -5,7 +5,7 @@
 
     <div class="toolbar">
         <a id="create-tag-button" class="btn btn-primary">
-            Create a tag
+            Create new tag
         </a>
     </div>
 </div>

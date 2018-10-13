@@ -45,10 +45,10 @@ class PageVariantsCreator
      */
     public function create(Page $page, array $pageVariantData): PageVariant
     {
-        $pageVariant = $this->createPageVariant($page, $pageVariantData);
+        $pageVariant = $this->savePageVariant($page, $pageVariantData);
 
-        $this->createRoute($pageVariant, array_get($pageVariantData, 'url', ''));
-        $this->createTags($pageVariant, array_get($pageVariantData, 'tag_ids', []));
+        $this->saveRoute($pageVariant, array_get($pageVariantData, 'url') ?? '');
+        $this->saveTags($pageVariant, array_get($pageVariantData, 'tag_ids') ?? []);
         $this->validate($pageVariant);
 
         return $pageVariant;
@@ -59,7 +59,7 @@ class PageVariantsCreator
      * @param array $pageVariantData
      * @return PageVariant
      */
-    private function createPageVariant(Page $page, array $pageVariantData): PageVariant
+    private function savePageVariant(Page $page, array $pageVariantData): PageVariant
     {
         // Create a brand-new page variant
         $pageVariant = new PageVariant();
@@ -70,16 +70,11 @@ class PageVariantsCreator
         $pageVariant->setRelation('page', $page);
 
         // Fill page with data from the request
-        $pageVariant->fill(
-            array_only($pageVariantData, ['language_id', 'status', 'title', 'lead', 'content'])
-        );
-
-        $pageVariant->language_id = isset($pageVariant->language_id) ? (int)$pageVariant->language_id : null;
-
-        // Set-up default values
-        if (strlen($pageVariant->status) === 0) {
-            $pageVariant->status = PageVariant::STATUS_DRAFT;
-        }
+        $pageVariant->language_id = (int)array_get($pageVariantData, 'language_id');
+        $pageVariant->status = array_get($pageVariantData, 'status') ?? PageVariant::STATUS_DRAFT;
+        $pageVariant->title = array_get($pageVariantData, 'title') ?? '';
+        $pageVariant->lead = array_get($pageVariantData, 'lead') ?? '';
+        $pageVariant->content = array_get($pageVariantData, 'content') ?? '';
 
         return $pageVariant;
     }
@@ -89,7 +84,7 @@ class PageVariantsCreator
      * @param string $routeUrl
      * @return void
      */
-    private function createRoute(PageVariant $pageVariant, string $routeUrl): void
+    private function saveRoute(PageVariant $pageVariant, string $routeUrl): void
     {
         if (strlen($routeUrl) > 0) {
             $route = new Route([
@@ -108,7 +103,7 @@ class PageVariantsCreator
      *
      * @throws TagException
      */
-    private function createTags(PageVariant $pageVariant, array $tagIds): void
+    private function saveTags(PageVariant $pageVariant, array $tagIds): void
     {
         foreach ($tagIds as $tagId) {
             $tag = $this->tagsFacade->queryOne(

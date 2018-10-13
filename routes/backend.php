@@ -33,15 +33,23 @@ Route::domain('backend.' . env('APP_DOMAIN'))->group(function () {
         });
 
         // /attachments
-        Route::group(['prefix' => 'attachments'], function () {
-            // /attachments
-            Route::post('/', AttachmentsController::class . '@store')
-                ->name('backend.attachments.store');
-        });
+        Route::post('attachments', AttachmentsController::class . '@store')
+            ->name('backend.attachments.store');
 
-        // /pages/search
-        Route::get('pages/search', PagesController::class . '@search')
-            ->name('backend.pages.search');
+        // /pages
+        Route::group(['prefix' => 'pages'], function() {
+            // /pages/search
+            Route::get('search', PagesController::class . '@search')
+                ->name('backend.pages.search');
+
+            // /pages/create-page
+            Route::get('create-page', PagesController::class . '@createPage')
+                ->name('backend.pages.create-page');
+
+            // /pages/create-post
+            Route::get('create-post', PagesController::class . '@createPost')
+                ->name('backend.pages.create-post');
+        });
 
         // /pages
         Route::resource('pages', PagesController::class, [

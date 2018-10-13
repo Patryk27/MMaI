@@ -4,6 +4,9 @@ namespace App\Pages\Models;
 
 use App\Attachments\Models\Attachment;
 use App\Attachments\Models\Interfaces\Attachable;
+use App\Core\Models\Interfaces\Presentable;
+use App\Core\Models\Traits\HasPresenter;
+use App\Pages\Presenters\PagePresenter;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
@@ -26,9 +29,15 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property-read EloquentCollection|PageVariant[] $pageVariants
  * @property-read EloquentCollection|Attachment[] $attachments
+ *
+ * -----
+ *
+ * @method PagePresenter getPresenter()
  */
-class Page extends Model implements Attachable
+class Page extends Model implements Attachable, Presentable
 {
+
+    use HasPresenter;
 
     public const
         TYPE_BLOG = 'blog',
@@ -126,6 +135,14 @@ class Page extends Model implements Attachable
     public static function getMorphableType(): string
     {
         return 'page';
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public static function getPresenterClass(): string
+    {
+        return PagePresenter::class;
     }
 
 }

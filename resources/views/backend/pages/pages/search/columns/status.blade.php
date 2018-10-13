@@ -6,6 +6,6 @@
     $presenter = $row->getPresenter();
 @endphp
 
-<span class="badge badge-pill {{ $presenter->getStatusBadgeClass() }}" data-column="status">
+<span class="badge badge-pill {{ $presenter->getBadgeForStatus() }}" data-column="status">
     {{ __('base/models/page-variant.enums.status.' . $row->status) }}
 </span>

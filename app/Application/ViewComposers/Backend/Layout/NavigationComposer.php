@@ -17,7 +17,7 @@ class NavigationComposer
 
         'backend.pages' => [
             'icon' => 'fa fa-file',
-            'title' => 'Pages',
+            'title' => 'Pages & Posts',
         ],
 
         'backend.tags' => [

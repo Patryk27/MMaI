@@ -13,6 +13,7 @@ export default class FormSubmitter {
 
         this.$dom = {
             form: $form,
+            pageType: $form.find('[name="page_type"]'),
         };
 
         this.$state = {
@@ -60,7 +61,7 @@ export default class FormSubmitter {
 
         return {
             page: {
-                type: 'cms', // @todo shouldn't be hard-coded - maybe we can fetch it from this.$dom.form?
+                type: this.$dom.pageType.val(),
                 notes: notes.serialize(),
             },
 

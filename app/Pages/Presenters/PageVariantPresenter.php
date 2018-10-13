@@ -5,7 +5,7 @@ namespace App\Pages\Presenters;
 use App\Core\Presenters\Presenter;
 use App\Pages\Models\PageVariant;
 
-class PageVariantPresenter extends Presenter
+final class PageVariantPresenter extends Presenter
 {
 
     /**
@@ -16,7 +16,7 @@ class PageVariantPresenter extends Presenter
     /**
      * @return string
      */
-    public function getStatusBadgeClass(): string
+    public function getBadgeForStatus(): string
     {
         return array_get([
             PageVariant::STATUS_DRAFT => 'badge-warning',

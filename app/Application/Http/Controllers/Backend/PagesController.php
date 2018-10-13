@@ -116,9 +116,21 @@ class PagesController extends Controller
     /**
      * @return ViewContract
      */
-    public function create(): ViewContract
+    public function createPage(): ViewContract
     {
-        return view('backend.pages.pages.create');
+        return view('backend.pages.pages.create', [
+            'type' => Page::TYPE_CMS,
+        ]);
+    }
+
+    /**
+     * @return ViewContract
+     */
+    public function createPost(): ViewContract
+    {
+        return view('backend.pages.pages.create', [
+            'type' => Page::TYPE_BLOG,
+        ]);
     }
 
     /**

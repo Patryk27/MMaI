@@ -80,8 +80,8 @@ class PagesCreator
             'notes' => array_get($pageData, 'page.notes'),
         ]);
 
-        $this->savePageVariants($page, array_get($pageData, 'pageVariants', []));
-        $this->saveAttachments($page, array_get($pageData, 'attachment_ids', []));
+        $this->savePageVariants($page, array_get($pageData, 'pageVariants') ?? []);
+        $this->saveAttachments($page, array_get($pageData, 'attachment_ids') ?? []);
         $this->save($page);
 
         return $page;

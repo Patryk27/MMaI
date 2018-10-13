@@ -95,7 +95,7 @@ class PagesUpdater
             $this->savePageVariant($page, $pageVariantData);
         }
 
-        $this->saveAttachments($page, array_get($pageData, 'attachment_ids', []));
+        $this->saveAttachments($page, array_get($pageData, 'attachment_ids') ?? []);
         $this->save($page);
     }
 

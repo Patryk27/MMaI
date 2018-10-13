@@ -9,7 +9,7 @@
 
 <div id="page-variant-{{ $language->id }}" data-section-type="page-variant" class="tab-pane" role="tabpanel">
     <div class="alert alert-info is-disabled-alert">
-        This page variant is disabled - select the <code>Enable</code> checkbox to enable it and start working.
+        This variant is disabled - click the <code>Enable</code> checkbox to enable it and start working.
     </div>
 
     @if(!$pageVariant->exists)
@@ -54,7 +54,6 @@
 
                 {{ Form::text('url', $url, [
                     'class' => 'form-control',
-                    'placeholder' => 'my-awesome-page',
                 ]) }}
 
                 @if(strlen($url) > 0)
@@ -88,7 +87,6 @@
 
             {{ Form::text('title', null, [
                 'class' => 'form-control',
-                'placeholder' => 'My Awesome Page',
             ]) }}
         </div>
 
@@ -113,7 +111,6 @@
 
                 {{ Form::textarea('lead', null, [
                     'class' => 'form-control',
-                    'placeholder' => 'This is my awesome page!',
                 ]) }}
             </div>
         @endif
@@ -126,7 +123,6 @@
 
             {{ Form::textarea('content', null, [
                 'class' => 'form-control',
-                'placeholder' => '# This is my awesome page!',
             ]) }}
         </div>
     </div>

@@ -46,13 +46,10 @@ class PageVariantsUpdater
      */
     public function update(PageVariant $pageVariant, array $pageVariantData): void
     {
-        $this->updatePublishedAt($pageVariant, $pageVariantData);
-        $this->updateRoute($pageVariant, array_get($pageVariantData, 'url', ''));
-        $this->updateTags($pageVariant, array_get($pageVariantData, 'tag_ids', []));
-
-        $pageVariant->fill(
-            array_only($pageVariantData, ['status', 'title', 'lead', 'content'])
-        );
+        $this->savePublishedAt($pageVariant, $pageVariantData);
+        $this->saveRoute($pageVariant, array_get($pageVariantData, 'url') ?? '');
+        $this->saveTags($pageVariant, array_get($pageVariantData, 'tag_ids') ?? []);
+        $this->savePageVariant($pageVariant, $pageVariantData);
 
         $this->pageVariantsValidator->validate($pageVariant);
     }
@@ -62,7 +59,7 @@ class PageVariantsUpdater
      * @param array $pageVariantData
      * @return void
      */
-    private function updatePublishedAt(PageVariant $pageVariant, array $pageVariantData): void
+    private function savePublishedAt(PageVariant $pageVariant, array $pageVariantData): void
     {
         // If page variant is being published for the first time, fill the
         // "published at" with current date & time.
@@ -78,11 +75,11 @@ class PageVariantsUpdater
      * @param string $routeUrl
      * @return void
      */
-    private function updateRoute(PageVariant $pageVariant, string $routeUrl): void
+    private function saveRoute(PageVariant $pageVariant, string $routeUrl): void
     {
         if (isset($pageVariant->route)) {
             /**
-             * Case #1: This PV has a route - we may update or delete it.
+             * Case #1: This PV has a route - we might update or delete it.
              */
 
             $oldRouteUrl = $pageVariant->route->url;
@@ -101,7 +98,7 @@ class PageVariantsUpdater
             }
         } else {
             /**
-             * Case #2: this PV does not have a route - we may create it.
+             * Case #2: This PV does not have a route - we might create it.
              */
 
             if (strlen($routeUrl) > 0) {
@@ -122,7 +119,7 @@ class PageVariantsUpdater
      *
      * @throws TagException
      */
-    private function updateTags(PageVariant $pageVariant, array $tagIds): void
+    private function saveTags(PageVariant $pageVariant, array $tagIds): void
     {
         $pageVariant->setRelation('tags', new EloquentCollection());
 
@@ -133,6 +130,19 @@ class PageVariantsUpdater
 
             $pageVariant->tags->push($tag);
         }
+    }
+
+    /**
+     * @param PageVariant $pageVariant
+     * @param array $pageVariantData
+     * @return void
+     */
+    private function savePageVariant(PageVariant $pageVariant, array $pageVariantData): void
+    {
+        $pageVariant->status = array_get($pageVariantData, 'status') ?? '';
+        $pageVariant->title = array_get($pageVariantData, 'title') ?? '';
+        $pageVariant->lead = array_get($pageVariantData, 'lead') ?? '';
+        $pageVariant->content = array_get($pageVariantData, 'content') ?? '';
     }
 
 }
