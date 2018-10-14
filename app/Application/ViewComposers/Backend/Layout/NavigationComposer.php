@@ -24,11 +24,6 @@ class NavigationComposer
             'icon' => 'fa fa-tag',
             'title' => 'Tags',
         ],
-
-        'backend.about' => [
-            'icon' => 'fa fa-box',
-            'title' => 'About',
-        ],
     ];
 
     /**

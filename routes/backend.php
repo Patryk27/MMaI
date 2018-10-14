@@ -64,9 +64,5 @@ Route::domain('backend.' . env('APP_DOMAIN'))->group(function () {
         Route::resource('tags', TagsController::class, [
             'as' => 'backend',
         ]);
-
-        // /about
-        Route::get('about')
-            ->name('backend.about.index');
     });
 });
