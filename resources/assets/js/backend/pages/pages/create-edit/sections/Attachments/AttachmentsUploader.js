@@ -4,9 +4,11 @@ import swal from 'sweetalert';
 export default class AttachmentsUploader {
 
     /**
+     * @param {Bus} bus
      * @param {AttachmentsTable} table
      */
-    constructor(table) {
+    constructor(bus, table) {
+        this.$bus = bus;
         this.$table = table;
     }
 
@@ -51,6 +53,9 @@ export default class AttachmentsUploader {
         uploader.onSuccess(({ data }) => {
             this.$table.remove(attachment.id);
             this.$table.add(data);
+
+            // After attachment has been successfully updated, mark form as "dirty"
+            this.$bus.emit('form::changed');
         });
 
         uploader.onFailure(({ message }) => {

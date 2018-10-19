@@ -3,9 +3,11 @@ import swal from 'sweetalert';
 export default class AttachmentsDeleter {
 
     /**
+     * @param {Bus} bus
      * @param {AttachmentsTable} table
      */
-    constructor(table) {
+    constructor(bus, table) {
+        this.$bus = bus;
         this.$table = table;
     }
 
@@ -36,6 +38,9 @@ export default class AttachmentsDeleter {
 
         if (result) {
             this.$table.remove(attachment.id);
+
+            // After attachment has been successfully deleted, mark form as "dirty"
+            this.$bus.emit('form::changed');
 
             // noinspection JSIgnoredPromiseFromCall
             swal({

@@ -58,6 +58,10 @@ export default class PageVariantSection {
             this.$refresh();
         });
 
+        this.$dom.form.on('change', () => {
+            bus.emit('form::changed');
+        });
+
         // When user presses enter when inside the URL or title inputs, consider it equal to clicking the "submit"
         // button
         this.$dom.form.on('keypress', 'input', (evt) => {
@@ -79,14 +83,6 @@ export default class PageVariantSection {
             if (activatedTabName.includes('page-variant')) {
                 this.$refresh();
             }
-        });
-
-        bus.on('form::submitting', () => {
-            this.$block(true);
-        });
-
-        bus.on('form::submitted', () => {
-            this.$block(false);
         });
 
         this.$refresh();
@@ -151,21 +147,6 @@ export default class PageVariantSection {
     $toggle(enabled) {
         this.$dom.form.toggle(enabled);
         this.$dom.isDisabledAlert.toggle(!enabled);
-    }
-
-    /**
-     * @private
-     *
-     * Blocks / unblocks the component.
-     *
-     * @param {boolean} blocked
-     */
-    $block(blocked) {
-        for (const [, component] of Object.entries(this.$form)) {
-            component.disable(blocked);
-        }
-
-        this.$simpleMde.codemirror.setOption('readOnly', blocked);
     }
 
 }

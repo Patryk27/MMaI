@@ -41,8 +41,8 @@ export default class AttachmentsSection {
         });
 
         // Initialize the attachments' uploader & deleter
-        this.$uploader = new AttachmentsUploader(this.$table);
-        this.$deleter = new AttachmentsDeleter(this.$table);
+        this.$uploader = new AttachmentsUploader(bus, this.$table);
+        this.$deleter = new AttachmentsDeleter(bus, this.$table);
     }
 
     /**

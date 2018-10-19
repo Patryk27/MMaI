@@ -1,14 +1,14 @@
 import swal from 'sweetalert';
 import Requester from '../../../../base/api/Requester';
 
-export default class FormSubmitter {
+export default class Form {
 
     /**
      * @param {Bus} bus
      * @param {jQuery} $form
-     * @param {object} formSections
+     * @param {object} sections
      */
-    constructor(bus, $form, formSections) {
+    constructor(bus, $form, sections) {
         this.$bus = bus;
 
         this.$dom = {
@@ -17,12 +17,30 @@ export default class FormSubmitter {
         };
 
         this.$state = {
-            formSections,
+            sections,
+
+            // By the default form is clean - it means that no changes have been made to it yet.
+            dirty: false,
         };
     }
 
     /**
+     * Marks form as "dirty" (i.e. modified).
+     */
+    markAsDirty() {
+        this.$state.dirty = true;
+    }
+
+    /**
+     * @returns {boolean}
+     */
+    isDirty() {
+        return this.$state.dirty;
+    }
+
+    /**
      * Submits the form.
+     * Returns a promise which resolves to void.
      */
     async submit() {
         this.$bus.emit('form::submitting');
@@ -35,6 +53,9 @@ export default class FormSubmitter {
                 url: $form.data('url'),
                 data: this.$serialize(),
             });
+
+            // After form has been saved, it's no longer "dirty"
+            this.$state.dirty = false;
 
             this.$bus.emit('form::submitted', { response });
         } catch (error) {
@@ -57,7 +78,7 @@ export default class FormSubmitter {
      * @returns {object}
      */
     $serialize() {
-        const { attachments, notes, pageVariants } = this.$state.formSections;
+        const { attachments, notes, pageVariants } = this.$state.sections;
 
         return {
             page: {

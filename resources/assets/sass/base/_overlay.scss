@@ -1,0 +1,24 @@
+#overlay {
+  position: fixed;
+  z-index: 10000;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  opacity: 0;
+  transition: 0.3s all;
+
+  pointer-events: none;
+
+  &.visible {
+    background: rgba(0, 0, 0, 0.7);
+    opacity: 1;
+
+    pointer-events: all;
+  }
+}

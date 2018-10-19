@@ -21,7 +21,11 @@
 </head>
 
 <body class="{{ $layoutClass . ' ' . $pageClass }}">
-@yield('layout-content')
+    <div id="overlay">
+        <div class="loader loader-tile"></div>
+    </div>
+
+    @yield('layout-content')
 </body>
 
 <script type="application/javascript" src="/js/app.js"></script>
