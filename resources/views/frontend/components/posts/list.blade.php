@@ -38,11 +38,9 @@
                 {{-- Tags --}}
                 @if($pageVariant->tags->isNotEmpty())
                     <div class="post-footer-tags">
-                        <i class="fas fa-tags"></i>
-
                         @foreach($pageVariant->tags as $tag)
                             <a class="post-footer-tag" href="/!search?query={{ $tag->name }}">
-                                {{ $tag->name }}{{ $loop->last ? '' : ',' }}
+                                #{{ $tag->name }}
                             </a>
                         @endforeach
                     </div>
@@ -50,8 +48,6 @@
 
                 {{-- Published at --}}
                 <div class="post-footer-published-at">
-                    <i class="fas fa-calendar"></i>
-
                     {{ $pageVariant->published_at->format(config('mmai.posts.date-format')) }}
                 </div>
             </footer>

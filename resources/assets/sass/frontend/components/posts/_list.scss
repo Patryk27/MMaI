@@ -9,7 +9,6 @@
 
     border-bottom: 1px solid $border-color;
 
-    // Header //
     .post-header {
       font-weight: bold;
       font-size: 1.5em;
@@ -20,34 +19,22 @@
       }
     }
 
-    // Lead //
     .post-lead {
       margin-top: 0.8em;
       opacity: 0.5;
     }
 
-    // Footer //
     .post-footer {
       display: flex;
       justify-content: right;
       margin-top: 0.8em;
       opacity: 0.4;
 
-      // Tags //
       .post-footer-tags {
-        margin-right: 1em;
+        margin-right: 0.5em;
 
-        .fas {
-          position: relative;
-          top: 2px;
-          left: -2px;
-        }
-      }
-
-      // Published at //
-      .post-footer-published-at {
-        .fas {
-          margin-right: 2px;
+        .post-footer-tag {
+          margin-right: 0.5em;
         }
       }
     }
