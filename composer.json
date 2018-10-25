@@ -2,7 +2,7 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": "^7.1",
+        "php": "^7.2",
         "cviebrock/laravel-elasticsearch": "^3.1",
         "fideloper/proxy": "^4.0",
         "graham-campbell/markdown": "^10.0",
