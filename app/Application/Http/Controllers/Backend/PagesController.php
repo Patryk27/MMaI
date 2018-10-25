@@ -6,8 +6,8 @@ use App\Application\Http\Controllers\Controller;
 use App\Application\Http\Requests\Backend\Pages\CreatePageRequest;
 use App\Application\Http\Requests\Backend\Pages\UpdatePageRequest;
 use App\Core\Exceptions\Exception as AppException;
-use App\Core\Services\Collection\Renderer as CollectionRenderer;
 use App\Core\Services\DataTables\Handler as DataTablesHandler;
+use App\Core\Services\Table\Renderer as TableRenderer;
 use App\Languages\Exceptions\LanguageException;
 use App\Languages\LanguagesFacade;
 use App\Languages\Queries\GetAllLanguagesQuery;
@@ -22,9 +22,9 @@ class PagesController extends Controller
 {
 
     /**
-     * @var CollectionRenderer
+     * @var TableRenderer
      */
-    private $collectionRenderer;
+    private $tableRenderer;
 
     /**
      * @var DataTablesHandler
@@ -42,18 +42,18 @@ class PagesController extends Controller
     private $pagesFacade;
 
     /**
-     * @param CollectionRenderer $collectionRenderer
+     * @param TableRenderer $tableRenderer
      * @param DataTablesHandler $dataTablesHandler
      * @param LanguagesFacade $languagesFacade
      * @param PagesFacade $pagesFacade
      */
     public function __construct(
-        CollectionRenderer $collectionRenderer,
+        TableRenderer $tableRenderer,
         DataTablesHandler $dataTablesHandler,
         LanguagesFacade $languagesFacade,
         PagesFacade $pagesFacade
     ) {
-        $this->collectionRenderer = $collectionRenderer;
+        $this->tableRenderer = $tableRenderer;
         $this->dataTablesHandler = $dataTablesHandler;
         $this->languagesFacade = $languagesFacade;
         $this->pagesFacade = $pagesFacade;
@@ -86,18 +86,18 @@ class PagesController extends Controller
      */
     public function search(Request $request): array
     {
-        $this->collectionRenderer->addColumns([
-            'id' => 'backend.pages.pages.search.columns.id',
-            'type' => 'backend.pages.pages.search.columns.type',
-            'language' => 'backend.pages.pages.search.columns.language',
-            'title' => 'backend.pages.pages.search.columns.title',
-            'status' => 'backend.pages.pages.search.columns.status',
-            'created_at' => 'backend.pages.pages.search.columns.created-at', // @todo shouldn't it say "created-at", just like the tags do?
-            'actions' => 'backend.pages.pages.search.columns.actions',
+        $this->tableRenderer->addColumns([
+            'id' => 'backend.components.table.id',
+            'type' => 'backend.components.pages.table.type',
+            'language' => 'backend.components.pages.table.language',
+            'title' => 'backend.components.pages.table.title',
+            'status' => 'backend.components.pages.table.status',
+            'created-at' => 'backend.components.table.created-at',
+            'actions' => 'backend.components.pages.table.actions',
         ]);
 
         $this->dataTablesHandler->setQueryHandler(function (array $query): Collection {
-            return $this->collectionRenderer->render(
+            return $this->tableRenderer->render(
                 $this->pagesFacade->queryMany(
                     new SearchPageVariantsQuery($query)
                 )

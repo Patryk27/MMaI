@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Core\Services\Collection;
+namespace App\Core\Services\Table;
 
 use Illuminate\Contracts\View\Factory as ViewFactoryContract;
 use Illuminate\Contracts\View\View as ViewContract;

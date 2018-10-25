@@ -5,7 +5,7 @@ namespace App\Application\Http\Controllers\Backend;
 use App\Application\Http\Controllers\Controller;
 use App\Application\Http\Requests\Backend\Tags\CreateTagRequest;
 use App\Application\Http\Requests\Backend\Tags\UpdateTagRequest;
-use App\Core\Services\Collection\Renderer as CollectionRenderer;
+use App\Core\Services\Table\Renderer as TableRenderer;
 use App\Core\Services\DataTables\Handler as DataTablesHandler;
 use App\Languages\Exceptions\LanguageException;
 use App\Languages\LanguagesFacade;
@@ -22,9 +22,9 @@ class TagsController extends Controller
 {
 
     /**
-     * @var CollectionRenderer
+     * @var TableRenderer
      */
-    private $collectionRenderer;
+    private $tableRenderer;
 
     /**
      * @var DataTablesHandler
@@ -42,18 +42,18 @@ class TagsController extends Controller
     private $tagsFacade;
 
     /**
-     * @param CollectionRenderer $collectionRenderer
+     * @param TableRenderer $tableRenderer
      * @param DataTablesHandler $dataTablesHandler
      * @param LanguagesFacade $languagesFacade
      * @param TagsFacade $tagsFacade
      */
     public function __construct(
-        CollectionRenderer $collectionRenderer,
+        TableRenderer $tableRenderer,
         DataTablesHandler $dataTablesHandler,
         LanguagesFacade $languagesFacade,
         TagsFacade $tagsFacade
     ) {
-        $this->collectionRenderer = $collectionRenderer;
+        $this->tableRenderer = $tableRenderer;
         $this->dataTablesHandler = $dataTablesHandler;
         $this->languagesFacade = $languagesFacade;
         $this->tagsFacade = $tagsFacade;
@@ -84,16 +84,16 @@ class TagsController extends Controller
      */
     public function search(Request $request): array
     {
-        $this->collectionRenderer->addColumns([
-            'id' => 'backend.pages.tags.search.columns.id',
-            'name' => 'backend.pages.tags.search.columns.name',
-            'page-variant-count' => 'backend.pages.tags.search.columns.page-variant-count',
-            'created-at' => 'backend.pages.tags.search.columns.created-at',
-            'actions' => 'backend.pages.tags.search.columns.actions',
+        $this->tableRenderer->addColumns([
+            'id' => 'backend.components.table.id',
+            'name' => 'backend.components.tags.table.name',
+            'page-variant-count' => 'backend.components.tags.table.page-variant-count',
+            'created-at' => 'backend.components.table.created-at',
+            'actions' => 'backend.components.tags.table.actions',
         ]);
 
         $this->dataTablesHandler->setQueryHandler(function (array $query): Collection {
-            return $this->collectionRenderer->render(
+            return $this->tableRenderer->render(
                 $this->tagsFacade->queryMany(
                     new SearchTagsQuery($query)
                 )
