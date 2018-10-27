@@ -2,6 +2,7 @@ import $ from 'jquery';
 import swal from 'sweetalert';
 
 import LoaderComponent from './LoaderComponent';
+import ApiRequester from '../api/ApiRequester';
 
 /**
  * This component is a wrapper for the great jQuery DataTables - it provides an
@@ -30,6 +31,7 @@ export default class DataTableComponent {
         );
 
         // Initialize the DataTable
+        // noinspection JSUnusedGlobalSymbols
         this.$dt = $(config.tableSelector).DataTable({
             autoWidth: false,
             columns: columns,
@@ -84,7 +86,7 @@ export default class DataTableComponent {
     }
 
     /**
-     * Force-refreshes the DataTable.
+     * Refreshes the DataTable.
      */
     refresh() {
         this.$dt.ajax.reload();
@@ -99,27 +101,23 @@ export default class DataTableComponent {
      * @returns {object}
      */
     $prepareRequest(originalData) {
-        // Transform column's data (name, attributes, etc.) onto the names only;
-        // Backend doesn't need to know anything more.
         const columns = originalData.columns.map((column) => column.name);
 
-        // Prepare basic request
         const request = {
             columns,
+
+            textQuery: originalData.search.value,
 
             pagination: {
                 page: originalData.start / originalData.length,
                 perPage: originalData.length,
             },
 
-            // We only support sorting by one column, so let's choose the first
-            // one.
+            // Contrary to the DataTables, we only support ordering by one field only
             orderBy: {
                 column: columns[originalData.order[0].column],
                 direction: originalData.order[0].dir,
             },
-
-            search: originalData.search.value,
         };
 
         // If user's provided custom "prepare request" handler, call it now
@@ -144,20 +142,29 @@ export default class DataTableComponent {
         }
 
         try {
-            const response = await $.ajax({
+            const response = await ApiRequester.execute({
+                method: 'post',
                 url: this.$config.source,
                 data: this.$prepareRequest(originalData),
             });
 
             if (response.hasOwnProperty('data')) {
-                callback(response);
+                callback(response.data);
             } else {
-                DataTableComponent.$showErrorMessage();
+                // noinspection JSIgnoredPromiseFromCall
+                swal({
+                    title: 'Failed to load table',
+                    text: 'Response is malformed - please refresh the page and try again.',
+                    icon: 'error',
+                });
             }
-        } catch (ex) {
-            console.error(ex);
-
-            DataTableComponent.$showErrorMessage();
+        } catch (error) {
+            // noinspection JSIgnoredPromiseFromCall
+            swal({
+                title: 'Failed to load table',
+                text: error.toString(),
+                icon: 'error',
+            });
 
             callback({
                 data: [],
@@ -219,18 +226,6 @@ export default class DataTableComponent {
         });
 
         return columns;
-    }
-
-    /**
-     * @private
-     */
-    static $showErrorMessage() {
-        // noinspection JSIgnoredPromiseFromCall
-        swal({
-            title: 'Failed to load table',
-            text: 'There was an error trying to load the table - please refresh page and try again.',
-            icon: 'error',
-        });
     }
 
 }

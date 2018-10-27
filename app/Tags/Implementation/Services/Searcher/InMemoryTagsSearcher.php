@@ -2,10 +2,10 @@
 
 namespace App\Tags\Implementation\Services\Searcher;
 
-use App\Core\Services\Searcher\AbstractInMemorySearcher;
-use App\Tags\Implementation\Services\TagsSearcherInterface;
+use App\Core\Searcher\AbstractInMemorySearcher;
+use App\Tags\Implementation\Services\TagsSearcher;
 
-class InMemoryTagsSearcher extends AbstractInMemorySearcher implements TagsSearcherInterface
+class InMemoryTagsSearcher extends AbstractInMemorySearcher implements TagsSearcher
 {
 
 }

@@ -6,7 +6,7 @@ use App\Menus\Exceptions\MenuException;
 use App\Menus\Exceptions\MenuItemNotFoundException;
 use App\Menus\Implementation\Services\MenuItemsQuerier;
 use App\Menus\Models\MenuItem;
-use App\Menus\Queries\MenuItemsQueryInterface;
+use App\Menus\Queries\MenuItemsQuery;
 use Illuminate\Support\Collection;
 
 final class MenusFacade
@@ -30,13 +30,13 @@ final class MenusFacade
      * Returns the first menu item matching given query.
      * Throws an exception if no such menu item exists.
      *
-     * @param MenuItemsQueryInterface $query
+     * @param MenuItemsQuery $query
      * @return MenuItem
      *
      * @throws MenuException
      * @throws MenuItemNotFoundException
      */
-    public function queryOne(MenuItemsQueryInterface $query): MenuItem
+    public function queryOne(MenuItemsQuery $query): MenuItem
     {
         $menuItems = $this->queryMany($query);
 
@@ -50,12 +50,12 @@ final class MenusFacade
     /**
      * Returns all menu items matching given query.
      *
-     * @param MenuItemsQueryInterface $query
+     * @param MenuItemsQuery $query
      * @return Collection|MenuItem[]
      *
      * @throws MenuException
      */
-    public function queryMany(MenuItemsQueryInterface $query): Collection
+    public function queryMany(MenuItemsQuery $query): Collection
     {
         return $this->menuItemsQuerier->query($query);
     }

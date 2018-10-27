@@ -7,7 +7,7 @@ use App\Attachments\Exceptions\AttachmentException;
 use App\Attachments\Queries\GetAttachmentByIdQuery;
 use App\Pages\Events\PageCreated;
 use App\Pages\Exceptions\PageException;
-use App\Pages\Implementation\Repositories\PagesRepositoryInterface;
+use App\Pages\Implementation\Repositories\PagesRepository;
 use App\Pages\Implementation\Services\PageVariants\PageVariantsCreator;
 use App\Pages\Models\Page;
 use App\Tags\Exceptions\TagException;
@@ -25,7 +25,7 @@ class PagesCreator
     private $eventsDispatcher;
 
     /**
-     * @var PagesRepositoryInterface
+     * @var PagesRepository
      */
     private $pagesRepository;
 
@@ -46,14 +46,14 @@ class PagesCreator
 
     /**
      * @param EventsDispatcherContract $eventsDispatcher
-     * @param PagesRepositoryInterface $pagesRepository
+     * @param PagesRepository $pagesRepository
      * @param PageVariantsCreator $pageVariantsCreator
      * @param PagesValidator $pagesValidator
      * @param AttachmentsFacade $attachmentsFacade
      */
     public function __construct(
         EventsDispatcherContract $eventsDispatcher,
-        PagesRepositoryInterface $pagesRepository,
+        PagesRepository $pagesRepository,
         PageVariantsCreator $pageVariantsCreator,
         PagesValidator $pagesValidator,
         AttachmentsFacade $attachmentsFacade

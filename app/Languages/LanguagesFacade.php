@@ -6,7 +6,7 @@ use App\Languages\Exceptions\LanguageException;
 use App\Languages\Exceptions\LanguageNotFoundException;
 use App\Languages\Implementation\Services\LanguagesQuerier;
 use App\Languages\Models\Language;
-use App\Languages\Queries\LanguagesQueryInterface;
+use App\Languages\Queries\LanguagesQuery;
 use Illuminate\Support\Collection;
 
 final class LanguagesFacade
@@ -30,13 +30,13 @@ final class LanguagesFacade
      * Returns the first language matching given query.
      * Throws an exception if no such language exists.
      *
-     * @param LanguagesQueryInterface $query
+     * @param LanguagesQuery $query
      * @return Language
      *
      * @throws LanguageException
      * @throws LanguageNotFoundException
      */
-    public function queryOne(LanguagesQueryInterface $query): Language
+    public function queryOne(LanguagesQuery $query): Language
     {
         $languages = $this->queryMany($query);
 
@@ -50,12 +50,12 @@ final class LanguagesFacade
     /**
      * Returns all languages matching given query.
      *
-     * @param LanguagesQueryInterface $query
+     * @param LanguagesQuery $query
      * @return Collection|Language[]
      *
      * @throws LanguageException
      */
-    public function queryMany(LanguagesQueryInterface $query): Collection
+    public function queryMany(LanguagesQuery $query): Collection
     {
         return $this->languagesQuerier->query($query);
     }

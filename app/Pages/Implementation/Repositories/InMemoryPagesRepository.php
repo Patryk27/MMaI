@@ -5,7 +5,7 @@ namespace App\Pages\Implementation\Repositories;
 use App\Core\Repositories\InMemoryRepository;
 use App\Pages\Models\Page;
 
-class InMemoryPagesRepository implements PagesRepositoryInterface
+class InMemoryPagesRepository implements PagesRepository
 {
 
     /**

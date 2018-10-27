@@ -54,7 +54,7 @@ export default class TagDeleter {
             // noinspection JSIgnoredPromiseFromCall
             swal({
                 title: 'Cannot delete tag',
-                text: error.message,
+                text: error.toString(),
                 icon: 'error',
             });
         }

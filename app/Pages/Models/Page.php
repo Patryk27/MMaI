@@ -4,8 +4,8 @@ namespace App\Pages\Models;
 
 use App\Attachments\Models\Attachment;
 use App\Attachments\Models\Interfaces\Attachable;
-use App\Core\Models\Interfaces\Presentable;
-use App\Core\Models\Traits\HasPresenter;
+use App\Core\Models\HasPresenter;
+use App\Core\Models\Presentable;
 use App\Pages\Presenters\PagePresenter;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;

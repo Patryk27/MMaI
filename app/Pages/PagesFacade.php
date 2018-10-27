@@ -13,7 +13,7 @@ use App\Pages\Models\Page;
 use App\Pages\Models\PageVariant;
 use App\Pages\Policies\PagePolicy;
 use App\Pages\Policies\PageVariantPolicy;
-use App\Pages\Queries\PageVariantsQueryInterface;
+use App\Pages\Queries\PageVariantsQuery;
 use App\Pages\ValueObjects\RenderedPageVariant;
 use App\Tags\Exceptions\TagException;
 use Exception;
@@ -124,13 +124,13 @@ final class PagesFacade
      * Returns the first page variant matching given query.
      * Throws an exception if no such page variant exists.
      *
-     * @param PageVariantsQueryInterface $query
+     * @param PageVariantsQuery $query
      * @return PageVariant
      *
      * @throws PageException
      * @throws PageVariantNotFoundException
      */
-    public function queryOne(PageVariantsQueryInterface $query): PageVariant
+    public function queryOne(PageVariantsQuery $query): PageVariant
     {
         $pageVariants = $this->queryMany($query);
 
@@ -144,12 +144,12 @@ final class PagesFacade
     /**
      * Returns all page variants matching given query.
      *
-     * @param PageVariantsQueryInterface $query
+     * @param PageVariantsQuery $query
      * @return Collection|PageVariant[]
      *
      * @throws PageException
      */
-    public function queryMany(PageVariantsQueryInterface $query): Collection
+    public function queryMany(PageVariantsQuery $query): Collection
     {
         return $this->pageVariantsQuerier->query($query);
     }
@@ -157,14 +157,14 @@ final class PagesFacade
     /**
      * Returns number of page variants matching given query.
      *
-     * @param PageVariantsQueryInterface $query
+     * @param PageVariantsQuery $query
      * @return int
      *
      * @throws PageException
      */
-    public function queryCount(PageVariantsQueryInterface $query): int
+    public function queryCount(PageVariantsQuery $query): int
     {
-        return $this->pageVariantsQuerier->queryCount($query);
+        return $this->pageVariantsQuerier->count($query);
     }
 
 }

@@ -10,7 +10,7 @@ use App\Routes\RoutesFacade;
 use Illuminate\Database\Connection as DatabaseConnection;
 use Throwable;
 
-class EloquentPagesRepository implements PagesRepositoryInterface
+class EloquentPagesRepository implements PagesRepository
 {
 
     /**

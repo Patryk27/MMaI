@@ -4,20 +4,20 @@ namespace App\Routes;
 
 use App\Routes\Exceptions\RouteException;
 use App\Routes\Exceptions\RouteNotFoundException;
-use App\Routes\Implementation\Repositories\RoutesRepositoryInterface;
+use App\Routes\Implementation\Repositories\RoutesRepository;
 use App\Routes\Implementation\Services\RoutesDeleter;
 use App\Routes\Implementation\Services\RoutesQuerier;
 use App\Routes\Implementation\Services\RoutesRerouter;
 use App\Routes\Implementation\Services\RoutesValidator;
 use App\Routes\Models\Route;
-use App\Routes\Queries\RoutesQueryInterface;
+use App\Routes\Queries\RoutesQuery;
 use Illuminate\Support\Collection;
 
 final class RoutesFacade
 {
 
     /**
-     * @var RoutesRepositoryInterface
+     * @var RoutesRepository
      */
     private $routesRepository;
 
@@ -42,14 +42,14 @@ final class RoutesFacade
     private $routesQuerier;
 
     /**
-     * @param RoutesRepositoryInterface $routesRepository
+     * @param RoutesRepository $routesRepository
      * @param RoutesValidator $routesValidator
      * @param RoutesDeleter $routesDeleter
      * @param RoutesRerouter $routesRerouter
      * @param RoutesQuerier $routesQuerier
      */
     public function __construct(
-        RoutesRepositoryInterface $routesRepository,
+        RoutesRepository $routesRepository,
         RoutesValidator $routesValidator,
         RoutesDeleter $routesDeleter,
         RoutesRerouter $routesRerouter,
@@ -98,13 +98,13 @@ final class RoutesFacade
      * Returns the first route matching given query.
      * Throws an exception if no such route exists.
      *
-     * @param RoutesQueryInterface $query
+     * @param RoutesQuery $query
      * @return Route
      *
      * @throws RouteException
      * @throws RouteNotFoundException
      */
-    public function queryOne(RoutesQueryInterface $query): Route
+    public function queryOne(RoutesQuery $query): Route
     {
         $routes = $this->queryMany($query);
 
@@ -118,12 +118,12 @@ final class RoutesFacade
     /**
      * Returns all routes matching given query.
      *
-     * @param RoutesQueryInterface $query
+     * @param RoutesQuery $query
      * @return Collection|Route[]
      *
      * @throws RouteException
      */
-    public function queryMany(RoutesQueryInterface $query): Collection
+    public function queryMany(RoutesQuery $query): Collection
     {
         return $this->routesQuerier->query($query);
     }

@@ -4,7 +4,7 @@ namespace App\Tags\Implementation\Services;
 
 use App\Tags\Events\TagUpdated;
 use App\Tags\Exceptions\TagException;
-use App\Tags\Implementation\Repositories\TagsRepositoryInterface;
+use App\Tags\Implementation\Repositories\TagsRepository;
 use App\Tags\Models\Tag;
 use Illuminate\Contracts\Events\Dispatcher as EventsDispatcherContract;
 
@@ -17,7 +17,7 @@ class TagsUpdater
     private $eventsDispatcher;
 
     /**
-     * @var TagsRepositoryInterface
+     * @var TagsRepository
      */
     private $tagsRepository;
 
@@ -28,12 +28,12 @@ class TagsUpdater
 
     /**
      * @param EventsDispatcherContract $eventsDispatcher
-     * @param TagsRepositoryInterface $tagsRepository
+     * @param TagsRepository $tagsRepository
      * @param TagsValidator $tagsValidator
      */
     public function __construct(
         EventsDispatcherContract $eventsDispatcher,
-        TagsRepositoryInterface $tagsRepository,
+        TagsRepository $tagsRepository,
         TagsValidator $tagsValidator
     ) {
         $this->eventsDispatcher = $eventsDispatcher;

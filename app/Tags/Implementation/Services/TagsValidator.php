@@ -3,22 +3,22 @@
 namespace App\Tags\Implementation\Services;
 
 use App\Tags\Exceptions\TagException;
-use App\Tags\Implementation\Repositories\TagsRepositoryInterface;
+use App\Tags\Implementation\Repositories\TagsRepository;
 use App\Tags\Models\Tag;
 
 class TagsValidator
 {
 
     /**
-     * @var TagsRepositoryInterface
+     * @var TagsRepository
      */
     private $tagsRepository;
 
     /**
-     * @param TagsRepositoryInterface $tagsRepository
+     * @param TagsRepository $tagsRepository
      */
     public function __construct(
-        TagsRepositoryInterface $tagsRepository
+        TagsRepository $tagsRepository
     ) {
         $this->tagsRepository = $tagsRepository;
     }

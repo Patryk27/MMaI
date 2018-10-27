@@ -4,7 +4,7 @@ namespace App\Pages\Implementation\Repositories;
 
 use Illuminate\Support\Collection;
 
-class InMemoryPageVariantsRepository implements PageVariantsRepositoryInterface
+class InMemoryPageVariantsRepository implements PageVariantsRepository
 {
 
     /**

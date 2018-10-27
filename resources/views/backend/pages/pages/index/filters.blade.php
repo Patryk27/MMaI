@@ -26,7 +26,7 @@
         {{ Form::label('url', 'URL:') }}
 
         {{ Form::text('url', null, [
-            'class' => 'form-control',
+            'class' => 'form-control input-clearable',
         ]) }}
     </div>
 

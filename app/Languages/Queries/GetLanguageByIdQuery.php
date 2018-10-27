@@ -6,7 +6,7 @@ namespace App\Languages\Queries;
  * This class defines a query which will return single language with specified
  * id.
  */
-final class GetLanguageByIdQuery implements LanguagesQueryInterface
+final class GetLanguageByIdQuery implements LanguagesQuery
 {
 
     /**

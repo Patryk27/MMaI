@@ -7,7 +7,7 @@ use App\Tags\Models\Tag;
 use Illuminate\Support\Collection;
 use Throwable;
 
-class EloquentTagsRepository implements TagsRepositoryInterface
+class EloquentTagsRepository implements TagsRepository
 {
 
     /**

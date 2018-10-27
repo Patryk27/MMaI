@@ -3,9 +3,9 @@
 namespace App\Attachments\Implementation\Services;
 
 use App\Attachments\Exceptions\AttachmentException;
-use App\Attachments\Implementation\Repositories\AttachmentsRepositoryInterface;
+use App\Attachments\Implementation\Repositories\AttachmentsRepository;
 use App\Attachments\Models\Attachment;
-use App\Attachments\Queries\AttachmentsQueryInterface;
+use App\Attachments\Queries\AttachmentsQuery;
 use App\Attachments\Queries\GetAttachmentByIdQuery;
 use App\Attachments\Queries\GetAttachmentByPathQuery;
 use Illuminate\Support\Collection;
@@ -14,26 +14,26 @@ class AttachmentsQuerier
 {
 
     /**
-     * @var AttachmentsRepositoryInterface
+     * @var AttachmentsRepository
      */
     private $attachmentsRepository;
 
     /**
-     * @param AttachmentsRepositoryInterface $attachmentsRepository
+     * @param AttachmentsRepository $attachmentsRepository
      */
     public function __construct(
-        AttachmentsRepositoryInterface $attachmentsRepository
+        AttachmentsRepository $attachmentsRepository
     ) {
         $this->attachmentsRepository = $attachmentsRepository;
     }
 
     /**
-     * @param AttachmentsQueryInterface $query
+     * @param AttachmentsQuery $query
      * @return Collection|Attachment[]
      *
      * @throws AttachmentException
      */
-    public function query(AttachmentsQueryInterface $query): Collection
+    public function query(AttachmentsQuery $query): Collection
     {
         switch (true) {
             case $query instanceof GetAttachmentByIdQuery:

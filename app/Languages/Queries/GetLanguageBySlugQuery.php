@@ -6,7 +6,7 @@ namespace App\Languages\Queries;
  * This class defines a query which will return single language with specified
  * slug.
  */
-final class GetLanguageBySlugQuery implements LanguagesQueryInterface
+final class GetLanguageBySlugQuery implements LanguagesQuery
 {
 
     /**

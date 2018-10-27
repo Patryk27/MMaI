@@ -15,6 +15,11 @@ class NavigationComposer
             'title' => 'Dashboard',
         ],
 
+        'backend.analytics' => [
+            'icon' => 'fa fa-chart-line',
+            'title' => 'Analytics',
+        ],
+
         'backend.pages' => [
             'icon' => 'fa fa-file',
             'title' => 'Pages & Posts',

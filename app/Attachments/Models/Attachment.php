@@ -4,8 +4,8 @@ namespace App\Attachments\Models;
 
 use App\Attachments\Models\Interfaces\Attachable;
 use App\Attachments\Presenters\AttachmentPresenter;
-use App\Core\Models\Interfaces\Presentable;
-use App\Core\Models\Traits\HasPresenter;
+use App\Core\Models\HasPresenter;
+use App\Core\Models\Presentable;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 

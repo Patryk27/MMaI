@@ -2,7 +2,7 @@
 
 namespace App\Attachments\Queries;
 
-final class GetAttachmentByIdQuery implements AttachmentsQueryInterface
+final class GetAttachmentByIdQuery implements AttachmentsQuery
 {
 
     /**

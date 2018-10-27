@@ -1,4 +1,4 @@
-import Requester from './Requester';
+import ApiRequester from './ApiRequester';
 
 export default class AttachmentsFacade {
 
@@ -13,7 +13,7 @@ export default class AttachmentsFacade {
 
         data.append('attachment', file);
 
-        return Requester.executeProgressable({
+        return ApiRequester.executeProgressable({
             method: 'post',
             url: '/attachments',
             data,

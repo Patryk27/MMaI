@@ -2,7 +2,7 @@
 
 namespace App\Attachments\Implementation\Services;
 
-use App\Attachments\Implementation\Repositories\AttachmentsRepositoryInterface;
+use App\Attachments\Implementation\Repositories\AttachmentsRepository;
 use App\Attachments\ValueObjects\AttachmentsGarbageCollectorResult;
 use Illuminate\Contracts\Filesystem\Filesystem as FilesystemContract;
 
@@ -15,7 +15,7 @@ class AttachmentsGarbageCollector
     private $attachmentsFs;
 
     /**
-     * @var AttachmentsRepositoryInterface
+     * @var AttachmentsRepository
      */
     private $attachmentsRepository;
 
@@ -26,12 +26,12 @@ class AttachmentsGarbageCollector
 
     /**
      * @param FilesystemContract $attachmentsFs
-     * @param AttachmentsRepositoryInterface $attachmentsRepository
+     * @param AttachmentsRepository $attachmentsRepository
      * @param AttachmentsDeleter $attachmentsDeleter
      */
     public function __construct(
         FilesystemContract $attachmentsFs,
-        AttachmentsRepositoryInterface $attachmentsRepository,
+        AttachmentsRepository $attachmentsRepository,
         AttachmentsDeleter $attachmentsDeleter
     ) {
         $this->attachmentsFs = $attachmentsFs;

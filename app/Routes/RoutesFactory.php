@@ -2,7 +2,7 @@
 
 namespace App\Routes;
 
-use App\Routes\Implementation\Repositories\RoutesRepositoryInterface;
+use App\Routes\Implementation\Repositories\RoutesRepository;
 use App\Routes\Implementation\Services\RoutesDeleter;
 use App\Routes\Implementation\Services\RoutesQuerier;
 use App\Routes\Implementation\Services\RoutesRerouter;
@@ -14,11 +14,11 @@ final class RoutesFactory
     /**
      * Builds an instance of @see RoutesFacade.
      *
-     * @param RoutesRepositoryInterface $routesRepository
+     * @param RoutesRepository $routesRepository
      * @return RoutesFacade
      */
     public static function build(
-        RoutesRepositoryInterface $routesRepository
+        RoutesRepository $routesRepository
     ): RoutesFacade {
         $routesValidator = new RoutesValidator();
         $routesDeleter = new RoutesDeleter($routesRepository);

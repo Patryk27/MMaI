@@ -1,4 +1,4 @@
-import Requester from './Requester';
+import ApiRequester from './ApiRequester';
 
 export default class TagsFacade {
 
@@ -15,7 +15,7 @@ export default class TagsFacade {
      * @returns {Promise<void>}
      */
     static async create(tag) {
-        return Requester.execute({
+        return ApiRequester.execute({
             method: 'post',
             url: '/tags',
             data: tag,
@@ -35,7 +35,7 @@ export default class TagsFacade {
      * @returns {Promise<void>}
      */
     static async update(id, tag) {
-        return Requester.execute({
+        return ApiRequester.execute({
             method: 'put',
             url: `/tags/${id}`,
             data: tag,
@@ -49,7 +49,7 @@ export default class TagsFacade {
      * @returns {Promise<void>}
      */
     static async delete(id) {
-        return Requester.execute({
+        return ApiRequester.execute({
             method: 'delete',
             url: `/tags/${id}`,
         });

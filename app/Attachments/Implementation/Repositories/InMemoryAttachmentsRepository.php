@@ -6,7 +6,7 @@ use App\Attachments\Models\Attachment;
 use App\Core\Repositories\InMemoryRepository;
 use Illuminate\Support\Collection;
 
-class InMemoryAttachmentsRepository implements AttachmentsRepositoryInterface
+class InMemoryAttachmentsRepository implements AttachmentsRepository
 {
 
     /**

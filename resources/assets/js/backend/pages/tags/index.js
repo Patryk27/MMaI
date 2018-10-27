@@ -42,8 +42,8 @@ export default function () {
     });
 
     bus.on('filters::submitted', (filters) => {
-        if (filters.languageIds.length === 1) {
-            tagCreator.setLanguageId(filters.languageIds[0]);
+        if (filters.languageIds.value.length === 1) {
+            tagCreator.setLanguageId(filters.languageIds.value[0]);
         }
 
         tagsList.refresh(filters);

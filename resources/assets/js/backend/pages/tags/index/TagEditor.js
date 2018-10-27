@@ -136,8 +136,8 @@ export default class TagEditor {
             // Eventually - close the modal
             this.$close();
         } catch (error) {
-            if (error.type === 'invalid-input') {
-                for (const [fieldName, [fieldError]] of Object.entries(error.payload)) {
+            if (error.getType && error.getType() === 'invalid-input') {
+                for (const [fieldName, [fieldError]] of Object.entries(error.getPayload())) {
                     const formFieldName = this.$formFieldsMapping[fieldName];
                     const component = this.$form[formFieldName];
 
@@ -146,7 +146,7 @@ export default class TagEditor {
             } else {
                 swal({
                     title: 'Cannot create tag',
-                    text: error.message,
+                    text: error.toString(),
                     icon: 'error',
                 }).then(() => {
                     $form.name.focus();

@@ -2,6 +2,10 @@
 
 namespace App\Application\Providers;
 
+use App\Analytics\AnalyticsFacade;
+use App\Analytics\AnalyticsFactory;
+use App\Analytics\Implementation\Repositories\EloquentEventsRepository;
+use App\Analytics\Implementation\Services\Searcher\EloquentRequestEventsSearcher;
 use App\Attachments\AttachmentsFacade;
 use App\Attachments\AttachmentsFactory;
 use App\Attachments\Implementation\Repositories\EloquentAttachmentsRepository;
@@ -34,6 +38,7 @@ final class FacadeServiceProvider extends ServiceProvider
 {
 
     private const FACADES = [
+        AnalyticsFacade::class,
         AttachmentsFacade::class,
         LanguagesFacade::class,
         MenusFacade::class,
@@ -53,6 +58,14 @@ final class FacadeServiceProvider extends ServiceProvider
         if ($this->app->runningUnitTests()) {
             return;
         }
+
+        // == Analytics == //
+        $this->app->singleton(AnalyticsFacade::class, function (): AnalyticsFacade {
+            return AnalyticsFactory::build(
+                $this->app->make(EloquentEventsRepository::class),
+                $this->app->make(EloquentRequestEventsSearcher::class)
+            );
+        });
 
         // == Attachments == //
         $this->app->singleton(AttachmentsFacade::class, function (): AttachmentsFacade {

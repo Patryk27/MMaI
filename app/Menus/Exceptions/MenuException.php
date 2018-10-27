@@ -2,9 +2,9 @@
 
 namespace App\Menus\Exceptions;
 
-use App\Core\Exceptions\Exception as AppException;
+use App\Core\Exceptions\Exception as CoreException;
 
-class MenuException extends AppException
+class MenuException extends CoreException
 {
 
 }

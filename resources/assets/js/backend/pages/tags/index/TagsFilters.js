@@ -22,7 +22,10 @@ export default class TagsFilters {
      */
     submit() {
         this.$bus.emit('filters::submitted', {
-            languageIds: this.$dom.languageIds.val(),
+            languageIds: {
+                operator: 'in',
+                value: this.$dom.languageIds.val(),
+            },
         });
     }
 

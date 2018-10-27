@@ -1,0 +1,43 @@
+.flatpickr-calendar {
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
+
+  &.arrowTop {
+    &::before, &::after {
+      display: none;
+    }
+  }
+
+  .flatpickr-current-month {
+    .cur-month {
+      font-weight: normal;
+    }
+  }
+
+  .flatpickr-month,
+  .flatpickr-weekdays,
+  .flatpickr-weekdaycontainer,
+  .flatpickr-weekday {
+    background: $dark;
+  }
+
+  .flatpickr-weekday {
+    color: white;
+  }
+
+  .flatpickr-month,
+  .flatpickr-time {
+    border-radius: 0;
+  }
+
+  .flatpickr-time {
+    .flatpickr-hour {
+      font-weight: normal;
+    }
+  }
+
+  input {
+    &::selection {
+      color: white;
+    }
+  }
+}

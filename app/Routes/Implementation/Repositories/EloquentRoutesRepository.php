@@ -2,13 +2,13 @@
 
 namespace App\Routes\Implementation\Repositories;
 
-use App\Core\Models\Interfaces\Morphable;
+use App\Core\Models\Morphable;
 use App\Core\Repositories\EloquentRepository;
 use App\Routes\Models\Route;
 use Illuminate\Support\Collection;
 use Throwable;
 
-class EloquentRoutesRepository implements RoutesRepositoryInterface
+class EloquentRoutesRepository implements RoutesRepository
 {
 
     /**

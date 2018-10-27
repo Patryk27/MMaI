@@ -3,46 +3,46 @@
 namespace App\Tags\Implementation\Services;
 
 use App\Tags\Exceptions\TagException;
-use App\Tags\Implementation\Repositories\TagsRepositoryInterface;
+use App\Tags\Implementation\Repositories\TagsRepository;
 use App\Tags\Models\Tag;
 use App\Tags\Queries\GetAllTagsQuery;
 use App\Tags\Queries\GetTagByIdQuery;
 use App\Tags\Queries\SearchTagsQuery;
-use App\Tags\Queries\TagsQueryInterface;
+use App\Tags\Queries\TagsQuery;
 use Illuminate\Support\Collection;
 
 class TagsQuerier
 {
 
     /**
-     * @var TagsRepositoryInterface
+     * @var TagsRepository
      */
     private $tagsRepository;
 
     /**
-     * @var TagsSearcherInterface
+     * @var TagsSearcher
      */
     private $tagsSearcher;
 
     /**
-     * @param TagsRepositoryInterface $tagsRepository
-     * @param TagsSearcherInterface $tagsSearcher
+     * @param TagsRepository $tagsRepository
+     * @param TagsSearcher $tagsSearcher
      */
     public function __construct(
-        TagsRepositoryInterface $tagsRepository,
-        TagsSearcherInterface $tagsSearcher
+        TagsRepository $tagsRepository,
+        TagsSearcher $tagsSearcher
     ) {
         $this->tagsRepository = $tagsRepository;
         $this->tagsSearcher = $tagsSearcher;
     }
 
     /**
-     * @param TagsQueryInterface $query
+     * @param TagsQuery $query
      * @return Collection|Tag[]
      *
      * @throws TagException
      */
-    public function query(TagsQueryInterface $query): Collection
+    public function query(TagsQuery $query): Collection
     {
         switch (true) {
             case $query instanceof GetAllTagsQuery:
@@ -68,16 +68,16 @@ class TagsQuerier
     /**
      * Returns number of tags matching given query.
      *
-     * @param TagsQueryInterface $query
+     * @param TagsQuery $query
      * @return int
      *
      * @throws TagException
      */
-    public function queryCount(TagsQueryInterface $query): int
+    public function count(TagsQuery $query): int
     {
         switch (true) {
             case $query instanceof SearchTagsQuery:
-                return $query->applyTo($this->tagsSearcher)->getCount();
+                return $query->applyTo($this->tagsSearcher)->count();
 
             default:
                 return $this->query($query)->count();

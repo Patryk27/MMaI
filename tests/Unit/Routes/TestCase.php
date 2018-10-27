@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Routes;
 
-use App\Core\Models\Interfaces\Morphable;
+use App\Core\Models\Morphable;
 use App\Core\Repositories\InMemoryRepository;
 use App\Routes\Implementation\Repositories\InMemoryRoutesRepository;
 use App\Routes\RoutesFacade;

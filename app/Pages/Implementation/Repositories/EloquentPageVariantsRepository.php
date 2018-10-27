@@ -7,7 +7,7 @@ use App\Pages\Models\PageVariant;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Support\Collection;
 
-class EloquentPageVariantsRepository implements PageVariantsRepositoryInterface
+class EloquentPageVariantsRepository implements PageVariantsRepository
 {
 
     /**

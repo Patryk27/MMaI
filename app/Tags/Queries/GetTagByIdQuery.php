@@ -2,7 +2,7 @@
 
 namespace App\Tags\Queries;
 
-final class GetTagByIdQuery implements TagsQueryInterface
+final class GetTagByIdQuery implements TagsQuery
 {
 
     /**

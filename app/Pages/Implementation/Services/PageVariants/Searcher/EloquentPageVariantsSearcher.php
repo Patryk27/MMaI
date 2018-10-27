@@ -2,30 +2,61 @@
 
 namespace App\Pages\Implementation\Services\PageVariants\Searcher;
 
-use App\Core\Exceptions\Exception as AppException;
-use App\Core\Services\Searcher\AbstractEloquentSearcher;
-use App\Core\Services\Searcher\EloquentSearcher;
-use App\Pages\Implementation\Services\PageVariants\PageVariantsSearcherInterface;
+use App\Core\Searcher\AbstractEloquentSearcher;
+use App\Core\Searcher\EloquentSearcher\EloquentMapper;
+use App\Pages\Implementation\Services\PageVariants\PageVariantsSearcher;
 use App\Pages\Models\PageVariant;
 use App\Pages\Queries\SearchPageVariantsQuery;
 use Illuminate\Database\Query\JoinClause;
 
-class EloquentPageVariantsSearcher extends AbstractEloquentSearcher implements PageVariantsSearcherInterface
+class EloquentPageVariantsSearcher extends AbstractEloquentSearcher implements PageVariantsSearcher
 {
 
-    private const FIELDS_MAP = [
-        SearchPageVariantsQuery::FIELD_ID => 'page_variants.id',
-        SearchPageVariantsQuery::FIELD_TITLE => 'page_variants.title',
-        SearchPageVariantsQuery::FIELD_STATUS => 'page_variants.status',
-        SearchPageVariantsQuery::FIELD_CREATED_AT => 'page_variants.created_at',
+    private const FIELDS = [
+        SearchPageVariantsQuery::FIELD_ID => [
+            'column' => 'page_variants.id',
+            'type' => EloquentMapper::FIELD_TYPE_NUMBER,
+        ],
 
-        SearchPageVariantsQuery::FIELD_PAGE_ID => 'pages.id',
-        SearchPageVariantsQuery::FIELD_PAGE_TYPE => 'pages.type',
+        SearchPageVariantsQuery::FIELD_TITLE => [
+            'column' => 'page_variants.title',
+            'type' => EloquentMapper::FIELD_TYPE_STRING,
+        ],
 
-        SearchPageVariantsQuery::FIELD_LANGUAGE_ID => 'languages.id',
-        SearchPageVariantsQuery::FIELD_LANGUAGE_NAME => 'languages.english_name',
+        SearchPageVariantsQuery::FIELD_STATUS => [
+            'column' => 'page_variants.status',
+            'type' => EloquentMapper::FIELD_TYPE_ENUM,
+        ],
 
-        SearchPageVariantsQuery::FIELD_ROUTE_URL => 'routes.url',
+        SearchPageVariantsQuery::FIELD_CREATED_AT => [
+            'column' => 'page_variants.created_at',
+            'type' => EloquentMapper::FIELD_TYPE_DATETIME,
+        ],
+
+        SearchPageVariantsQuery::FIELD_PAGE_ID => [
+            'column' => 'pages.id',
+            'type' => EloquentMapper::FIELD_TYPE_NUMBER,
+        ],
+
+        SearchPageVariantsQuery::FIELD_PAGE_TYPE => [
+            'column' => 'pages.type',
+            'type' => EloquentMapper::FIELD_TYPE_ENUM,
+        ],
+
+        SearchPageVariantsQuery::FIELD_LANGUAGE_ID => [
+            'column' => 'languages.id',
+            'type' => EloquentMapper::FIELD_TYPE_NUMBER,
+        ],
+
+        SearchPageVariantsQuery::FIELD_LANGUAGE_NAME => [
+            'column' => 'languages.english_name',
+            'type' => EloquentMapper::FIELD_TYPE_STRING,
+        ],
+
+        SearchPageVariantsQuery::FIELD_ROUTE_URL => [
+            'column' => 'routes.url',
+            'type' => EloquentMapper::FIELD_TYPE_STRING,
+        ],
     ];
 
     /**
@@ -35,26 +66,26 @@ class EloquentPageVariantsSearcher extends AbstractEloquentSearcher implements P
         PageVariant $pageVariant
     ) {
         parent::__construct(
-            new EloquentSearcher($pageVariant, self::FIELDS_MAP)
+            $pageVariant,
+            self::FIELDS
         );
 
-        $builder = $this->searcher->getBuilder();
-        $builder->selectRaw('page_variants.*');
+        $this->builder->selectRaw('page_variants.*');
 
         // Include pages
-        $builder->join('pages', 'pages.id', 'page_variants.page_id');
+        $this->builder->join('pages', 'pages.id', 'page_variants.page_id');
 
         // Include languages
-        $builder->join('languages', 'languages.id', 'page_variants.language_id');
+        $this->builder->join('languages', 'languages.id', 'page_variants.language_id');
 
         // Include routes
-        $builder->leftJoin('routes', function (JoinClause $join): void {
+        $this->builder->leftJoin('routes', function (JoinClause $join): void {
             $join->on('routes.model_id', 'page_variants.id');
 
-            // We have to do whereRaw() here instead of regular where() here,
-            // because when using bindings, MySQL fails to prove functional
-            // dependency between 'pages' and 'routes' tables, which causes some
-            // search cases to fail (e.g. when sorting by routes):
+            // We have to do whereRaw() instead of regular where() here, because
+            // - when using bindings - MySQL fails to prove functional
+            // dependency between the 'pages' and 'routes' tables, which cause
+            // queries to fail (e.g. when ordering by routes):
             $join->whereRaw(
                 sprintf('routes.model_type = "%s"', PageVariant::getMorphableType())
             );
@@ -64,44 +95,9 @@ class EloquentPageVariantsSearcher extends AbstractEloquentSearcher implements P
     /**
      * @inheritdoc
      */
-    public function search(string $search): void
+    public function count(): int
     {
-        $this->searcher->search($search, [
-            SearchPageVariantsQuery::FIELD_TITLE,
-            SearchPageVariantsQuery::FIELD_ROUTE_URL,
-        ]);
-    }
-
-    /**
-     * @inheritDoc
-     *
-     * @throws AppException
-     */
-    public function filter(array $fields): void
-    {
-        $this->searcher->filter($fields, [
-            SearchPageVariantsQuery::FIELD_ID => EloquentSearcher::FILTER_EQUAL,
-            SearchPageVariantsQuery::FIELD_TITLE => EloquentSearcher::FILTER_LIKE,
-            SearchPageVariantsQuery::FIELD_STATUS => EloquentSearcher::FILTER_EQUAL,
-
-            SearchPageVariantsQuery::FIELD_PAGE_ID => EloquentSearcher::FILTER_EQUAL,
-            SearchPageVariantsQuery::FIELD_PAGE_TYPE => EloquentSearcher::FILTER_EQUAL,
-
-            SearchPageVariantsQuery::FIELD_LANGUAGE_ID => EloquentSearcher::FILTER_EQUAL,
-            SearchPageVariantsQuery::FIELD_LANGUAGE_NAME => EloquentSearcher::FILTER_LIKE,
-
-            SearchPageVariantsQuery::FIELD_ROUTE_URL => EloquentSearcher::FILTER_LIKE,
-        ]);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getCount(): int
-    {
-        return $this->searcher
-            ->getBuilder()
-            ->count('page_variants.id');
+        return $this->builder->count('page_variants.id');
     }
 
 }

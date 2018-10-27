@@ -1,5 +1,5 @@
 import swal from 'sweetalert';
-import Requester from '../../../../base/api/Requester';
+import ApiRequester from '../../../../base/api/ApiRequester';
 
 export default class Form {
 
@@ -48,7 +48,7 @@ export default class Form {
         try {
             const $form = this.$dom.form;
 
-            const response = await Requester.execute({
+            const response = await ApiRequester.execute({
                 method: $form.data('method'),
                 url: $form.data('url'),
                 data: this.$serialize(),
@@ -59,13 +59,13 @@ export default class Form {
 
             this.$bus.emit('form::submitted', { response });
         } catch (error) {
-            if (error.type === 'invalid-input') {
+            if (error.getType && error.getType() === 'invalid-input') {
                 this.$bus.emit('form::invalid-input', error.payload); // @todo highlight the invalid input
             } else {
                 // noinspection JSIgnoredPromiseFromCall
                 swal({
                     title: 'Cannot save page',
-                    text: error.message,
+                    text: error.toString(),
                     icon: 'error',
                 });
             }

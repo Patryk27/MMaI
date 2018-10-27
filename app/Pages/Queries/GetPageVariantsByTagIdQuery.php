@@ -5,7 +5,7 @@ namespace App\Pages\Queries;
 /**
  * Defines a query which will return all page variants assigned to given tag.
  */
-final class GetPageVariantsByTagIdQuery implements PageVariantsQueryInterface
+final class GetPageVariantsByTagIdQuery implements PageVariantsQuery
 {
 
     /**

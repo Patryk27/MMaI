@@ -4,7 +4,7 @@ namespace App\Application\Http\Controllers\Backend;
 
 use App\Application\Http\Controllers\Controller;
 use App\Application\Http\Requests\Backend\Auth\SignInRequest;
-use App\Core\Services\Layout\Flasher;
+use App\Core\Layout\Flasher;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Contracts\Auth\StatefulGuard as StatefulGuardContract;
 

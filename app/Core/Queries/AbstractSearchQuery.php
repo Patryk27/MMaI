@@ -2,7 +2,7 @@
 
 namespace App\Core\Queries;
 
-use App\Core\Services\Searcher\SearcherInterface;
+use App\Core\Searcher\Searcher;
 
 /**
  * This is a base class which is used to facilitate building "searching"
@@ -12,28 +12,28 @@ abstract class AbstractSearchQuery
 {
 
     /**
-     * @see \App\Core\Services\Searcher\SearcherInterface::search()
+     * @see Searcher::applyTextQuery()
      *
      * @var string
      */
-    private $search;
+    private $textQuery;
 
     /**
-     * @see \App\Core\Services\Searcher\SearcherInterface::filter()
+     * @see Searcher::applyFilters()
      *
      * @var array
      */
     private $filters;
 
     /**
-     * @see \App\Core\Services\Searcher\SearcherInterface::orderBy()
+     * @see Searcher::orderBy()
      *
      * @var array
      */
     private $orderBy;
 
     /**
-     * @see \App\Core\Services\Searcher\SearcherInterface::forPage()
+     * @see Searcher::paginate()
      *
      * @var array
      */
@@ -45,33 +45,34 @@ abstract class AbstractSearchQuery
     public function __construct(
         array $query
     ) {
-        $this->search = array_get($query, 'search', '');
+        $this->textQuery = array_get($query, 'textQuery', '');
         $this->filters = array_get($query, 'filters', []);
         $this->orderBy = array_get($query, 'orderBy', []);
         $this->pagination = array_get($query, 'pagination', []);
     }
 
     /**
-     * Applies this query to given searcher service and returns it.
+     * Applies this query to given searcher and returns it.
      *
-     * Technically there is no reason to return the given $searcher
-     * instance, but it allows to do a nice-looking, pleasant method chaining:
-     *   $query->applyTo($searcher)->get();
-     *
-     * @param SearcherInterface $searcher
-     * @return SearcherInterface
+     * @param Searcher $searcher
+     * @return Searcher
      */
-    public function applyTo(SearcherInterface $searcher): SearcherInterface
+    public function applyTo(Searcher $searcher): Searcher
     {
-        $searcher->search($this->getSearch());
-        $searcher->filter($this->getFilters());
+        $searcher->applyTextQuery(
+            $this->getTextQuery()
+        );
 
-        foreach ($this->getOrderBy() as $field => $direction) {
-            $searcher->orderBy($field, strtolower($direction) === 'asc');
+        $searcher->applyFilters(
+            $this->getFilters()
+        );
+
+        foreach ($this->getOrderBy() as $fieldName => $fieldDirection) {
+            $searcher->orderBy($fieldName, strtolower($fieldDirection) === 'asc');
         }
 
         if ($this->hasPagination()) {
-            $searcher->forPage(
+            $searcher->paginate(
                 $this->getPagination()['page'],
                 $this->getPagination()['perPage']
             );
@@ -83,9 +84,9 @@ abstract class AbstractSearchQuery
     /**
      * @return string
      */
-    public function getSearch(): string
+    public function getTextQuery(): string
     {
-        return $this->search;
+        return $this->textQuery;
     }
 
     /**

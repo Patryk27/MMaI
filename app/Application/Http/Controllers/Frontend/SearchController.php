@@ -4,8 +4,8 @@ namespace App\Application\Http\Controllers\Frontend;
 
 use App\Application\Http\Controllers\Controller;
 use App\Application\Http\Requests\Frontend\SearchRequest;
-use App\Core\Exceptions\Exception as AppException;
-use App\Core\Services\Language\Detector as LanguageDetector;
+use App\Core\Exceptions\Exception as CoreException;
+use App\Core\Language\Detector as LanguageDetector;
 use App\Pages\Exceptions\PageException;
 use App\Pages\Models\Page;
 use App\Pages\Models\PageVariant;
@@ -61,7 +61,7 @@ class SearchController extends Controller
      * @return mixed
      *
      * @throws PageException
-     * @throws AppException
+     * @throws CoreException
      */
     public function search(SearchRequest $request)
     {

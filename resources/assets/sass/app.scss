@@ -1,9 +1,10 @@
 @import 'variables';
 @import '~bootstrap/scss/bootstrap';
+@import '~flatpickr/dist/themes/material_blue.css';
 @import '~@fortawesome/fontawesome-free-webfonts/scss/fontawesome';
 @import '~@fortawesome/fontawesome-free-webfonts/scss/fa-solid';
-@import '~datatables.net-bs4/css/dataTables.bootstrap4.css';
-@import '~select2/dist/css/select2.css';
+@import '~datatables.net-bs4/css/dataTables.bootstrap4.min.css';
+@import '~select2/dist/css/select2.min.css';
 @import '~simplemde/dist/simplemde.min.css';
 @import '~tippy.js/dist/tippy.css';
 

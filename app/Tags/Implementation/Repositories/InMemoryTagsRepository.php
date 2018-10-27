@@ -6,7 +6,7 @@ use App\Core\Repositories\InMemoryRepository;
 use App\Tags\Models\Tag;
 use Illuminate\Support\Collection;
 
-class InMemoryTagsRepository implements TagsRepositoryInterface
+class InMemoryTagsRepository implements TagsRepository
 {
 
     /**

@@ -2,9 +2,9 @@
 
 namespace App\Pages\Exceptions;
 
-use App\Core\Exceptions\Exception as AppException;
+use App\Core\Exceptions\Exception as CoreException;
 
-class PageException extends AppException
+class PageException extends CoreException
 {
 
 }

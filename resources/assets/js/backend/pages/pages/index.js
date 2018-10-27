@@ -7,10 +7,25 @@ function getFilters() {
     const $filters = $('#pages-filters');
 
     return {
-        page_type: $filters.find('[name="types[]"]').val(),
-        route_url: $filters.find('[name="url"]').val(),
-        language_id: $filters.find('[name="language_ids[]"]').val(),
-        status: $filters.find('[name="statuses[]"]').val(),
+        page_type: {
+            operator: 'in',
+            value: $filters.find('[name="types[]"]').val(),
+        },
+
+        route_url: {
+            operator: 'expression',
+            value: $filters.find('[name="url"]').val(),
+        },
+
+        language_id: {
+            operator: 'in',
+            value: $filters.find('[name="language_ids[]"]').val(),
+        },
+
+        status: {
+            operator: 'in',
+            value: $filters.find('[name="statuses[]"]').val(),
+        },
     };
 }
 

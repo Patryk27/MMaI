@@ -13,6 +13,7 @@ use Exception;
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Contracts\View\View as ViewContract;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use LogicException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
@@ -51,17 +52,16 @@ class DispatchController extends Controller
     }
 
     /**
-     * @param string $subdomain
-     * @param string $url
+     * @param Request $request
      * @return mixed
      *
      * @throws Throwable
      */
-    public function dispatch(string $subdomain, string $url)
+    public function dispatch(Request $request)
     {
         try {
             $route = $this->routesFacade->queryOne(
-                new GetRouteBySubdomainAndUrlQuery($subdomain, $url)
+                GetRouteBySubdomainAndUrlQuery::buildFromRequest($request)
             );
         } catch (RouteNotFoundException $ex) {
             throw new NotFoundHttpException();

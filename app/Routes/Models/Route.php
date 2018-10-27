@@ -2,7 +2,7 @@
 
 namespace App\Routes\Models;
 
-use App\Core\Models\Interfaces\Morphable;
+use App\Core\Models\Morphable;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 

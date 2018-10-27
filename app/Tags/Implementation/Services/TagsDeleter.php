@@ -3,7 +3,7 @@
 namespace App\Tags\Implementation\Services;
 
 use App\Tags\Events\TagDeleted;
-use App\Tags\Implementation\Repositories\TagsRepositoryInterface;
+use App\Tags\Implementation\Repositories\TagsRepository;
 use App\Tags\Models\Tag;
 use Illuminate\Contracts\Events\Dispatcher as EventsDispatcherContract;
 
@@ -16,17 +16,17 @@ class TagsDeleter
     private $eventsDispatcher;
 
     /**
-     * @var TagsRepositoryInterface
+     * @var TagsRepository
      */
     private $tagsRepository;
 
     /**
      * @param EventsDispatcherContract $eventsDispatcher
-     * @param TagsRepositoryInterface $tagsRepository
+     * @param TagsRepository $tagsRepository
      */
     public function __construct(
         EventsDispatcherContract $eventsDispatcher,
-        TagsRepositoryInterface $tagsRepository
+        TagsRepository $tagsRepository
     ) {
         $this->eventsDispatcher = $eventsDispatcher;
         $this->tagsRepository = $tagsRepository;

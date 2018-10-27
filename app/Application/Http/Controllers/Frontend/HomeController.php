@@ -3,9 +3,9 @@
 namespace App\Application\Http\Controllers\Frontend;
 
 use App\Application\Http\Controllers\Controller;
+use App\Core\Collection\Paginator as CollectionPaginator;
 use App\Core\Exceptions\Exception as CoreException;
-use App\Core\Services\Collection\Paginator as CollectionPaginator;
-use App\Core\Services\Language\Detector as LanguageDetector;
+use App\Core\Language\Detector as LanguageDetector;
 use App\Pages\Exceptions\PageException;
 use App\Pages\Models\Page;
 use App\Pages\Models\PageVariant;

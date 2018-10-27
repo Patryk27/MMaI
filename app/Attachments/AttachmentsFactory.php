@@ -2,7 +2,7 @@
 
 namespace App\Attachments;
 
-use App\Attachments\Implementation\Repositories\AttachmentsRepositoryInterface;
+use App\Attachments\Implementation\Repositories\AttachmentsRepository;
 use App\Attachments\Implementation\Services\AttachmentsCreator;
 use App\Attachments\Implementation\Services\AttachmentsDeleter;
 use App\Attachments\Implementation\Services\AttachmentsGarbageCollector;
@@ -17,12 +17,12 @@ final class AttachmentsFactory
      * Builds an instance of @see AttachmentsFacade.
      *
      * @param FilesystemContract $attachmentsFs
-     * @param AttachmentsRepositoryInterface $attachmentsRepository
+     * @param AttachmentsRepository $attachmentsRepository
      * @return AttachmentsFacade
      */
     public static function build(
         FilesystemContract $attachmentsFs,
-        AttachmentsRepositoryInterface $attachmentsRepository
+        AttachmentsRepository $attachmentsRepository
     ): AttachmentsFacade {
         $attachmentsCreator = new AttachmentsCreator($attachmentsFs, $attachmentsRepository);
         $attachmentsDeleter = new AttachmentsDeleter($attachmentsFs, $attachmentsRepository);

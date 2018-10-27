@@ -6,7 +6,7 @@ use App\Core\Repositories\EloquentRepository;
 use App\Menus\Models\MenuItem;
 use Illuminate\Support\Collection;
 
-class EloquentMenuItemsRepository implements MenuItemsRepositoryInterface
+class EloquentMenuItemsRepository implements MenuItemsRepository
 {
 
     /**

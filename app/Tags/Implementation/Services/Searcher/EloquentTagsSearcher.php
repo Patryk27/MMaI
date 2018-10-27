@@ -2,24 +2,41 @@
 
 namespace App\Tags\Implementation\Services\Searcher;
 
-use App\Core\Exceptions\Exception as AppException;
-use App\Core\Services\Searcher\AbstractEloquentSearcher;
-use App\Core\Services\Searcher\EloquentSearcher;
-use App\Tags\Implementation\Services\TagsSearcherInterface;
+use App\Core\Searcher\AbstractEloquentSearcher;
+use App\Core\Searcher\EloquentSearcher\EloquentMapper;
+use App\Tags\Implementation\Services\TagsSearcher;
 use App\Tags\Models\Tag;
 use App\Tags\Queries\SearchTagsQuery;
+use Illuminate\Database\Query\Builder as QueryBuilder;
 
-class EloquentTagsSearcher extends AbstractEloquentSearcher implements TagsSearcherInterface
+class EloquentTagsSearcher extends AbstractEloquentSearcher implements TagsSearcher
 {
 
-    private const FIELDS_MAP = [
-        SearchTagsQuery::FIELD_ID => 'tags.id',
-        SearchTagsQuery::FIELD_NAME => 'tags.name',
-        SearchTagsQuery::FIELD_CREATED_AT => 'tags.created_at',
+    private const FIELDS = [
+        SearchTagsQuery::FIELD_ID => [
+            'column' => 'tags.id',
+            'type' => EloquentMapper::FIELD_TYPE_NUMBER,
+        ],
 
-        SearchTagsQuery::FIELD_LANGUAGE_ID => 'tags.language_id',
+        SearchTagsQuery::FIELD_NAME => [
+            'column' => 'tags.name',
+            'type' => EloquentMapper::FIELD_TYPE_STRING,
+        ],
 
-        SearchTagsQuery::FIELD_PAGE_VARIANT_COUNT => 'page_variant_count',
+        SearchTagsQuery::FIELD_CREATED_AT => [
+            'column' => 'tags.created_at',
+            'type' => EloquentMapper::FIELD_TYPE_DATETIME,
+        ],
+
+        SearchTagsQuery::FIELD_LANGUAGE_ID => [
+            'column' => 'tags.language_id',
+            'type' => EloquentMapper::FIELD_TYPE_NUMBER,
+        ],
+
+        SearchTagsQuery::FIELD_PAGE_VARIANT_COUNT => [
+            'column' => 'page_variant_count',
+            'type' => EloquentMapper::FIELD_TYPE_NUMBER,
+        ],
     ];
 
     /**
@@ -29,50 +46,29 @@ class EloquentTagsSearcher extends AbstractEloquentSearcher implements TagsSearc
         Tag $tag
     ) {
         parent::__construct(
-            new EloquentSearcher($tag, self::FIELDS_MAP)
+            $tag,
+            self::FIELDS
         );
 
-        $builder = $this->searcher->getBuilder();
-        $builder->selectRaw('tags.*');
-        $builder->selectRaw('COUNT(DISTINCT page_variant_tag.page_variant_id) AS page_variant_count');
+        $this->builder->selectRaw('tags.*');
 
-        // Include tags
-        $builder->leftJoin('page_variant_tag', 'page_variant_tag.tag_id', 'tags.id');
-
-        // Since this query involves a JOIN clause, we need to group our records
-        // back
-        $builder->groupBy('tags.id');
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function search(string $search): void
-    {
-        $this->searcher->search($search, [
-            SearchTagsQuery::FIELD_NAME,
-        ]);
-    }
-
-    /**
-     * @inheritDoc
-     *
-     * @throws AppException
-     */
-    public function filter(array $fields): void
-    {
-        $this->searcher->filter($fields, [
-            SearchTagsQuery::FIELD_ID => EloquentSearcher::FILTER_EQUAL,
-            SearchTagsQuery::FIELD_NAME => EloquentSearcher::FILTER_LIKE,
-
-            SearchTagsQuery::FIELD_LANGUAGE_ID => EloquentSearcher::FILTER_EQUAL,
-        ]);
+        // Join number of pages per each tag
+        // @todo this will be pretty slow on a big dataset set probably
+        $this->builder
+            ->selectRaw('page_variant_counts.page_variant_count')
+            ->joinSub(function (QueryBuilder $builder): void {
+                $builder
+                    ->selectRaw('page_variant_tag.tag_id AS tag_id')
+                    ->selectRaw('count(page_variant_tag.tag_id) AS page_variant_count')
+                    ->from('page_variant_tag')
+                    ->groupBy('page_variant_tag.tag_id');
+            }, 'page_variant_counts', 'page_variant_counts.tag_id', 'tags.id');
     }
 
     /**
      * @inheritdoc
      */
-    public function getCount(): int
+    public function count(): int
     {
         return $this->get()->count(); // @todo provide a better implementation
     }

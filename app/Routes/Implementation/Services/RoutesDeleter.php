@@ -2,7 +2,7 @@
 
 namespace App\Routes\Implementation\Services;
 
-use App\Routes\Implementation\Repositories\RoutesRepositoryInterface;
+use App\Routes\Implementation\Repositories\RoutesRepository;
 use App\Routes\Models\Route;
 
 /**
@@ -12,15 +12,15 @@ class RoutesDeleter
 {
 
     /**
-     * @var RoutesRepositoryInterface
+     * @var RoutesRepository
      */
     private $routesRepository;
 
     /**
-     * @param RoutesRepositoryInterface $routesRepository
+     * @param RoutesRepository $routesRepository
      */
     public function __construct(
-        RoutesRepositoryInterface $routesRepository
+        RoutesRepository $routesRepository
     ) {
         $this->routesRepository = $routesRepository;
     }

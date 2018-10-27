@@ -2,9 +2,9 @@
 
 namespace App\Tags\Exceptions;
 
-use App\Core\Exceptions\Exception as AppException;
+use App\Core\Exceptions\Exception as CoreException;
 
-class TagException extends AppException
+class TagException extends CoreException
 {
 
 }

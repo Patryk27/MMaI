@@ -3,37 +3,37 @@
 namespace App\Routes\Implementation\Services;
 
 use App\Routes\Exceptions\RouteException;
-use App\Routes\Implementation\Repositories\RoutesRepositoryInterface;
+use App\Routes\Implementation\Repositories\RoutesRepository;
 use App\Routes\Models\Route;
 use App\Routes\Queries\GetRouteBySubdomainAndUrlQuery;
 use App\Routes\Queries\GetRoutesLikeUrlQuery;
-use App\Routes\Queries\RoutesQueryInterface;
+use App\Routes\Queries\RoutesQuery;
 use Illuminate\Support\Collection;
 
 class RoutesQuerier
 {
 
     /**
-     * @var RoutesRepositoryInterface
+     * @var RoutesRepository
      */
     private $routesRepository;
 
     /**
-     * @param RoutesRepositoryInterface $routesRepository
+     * @param RoutesRepository $routesRepository
      */
     public function __construct(
-        RoutesRepositoryInterface $routesRepository
+        RoutesRepository $routesRepository
     ) {
         $this->routesRepository = $routesRepository;
     }
 
     /**
-     * @param RoutesQueryInterface $query
+     * @param RoutesQuery $query
      * @return Collection|Route[]
      *
      * @throws RouteException
      */
-    public function query(RoutesQueryInterface $query): Collection
+    public function query(RoutesQuery $query): Collection
     {
         switch (true) {
             case $query instanceof GetRouteBySubdomainAndUrlQuery:

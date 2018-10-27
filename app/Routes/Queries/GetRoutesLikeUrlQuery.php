@@ -8,7 +8,7 @@ namespace App\Routes\Queries;
  *
  * @todo include subdomain
  */
-final class GetRoutesLikeUrlQuery implements RoutesQueryInterface
+final class GetRoutesLikeUrlQuery implements RoutesQuery
 {
 
     /**

@@ -9,9 +9,8 @@ use App\Attachments\Implementation\Services\AttachmentsGarbageCollector;
 use App\Attachments\Implementation\Services\AttachmentsQuerier;
 use App\Attachments\Implementation\Services\AttachmentsStreamer;
 use App\Attachments\Models\Attachment;
-use App\Attachments\Queries\AttachmentsQueryInterface;
+use App\Attachments\Queries\AttachmentsQuery;
 use App\Attachments\ValueObjects\AttachmentsGarbageCollectorResult;
-use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
 use Throwable;
@@ -107,12 +106,12 @@ final class AttachmentsFacade
      * Returns the first attachment matching given query.
      * Throws an exception if no such attachment exists.
      *
-     * @param AttachmentsQueryInterface $query
+     * @param AttachmentsQuery $query
      * @return Attachment
      *
      * @throws AttachmentException
      */
-    public function queryOne(AttachmentsQueryInterface $query): Attachment
+    public function queryOne(AttachmentsQuery $query): Attachment
     {
         $attachments = $this->queryMany($query);
 
@@ -126,12 +125,12 @@ final class AttachmentsFacade
     /**
      * Returns all the attachments matching given query.
      *
-     * @param AttachmentsQueryInterface $query
+     * @param AttachmentsQuery $query
      * @return Collection|Attachment[]
      *
      * @throws AttachmentException
      */
-    public function queryMany(AttachmentsQueryInterface $query): Collection
+    public function queryMany(AttachmentsQuery $query): Collection
     {
         return $this->attachmentsQuerier->query($query);
     }

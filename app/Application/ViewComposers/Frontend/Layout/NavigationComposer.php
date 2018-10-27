@@ -3,7 +3,7 @@
 namespace App\Application\ViewComposers\Frontend\Layout;
 
 use App\Core\Exceptions\Exception;
-use App\Core\Services\Language\Detector as LanguageDetector;
+use App\Core\Language\Detector as LanguageDetector;
 use App\Languages\Models\Language;
 use App\Menus\Exceptions\MenuException;
 use App\Menus\MenusFacade;

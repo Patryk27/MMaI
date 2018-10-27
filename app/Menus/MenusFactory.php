@@ -2,7 +2,7 @@
 
 namespace App\Menus;
 
-use App\Menus\Implementation\Repositories\MenuItemsRepositoryInterface;
+use App\Menus\Implementation\Repositories\MenuItemsRepository;
 use App\Menus\Implementation\Services\MenuItemsQuerier;
 
 final class MenusFactory
@@ -11,11 +11,11 @@ final class MenusFactory
     /**
      * Builds an instance of @see MenusFacade.
      *
-     * @param MenuItemsRepositoryInterface $menuItemsRepository
+     * @param MenuItemsRepository $menuItemsRepository
      * @return MenusFacade
      */
     public static function build(
-        MenuItemsRepositoryInterface $menuItemsRepository
+        MenuItemsRepository $menuItemsRepository
     ): MenusFacade {
         $menuItemsQuerier = new MenuItemsQuerier($menuItemsRepository);
 

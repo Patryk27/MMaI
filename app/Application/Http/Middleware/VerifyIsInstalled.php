@@ -38,7 +38,7 @@ class VerifyIsInstalled
      * @param Closure $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next)
     {
         // Validate that the database contains "migrations" table
         $schemaBuilder = $this->db->getSchemaBuilder();

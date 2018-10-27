@@ -1,5 +1,6 @@
 <?php
 
+use App\Application\Http\Controllers\Backend\AnalyticsController;
 use App\Application\Http\Controllers\Backend\AttachmentsController;
 use App\Application\Http\Controllers\Backend\DashboardController;
 use App\Application\Http\Controllers\Backend\PagesController;
@@ -32,14 +33,29 @@ Route::domain('backend.' . env('APP_DOMAIN'))->group(function () {
                 ->name('backend.dashboard.index');
         });
 
+        // /analytics
+        Route::group(['prefix' => 'analytics'], function () {
+            // /analytics
+            Route::get('/', AnalyticsController::class . '@index')
+                ->name('backend.analytics.index');
+
+            // /analytics/requests
+            Route::get('requests', AnalyticsController::class . '@requests')
+                ->name('backend.analytics.requests');
+
+            // /analytics/requests/search
+            Route::post('requests/search', AnalyticsController::class . '@searchRequests')
+                ->name('backend.analytics.requests.search');
+        });
+
         // /attachments
         Route::post('attachments', AttachmentsController::class . '@store')
             ->name('backend.attachments.store');
 
         // /pages
-        Route::group(['prefix' => 'pages'], function() {
+        Route::group(['prefix' => 'pages'], function () {
             // /pages/search
-            Route::get('search', PagesController::class . '@search')
+            Route::post('search', PagesController::class . '@search')
                 ->name('backend.pages.search');
 
             // /pages/create-page
@@ -57,7 +73,7 @@ Route::domain('backend.' . env('APP_DOMAIN'))->group(function () {
         ]);
 
         // /tags/search
-        Route::get('tags/search', TagsController::class . '@search')
+        Route::post('tags/search', TagsController::class . '@search')
             ->name('backend.tags.search');
 
         // /tags

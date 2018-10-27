@@ -9,7 +9,7 @@ use App\Tags\Implementation\Services\TagsDeleter;
 use App\Tags\Implementation\Services\TagsQuerier;
 use App\Tags\Implementation\Services\TagsUpdater;
 use App\Tags\Models\Tag;
-use App\Tags\Queries\TagsQueryInterface;
+use App\Tags\Queries\TagsQuery;
 use Illuminate\Support\Collection;
 
 final class TagsFacade
@@ -101,13 +101,13 @@ final class TagsFacade
      * Returns the first tag matching given query.
      * Throws an exception if no such tag exists.
      *
-     * @param TagsQueryInterface $query
+     * @param TagsQuery $query
      * @return Tag
      *
      * @throws TagException
      * @throws TagNotFoundException
      */
-    public function queryOne(TagsQueryInterface $query): Tag
+    public function queryOne(TagsQuery $query): Tag
     {
         $tags = $this->queryMany($query);
 
@@ -121,12 +121,12 @@ final class TagsFacade
     /**
      * Returns all tags matching given query.
      *
-     * @param TagsQueryInterface $query
+     * @param TagsQuery $query
      * @return Collection|Tag[]
      *
      * @throws TagException
      */
-    public function queryMany(TagsQueryInterface $query): Collection
+    public function queryMany(TagsQuery $query): Collection
     {
         return $this->tagsQuerier->query($query);
     }
@@ -134,14 +134,14 @@ final class TagsFacade
     /**
      * Returns number of tags matching given query.
      *
-     * @param TagsQueryInterface $query
+     * @param TagsQuery $query
      * @return int
      *
      * @throws TagException
      */
-    public function queryCount(TagsQueryInterface $query): int
+    public function queryCount(TagsQuery $query): int
     {
-        return $this->tagsQuerier->queryCount($query);
+        return $this->tagsQuerier->count($query);
     }
 
 }

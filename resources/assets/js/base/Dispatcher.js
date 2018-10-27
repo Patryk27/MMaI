@@ -1,10 +1,6 @@
 import $ from 'jquery';
 
-export default new class Dispatcher {
-
-    constructor() {
-        this.$handlers = [];
-    }
+export default class Dispatcher {
 
     /**
      * Registers a function which will be called when given view is active.
@@ -12,7 +8,7 @@ export default new class Dispatcher {
      * @param {string} viewClass
      * @param {function} viewHandler
      */
-    register(viewClass, viewHandler) {
+    static register(viewClass, viewHandler) {
         this.$handlers.push({
             viewClass,
             viewHandler,
@@ -22,7 +18,7 @@ export default new class Dispatcher {
     /**
      * Executes all handlers for current view.
      */
-    execute() {
+    static execute() {
         const $body = $('body');
 
         this.$handlers.forEach(({ viewClass, viewHandler }) => {
@@ -33,3 +29,5 @@ export default new class Dispatcher {
     }
 
 };
+
+Dispatcher.$handlers = [];

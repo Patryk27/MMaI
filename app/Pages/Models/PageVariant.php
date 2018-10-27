@@ -2,9 +2,9 @@
 
 namespace App\Pages\Models;
 
-use App\Core\Models\Interfaces\Morphable;
-use App\Core\Models\Interfaces\Presentable;
-use App\Core\Models\Traits\HasPresenter;
+use App\Core\Models\HasPresenter;
+use App\Core\Models\Morphable;
+use App\Core\Models\Presentable;
 use App\Languages\Models\Language;
 use App\Pages\Presenters\PageVariantPresenter;
 use App\Routes\Models\Route;

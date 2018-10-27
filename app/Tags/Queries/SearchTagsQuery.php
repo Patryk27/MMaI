@@ -8,7 +8,7 @@ use App\Core\Queries\AbstractSearchQuery;
  * This class defines a query which will return all the tags matching given
  * criteria.
  */
-final class SearchTagsQuery extends AbstractSearchQuery implements TagsQueryInterface
+final class SearchTagsQuery extends AbstractSearchQuery implements TagsQuery
 {
 
     public const

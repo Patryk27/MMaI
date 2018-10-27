@@ -2,7 +2,7 @@
 
 namespace Tests\Assertions\Routes;
 
-use App\Core\Models\Interfaces\Morphable;
+use App\Core\Models\Morphable;
 use App\Routes\Exceptions\RouteException;
 use App\Routes\Exceptions\RouteNotFoundException;
 use App\Routes\Queries\GetRouteBySubdomainAndUrlQuery;

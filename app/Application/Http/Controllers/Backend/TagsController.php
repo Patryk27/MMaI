@@ -5,8 +5,8 @@ namespace App\Application\Http\Controllers\Backend;
 use App\Application\Http\Controllers\Controller;
 use App\Application\Http\Requests\Backend\Tags\CreateTagRequest;
 use App\Application\Http\Requests\Backend\Tags\UpdateTagRequest;
-use App\Core\Services\Table\Renderer as TableRenderer;
-use App\Core\Services\DataTables\Handler as DataTablesHandler;
+use App\Core\DataTables\Handler as DataTablesHandler;
+use App\Core\Table\Renderer as TableRenderer;
 use App\Languages\Exceptions\LanguageException;
 use App\Languages\LanguagesFacade;
 use App\Languages\Queries\GetAllLanguagesQuery;
@@ -92,7 +92,7 @@ class TagsController extends Controller
             'actions' => 'backend.components.tags.table.actions',
         ]);
 
-        $this->dataTablesHandler->setQueryHandler(function (array $query): Collection {
+        $this->dataTablesHandler->setRowsFetcher(function (array $query): Collection {
             return $this->tableRenderer->render(
                 $this->tagsFacade->queryMany(
                     new SearchTagsQuery($query)
@@ -100,7 +100,7 @@ class TagsController extends Controller
             );
         });
 
-        $this->dataTablesHandler->setQueryCountHandler(function (array $query): int {
+        $this->dataTablesHandler->setRowsCounter(function (array $query): int {
             return $this->tagsFacade->queryCount(
                 new SearchTagsQuery($query)
             );

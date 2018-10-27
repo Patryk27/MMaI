@@ -6,7 +6,7 @@ namespace App\Pages\Queries;
  * Defines a query which will return all page variants with specified ids.
  * Returned page variants will have the same order as the specified ids have.
  */
-final class GetPageVariantsByIdsQuery implements PageVariantsQueryInterface
+final class GetPageVariantsByIdsQuery implements PageVariantsQuery
 {
 
     /**

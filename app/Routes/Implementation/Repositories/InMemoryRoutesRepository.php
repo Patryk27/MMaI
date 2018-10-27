@@ -2,13 +2,13 @@
 
 namespace App\Routes\Implementation\Repositories;
 
-use App\Core\Models\Interfaces\Morphable;
+use App\Core\Models\Morphable;
 use App\Core\Repositories\InMemoryRepository;
 use App\Routes\Models\Route;
 use App\Routes\Models\Route as Routes;
 use Illuminate\Support\Collection;
 
-class InMemoryRoutesRepository implements RoutesRepositoryInterface
+class InMemoryRoutesRepository implements RoutesRepository
 {
 
     /**

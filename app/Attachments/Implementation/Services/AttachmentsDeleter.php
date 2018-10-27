@@ -2,7 +2,7 @@
 
 namespace App\Attachments\Implementation\Services;
 
-use App\Attachments\Implementation\Repositories\AttachmentsRepositoryInterface;
+use App\Attachments\Implementation\Repositories\AttachmentsRepository;
 use App\Attachments\Models\Attachment;
 use Illuminate\Contracts\Filesystem\Filesystem as FilesystemContract;
 
@@ -15,17 +15,17 @@ class AttachmentsDeleter
     private $attachmentsFs;
 
     /**
-     * @var AttachmentsRepositoryInterface
+     * @var AttachmentsRepository
      */
     private $attachmentsRepository;
 
     /**
      * @param FilesystemContract $attachmentsFs
-     * @param AttachmentsRepositoryInterface $attachmentsRepository
+     * @param AttachmentsRepository $attachmentsRepository
      */
     public function __construct(
         FilesystemContract $attachmentsFs,
-        AttachmentsRepositoryInterface $attachmentsRepository
+        AttachmentsRepository $attachmentsRepository
     ) {
         $this->attachmentsFs = $attachmentsFs;
         $this->attachmentsRepository = $attachmentsRepository;

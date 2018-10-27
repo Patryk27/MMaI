@@ -6,7 +6,7 @@ use App\Core\Repositories\EloquentRepository;
 use App\Languages\Models\Language;
 use Illuminate\Support\Collection;
 
-class EloquentLanguagesRepository implements LanguagesRepositoryInterface
+class EloquentLanguagesRepository implements LanguagesRepository
 {
 
     /**

@@ -7,7 +7,7 @@ use App\Core\Repositories\EloquentRepository;
 use Illuminate\Support\Collection;
 use Throwable;
 
-class EloquentAttachmentsRepository implements AttachmentsRepositoryInterface
+class EloquentAttachmentsRepository implements AttachmentsRepository
 {
 
     /**

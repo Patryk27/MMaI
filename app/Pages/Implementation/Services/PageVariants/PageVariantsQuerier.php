@@ -3,11 +3,11 @@
 namespace App\Pages\Implementation\Services\PageVariants;
 
 use App\Pages\Exceptions\PageException;
-use App\Pages\Implementation\Repositories\PageVariantsRepositoryInterface;
+use App\Pages\Implementation\Repositories\PageVariantsRepository;
 use App\Pages\Models\PageVariant;
 use App\Pages\Queries\GetPageVariantsByIdsQuery;
 use App\Pages\Queries\GetPageVariantsByTagIdQuery;
-use App\Pages\Queries\PageVariantsQueryInterface;
+use App\Pages\Queries\PageVariantsQuery;
 use App\Pages\Queries\SearchPageVariantsQuery;
 use Illuminate\Support\Collection;
 
@@ -15,34 +15,34 @@ class PageVariantsQuerier
 {
 
     /**
-     * @var PageVariantsRepositoryInterface
+     * @var PageVariantsRepository
      */
     private $pageVariantsRepository;
 
     /**
-     * @var PageVariantsSearcherInterface
+     * @var PageVariantsSearcher
      */
     private $pagesSearcher;
 
     /**
-     * @param PageVariantsRepositoryInterface $pageVariantsRepository
-     * @param PageVariantsSearcherInterface $pageVariantsSearcher
+     * @param PageVariantsRepository $pageVariantsRepository
+     * @param PageVariantsSearcher $pageVariantsSearcher
      */
     public function __construct(
-        PageVariantsRepositoryInterface $pageVariantsRepository,
-        PageVariantsSearcherInterface $pageVariantsSearcher
+        PageVariantsRepository $pageVariantsRepository,
+        PageVariantsSearcher $pageVariantsSearcher
     ) {
         $this->pageVariantsRepository = $pageVariantsRepository;
         $this->pagesSearcher = $pageVariantsSearcher;
     }
 
     /**
-     * @param PageVariantsQueryInterface $query
+     * @param PageVariantsQuery $query
      * @return Collection|PageVariant[]
      *
      * @throws PageException
      */
-    public function query(PageVariantsQueryInterface $query): Collection
+    public function query(PageVariantsQuery $query): Collection
     {
         switch (true) {
             case $query instanceof GetPageVariantsByIdsQuery:
@@ -68,16 +68,16 @@ class PageVariantsQuerier
     /**
      * Returns number of page variants matching given query.
      *
-     * @param PageVariantsQueryInterface $query
+     * @param PageVariantsQuery $query
      * @return int
      *
      * @throws PageException
      */
-    public function queryCount(PageVariantsQueryInterface $query): int
+    public function count(PageVariantsQuery $query): int
     {
         switch (true) {
             case $query instanceof SearchPageVariantsQuery:
-                return $query->applyTo($this->pagesSearcher)->getCount();
+                return $query->applyTo($this->pagesSearcher)->count();
 
             default:
                 return $this->query($query)->count();

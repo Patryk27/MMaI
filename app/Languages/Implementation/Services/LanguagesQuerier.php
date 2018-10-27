@@ -3,38 +3,38 @@
 namespace App\Languages\Implementation\Services;
 
 use App\Languages\Exceptions\LanguageException;
-use App\Languages\Implementation\Repositories\LanguagesRepositoryInterface;
+use App\Languages\Implementation\Repositories\LanguagesRepository;
 use App\Languages\Models\Language;
 use App\Languages\Queries\GetAllLanguagesQuery;
 use App\Languages\Queries\GetLanguageByIdQuery;
 use App\Languages\Queries\GetLanguageBySlugQuery;
-use App\Languages\Queries\LanguagesQueryInterface;
+use App\Languages\Queries\LanguagesQuery;
 use Illuminate\Support\Collection;
 
 class LanguagesQuerier
 {
 
     /**
-     * @var LanguagesRepositoryInterface
+     * @var LanguagesRepository
      */
     private $languagesRepository;
 
     /**
-     * @param LanguagesRepositoryInterface $languagesRepository
+     * @param LanguagesRepository $languagesRepository
      */
     public function __construct(
-        LanguagesRepositoryInterface $languagesRepository
+        LanguagesRepository $languagesRepository
     ) {
         $this->languagesRepository = $languagesRepository;
     }
 
     /**
-     * @param LanguagesQueryInterface $query
+     * @param LanguagesQuery $query
      * @return Collection|Language[]
      *
      * @throws LanguageException
      */
-    public function query(LanguagesQueryInterface $query): Collection
+    public function query(LanguagesQuery $query): Collection
     {
         switch (true) {
             case $query instanceof GetAllLanguagesQuery:
