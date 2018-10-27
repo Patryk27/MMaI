@@ -25,6 +25,7 @@ class EloquentEventsRepository implements EventsRepository
 
     /**
      * @inheritDoc
+     *
      * @throws Throwable
      */
     public function persist(Event $event): void
