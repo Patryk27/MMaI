@@ -13,6 +13,6 @@ final class SearchRequestEventsQuery extends AbstractSearchEventsQuery implement
 
     public const
         FIELD_REQUEST_URL = 'requestUrl',
-        FIELD_RESPONSE_CODE = 'responseCode';
+        FIELD_RESPONSE_STATUS_CODE = 'responseStatusCode';
 
 }

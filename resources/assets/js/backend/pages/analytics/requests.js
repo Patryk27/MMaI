@@ -21,7 +21,12 @@ function getFilters() {
     return {
         requestUrl: {
             operator: 'expression',
-            value: $filters.find('[name="url"]').val(),
+            value: $filters.find('[name="request_url"]').val(),
+        },
+
+        responseStatusCode: {
+            operator: 'expression',
+            value: $filters.find('[name="response_status_code"]').val(),
         },
 
         createdAt: {

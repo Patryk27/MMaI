@@ -32,8 +32,8 @@ class EloquentRequestEventsSearcher extends AbstractEloquentSearcher implements 
             'type' => EloquentMapper::FIELD_TYPE_STRING,
         ],
 
-        SearchRequestEventsQuery::FIELD_RESPONSE_CODE => [
-            'column' => 'json_value(payload, "$.response.code")',
+        SearchRequestEventsQuery::FIELD_RESPONSE_STATUS_CODE => [
+            'column' => 'json_value(payload, "$.response.statusCode")',
             'type' => EloquentMapper::FIELD_TYPE_NUMBER,
         ],
     ];
