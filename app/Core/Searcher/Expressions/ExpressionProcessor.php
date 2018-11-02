@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Core\Searcher\FilterExpressions;
+namespace App\Core\Searcher\Expressions;
 
 class ExpressionProcessor
 {
@@ -11,17 +11,17 @@ class ExpressionProcessor
     private $parser;
 
     /**
-     * @var OpcodesHandler
+     * @var ExpressionHandler
      */
     private $handler;
 
     /**
      * @param ExpressionParser $parser
-     * @param OpcodesHandler $handler
+     * @param ExpressionHandler $handler
      */
     public function __construct(
         ExpressionParser $parser,
-        OpcodesHandler $handler
+        ExpressionHandler $handler
     ) {
         $this->parser = $parser;
         $this->handler = $handler;
@@ -35,26 +35,27 @@ class ExpressionProcessor
      */
     public function process(string $expression): void
     {
-        // Parse the command
-        $opcode = $this->parser->parse($expression);
+        $expression = $this->parser->parse($expression);
 
-        // Extract command parts
-        $opcodeName = $opcode['name'];
-        $opcodeArguments = $opcode['arguments'];
-
-        // Dispatch depending on the command name
-        switch ($opcodeName) {
+        switch ($expression->getFunction()) {
             case 'between':
-                $this->handler->between($opcodeArguments[0], $opcodeArguments[1]);
+                $this->handler->between(
+                    $expression->getArgument(0),
+                    $expression->getArgument(1)
+                );
+
                 break;
 
             case 'regex':
-                $this->handler->regex($opcodeArguments[0]);
+                $this->handler->regex(
+                    $expression->getArgument(0)
+                );
+
                 break;
 
             default:
                 throw new ExpressionException(
-                    sprintf('Unknown command: [%s].', $opcodeName)
+                    sprintf('Unknown function: [%s].', $expression->getFunction())
                 );
         }
     }

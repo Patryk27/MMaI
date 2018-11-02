@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Core\Searcher\EloquentSearcher;
+namespace App\Core\Searcher\Eloquent;
 
 use App\Core\Exceptions\Exception as CoreException;
 use Illuminate\Database\Query\Expression as QueryExpression;

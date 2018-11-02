@@ -3,7 +3,7 @@
 namespace App\Tags\Implementation\Services\Searcher;
 
 use App\Core\Searcher\AbstractEloquentSearcher;
-use App\Core\Searcher\EloquentSearcher\EloquentMapper;
+use App\Core\Searcher\Eloquent\EloquentMapper;
 use App\Tags\Implementation\Services\TagsSearcher;
 use App\Tags\Models\Tag;
 use App\Tags\Queries\SearchTagsQuery;

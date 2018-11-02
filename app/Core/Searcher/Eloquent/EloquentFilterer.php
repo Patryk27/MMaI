@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Core\Searcher\EloquentSearcher;
+namespace App\Core\Searcher\Eloquent;
 
 use App\Core\Exceptions\Exception as CoreException;
-use App\Core\Searcher\EloquentSearcher\Operators\ExpressionOperatorHandler;
-use App\Core\Searcher\EloquentSearcher\Operators\InOperatorHandler;
-use App\Core\Searcher\EloquentSearcher\Operators\OperatorHandler;
+use App\Core\Searcher\Eloquent\Operators\ExpressionOperatorHandler;
+use App\Core\Searcher\Eloquent\Operators\InOperatorHandler;
+use App\Core\Searcher\Eloquent\Operators\OperatorHandler;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 
 class EloquentFilterer

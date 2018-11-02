@@ -3,7 +3,7 @@
 namespace App\Pages\Implementation\Services\PageVariants\Searcher;
 
 use App\Core\Searcher\AbstractEloquentSearcher;
-use App\Core\Searcher\EloquentSearcher\EloquentMapper;
+use App\Core\Searcher\Eloquent\EloquentMapper;
 use App\Pages\Implementation\Services\PageVariants\PageVariantsSearcher;
 use App\Pages\Models\PageVariant;
 use App\Pages\Queries\SearchPageVariantsQuery;

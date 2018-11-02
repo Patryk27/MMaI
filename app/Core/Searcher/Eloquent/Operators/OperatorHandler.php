@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Core\Searcher\EloquentSearcher\Operators;
+namespace App\Core\Searcher\Eloquent\Operators;
 
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 

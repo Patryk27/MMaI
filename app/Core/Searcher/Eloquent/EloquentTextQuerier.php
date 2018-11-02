@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Core\Searcher\EloquentSearcher;
+namespace App\Core\Searcher\Eloquent;
 
 class EloquentTextQuerier
 {

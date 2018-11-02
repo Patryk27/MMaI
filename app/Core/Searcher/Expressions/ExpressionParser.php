@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Core\Searcher\FilterExpressions;
+namespace App\Core\Searcher\Expressions;
 
 class ExpressionParser
 {
 
     /**
      * @param string $expression
-     * @return array
+     * @return Expression
      *
      * @throws ExpressionException
      */
-    public function parse(string $expression): array
+    public function parse(string $expression): Expression
     {
         $expression = $this->preparse($expression);
 
@@ -19,10 +19,10 @@ class ExpressionParser
             throw new ExpressionException('Expression is malformed.');
         }
 
-        return [
-            'name' => $matches[1],
-            'arguments' => explode(',', $matches[2]),
-        ];
+        $operator = $matches[1];
+        $arguments = explode(',', $matches[2]);
+
+        return new Expression($operator, $arguments);
     }
 
     /**

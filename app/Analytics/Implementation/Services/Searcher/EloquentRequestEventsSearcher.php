@@ -6,7 +6,7 @@ use App\Analytics\Implementation\Services\RequestEventsSearcher;
 use App\Analytics\Models\Event;
 use App\Analytics\Queries\SearchRequestEventsQuery;
 use App\Core\Searcher\AbstractEloquentSearcher;
-use App\Core\Searcher\EloquentSearcher\EloquentMapper;
+use App\Core\Searcher\Eloquent\EloquentMapper;
 
 class EloquentRequestEventsSearcher extends AbstractEloquentSearcher implements RequestEventsSearcher
 {

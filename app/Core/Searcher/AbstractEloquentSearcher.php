@@ -3,9 +3,9 @@
 namespace App\Core\Searcher;
 
 use App\Core\Exceptions\Exception as CoreException;
-use App\Core\Searcher\EloquentSearcher\EloquentFilterer;
-use App\Core\Searcher\EloquentSearcher\EloquentMapper;
-use App\Core\Searcher\EloquentSearcher\EloquentTextQuerier;
+use App\Core\Searcher\Eloquent\EloquentFilterer;
+use App\Core\Searcher\Eloquent\EloquentMapper;
+use App\Core\Searcher\Eloquent\EloquentTextQuerier;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;

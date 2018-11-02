@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Core\Searcher\FilterExpressions;
+namespace App\Core\Searcher\Expressions;
 
 use App\Core\Exceptions\Exception as CoreException;
 

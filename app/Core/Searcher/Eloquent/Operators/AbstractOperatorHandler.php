@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Core\Searcher\EloquentSearcher\Operators;
+namespace App\Core\Searcher\Eloquent\Operators;
 
-use App\Core\Searcher\EloquentSearcher\EloquentMapper;
+use App\Core\Searcher\Eloquent\EloquentMapper;
 
 abstract class AbstractOperatorHandler implements OperatorHandler
 {
