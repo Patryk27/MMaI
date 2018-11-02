@@ -9,11 +9,11 @@
             Name
         </th>
 
-        <th data-datatable-column='{"name": "page_variant_count", "orderable": true}'>
+        <th data-datatable-column='{"name": "pageVariantCount", "orderable": true}'>
             Number of associated pages
         </th>
 
-        <th data-datatable-column='{"name": "created_at", "orderable": true}'>
+        <th data-datatable-column='{"name": "createdAt", "orderable": true}'>
             Created at
         </th>
 

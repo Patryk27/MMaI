@@ -49,26 +49,13 @@ final class AnalyticsFacade
      * Saves a "request served" event to the log.
      *
      * @param Request $request
-     * @return void
-     */
-    public function logRequestServed(Request $request): void
-    {
-        $this->eventsRepository->persist(
-            $this->eventsBuilder->buildRequestServed($request)
-        );
-    }
-
-    /**
-     * Saves a "request failed" event to the log.
-     *
-     * @param Request $request
      * @param Response $response
      * @return void
      */
-    public function logRequestFailed(Request $request, Response $response): void
+    public function logRequestServed(Request $request, Response $response): void
     {
         $this->eventsRepository->persist(
-            $this->eventsBuilder->buildRequestFailed($request, $response)
+            $this->eventsBuilder->buildRequestServed($request, $response)
         );
     }
 

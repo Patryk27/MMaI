@@ -11,33 +11,23 @@ class EventsBuilder
 
     /**
      * @param Request $request
+     * @param Response $response
      * @return Event
      */
-    public function buildRequestServed(Request $request): Event
+    public function buildRequestServed(Request $request, Response $response): Event
     {
         return new Event([
             'type' => Event::TYPE_REQUEST_SERVED,
 
             'payload' => [
-                'url' => $request->fullUrl(),
-                // @todo add country, route etc.
-            ],
-        ]);
-    }
+                'request' => [
+                    'url' => $request->fullUrl(),
+                    // @todo add country, route etc.
+                ],
 
-    /**
-     * @param Request $request
-     * @param Response $response
-     * @return Event
-     */
-    public function buildRequestFailed(Request $request, Response $response): Event
-    {
-        return new Event([
-            'type' => Event::TYPE_REQUEST_FAILED,
-
-            'payload' => [
-                'url' => $request->fullUrl(),
-                'status' => $response->status(),
+                'response' => [
+                    'statusCode' => $response->getStatusCode(),
+                ],
             ],
         ]);
     }

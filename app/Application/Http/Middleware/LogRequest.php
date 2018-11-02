@@ -41,11 +41,7 @@ class LogRequest
      */
     public function terminate(Request $request, Response $response): void
     {
-        if ($response->getStatusCode() === Response::HTTP_OK) {
-            $this->analyticsFacade->logRequestServed($request);
-        } else {
-            $this->analyticsFacade->logRequestFailed($request, $response);
-        }
+        $this->analyticsFacade->logRequestServed($request, $response);
     }
 
 }

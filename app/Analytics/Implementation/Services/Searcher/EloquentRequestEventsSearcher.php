@@ -27,9 +27,14 @@ class EloquentRequestEventsSearcher extends AbstractEloquentSearcher implements 
             'type' => EloquentMapper::FIELD_TYPE_DATETIME,
         ],
 
-        SearchRequestEventsQuery::FIELD_URL => [
-            'column' => 'json_value(payload, "$.url")',
+        SearchRequestEventsQuery::FIELD_REQUEST_URL => [
+            'column' => 'json_value(payload, "$.request.url")',
             'type' => EloquentMapper::FIELD_TYPE_STRING,
+        ],
+
+        SearchRequestEventsQuery::FIELD_RESPONSE_CODE => [
+            'column' => 'json_value(payload, "$.response.code")',
+            'type' => EloquentMapper::FIELD_TYPE_NUMBER,
         ],
     ];
 

@@ -92,7 +92,7 @@ class PagesController extends Controller
             'language' => 'backend.components.pages.table.language',
             'title' => 'backend.components.pages.table.title',
             'status' => 'backend.components.pages.table.status',
-            'created-at' => 'backend.components.table.created-at',
+            'createdAt' => 'backend.components.table.created-at',
             'actions' => 'backend.components.pages.table.actions',
         ]);
 

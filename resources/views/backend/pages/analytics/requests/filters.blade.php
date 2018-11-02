@@ -1,24 +1,8 @@
-@php
-    /**
-     * @var array $types
-     */
-@endphp
-
 {{ Form::open([
     'id' => 'requests-filters',
 ]) }}
 
 <div class="row">
-    {{--Type--}}
-    <div class="col-xs-12 col-sm-6 col-md-3 form-group">
-        {{ Form::label('types[]', 'Type:') }}
-
-        {{ Form::select('types[]', $types, null, [
-            'class' => 'custom-select select2',
-            'multiple' => 'multiple',
-        ]) }}
-    </div>
-
     {{--Url--}}
     <div class="col-xs-12 col-sm-6 col-md-3 form-group">
         {{ Form::label('url', 'URL:') }}

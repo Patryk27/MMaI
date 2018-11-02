@@ -14,10 +14,10 @@ final class SearchTagsQuery extends AbstractSearchQuery implements TagsQuery
     public const
         FIELD_ID = 'id',
         FIELD_NAME = 'name',
-        FIELD_CREATED_AT = 'created_at',
+        FIELD_CREATED_AT = 'createdAt',
 
-        FIELD_LANGUAGE_ID = 'language_id',
+        FIELD_LANGUAGE_ID = 'languageId',
 
-        FIELD_PAGE_VARIANT_COUNT = 'page_variant_count';
+        FIELD_PAGE_VARIANT_COUNT = 'pageVariantCount';
 
 }

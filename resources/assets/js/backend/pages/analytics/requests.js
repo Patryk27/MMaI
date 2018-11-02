@@ -19,17 +19,12 @@ function getFilters() {
     }
 
     return {
-        type: {
-            operator: 'in',
-            value: $filters.find('[name="types[]"]').val(),
-        },
-
-        url: {
+        requestUrl: {
             operator: 'expression',
             value: $filters.find('[name="url"]').val(),
         },
 
-        created_at: {
+        createdAt: {
             operator: 'expression',
             value: createdAt ? `:between(${createdAtFrom}, ${createdAtTo})` : null,
         },

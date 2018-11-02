@@ -5,15 +5,15 @@
             Id
         </th>
 
-        <th data-datatable-column='{"name": "type"}'>
-            Type
-        </th>
-
-        <th data-datatable-column='{"name": "url"}'>
+        <th data-datatable-column='{"name": "requestUrl"}'>
             URL
         </th>
 
-        <th data-datatable-column='{"name": "created_at", "orderable": true}'>
+        <th data-datatable-column='{"name": "responseCode"}'>
+            Response code
+        </th>
+
+        <th data-datatable-column='{"name": "createdAt", "orderable": true}'>
             Performed at
         </th>
     </tr>

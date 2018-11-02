@@ -15,14 +15,14 @@ final class SearchPageVariantsQuery extends AbstractSearchQuery implements PageV
         FIELD_ID = 'id',
         FIELD_TITLE = 'title',
         FIELD_STATUS = 'status',
-        FIELD_CREATED_AT = 'created_at',
+        FIELD_CREATED_AT = 'createdAt',
 
-        FIELD_PAGE_ID = 'page_id',
-        FIELD_PAGE_TYPE = 'page_type',
+        FIELD_PAGE_ID = 'pageId',
+        FIELD_PAGE_TYPE = 'pageType',
 
-        FIELD_LANGUAGE_ID = 'language_id',
-        FIELD_LANGUAGE_NAME = 'language_name',
+        FIELD_LANGUAGE_ID = 'languageId',
+        FIELD_LANGUAGE_NAME = 'languageName',
 
-        FIELD_ROUTE_URL = 'route_url';
+        FIELD_ROUTE_URL = 'routeUrl';
 
 }

@@ -5,11 +5,11 @@
             Id
         </th>
 
-        <th data-datatable-column='{"name": "page_type"}'>
+        <th data-datatable-column='{"name": "pageType"}'>
             Type
         </th>
 
-        <th data-datatable-column='{"name": "language_name", "orderable": true}'>
+        <th data-datatable-column='{"name": "languageName", "orderable": true}'>
             Language
         </th>
 
@@ -21,7 +21,7 @@
             Status
         </th>
 
-        <th data-datatable-column='{"name": "created_at", "orderable": true}'>
+        <th data-datatable-column='{"name": "createdAt", "orderable": true}'>
             Created at
         </th>
 

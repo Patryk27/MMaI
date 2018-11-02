@@ -1,5 +1,6 @@
 <?php
 
+use App\Application\Http\Controllers\Backend\Analytics\RequestsController as AnalyticsRequestsController;
 use App\Application\Http\Controllers\Backend\AnalyticsController;
 use App\Application\Http\Controllers\Backend\AttachmentsController;
 use App\Application\Http\Controllers\Backend\DashboardController;
@@ -40,11 +41,11 @@ Route::domain('backend.' . env('APP_DOMAIN'))->group(function () {
                 ->name('backend.analytics.index');
 
             // /analytics/requests
-            Route::get('requests', AnalyticsController::class . '@requests')
+            Route::get('requests', AnalyticsRequestsController::class . '@index')
                 ->name('backend.analytics.requests');
 
             // /analytics/requests/search
-            Route::post('requests/search', AnalyticsController::class . '@searchRequests')
+            Route::post('requests/search', AnalyticsRequestsController::class . '@search')
                 ->name('backend.analytics.requests.search');
         });
 

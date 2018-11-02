@@ -87,8 +87,8 @@ class TagsController extends Controller
         $this->tableRenderer->addColumns([
             'id' => 'backend.components.table.id',
             'name' => 'backend.components.tags.table.name',
-            'page-variant-count' => 'backend.components.tags.table.page-variant-count',
-            'created-at' => 'backend.components.table.created-at',
+            'pageVariantCount' => 'backend.components.tags.table.page-variant-count',
+            'createdAt' => 'backend.components.table.created-at',
             'actions' => 'backend.components.tags.table.actions',
         ]);
 

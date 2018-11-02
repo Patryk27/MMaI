@@ -7,17 +7,17 @@ function getFilters() {
     const $filters = $('#pages-filters');
 
     return {
-        page_type: {
+        pageType: {
             operator: 'in',
             value: $filters.find('[name="types[]"]').val(),
         },
 
-        route_url: {
+        routeUrl: {
             operator: 'expression',
             value: $filters.find('[name="url"]').val(),
         },
 
-        language_id: {
+        languageId: {
             operator: 'in',
             value: $filters.find('[name="language_ids[]"]').val(),
         },

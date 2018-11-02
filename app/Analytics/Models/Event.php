@@ -20,7 +20,6 @@ class Event extends Model
         TYPE_EXCEPTION_CAUGHT = 'exception-caught',
         TYPE_PAGE_VISITED = 'page-visited',
         TYPE_TERM_SEARCHED = 'term-searched',
-        TYPE_REQUEST_FAILED = 'request-failed',
         TYPE_REQUEST_SERVED = 'request-served';
 
     /**

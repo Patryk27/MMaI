@@ -10,6 +10,6 @@ abstract class AbstractSearchEventsQuery extends AbstractSearchQuery implements 
     public const
         FIELD_ID = 'id',
         FIELD_TYPE = 'type',
-        FIELD_CREATED_AT = 'created_at';
+        FIELD_CREATED_AT = 'createdAt';
 
 }
