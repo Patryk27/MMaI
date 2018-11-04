@@ -36,7 +36,7 @@ final class AppServiceProvider extends ServiceProvider
         View::composers([
             // Backend-related composers
             \App\Application\ViewComposers\Backend\Layout\NavigationComposer::class => 'backend.layouts.authenticated.navigation',
-            \App\Application\ViewComposers\Backend\Pages\Pages\CreateEdit\FormComposer::class => 'backend.pages.pages.create-edit.form',
+            \App\Application\ViewComposers\Backend\Pages\Pages\CreateEdit\FormComposer::class => 'backend.views.pages.create-edit.form',
 
             // Frontend-related composers
             \App\Application\ViewComposers\Frontend\Layout\NavigationComposer::class => 'frontend.layout.navigation',

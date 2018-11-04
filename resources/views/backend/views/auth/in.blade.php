@@ -1,5 +1,5 @@
 @extends('backend.layouts.guest', [
-    'pageClass' => 'backend--pages--auth--in',
+    'pageClass' => 'backend--views--auth--in',
 ])
 
 @section('title', 'Signing in')

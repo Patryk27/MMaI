@@ -53,7 +53,7 @@ class SearchController extends Controller
      */
     public function index()
     {
-        return view('frontend.pages.search.index');
+        return view('frontend.views.search.index');
     }
 
     /**
@@ -83,7 +83,7 @@ class SearchController extends Controller
          */
         $posts = $posts->map([$this->pagesFacade, 'render']);
 
-        return view('frontend.pages.search', [
+        return view('frontend.views.search', [
             'query' => $request->get('query'),
             'posts' => $posts,
         ]);

@@ -60,7 +60,7 @@ class VerifyIsInstalled
     private function buildResponse(array $viewData): Response
     {
         return new Response(
-            view('frontend.pages.application-not-installed', $viewData)
+            view('frontend.views.application-not-installed', $viewData)
         );
     }
 

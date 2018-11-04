@@ -96,7 +96,7 @@ class DispatchController extends Controller
             throw new NotFoundHttpException();
         }
 
-        return view('frontend.pages.pages.show', [
+        return view('frontend.views.pages.show', [
             'renderedPageVariant' => $this->pagesFacade->render($pageVariant),
         ]);
     }

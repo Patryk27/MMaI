@@ -7,7 +7,7 @@
 @endphp
 
 @extends('backend.layouts.authenticated', [
-    'pageClass' => 'backend--pages--pages--edit',
+    'pageClass' => 'backend--views--pages--edit',
 ])
 
 @section('title', 'Editing page')
@@ -20,6 +20,6 @@
     </div>
 
     <div id="page-form" data-method="put" data-url="{{ route('backend.pages.update', $page->id) }}">
-        @include('backend.pages.pages.create-edit.form')
+        @include('backend.views.pages.create-edit.form')
     </div>
 @endsection

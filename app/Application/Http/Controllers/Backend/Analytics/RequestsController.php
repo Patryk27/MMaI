@@ -48,7 +48,7 @@ class RequestsController extends Controller
      */
     public function index()
     {
-        return view('backend.pages.analytics.requests');
+        return view('backend.views.analytics.requests');
     }
 
     /**

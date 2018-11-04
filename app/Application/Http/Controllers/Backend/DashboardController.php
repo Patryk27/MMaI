@@ -15,7 +15,7 @@ class DashboardController extends Controller
      */
     public function index(Request $request)
     {
-        return view('backend.pages.dashboard.index', [
+        return view('backend.views.dashboard.index', [
             'user' => $request->user(),
         ]);
     }

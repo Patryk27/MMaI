@@ -55,7 +55,7 @@ class AuthorizationController extends Controller
             return redirect()->route(self::AFTER_SIGN_IN_ROUTE);
         }
 
-        return view('backend.pages.auth.in');
+        return view('backend.views.auth.in');
     }
 
     /**

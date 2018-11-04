@@ -6,7 +6,7 @@
 @endphp
 
 @extends('frontend.layout', [
-    'pageClass' => 'frontend--pages--search--index',
+    'pageClass' => 'frontend--views--search--index',
 ])
 
 @section('title', config('app.name'))

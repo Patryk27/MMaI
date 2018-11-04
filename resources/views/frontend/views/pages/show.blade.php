@@ -8,7 +8,7 @@
 @endphp
 
 @extends('frontend.layout', [
-    'pageClass' => 'frontend--pages--pages--show',
+    'pageClass' => 'frontend--views--pages--show',
 ])
 
 @section('layout-meta')
@@ -20,13 +20,13 @@
 @section('title', $pageVariant->title)
 
 @section('content')
-    @include('frontend.pages.pages.show.header')
+    @include('frontend.views.pages.show.header')
 
     <main>
-        @include('frontend.pages.pages.show.content')
+        @include('frontend.views.pages.show.content')
     </main>
 
     @if ($page->attachments->isNotEmpty())
-        @include('frontend.pages.pages.show.attachments')
+        @include('frontend.views.pages.show.attachments')
     @endif
 @endsection

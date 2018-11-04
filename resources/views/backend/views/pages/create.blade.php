@@ -12,7 +12,7 @@
 @endphp
 
 @extends('backend.layouts.authenticated', [
-    'pageClass' => 'backend--pages--pages--create',
+    'pageClass' => 'backend--views--pages--create',
 ])
 
 @section('title', 'Creating new ' . $translatedType)
@@ -25,6 +25,6 @@
     </div>
 
     <div id="page-form" data-method="post" data-url="{{ route('backend.pages.store') }}">
-        @include('backend.pages.pages.create-edit.form')
+        @include('backend.views.pages.create-edit.form')
     </div>
 @endsection

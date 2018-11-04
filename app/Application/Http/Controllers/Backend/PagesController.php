@@ -73,7 +73,7 @@ class PagesController extends Controller
         $languages = $languages->sortBy('english_name');
         $languages = $languages->pluck('english_name', 'id');
 
-        return view('backend.pages.pages.index', [
+        return view('backend.views.pages.index', [
             'types' => __('base/models/page.enums.type'),
             'languages' => $languages,
             'statuses' => __('base/models/page-variant.enums.status'),
@@ -118,7 +118,7 @@ class PagesController extends Controller
      */
     public function createPage(): ViewContract
     {
-        return view('backend.pages.pages.create', [
+        return view('backend.views.pages.create', [
             'type' => Page::TYPE_CMS,
         ]);
     }
@@ -128,7 +128,7 @@ class PagesController extends Controller
      */
     public function createPost(): ViewContract
     {
-        return view('backend.pages.pages.create', [
+        return view('backend.views.pages.create', [
             'type' => Page::TYPE_BLOG,
         ]);
     }
@@ -156,7 +156,7 @@ class PagesController extends Controller
      */
     public function edit(Page $page): ViewContract
     {
-        return view('backend.pages.pages.edit', [
+        return view('backend.views.pages.edit', [
             'page' => $page,
         ]);
     }

@@ -5,7 +5,7 @@
 @endphp
 
 @extends('backend.layouts.authenticated', [
-    'pageClass' => 'backend--pages--dashboard--index',
+    'pageClass' => 'backend--views--dashboard--index',
 ])
 
 @section('title', 'Dashboard')

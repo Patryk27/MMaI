@@ -12,7 +12,7 @@ class AnalyticsController extends Controller
      */
     public function index()
     {
-        return view('backend.pages.analytics.index');
+        return view('backend.views.analytics.index');
     }
 
 }

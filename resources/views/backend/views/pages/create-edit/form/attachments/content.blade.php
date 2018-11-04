@@ -32,14 +32,14 @@
             @endphp
 
             <tr data-attachment="{{ $attachment }}" data-attachment-url="{{ $attachmentPresenter->getUrl() }}">
-                @include('backend.pages.pages.create-edit.form.attachments.content.attachment')
+                @include('backend.views.pages.create-edit.form.attachments.content.attachment')
             </tr>
         @endforeach
         </tbody>
 
         <tfoot>
         <tr class="template">
-            @include('backend.pages.pages.create-edit.form.attachments.content.attachment', [
+            @include('backend.views.pages.create-edit.form.attachments.content.attachment', [
                 'attachment' => new \App\Attachments\Models\Attachment(),
             ])
         </tr>

@@ -73,7 +73,7 @@ class TagsController extends Controller
         $languages = $languages->sortBy('english_name');
         $languages = $languages->pluck('english_name', 'id');
 
-        return view('backend.pages.tags.index', [
+        return view('backend.views.tags.index', [
             'languages' => $languages,
         ]);
     }
