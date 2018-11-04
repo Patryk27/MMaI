@@ -16,8 +16,7 @@
 
             <div class="error-cta">
                 <a href="/" class="btn btn-primary">
-                    {{-- @todo translation --}}
-                    Go back to the home page
+                    {{ __('errors/layout.go-back') }}
                 </a>
             </div>
         </div>

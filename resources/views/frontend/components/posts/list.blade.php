@@ -5,12 +5,6 @@
 @endphp
 
 <div class="posts-list">
-    @if($posts->isEmpty())
-        <p class="no-posts-alert text-muted">
-            There are no posts here.
-        </p>
-    @endif
-
     @foreach($posts as $post)
         @php
             /**

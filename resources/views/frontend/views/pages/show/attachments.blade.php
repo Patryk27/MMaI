@@ -7,7 +7,7 @@
 <div class="page-attachments-container">
     <div class="page-attachments">
         <h5 id="!attachments">
-            Attachments {{-- @todo translation --}}
+            {{ __('frontend/views/pages/show.attachments') }}
         </h5>
 
         <ul>
