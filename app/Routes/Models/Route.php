@@ -85,7 +85,7 @@ class Route extends Model implements Morphable
     /**
      * @return string
      */
-    public function getTargetUrl(): string
+    public function getEntireUrl(): string
     {
         return sprintf('%s://%s.%s/%s', env('APP_PROTOCOL'), $this->subdomain, env('APP_DOMAIN'), $this->url);
     }

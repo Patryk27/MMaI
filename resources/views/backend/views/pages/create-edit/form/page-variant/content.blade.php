@@ -59,7 +59,7 @@
                 @if(strlen($url) > 0)
                     <div class="input-group-append">
                         <a class="btn btn-primary btn-icon-only"
-                           href="{{ $pageVariant->route->getTargetUrl() }}"
+                           href="{{ $pageVariant->route->getEntireUrl() }}"
                            title="Open this page">
                             <i class="fa fa-link"></i>
                         </a>

@@ -96,7 +96,7 @@ final class SearchCommand extends Command
         $tableRows = $routes->map(function (Route $route): array {
             return [
                 'id' => $route->id,
-                'route' => $route->getTargetUrl(),
+                'route' => $route->getEntireUrl(),
                 'points_at' => sprintf('%s [id=%d]', $route->model_type, $route->model_id),
                 'created_at' => $route->created_at->format('Y-m-d'),
             ];

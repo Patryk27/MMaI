@@ -85,7 +85,7 @@ final class SearchCommand extends Command
             return [
                 'id' => $pageVariant->id,
                 'page_id' => $pageVariant->page_id,
-                'route' => isset($pageVariant->route) ? $pageVariant->route->getTargetUrl() : '',
+                'route' => isset($pageVariant->route) ? $pageVariant->route->getEntireUrl() : '',
                 'title' => $pageVariant->title,
                 'language' => $pageVariant->language->english_name,
                 'created_at' => $pageVariant->created_at->format('Y-m-d'),

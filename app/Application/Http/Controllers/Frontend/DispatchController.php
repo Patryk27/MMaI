@@ -108,7 +108,7 @@ class DispatchController extends Controller
     private function dispatchRoute(Route $route): RedirectResponse
     {
         return new RedirectResponse(
-            $route->getTargetUrl()
+            $route->getEntireUrl()
         );
     }
 

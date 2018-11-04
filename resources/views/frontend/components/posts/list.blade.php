@@ -23,7 +23,7 @@
         <article class="post-item">
             {{-- Header --}}
             <header class="post-header">
-                <a href="{{ $pageVariant->route->getTargetUrl()  }}">
+                <a href="{{ $pageVariant->route->getEntireUrl()  }}">
                     {{ $pageVariant->title }}
                 </a>
             </header>
