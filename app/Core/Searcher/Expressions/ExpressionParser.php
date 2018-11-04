@@ -13,37 +13,34 @@ class ExpressionParser
      */
     public function parse(string $expression): Expression
     {
-        $expression = $this->preparse($expression);
+        $scanner = new ExpressionScanner($expression);
 
-        if (!preg_match('/^([a-z]+)\((.+)\)$/', $expression, $matches)) {
-            throw new ExpressionException('Expression is malformed.');
+        // Expression must start with a colon
+        $scanner->expect(':');
+
+        // Read function's name
+        $function = $scanner->readIdentifier();
+
+        // Read function's arguments, if present
+        $arguments = [];
+
+        if ($scanner->has()) {
+            $scanner->expect('(');
+
+            while ($scanner->has() && $scanner->peek() !== ')') {
+                if (!empty($arguments)) {
+                    $scanner->expect(',');
+                }
+
+                $arguments[] = $scanner->readValue();
+            }
+
+            $scanner->expect(')');
         }
 
-        $operator = $matches[1];
-        $arguments = explode(',', $matches[2]);
+        $scanner->expectEnd();
 
-        return new Expression($operator, $arguments);
-    }
-
-    /**
-     * @param string $expression
-     * @return string
-     *
-     * @throws ExpressionException
-     */
-    private function preparse(string $expression): string
-    {
-        $expression = trim($expression);
-
-        if (strlen($expression) === 0) {
-            throw new ExpressionException('Cannot parse an empty expression.');
-        }
-
-        if ($expression[0] !== ':') {
-            throw new ExpressionException('Expression must start with a colon (:).');
-        }
-
-        return mb_substr($expression, 1, mb_strlen($expression));
+        return new Expression($function, $arguments);
     }
 
 }
