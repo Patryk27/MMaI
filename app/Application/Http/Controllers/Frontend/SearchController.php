@@ -65,7 +65,7 @@ class SearchController extends Controller
      */
     public function search(SearchRequest $request)
     {
-        $language = $this->languageDetector->getLanguageOrFail();
+        $language = $this->languageDetector->detectOrFail($request);
 
         /**
          * @var Collection|PageVariant[] $posts

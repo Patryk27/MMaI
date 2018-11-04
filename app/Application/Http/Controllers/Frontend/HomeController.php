@@ -6,12 +6,14 @@ use App\Application\Http\Controllers\Controller;
 use App\Core\Collection\Paginator as CollectionPaginator;
 use App\Core\Exceptions\Exception as CoreException;
 use App\Core\Language\Detector as LanguageDetector;
+use App\Languages\Exceptions\LanguageException;
 use App\Pages\Exceptions\PageException;
 use App\Pages\Models\Page;
 use App\Pages\Models\PageVariant;
 use App\Pages\PagesFacade;
 use App\Pages\Queries\SearchPageVariantsQuery;
 use Illuminate\Contracts\View\Factory as ViewFactoryContract;
+use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -57,16 +59,18 @@ class HomeController extends Controller
     }
 
     /**
+     * @param Request $request
      * @return mixed
      *
      * @throws CoreException
      * @throws PageException
+     * @throws LanguageException
      *
      * @todo a bit too much is happening in here
      */
-    public function index()
+    public function index(Request $request)
     {
-        $language = $this->languageDetector->getLanguageOrFail();
+        $language = $this->languageDetector->detectOrFail($request);
 
         $query = [
             'filters' => [

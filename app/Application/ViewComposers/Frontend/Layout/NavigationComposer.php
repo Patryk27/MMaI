@@ -10,10 +10,16 @@ use App\Menus\MenusFacade;
 use App\Menus\Models\MenuItem;
 use App\Menus\Queries\GetMenuItemsByLanguageIdQuery;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
 class NavigationComposer
 {
+
+    /**
+     * @var Request
+     */
+    private $request;
 
     /**
      * @var LanguageDetector
@@ -26,13 +32,16 @@ class NavigationComposer
     private $menusFacade;
 
     /**
+     * @param Request $request
      * @param LanguageDetector $languageDetector
      * @param MenusFacade $menusFacade
      */
     public function __construct(
+        Request $request,
         LanguageDetector $languageDetector,
         MenusFacade $menusFacade
     ) {
+        $this->request = $request;
         $this->languageDetector = $languageDetector;
         $this->menusFacade = $menusFacade;
     }
@@ -45,7 +54,7 @@ class NavigationComposer
      */
     public function compose(View $view): void
     {
-        $currentLanguage = $this->languageDetector->getLanguageOrFail();
+        $currentLanguage = $this->languageDetector->detectOrFail($this->request);
 
         $view->with([
             'menuItems' => $this->getMenuItems($currentLanguage),
