@@ -6,7 +6,7 @@
 
 <div data-column="actions">
     @isset($row->route)
-        <a class="btn btn-sm btn-success btn-icon-only" href="{{ $row->route->getTargetUrl() }}">
+        <a class="btn btn-sm btn-success btn-icon-only" href="{{ $row->route->getEntireUrl() }}">
             <i class="fa fa-link"></i>
         </a>
     @endisset
