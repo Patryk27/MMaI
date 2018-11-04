@@ -26,7 +26,7 @@
         </thead>
 
         <tbody>
-        @foreach ($page->attachments as $attachment)
+        @foreach ($page->attachments->sortBy('name') as $attachment)
             @php
                 $attachmentPresenter = $attachment->getPresenter();
             @endphp
