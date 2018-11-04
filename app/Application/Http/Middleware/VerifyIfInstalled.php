@@ -3,12 +3,11 @@
 namespace App\Application\Http\Middleware;
 
 use App\Routes\RoutesFacade;
-use Closure;
 use Illuminate\Database\Connection as DatabaseConnection;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class VerifyIsInstalled
+final class VerifyIfInstalled
 {
 
     /**
@@ -35,10 +34,10 @@ class VerifyIsInstalled
 
     /**
      * @param Request $request
-     * @param Closure $next
+     * @param callable $next
      * @return mixed
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, callable $next)
     {
         // Validate that the database contains "migrations" table
         $schemaBuilder = $this->db->getSchemaBuilder();

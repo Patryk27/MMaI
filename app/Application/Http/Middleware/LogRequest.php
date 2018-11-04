@@ -3,12 +3,11 @@
 namespace App\Application\Http\Middleware;
 
 use App\Application\Events\RequestServed;
-use Closure;
 use Illuminate\Contracts\Events\Dispatcher as EventsDispatcherContract;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class LogRequest
+final class LogRequest
 {
 
     /**
@@ -27,10 +26,10 @@ class LogRequest
 
     /**
      * @param Request $request
-     * @param Closure $next
+     * @param callable $next
      * @return mixed
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, callable $next)
     {
         return $next($request);
     }

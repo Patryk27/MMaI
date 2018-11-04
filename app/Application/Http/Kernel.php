@@ -33,7 +33,8 @@ class Kernel extends HttpKernel
         ],
 
         'web:frontend' => [
-            Middleware\VerifyIsInstalled::class,
+            Middleware\VerifyIfInstalled::class,
+            Middleware\SetLocale::class,
         ],
     ];
 

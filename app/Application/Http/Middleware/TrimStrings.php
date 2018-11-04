@@ -2,9 +2,9 @@
 
 namespace App\Application\Http\Middleware;
 
-use Illuminate\Foundation\Http\Middleware\TrimStrings as TrimStringsBase;
+use Illuminate\Foundation\Http\Middleware\TrimStrings as BaseTrimStrings;
 
-class TrimStrings extends TrimStringsBase
+final class TrimStrings extends BaseTrimStrings
 {
 
     /**
