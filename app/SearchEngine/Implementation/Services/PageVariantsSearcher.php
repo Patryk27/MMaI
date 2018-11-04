@@ -6,12 +6,19 @@ use App\Pages\Exceptions\PageException;
 use App\Pages\Models\PageVariant;
 use App\Pages\PagesFacade;
 use App\Pages\Queries\GetPageVariantsByIdsQuery;
+use App\SearchEngine\Events\QuerySearched;
 use App\SearchEngine\Queries\SearchQuery;
 use Elasticsearch\Client as ElasticsearchClient;
+use Illuminate\Contracts\Events\Dispatcher as EventsDispatcherContract;
 use Illuminate\Support\Collection;
 
 class PageVariantsSearcher
 {
+
+    /**
+     * @var EventsDispatcherContract
+     */
+    private $eventsDispatcher;
 
     /**
      * @var ElasticsearchClient
@@ -24,13 +31,16 @@ class PageVariantsSearcher
     private $pagesFacade;
 
     /**
+     * @param EventsDispatcherContract $eventsDispatcher
      * @param ElasticsearchClient $elasticsearch
      * @param PagesFacade $pagesFacade
      */
     public function __construct(
+        EventsDispatcherContract $eventsDispatcher,
         ElasticsearchClient $elasticsearch,
         PagesFacade $pagesFacade
     ) {
+        $this->eventsDispatcher = $eventsDispatcher;
         $this->elasticsearch = $elasticsearch;
         $this->pagesFacade = $pagesFacade;
     }
@@ -46,7 +56,12 @@ class PageVariantsSearcher
         // Step 1: Retrieve ids of matching page variants from the Elasticsearch
         $pageVariantIds = $this->getMatchingPageVariantIds($query);
 
-        // Step 2: Retrieve actual page variant models from the MySQL
+        // Step 2: Emit the "query searched" event
+        $this->eventsDispatcher->dispatch(
+            new QuerySearched($query, $pageVariantIds->all())
+        );
+
+        // Step 3: Retrieve actual page variant models from the MySQL
         return $this->pagesFacade->queryMany(
             new GetPageVariantsByIdsQuery(
                 $pageVariantIds->all()

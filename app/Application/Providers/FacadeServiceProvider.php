@@ -111,6 +111,7 @@ final class FacadeServiceProvider extends ServiceProvider
         // == Search engine == //
         $this->app->singleton(SearchEngineFacade::class, function (): SearchEngineFacade {
             return SearchEngineFactory::build(
+                $this->app->make(EventsDispatcher::class),
                 $this->app->make(ElasticsearchManager::class)->connection(),
                 $this->app->make(PagesFacade::class)
             );

@@ -58,7 +58,6 @@ final class SearchEngineFacade
     {
         Event::listen(PageCreated::class, PageCreatedListener::class);
         Event::listen(PageUpdated::class, PageUpdatedListener::class);
-
         Event::listen(TagUpdated::class, TagUpdatedListener::class);
     }
 

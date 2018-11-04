@@ -2,8 +2,9 @@
 
 namespace App\Application\Http\Middleware;
 
-use App\Analytics\AnalyticsFacade;
+use App\Application\Events\RequestServed;
 use Closure;
+use Illuminate\Contracts\Events\Dispatcher as EventsDispatcherContract;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -11,17 +12,17 @@ class LogRequest
 {
 
     /**
-     * @var AnalyticsFacade
+     * @var EventsDispatcherContract
      */
-    private $analyticsFacade;
+    private $eventsDispatcher;
 
     /**
-     * @param AnalyticsFacade $analyticsFacade
+     * @param EventsDispatcherContract $eventsDispatcher
      */
     public function __construct(
-        AnalyticsFacade $analyticsFacade
+        EventsDispatcherContract $eventsDispatcher
     ) {
-        $this->analyticsFacade = $analyticsFacade;
+        $this->eventsDispatcher = $eventsDispatcher;
     }
 
     /**
@@ -41,7 +42,13 @@ class LogRequest
      */
     public function terminate(Request $request, Response $response): void
     {
-        $this->analyticsFacade->logRequestServed($request, $response);
+        $this->eventsDispatcher->dispatch(
+            new RequestServed([
+                'requestUrl' => $request->getUri(),
+                'requestIp' => $request->getClientIp(),
+                'responseStatusCode' => $response->getStatusCode(),
+            ])
+        );
     }
 
 }

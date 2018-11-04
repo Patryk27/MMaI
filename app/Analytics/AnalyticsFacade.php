@@ -3,13 +3,15 @@
 namespace App\Analytics;
 
 use App\Analytics\Exceptions\AnalyticsException;
+use App\Analytics\Implementation\Listeners\QuerySearchedListener;
+use App\Analytics\Implementation\Listeners\RequestServedListener;
 use App\Analytics\Implementation\Repositories\EventsRepository;
-use App\Analytics\Implementation\Services\EventsBuilder;
 use App\Analytics\Implementation\Services\EventsQuerier;
 use App\Analytics\Models\Event;
 use App\Analytics\Queries\EventsQuery;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use App\Application\Events\RequestServed;
+use App\SearchEngine\Events\QuerySearched;
+use Event as EventFacade;
 use Illuminate\Support\Collection;
 
 final class AnalyticsFacade
@@ -21,42 +23,48 @@ final class AnalyticsFacade
     private $eventsRepository;
 
     /**
-     * @var EventsBuilder
-     */
-    private $eventsBuilder;
-
-    /**
      * @var EventsQuerier
      */
     private $eventsQuerier;
 
     /**
      * @param EventsRepository $eventsRepository
-     * @param EventsBuilder $eventsBuilder
      * @param EventsQuerier $eventsQuerier
      */
     public function __construct(
         EventsRepository $eventsRepository,
-        EventsBuilder $eventsBuilder,
         EventsQuerier $eventsQuerier
     ) {
         $this->eventsRepository = $eventsRepository;
-        $this->eventsBuilder = $eventsBuilder;
         $this->eventsQuerier = $eventsQuerier;
     }
 
     /**
-     * Saves a "request served" event to the log.
-     *
-     * @param Request $request
-     * @param Response $response
      * @return void
      */
-    public function logRequestServed(Request $request, Response $response): void
+    public function boot(): void
     {
-        $this->eventsRepository->persist(
-            $this->eventsBuilder->buildRequestServed($request, $response)
-        );
+        EventFacade::listen(QuerySearched::class, QuerySearchedListener::class);
+        EventFacade::listen(RequestServed::class, RequestServedListener::class);
+    }
+
+    /**
+     * Creates and persists given event.
+     *
+     * @param string $eventType
+     * @param array $eventPayload
+     * @return Event
+     */
+    public function create(string $eventType, array $eventPayload)
+    {
+        $event = new Event([
+            'type' => $eventType,
+            'payload' => $eventPayload,
+        ]);
+
+        $this->eventsRepository->persist($event);
+
+        return $event;
     }
 
     /**

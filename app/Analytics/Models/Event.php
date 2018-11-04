@@ -16,10 +16,7 @@ class Event extends Model
 {
 
     public const
-        TYPE_ATTACHMENT_DOWNLOADED = 'attachment-downloaded',
-        TYPE_EXCEPTION_CAUGHT = 'exception-caught',
-        TYPE_PAGE_VISITED = 'page-visited',
-        TYPE_TERM_SEARCHED = 'term-searched',
+        TYPE_QUERY_SEARCHED = 'query-searched',
         TYPE_REQUEST_SERVED = 'request-served';
 
     /**

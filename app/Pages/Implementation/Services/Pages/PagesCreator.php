@@ -131,7 +131,6 @@ class PagesCreator
     private function save(Page $page): void
     {
         $this->pagesValidator->validate($page);
-
         $this->pagesRepository->persist($page);
 
         $this->eventsDispatcher->dispatch(
