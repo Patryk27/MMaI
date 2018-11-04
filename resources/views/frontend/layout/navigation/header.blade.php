@@ -5,8 +5,7 @@
         </a>
 
         <p class="description">
-            {{-- @todo add translation --}}
-            Some description here
+            {{ env('APP_DESCRIPTION_' . strtoupper(Lang::locale())) }}
         </p>
     </div>
 </div>
