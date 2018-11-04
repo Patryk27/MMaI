@@ -5,6 +5,14 @@
      */
 @endphp
 
+@if (!$pageVariant->isPublished())
+    <div class="content-alerts">
+        <div class="alert alert-warning">
+            This page has not been published - only you (as the administrator) can view it.
+        </div>
+    </div>
+@endif
+
 <header class="content-header">
     {{-- "Edit" button --}}
     @can('edit', $page)
