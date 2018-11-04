@@ -8,7 +8,7 @@
     <div class="form-group">
         {{ Form::textarea('notes', $page->notes, [
             'class' => 'form-control',
-            'placeholder' => 'Your own private notes about this page.'
+            'placeholder' => 'Your private notes about this post / page.'
         ]) }}
     </div>
 </div>
