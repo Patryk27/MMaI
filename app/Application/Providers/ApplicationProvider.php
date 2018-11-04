@@ -7,7 +7,7 @@ use Illuminate\Support\ServiceProvider;
 use Schema;
 use View;
 
-final class AppServiceProvider extends ServiceProvider
+final class ApplicationProvider extends ServiceProvider
 {
 
     /**

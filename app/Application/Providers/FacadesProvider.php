@@ -34,7 +34,7 @@ use Illuminate\Contracts\Filesystem\Factory as FilesystemFactoryContract;
 use Illuminate\Events\Dispatcher as EventsDispatcher;
 use Illuminate\Support\ServiceProvider;
 
-final class FacadeServiceProvider extends ServiceProvider
+final class FacadesProvider extends ServiceProvider
 {
 
     private const FACADES = [

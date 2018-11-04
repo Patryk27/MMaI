@@ -5,7 +5,7 @@ namespace App\Application\Providers;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as BaseRouteServiceProvider;
 use Illuminate\Support\Facades\Route;
 
-final class RouteServiceProvider extends BaseRouteServiceProvider
+final class RoutesProvider extends BaseRouteServiceProvider
 {
 
     /**
