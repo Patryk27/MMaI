@@ -36,16 +36,10 @@ class RandomPostsSeeder extends Seeder
         $this->languages = Language::all();
         $this->tags = Tag::all();
 
-        // Create a distinct faker for each language - it allows us to generate
-        // appropriate sets of texts for each existing language
         foreach ($this->languages as $language) {
-            // Faker expects language ISO's name in an "xx_YY" format instead of
-            // the "xx-YY" we keep in the database - thus we need to translate
-            // one to the other
-            $languageIsoName = str_replace('-', '_', $language->iso_name);
-
-            // Instantiate the Faker
-            $this->fakers[$language->id] = FakerFactory::create($languageIsoName);
+            $this->fakers[$language->id] = FakerFactory::create(
+                sprintf('%s_%s', $language->iso_639_code, strtoupper($language->iso_3166_code))
+            );
         }
     }
 
