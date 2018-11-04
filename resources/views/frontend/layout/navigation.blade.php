@@ -7,6 +7,6 @@
 <nav class="site-navigation">
     @include('frontend.layout.navigation.header')
     @include('frontend.layout.navigation.search')
-    @include('frontend.layout.navigation.recent-posts')
+    @include('frontend.layout.navigation.newest-posts')
     @include('frontend.layout.navigation.menu')
 </nav>
