@@ -24,6 +24,7 @@
     "clipboard-polyfill": "^2.5.4",
     "datatables.net": "^1.10.19",
     "datatables.net-bs4": "^1.10.19",
+    "flag-icon-css": "^3.2.1",
     "flatpickr": "^4.5.2",
     "moment": "^2.22.2",
     "select2": "^4.0.6-rc.1",

@@ -61,7 +61,6 @@ class Page extends Model implements Attachable, Presentable
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     * @todo rename to just variants()
      */
     public function pageVariants()
     {
