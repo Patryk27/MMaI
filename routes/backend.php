@@ -3,9 +3,9 @@
 use App\Application\Http\Controllers\Backend\Analytics\RequestsController as AnalyticsRequestsController;
 use App\Application\Http\Controllers\Backend\AnalyticsController;
 use App\Application\Http\Controllers\Backend\AttachmentsController;
+use App\Application\Http\Controllers\Backend\AuthorizationController;
 use App\Application\Http\Controllers\Backend\DashboardController;
 use App\Application\Http\Controllers\Backend\PagesController;
-use App\Application\Http\Controllers\Backend\SignInController;
 use App\Application\Http\Controllers\Backend\TagsController;
 
 Route::domain('backend.' . env('APP_DOMAIN'))->group(function () {
@@ -15,15 +15,15 @@ Route::domain('backend.' . env('APP_DOMAIN'))->group(function () {
     // /auth
     Route::group(['prefix' => 'auth'], function () {
         // /auth/in
-        Route::get('in', SignInController::class . '@in')
+        Route::get('in', AuthorizationController::class . '@in')
             ->name('backend.auth.in');
 
         // /auth/in
-        Route::post('in', SignInController::class . '@doIn')
+        Route::post('in', AuthorizationController::class . '@doIn')
             ->name('backend.auth.do-in');
 
         // /auth/out
-        Route::post('out', SignInController::class . '@out')
+        Route::post('out', AuthorizationController::class . '@out')
             ->name('backend.auth.out');
     });
 

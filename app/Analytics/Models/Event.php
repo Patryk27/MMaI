@@ -16,6 +16,7 @@ class Event extends Model
 {
 
     public const
+        TYPE_LOGIN_ATTEMPTED = 'login-attempted',
         TYPE_QUERY_SEARCHED = 'query-searched',
         TYPE_REQUEST_SERVED = 'request-served';
 

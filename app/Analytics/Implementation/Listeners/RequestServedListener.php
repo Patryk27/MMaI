@@ -2,27 +2,11 @@
 
 namespace App\Analytics\Implementation\Listeners;
 
-use App\Analytics\AnalyticsFacade;
 use App\Analytics\Models\Event;
 use App\Application\Events\RequestServed;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
-final class RequestServedListener implements ShouldQueue
+final class RequestServedListener extends Listener
 {
-
-    /**
-     * @var AnalyticsFacade
-     */
-    private $analyticsFacade;
-
-    /**
-     * @param AnalyticsFacade $analyticsFacade
-     */
-    public function __construct(
-        AnalyticsFacade $analyticsFacade
-    ) {
-        $this->analyticsFacade = $analyticsFacade;
-    }
 
     /**
      * @param RequestServed $event

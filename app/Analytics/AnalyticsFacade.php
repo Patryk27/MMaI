@@ -3,12 +3,14 @@
 namespace App\Analytics;
 
 use App\Analytics\Exceptions\AnalyticsException;
+use App\Analytics\Implementation\Listeners\LoginAttemptedListener;
 use App\Analytics\Implementation\Listeners\QuerySearchedListener;
 use App\Analytics\Implementation\Listeners\RequestServedListener;
 use App\Analytics\Implementation\Repositories\EventsRepository;
 use App\Analytics\Implementation\Services\EventsQuerier;
 use App\Analytics\Models\Event;
 use App\Analytics\Queries\EventsQuery;
+use App\Application\Events\LoginAttempted;
 use App\Application\Events\RequestServed;
 use App\SearchEngine\Events\QuerySearched;
 use Event as EventFacade;
@@ -44,6 +46,7 @@ final class AnalyticsFacade
      */
     public function boot(): void
     {
+        EventFacade::listen(LoginAttempted::class, LoginAttemptedListener::class);
         EventFacade::listen(QuerySearched::class, QuerySearchedListener::class);
         EventFacade::listen(RequestServed::class, RequestServedListener::class);
     }
