@@ -26,6 +26,10 @@
 
         .page-variant {
           margin-left: 2px;
+
+          &:hover {
+            text-decoration: none;
+          }
         }
       }
     }
