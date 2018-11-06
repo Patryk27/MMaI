@@ -19,7 +19,7 @@ import 'select2';
 import DataTableComponent from './base/components/DataTableComponent';
 import Dispatcher from './base/Dispatcher';
 
-import './backend/pages';
+import './backend/views';
 
 // It seems that `flatpickr` has some issues while loaded using `import`
 // noinspection JSUnresolvedFunction
