@@ -57,9 +57,20 @@ class HomeController extends Controller
 
         $query = [
             'filters' => [
-                SearchPages::FIELD_STATUS => Page::STATUS_PUBLISHED,
-                SearchPages::FIELD_TYPE => Page::TYPE_POST,
-                SearchPages::FIELD_LANGUAGE_ID => $language->id,
+                SearchPages::FIELD_STATUS => [
+                    'operator' => 'expression',
+                    'value' => Page::STATUS_PUBLISHED,
+                ],
+
+                SearchPages::FIELD_TYPE => [
+                    'operator' => 'expression',
+                    'value' => Page::TYPE_POST,
+                ],
+
+                SearchPages::FIELD_LANGUAGE_ID => [
+                    'operator' => 'expression',
+                    'value' => $language->id,
+                ],
             ],
 
             'orderBy' => [

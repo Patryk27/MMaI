@@ -56,9 +56,7 @@ class EloquentPagesSearcher extends AbstractEloquentSearcher implements PagesSea
     /**
      * @param Page $page
      */
-    public function __construct(
-        Page $page
-    ) {
+    public function __construct(Page $page) {
         parent::__construct($page, self::FIELDS);
 
         $this->builder->selectRaw('pages.*');
