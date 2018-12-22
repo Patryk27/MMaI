@@ -6,7 +6,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class CreateAttachmentRequest extends FormRequest
 {
-
     /**
      * @return bool
      */
@@ -24,5 +23,4 @@ class CreateAttachmentRequest extends FormRequest
             'attachment' => 'file',
         ];
     }
-
 }

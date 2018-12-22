@@ -7,5 +7,4 @@ use App\Core\Searcher\AbstractInMemorySearcher;
 
 class InMemoryRequestEventsSearcher extends AbstractInMemorySearcher implements RequestEventsSearcher
 {
-
 }

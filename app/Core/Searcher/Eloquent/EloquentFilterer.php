@@ -10,18 +10,11 @@ use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 
 class EloquentFilterer
 {
-
-    /**
-     * @var OperatorHandler[]
-     */
+    /** @var OperatorHandler[] */
     private $operatorHandlers;
 
-    /**
-     * @param EloquentMapper $mapper
-     */
-    public function __construct(
-        EloquentMapper $mapper
-    ) {
+    public function __construct(EloquentMapper $mapper)
+    {
         $this->operatorHandlers = [
             new ExpressionOperatorHandler($mapper),
             new InOperatorHandler($mapper),
@@ -32,7 +25,6 @@ class EloquentFilterer
      * @param EloquentBuilder $builder
      * @param array $filters
      * @return void
-     *
      * @throws CoreException
      */
     public function applyFilters(EloquentBuilder $builder, array $filters): void
@@ -53,7 +45,6 @@ class EloquentFilterer
      * @param string $operatorName
      * @param mixed $operatorValue
      * @return void
-     *
      * @throws CoreException
      */
     private function applyFilter(
@@ -69,9 +60,8 @@ class EloquentFilterer
             }
         }
 
-        throw new CoreException(
-            sprintf('Unknown operator: [%s].', $operatorName)
-        );
+        throw new CoreException(sprintf(
+            'Unknown operator: [%s].', $operatorName
+        ));
     }
-
 }

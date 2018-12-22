@@ -12,18 +12,13 @@ use Illuminate\Http\Request;
 
 class Detector
 {
-
     /**
      * @var LanguagesFacade
      */
     private $languagesFacade;
 
-    /**
-     * @param LanguagesFacade $languagesFacade
-     */
-    public function __construct(
-        LanguagesFacade $languagesFacade
-    ) {
+    public function __construct(LanguagesFacade $languagesFacade)
+    {
         $this->languagesFacade = $languagesFacade;
     }
 
@@ -56,12 +51,11 @@ class Detector
         $language = $this->detect($request);
 
         if (is_null($language)) {
-            throw new CoreException(
-                sprintf('Failed to detect language for URL [%s].', $request->url())
-            );
+            throw new CoreException(sprintf(
+                'Failed to detect language for URL [%s].', $request->url()
+            ));
         }
 
         return $language;
     }
-
 }

@@ -20,33 +20,18 @@ use Illuminate\Support\Collection;
 
 class TagsController extends Controller
 {
-
-    /**
-     * @var TableRenderer
-     */
+    /** @var TableRenderer */
     private $tableRenderer;
 
-    /**
-     * @var DataTablesHandler
-     */
+    /** @var DataTablesHandler */
     private $dataTablesHandler;
 
-    /**
-     * @var LanguagesFacade
-     */
+    /** @var LanguagesFacade */
     private $languagesFacade;
 
-    /**
-     * @var TagsFacade
-     */
+    /** @var TagsFacade */
     private $tagsFacade;
 
-    /**
-     * @param TableRenderer $tableRenderer
-     * @param DataTablesHandler $dataTablesHandler
-     * @param LanguagesFacade $languagesFacade
-     * @param TagsFacade $tagsFacade
-     */
     public function __construct(
         TableRenderer $tableRenderer,
         DataTablesHandler $dataTablesHandler,
@@ -61,7 +46,6 @@ class TagsController extends Controller
 
     /**
      * @return ViewContract
-     *
      * @throws LanguageException
      */
     public function index(): ViewContract
@@ -87,7 +71,7 @@ class TagsController extends Controller
         $this->tableRenderer->addColumns([
             'id' => 'backend.components.table.id',
             'name' => 'backend.components.tags.table.name',
-            'pageVariantCount' => 'backend.components.tags.table.page-variant-count',
+            'assignedPagesCount' => 'backend.components.tags.table.assigned-pages-count',
             'createdAt' => 'backend.components.table.created-at',
             'actions' => 'backend.components.tags.table.actions',
         ]);
@@ -112,7 +96,6 @@ class TagsController extends Controller
     /**
      * @param CreateTagRequest $request
      * @return void
-     *
      * @throws TagException
      */
     public function store(CreateTagRequest $request)
@@ -126,7 +109,6 @@ class TagsController extends Controller
      * @param UpdateTagRequest $request
      * @param Tag $tag
      * @return void
-     *
      * @throws TagException
      */
     public function update(UpdateTagRequest $request, Tag $tag)
@@ -145,5 +127,4 @@ class TagsController extends Controller
     {
         $this->tagsFacade->delete($tag);
     }
-
 }

@@ -7,10 +7,7 @@ use App\Core\Presenters\Presenter;
 
 final class AttachmentPresenter extends Presenter
 {
-
-    /**
-     * @var Attachment
-     */
+    /** @var Attachment */
     protected $model;
 
     /**
@@ -22,5 +19,4 @@ final class AttachmentPresenter extends Presenter
             'path' => $this->model->path,
         ]);
     }
-
 }

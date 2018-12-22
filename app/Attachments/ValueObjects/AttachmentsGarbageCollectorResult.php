@@ -6,17 +6,12 @@ use App\Core\ValueObjects\HasInitializationConstructor;
 
 final class AttachmentsGarbageCollectorResult
 {
-
     use HasInitializationConstructor;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     private $scannedAttachmentsCount;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     private $removedAttachmentsCount;
 
     /**
@@ -34,5 +29,4 @@ final class AttachmentsGarbageCollectorResult
     {
         return $this->removedAttachmentsCount;
     }
-
 }

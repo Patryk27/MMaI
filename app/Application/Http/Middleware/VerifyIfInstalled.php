@@ -9,21 +9,12 @@ use Illuminate\Http\Response;
 
 final class VerifyIfInstalled
 {
-
-    /**
-     * @var DatabaseConnection
-     */
+    /** @var DatabaseConnection */
     private $db;
 
-    /**
-     * @var RoutesFacade
-     */
+    /** @var RoutesFacade */
     private $routesFacade;
 
-    /**
-     * @param DatabaseConnection $db
-     * @param RoutesFacade $routesFacade
-     */
     public function __construct(
         DatabaseConnection $db,
         RoutesFacade $routesFacade
@@ -39,7 +30,6 @@ final class VerifyIfInstalled
      */
     public function handle(Request $request, callable $next)
     {
-        // Validate that the database contains "migrations" table
         $schemaBuilder = $this->db->getSchemaBuilder();
 
         if (!$schemaBuilder->hasTable('migrations')) {
@@ -48,7 +38,6 @@ final class VerifyIfInstalled
             ]);
         }
 
-        // If all conditions are met, proceed
         return $next($request);
     }
 
@@ -62,5 +51,4 @@ final class VerifyIfInstalled
             view('frontend.views.application-not-installed', $viewData)
         );
     }
-
 }

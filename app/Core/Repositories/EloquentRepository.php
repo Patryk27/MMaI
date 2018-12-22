@@ -16,18 +16,11 @@ use Throwable;
  */
 final class EloquentRepository
 {
-
-    /**
-     * @var Model
-     */
+    /** @var Model */
     private $model;
 
-    /**
-     * @param Model $model
-     */
-    public function __construct(
-        Model $model
-    ) {
+    public function __construct(Model $model)
+    {
         $this->model = $model;
     }
 
@@ -56,13 +49,11 @@ final class EloquentRepository
      *
      * @param Model $model
      * @return void
-     *
      * @throws Throwable
      */
     public function persist(Model $model): void
     {
         $this->assertModelHasCorrectType($model);
-
         $model->saveOrFail();
     }
 
@@ -71,13 +62,11 @@ final class EloquentRepository
      *
      * @param Model $model
      * @return void
-     *
      * @throws Throwable
      */
     public function delete(Model $model): void
     {
         $this->assertModelHasCorrectType($model);
-
         $model->delete();
     }
 
@@ -85,11 +74,11 @@ final class EloquentRepository
      * Returns a single model with specified attribute's value.
      * Returns `null` if no such model exists.
      *
+     * @see getByMany()
+     *
      * @param string $attributeName
      * @param mixed $attributeValue
      * @return mixed|null
-     *
-     * @see getByMany()
      */
     public function getBy(string $attributeName, $attributeValue)
     {
@@ -109,7 +98,7 @@ final class EloquentRepository
     }
 
     /**
-     * Returns all models.
+     * Returns all the models.
      *
      * @return Collection|Model[]
      */
@@ -124,16 +113,14 @@ final class EloquentRepository
      *
      * @param mixed $model
      * @return void
-     *
      * @throws RepositoryException
      */
     private function assertModelHasCorrectType($model): void
     {
         if (!$model instanceof $this->model) {
-            throw RepositoryException::makeModelIsInvalid(
-                sprintf('model is not an instance of [%s].', get_class($this->model))
-            );
+            throw RepositoryException::makeModelIsInvalid(sprintf(
+                'model is not an instance of [%s].', get_class($this->model)
+            ));
         }
     }
-
 }

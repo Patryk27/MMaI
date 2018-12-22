@@ -10,10 +10,7 @@ use Carbon\Carbon;
  */
 class CollectGarbageTest extends TestCase
 {
-
-    /**
-     * @var Attachment[]
-     */
+    /** @var Attachment[] */
     private $attachments;
 
     /**
@@ -79,5 +76,4 @@ class CollectGarbageTest extends TestCase
         $this->assertCount(1, $attachments);
         $this->assertEquals($this->attachments['bound'], $attachments[$this->attachments['bound']->id]);
     }
-
 }

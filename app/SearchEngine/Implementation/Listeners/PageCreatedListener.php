@@ -8,18 +8,11 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 
 final class PageCreatedListener implements ShouldQueue
 {
-
-    /**
-     * @var PagesIndexer
-     */
+    /** @var PagesIndexer */
     private $pagesIndexer;
 
-    /**
-     * @param PagesIndexer $pagesIndexer
-     */
-    public function __construct(
-        PagesIndexer $pagesIndexer
-    ) {
+    public function __construct(PagesIndexer $pagesIndexer)
+    {
         $this->pagesIndexer = $pagesIndexer;
     }
 
@@ -33,5 +26,4 @@ final class PageCreatedListener implements ShouldQueue
             $event->getPage()
         );
     }
-
 }

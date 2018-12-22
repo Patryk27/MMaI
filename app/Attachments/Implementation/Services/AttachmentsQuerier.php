@@ -12,25 +12,17 @@ use Illuminate\Support\Collection;
 
 class AttachmentsQuerier
 {
-
-    /**
-     * @var AttachmentsRepository
-     */
+    /** @var AttachmentsRepository */
     private $attachmentsRepository;
 
-    /**
-     * @param AttachmentsRepository $attachmentsRepository
-     */
-    public function __construct(
-        AttachmentsRepository $attachmentsRepository
-    ) {
+    public function __construct(AttachmentsRepository $attachmentsRepository)
+    {
         $this->attachmentsRepository = $attachmentsRepository;
     }
 
     /**
      * @param AttachmentsQuery $query
      * @return Collection|Attachment[]
-     *
      * @throws AttachmentException
      */
     public function query(AttachmentsQuery $query): Collection
@@ -51,10 +43,9 @@ class AttachmentsQuerier
                 );
 
             default:
-                throw new AttachmentException(
-                    sprintf('Cannot handle query of class [%s].', get_class($query))
-                );
+                throw new AttachmentException(sprintf(
+                    'Cannot handle query of class [%s].', get_class($query)
+                ));
         }
     }
-
 }

@@ -13,7 +13,6 @@ use Illuminate\Contracts\Events\Dispatcher as EventsDispatcherContract;
 
 final class TagsFactory
 {
-
     /**
      * Builds an instance of @see TagsFacade.
      *
@@ -41,5 +40,4 @@ final class TagsFactory
             $tagsQuerier
         );
     }
-
 }

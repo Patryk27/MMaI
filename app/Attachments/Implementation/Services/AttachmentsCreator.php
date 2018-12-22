@@ -10,21 +10,12 @@ use Throwable;
 
 class AttachmentsCreator
 {
-
-    /**
-     * @var FilesystemContract
-     */
+    /** @var FilesystemContract */
     private $attachmentsFs;
 
-    /**
-     * @var AttachmentsRepository
-     */
+    /** @var AttachmentsRepository */
     private $attachmentsRepository;
 
-    /**
-     * @param FilesystemContract $attachmentsFs
-     * @param AttachmentsRepository $attachmentsRepository
-     */
     public function __construct(
         FilesystemContract $attachmentsFs,
         AttachmentsRepository $attachmentsRepository
@@ -36,7 +27,6 @@ class AttachmentsCreator
     /**
      * @param UploadedFile $file
      * @return Attachment
-     *
      * @throws Throwable
      */
     public function createFromFile(UploadedFile $file): Attachment
@@ -63,5 +53,4 @@ class AttachmentsCreator
 
         return $attachment;
     }
-
 }

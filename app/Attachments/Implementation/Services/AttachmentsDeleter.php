@@ -8,21 +8,12 @@ use Illuminate\Contracts\Filesystem\Filesystem as FilesystemContract;
 
 class AttachmentsDeleter
 {
-
-    /**
-     * @var FilesystemContract
-     */
+    /** @var FilesystemContract */
     private $attachmentsFs;
 
-    /**
-     * @var AttachmentsRepository
-     */
+    /** @var AttachmentsRepository */
     private $attachmentsRepository;
 
-    /**
-     * @param FilesystemContract $attachmentsFs
-     * @param AttachmentsRepository $attachmentsRepository
-     */
     public function __construct(
         FilesystemContract $attachmentsFs,
         AttachmentsRepository $attachmentsRepository
@@ -40,5 +31,4 @@ class AttachmentsDeleter
         $this->attachmentsFs->delete($attachment->path);
         $this->attachmentsRepository->delete($attachment);
     }
-
 }

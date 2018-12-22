@@ -7,20 +7,13 @@ use Illuminate\Queue\SerializesModels;
 
 final class TagUpdated
 {
-
     use SerializesModels;
 
-    /**
-     * @var Tag
-     */
+    /** @var Tag */
     private $tag;
 
-    /**
-     * @param Tag $tag
-     */
-    public function __construct(
-        Tag $tag
-    ) {
+    public function __construct(Tag $tag)
+    {
         $this->tag = $tag;
     }
 
@@ -31,5 +24,4 @@ final class TagUpdated
     {
         return $this->tag;
     }
-
 }

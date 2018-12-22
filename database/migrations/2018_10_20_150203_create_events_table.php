@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateEventsTable extends Migration
 {
-
     /**
      * @return void
      */
@@ -31,5 +30,4 @@ class CreateEventsTable extends Migration
     {
         Schema::dropIfExists('events');
     }
-
 }

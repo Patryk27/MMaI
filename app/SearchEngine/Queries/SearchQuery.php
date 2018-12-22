@@ -6,43 +6,28 @@ use App\Languages\Models\Language;
 
 final class SearchQuery
 {
-
     /**
-     * Text query which will be used to find posts / pages.
-     * E.g. "arduino".
-     *
+     * Text query which will be used to find pages, e.g.: "arduino".
      * @var string
      */
     private $query;
 
     /**
-     * If set, returned page variants are limited to those matching given
-     * page type.
-     *
-     * Default: null.
-     *
+     * If set, returned pages are limited to those with given type.
      * @var string|null
      */
-    private $pageType;
+    private $type;
 
     /**
-     * If set, returned page variants are limited to those matching given
-     * language.
-     *
-     * Default: null.
-     *
+     * If set, returned pages are limited to those with given language.
      * @var Language|null
      */
     private $language;
 
-    /**
-     * @param array $payload
-     */
-    public function __construct(
-        array $payload
-    ) {
+    public function __construct(array $payload)
+    {
         $this->query = array_get($payload, 'query', '');
-        $this->pageType = array_get($payload, 'pageType');
+        $this->type = array_get($payload, 'type');
         $this->language = array_get($payload, 'language');
     }
 
@@ -73,17 +58,16 @@ final class SearchQuery
     /**
      * @return bool
      */
-    public function hasPageType(): bool
+    public function hasType(): bool
     {
-        return isset($this->pageType);
+        return isset($this->type);
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
-    public function getPageType(): ?string
+    public function getType(): ?string
     {
-        return $this->pageType;
+        return $this->type;
     }
-
 }

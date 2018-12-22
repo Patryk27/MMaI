@@ -17,33 +17,18 @@ use Throwable;
 
 final class AttachmentsFacade
 {
-
-    /**
-     * @var AttachmentsCreator
-     */
+    /** @var AttachmentsCreator */
     private $attachmentsCreator;
 
-    /**
-     * @var AttachmentsGarbageCollector
-     */
+    /** @var AttachmentsGarbageCollector */
     private $attachmentsGarbageCollector;
 
-    /**
-     * @var AttachmentsStreamer
-     */
+    /** @var AttachmentsStreamer */
     private $attachmentsStreamer;
 
-    /**
-     * @var AttachmentsQuerier
-     */
+    /** @var AttachmentsQuerier */
     private $attachmentsQuerier;
 
-    /**
-     * @param AttachmentsCreator $attachmentsCreator
-     * @param AttachmentsGarbageCollector $attachmentsGarbageCollector
-     * @param AttachmentsStreamer $attachmentsStreamer
-     * @param AttachmentsQuerier $attachmentsQuerier
-     */
     public function __construct(
         AttachmentsCreator $attachmentsCreator,
         AttachmentsGarbageCollector $attachmentsGarbageCollector,
@@ -57,11 +42,10 @@ final class AttachmentsFacade
     }
 
     /**
-     * Creates an unbound attachment.
+     * Creates a detached attachment.
      *
      * @param UploadedFile $file
      * @return Attachment
-     *
      * @throws Throwable
      */
     public function createFromFile(UploadedFile $file): Attachment
@@ -70,15 +54,15 @@ final class AttachmentsFacade
     }
 
     /**
-     * Removes all the unbound attachments from the filesystem.
+     * Removes all the detached attachments from the filesystem.
      *
      * Should be run e.g. each day to make sure there are no unused left-overs
      * in the storage.
      *
-     * When $aggressive is set to `false`, only unbound attachments older than
+     * When $aggressive is set to `false`, only detached attachments older than
      * 1 day are removed.
      *
-     * When $aggressive is set to `true`, all the unbound attachments are
+     * When $aggressive is set to `true`, all the detached attachments are
      * removed (ignoring timestamps).
      *
      * @param bool $aggressive
@@ -94,7 +78,6 @@ final class AttachmentsFacade
      *
      * @param Attachment $attachment
      * @return resource
-     *
      * @throws AttachmentException
      */
     public function stream(Attachment $attachment)
@@ -108,7 +91,6 @@ final class AttachmentsFacade
      *
      * @param AttachmentsQuery $query
      * @return Attachment
-     *
      * @throws AttachmentException
      */
     public function queryOne(AttachmentsQuery $query): Attachment
@@ -127,12 +109,10 @@ final class AttachmentsFacade
      *
      * @param AttachmentsQuery $query
      * @return Collection|Attachment[]
-     *
      * @throws AttachmentException
      */
     public function queryMany(AttachmentsQuery $query): Collection
     {
         return $this->attachmentsQuerier->query($query);
     }
-
 }

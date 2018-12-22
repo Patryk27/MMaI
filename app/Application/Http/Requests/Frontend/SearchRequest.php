@@ -6,7 +6,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class SearchRequest extends FormRequest
 {
-
     /**
      * @return bool
      */
@@ -24,5 +23,4 @@ class SearchRequest extends FormRequest
             'query' => 'required',
         ];
     }
-
 }

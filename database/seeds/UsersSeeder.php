@@ -2,12 +2,10 @@
 
 use App\Users\Models\User;
 
-class UsersSeeder extends Seeder
+final class UsersSeeder extends Seeder
 {
-
     /**
      * @return void
-     *
      * @throws Throwable
      */
     public function run(): void
@@ -18,5 +16,4 @@ class UsersSeeder extends Seeder
             'password' => bcrypt('admin'),
         ]);
     }
-
 }

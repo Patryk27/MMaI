@@ -10,7 +10,6 @@ use App\Routes\Implementation\Services\RoutesValidator;
 
 final class RoutesFactory
 {
-
     /**
      * Builds an instance of @see RoutesFacade.
      *
@@ -33,5 +32,4 @@ final class RoutesFactory
             $routesQuerier
         );
     }
-
 }

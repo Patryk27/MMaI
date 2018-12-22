@@ -4,7 +4,6 @@ use Illuminate\Database\Seeder as BaseSeeder;
 
 abstract class Seeder extends BaseSeeder
 {
-
     /**
      * @return void
      */
@@ -28,5 +27,4 @@ abstract class Seeder extends BaseSeeder
 
         DB::statement('SET foreign_key_checks=1');
     }
-
 }

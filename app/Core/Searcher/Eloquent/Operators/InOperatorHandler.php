@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 
 class InOperatorHandler extends AbstractOperatorHandler implements OperatorHandler
 {
-
     /**
      * @inheritDoc
      */
@@ -18,7 +17,6 @@ class InOperatorHandler extends AbstractOperatorHandler implements OperatorHandl
 
     /**
      * @inheritDoc
-     *
      * @throws CoreException
      */
     public function handle(
@@ -38,5 +36,4 @@ class InOperatorHandler extends AbstractOperatorHandler implements OperatorHandl
             );
         }
     }
-
 }

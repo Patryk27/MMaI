@@ -9,10 +9,7 @@ use Tests\Unit\TestCase;
 
 class ExpressionParserTest extends TestCase
 {
-
-    /**
-     * @var ExpressionParser
-     */
+    /** @var ExpressionParser */
     private $parser;
 
     /**
@@ -115,5 +112,4 @@ class ExpressionParserTest extends TestCase
             ],
         ];
     }
-
 }

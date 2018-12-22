@@ -9,43 +9,27 @@ use App\Core\Language\Detector as LanguageDetector;
 use App\Languages\Exceptions\LanguageException;
 use App\Pages\Exceptions\PageException;
 use App\Pages\Models\Page;
-use App\Pages\Models\PageVariant;
 use App\Pages\PagesFacade;
-use App\Pages\Queries\SearchPageVariantsQuery;
+use App\Pages\Queries\SearchPages;
 use Illuminate\Contracts\View\Factory as ViewFactoryContract;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
+    private const NUMBER_OF_ITEMS_PER_PAGE = 10;
 
-    private const NUMBER_OF_POSTS_PER_PAGE = 10;
-
-    /**
-     * @var ViewFactoryContract
-     */
+    /** @var ViewFactoryContract */
     private $viewFactory;
 
-    /**
-     * @var CollectionPaginator
-     */
+    /** @var CollectionPaginator */
     private $paginator;
 
-    /**
-     * @var LanguageDetector
-     */
+    /** @var LanguageDetector */
     private $languageDetector;
 
-    /**
-     * @var PagesFacade
-     */
+    /** @var PagesFacade */
     private $pagesFacade;
 
-    /**
-     * @param ViewFactoryContract $viewFactory
-     * @param CollectionPaginator $paginator
-     * @param LanguageDetector $languageDetector
-     * @param PagesFacade $pagesFacade
-     */
     public function __construct(
         ViewFactoryContract $viewFactory,
         CollectionPaginator $paginator,
@@ -61,12 +45,11 @@ class HomeController extends Controller
     /**
      * @param Request $request
      * @return mixed
-     *
      * @throws CoreException
      * @throws PageException
      * @throws LanguageException
      *
-     * @todo a bit too much is happening in here
+     * @todo a bit too much happens in here
      */
     public function index(Request $request)
     {
@@ -74,35 +57,39 @@ class HomeController extends Controller
 
         $query = [
             'filters' => [
-                SearchPageVariantsQuery::FIELD_STATUS => PageVariant::STATUS_PUBLISHED,
-                SearchPageVariantsQuery::FIELD_PAGE_TYPE => Page::TYPE_BLOG,
-                SearchPageVariantsQuery::FIELD_LANGUAGE_ID => $language->id,
+                SearchPages::FIELD_STATUS => Page::STATUS_PUBLISHED,
+                SearchPages::FIELD_TYPE => Page::TYPE_POST,
+                SearchPages::FIELD_LANGUAGE_ID => $language->id,
             ],
 
             'orderBy' => [
-                SearchPageVariantsQuery::FIELD_ID => 'desc',
+                SearchPages::FIELD_ID => 'desc',
             ],
         ];
 
-        $numberOfPosts = $this->pagesFacade->queryCount(
-            new SearchPageVariantsQuery($query)
+        $numberOfPages = $this->pagesFacade->queryCount(
+            new SearchPages($query)
         );
 
         $query['pagination'] = [
             'page' => $this->paginator->getCurrentPageNumber(),
-            'perPage' => self::NUMBER_OF_POSTS_PER_PAGE,
+            'perPage' => self::NUMBER_OF_ITEMS_PER_PAGE,
         ];
 
-        $posts = $this->pagesFacade->queryMany(
-            new SearchPageVariantsQuery($query)
+        $pages = $this->pagesFacade->queryMany(
+            new SearchPages($query)
         );
 
-        $posts = $posts->map([$this->pagesFacade, 'render']);
-        $posts = $this->paginator->build($posts, $numberOfPosts, self::NUMBER_OF_POSTS_PER_PAGE);
+        $renderedPages = $pages->map([$this->pagesFacade, 'render']);
+
+        $renderedPages = $this->paginator->build(
+            $renderedPages,
+            $numberOfPages,
+            self::NUMBER_OF_ITEMS_PER_PAGE
+        );
 
         return view('frontend.views.home', [
-            'posts' => $posts,
+            'renderedPages' => $renderedPages,
         ]);
     }
-
 }

@@ -7,7 +7,6 @@ use Illuminate\Support\Collection;
 
 interface MenuItemsRepository
 {
-
     /**
      * Returns all menu items which belong to given language.
      *
@@ -15,5 +14,4 @@ interface MenuItemsRepository
      * @return Collection|MenuItem[]
      */
     public function getByLanguageId(int $languageId): Collection;
-
 }

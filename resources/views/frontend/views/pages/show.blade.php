@@ -1,10 +1,9 @@
 @php
     /**
-     * @var \App\Pages\ValueObjects\RenderedPageVariant $renderedPageVariant
+     * @var \App\Pages\ValueObjects\RenderedPage $renderedPage
      */
 
-    $page = $renderedPageVariant->getPage();
-    $pageVariant = $renderedPageVariant->getPageVariant();
+    $page = $renderedPage->getPage();
 @endphp
 
 @extends('frontend.layout', [
@@ -12,12 +11,12 @@
 ])
 
 @section('layout-meta')
-    @if (strlen($pageVariant->lead) > 0)
-        <meta name="description" content="{{ $pageVariant->lead }}">
+    @if (strlen($page->lead) > 0) {{-- @todo $page->hasLead() --}}
+        <meta name="description" content="{{ $page->lead }}">
     @endif
 @endsection
 
-@section('title', $pageVariant->title)
+@section('title', $page->title)
 
 @section('content')
     @include('frontend.views.pages.show.header')

@@ -7,7 +7,6 @@ use App\Menus\Implementation\Services\MenuItemsQuerier;
 
 final class MenusFactory
 {
-
     /**
      * Builds an instance of @see MenusFacade.
      *
@@ -23,5 +22,4 @@ final class MenusFactory
             $menuItemsQuerier
         );
     }
-
 }

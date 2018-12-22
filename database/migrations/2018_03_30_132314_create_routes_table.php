@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateRoutesTable extends Migration
 {
-
     /**
      * @return void
      */
@@ -32,5 +31,4 @@ class CreateRoutesTable extends Migration
     {
         Schema::dropIfExists('routes');
     }
-
 }

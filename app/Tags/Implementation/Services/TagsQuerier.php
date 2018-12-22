@@ -13,21 +13,12 @@ use Illuminate\Support\Collection;
 
 class TagsQuerier
 {
-
-    /**
-     * @var TagsRepository
-     */
+    /** @var TagsRepository */
     private $tagsRepository;
 
-    /**
-     * @var TagsSearcher
-     */
+    /** @var TagsSearcher */
     private $tagsSearcher;
 
-    /**
-     * @param TagsRepository $tagsRepository
-     * @param TagsSearcher $tagsSearcher
-     */
     public function __construct(
         TagsRepository $tagsRepository,
         TagsSearcher $tagsSearcher
@@ -39,7 +30,6 @@ class TagsQuerier
     /**
      * @param TagsQuery $query
      * @return Collection|Tag[]
-     *
      * @throws TagException
      */
     public function query(TagsQuery $query): Collection
@@ -59,9 +49,9 @@ class TagsQuerier
                 return $query->applyTo($this->tagsSearcher)->get();
 
             default:
-                throw new TagException(
-                    sprintf('Cannot handle query of class [%s].', get_class($query))
-                );
+                throw new TagException(sprintf(
+                    'Cannot handle query of class [%s].', get_class($query)
+                ));
         }
     }
 
@@ -70,7 +60,6 @@ class TagsQuerier
      *
      * @param TagsQuery $query
      * @return int
-     *
      * @throws TagException
      */
     public function count(TagsQuery $query): int
@@ -83,5 +72,4 @@ class TagsQuerier
                 return $this->query($query)->count();
         }
     }
-
 }

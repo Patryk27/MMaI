@@ -6,5 +6,4 @@ use App\Core\Exceptions\Exception as CoreException;
 
 class ExpressionException extends CoreException
 {
-
 }

@@ -9,18 +9,11 @@ use Illuminate\Http\Response;
 
 final class LogRequest
 {
-
-    /**
-     * @var EventsDispatcherContract
-     */
+    /** @var EventsDispatcherContract */
     private $eventsDispatcher;
 
-    /**
-     * @param EventsDispatcherContract $eventsDispatcher
-     */
-    public function __construct(
-        EventsDispatcherContract $eventsDispatcher
-    ) {
+    public function __construct(EventsDispatcherContract $eventsDispatcher)
+    {
         $this->eventsDispatcher = $eventsDispatcher;
     }
 
@@ -49,5 +42,4 @@ final class LogRequest
             ])
         );
     }
-
 }

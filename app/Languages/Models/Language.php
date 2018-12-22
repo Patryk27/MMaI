@@ -28,10 +28,7 @@ use Illuminate\Support\Carbon;
  */
 class Language extends Model
 {
-
-    /**
-     * @var string[]
-     */
+    /** @var string[] */
     protected $fillable = [
         'slug',
         'iso_639_code',
@@ -40,12 +37,9 @@ class Language extends Model
         'native_name',
     ];
 
-    /**
-     * @var string[]
-     */
+    /** @var string[] */
     protected $dates = [
         'created_at',
         'updated_at',
     ];
-
 }

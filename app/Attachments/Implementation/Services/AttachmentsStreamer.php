@@ -9,25 +9,17 @@ use Illuminate\Contracts\Filesystem\Filesystem as FilesystemContract;
 
 class AttachmentsStreamer
 {
-
-    /**
-     * @var FilesystemContract
-     */
+    /** @var FilesystemContract */
     private $attachmentsFs;
 
-    /**
-     * @param FilesystemContract $attachmentsFs
-     */
-    public function __construct(
-        FilesystemContract $attachmentsFs
-    ) {
+    public function __construct(FilesystemContract $attachmentsFs)
+    {
         $this->attachmentsFs = $attachmentsFs;
     }
 
     /**
      * @param Attachment $attachment
      * @return resource
-     *
      * @throws AttachmentException
      */
     public function stream(Attachment $attachment)
@@ -35,18 +27,17 @@ class AttachmentsStreamer
         try {
             $stream = $this->attachmentsFs->readStream($attachment->path);
         } catch (FileNotFoundException $ex) {
-            throw new AttachmentException(
-                sprintf('Attachment [id=%d] was not found in the storage.', $attachment->id)
-            );
+            throw new AttachmentException(sprintf(
+                'Attachment [id=%d] was not found in the storage.', $attachment->id
+            ));
         }
 
         if (is_null($stream)) {
-            throw new AttachmentException(
-                sprintf('Failed to initialize stream for attachment [id=%d].', $attachment->id)
-            );
+            throw new AttachmentException(sprintf(
+                'Failed to initialize stream for attachment [id=%d].', $attachment->id
+            ));
         }
 
         return $stream;
     }
-
 }

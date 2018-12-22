@@ -12,27 +12,15 @@ use Illuminate\Support\Collection;
 
 class RequestsController extends Controller
 {
-
-    /**
-     * @var TableRenderer
-     */
+    /** @var TableRenderer */
     private $tableRenderer;
 
-    /**
-     * @var DataTablesHandler
-     */
+    /** @var DataTablesHandler */
     private $dataTablesHandler;
 
-    /**
-     * @var AnalyticsFacade
-     */
+    /** @var AnalyticsFacade */
     private $analyticsFacade;
 
-    /**
-     * @param TableRenderer $tableRenderer
-     * @param DataTablesHandler $dataTablesHandler
-     * @param AnalyticsFacade $analyticsFacade
-     */
     public function __construct(
         TableRenderer $tableRenderer,
         DataTablesHandler $dataTablesHandler,
@@ -80,5 +68,4 @@ class RequestsController extends Controller
 
         return $this->dataTablesHandler->handle($request);
     }
-
 }

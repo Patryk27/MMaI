@@ -1,18 +1,18 @@
 <?php
 
-class DatabaseSeeder extends Seeder
+final class DatabaseSeeder extends Seeder
 {
-
     /**
      * @return void
      */
     public function run(): void
     {
         $this->truncate([
+            'attachments',
+            'events',
             'languages',
             'menu_items',
-            'page_variant_tag',
-            'page_variants',
+            'page_tag',
             'pages',
             'routes',
             'tags',
@@ -31,5 +31,4 @@ class DatabaseSeeder extends Seeder
         $this->command->info('');
         $this->command->info('MMaI\'s database has been initialized.');
     }
-
 }

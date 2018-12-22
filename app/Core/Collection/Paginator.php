@@ -9,18 +9,11 @@ use Illuminate\Support\Collection;
 
 class Paginator
 {
-
-    /**
-     * @var Request
-     */
+    /*** @var Request */
     private $request;
 
-    /**
-     * @param Request $request
-     */
-    public function __construct(
-        Request $request
-    ) {
+    public function __construct(Request $request)
+    {
         $this->request = $request;
     }
 
@@ -58,5 +51,4 @@ class Paginator
     {
         return $this->request->get('page') ?? 1;
     }
-
 }

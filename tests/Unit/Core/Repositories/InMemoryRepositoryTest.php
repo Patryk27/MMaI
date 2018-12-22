@@ -8,7 +8,6 @@ use Tests\Unit\TestCase;
 
 class InMemoryRepositoryTest extends TestCase
 {
-
     /**
      * This test checks basic functionality of the "getBy()" method.
      *
@@ -116,7 +115,7 @@ class InMemoryRepositoryTest extends TestCase
         $repository = new InMemoryRepository([
             $user = new User([
                 'login' => 'A',
-            ])
+            ]),
         ]);
 
         // Mutate the model, but do not save the changes
@@ -180,5 +179,4 @@ class InMemoryRepositoryTest extends TestCase
             $repository->getBy('name', 'Second')
         );
     }
-
 }

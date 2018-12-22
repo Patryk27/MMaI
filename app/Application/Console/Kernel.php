@@ -6,7 +6,6 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 final class Kernel extends ConsoleKernel
 {
-
     /**
      * @return void
      */
@@ -14,5 +13,4 @@ final class Kernel extends ConsoleKernel
     {
         $this->load(__DIR__ . '/Commands');
     }
-
 }

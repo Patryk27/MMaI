@@ -9,18 +9,11 @@ use Throwable;
 
 class EloquentTagsRepository implements TagsRepository
 {
-
-    /**
-     * @var EloquentRepository
-     */
+    /** @var EloquentRepository */
     private $repository;
 
-    /**
-     * @param Tag $tag
-     */
-    public function __construct(
-        Tag $tag
-    ) {
+    public function __construct(Tag $tag)
+    {
         $this->repository = new EloquentRepository($tag);
     }
 
@@ -57,7 +50,6 @@ class EloquentTagsRepository implements TagsRepository
 
     /**
      * @inheritDoc
-     *
      * @throws Throwable
      */
     public function persist(Tag $tag): void
@@ -67,12 +59,10 @@ class EloquentTagsRepository implements TagsRepository
 
     /**
      * @inheritDoc
-     *
      * @throws Throwable
      */
     public function delete(Tag $tag): void
     {
         $this->repository->delete($tag);
     }
-
 }

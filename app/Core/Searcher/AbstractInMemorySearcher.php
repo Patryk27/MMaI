@@ -15,7 +15,6 @@ use Illuminate\Support\Collection;
  */
 abstract class AbstractInMemorySearcher implements Searcher
 {
-
     /**
      * @inheritDoc
      */
@@ -63,5 +62,4 @@ abstract class AbstractInMemorySearcher implements Searcher
     {
         unimplemented();
     }
-
 }

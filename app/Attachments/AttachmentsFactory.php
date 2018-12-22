@@ -12,7 +12,6 @@ use Illuminate\Contracts\Filesystem\Filesystem as FilesystemContract;
 
 final class AttachmentsFactory
 {
-
     /**
      * Builds an instance of @see AttachmentsFacade.
      *
@@ -37,5 +36,4 @@ final class AttachmentsFactory
             $attachmentsQuerier
         );
     }
-
 }

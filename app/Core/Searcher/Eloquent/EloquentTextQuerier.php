@@ -4,18 +4,11 @@ namespace App\Core\Searcher\Eloquent;
 
 class EloquentTextQuerier
 {
-
-    /**
-     * @var EloquentMapper
-     */
+    /** @var EloquentMapper */
     private $mapper;
 
-    /**
-     * @param EloquentMapper $mapper
-     */
-    public function __construct(
-        EloquentMapper $mapper
-    ) {
+    public function __construct(EloquentMapper $mapper)
+    {
         $this->mapper = $mapper;
     }
 
@@ -38,5 +31,4 @@ class EloquentTextQuerier
 //            }
 //        });
     }
-
 }

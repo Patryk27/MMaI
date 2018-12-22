@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateUsersTable extends Migration
 {
-
     /**
      * @return void
      */
@@ -35,5 +34,4 @@ class CreateUsersTable extends Migration
     {
         Schema::dropIfExists('users');
     }
-
 }

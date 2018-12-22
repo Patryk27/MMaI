@@ -9,25 +9,17 @@ use Throwable;
 
 class AttachmentsController extends Controller
 {
-
-    /**
-     * @var AttachmentsFacade
-     */
+    /** @var AttachmentsFacade */
     private $attachmentsFacade;
 
-    /**
-     * @param AttachmentsFacade $attachmentsFacade
-     */
-    public function __construct(
-        AttachmentsFacade $attachmentsFacade
-    ) {
+    public function __construct(AttachmentsFacade $attachmentsFacade)
+    {
         $this->attachmentsFacade = $attachmentsFacade;
     }
 
     /**
      * @param CreateAttachmentRequest $request
      * @return array
-     *
      * @throws Throwable
      */
     public function store(CreateAttachmentRequest $request): array
@@ -46,5 +38,4 @@ class AttachmentsController extends Controller
             'url' => $attachmentPresenter->getUrl(),
         ];
     }
-
 }

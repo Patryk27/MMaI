@@ -15,10 +15,8 @@ use LogicException;
  */
 final class InMemoryRepository
 {
-
     /**
      * List of all the items present in this repository.
-     *
      * @var Collection|Model[]
      */
     private $items;
@@ -26,7 +24,6 @@ final class InMemoryRepository
     /**
      * Auto-incrementing id used for counting models - works in the same fashion
      * as e.g. the MySQL's "auto increment" column.
-     *
      * @var int
      */
     private $incrementingId = 1000;
@@ -36,9 +33,8 @@ final class InMemoryRepository
      *
      * @param array $items
      */
-    public function __construct(
-        array $items = []
-    ) {
+    public function __construct(array $items = [])
+    {
         $this->items = new Collection();
 
         foreach ($items as $item) {
@@ -134,9 +130,9 @@ final class InMemoryRepository
     private function insert(Model $model): void
     {
         if ($this->items->has($this->incrementingId)) {
-            throw new LogicException(
-                sprintf('In-memory repository already contains model [id=%d].', $this->incrementingId)
-            );
+            throw new LogicException(sprintf(
+                'In-memory repository already contains model [id=%d].', $this->incrementingId
+            ));
         }
 
         // Fill-in the "id" attribute
@@ -169,9 +165,9 @@ final class InMemoryRepository
         $id = $model->getAttribute('id');
 
         if (!$this->items->has($id)) {
-            throw new LogicException(
-                sprintf('Tried to update a model not present in the in-memory repository (id=%d).', $id)
-            );
+            throw new LogicException(sprintf(
+                'Tried to update a model not present in the in-memory repository (id=%d).', $id
+            ));
         }
 
         // Fill-in the "updated at" attribute
@@ -180,5 +176,4 @@ final class InMemoryRepository
         // Persist the model
         $this->items[$id] = clone $model;
     }
-
 }

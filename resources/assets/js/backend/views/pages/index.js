@@ -7,7 +7,7 @@ function getFilters() {
     const $filters = $('#pages-filters');
 
     return {
-        pageType: {
+        type: {
             operator: 'in',
             value: $filters.find('[name="types[]"]').val(),
         },

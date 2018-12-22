@@ -6,10 +6,7 @@ use App\Core\Presenters\Presenter;
 
 trait HasPresenter
 {
-
-    /**
-     * @var Presenter|null
-     */
+    /** @var Presenter|null */
     private $presenterInstance;
 
     /**
@@ -28,5 +25,4 @@ trait HasPresenter
 
         return $this->presenterInstance;
     }
-
 }

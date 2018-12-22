@@ -6,12 +6,10 @@ use App\Tags\Exceptions\TagException;
 
 class UpdateTest extends TestCase
 {
-
     /**
      * This test checks basic functionality of the "update()" method.
      *
      * @return void
-     *
      * @throws TagException
      */
     public function testUpdate(): void
@@ -40,7 +38,6 @@ class UpdateTest extends TestCase
      * to move tags between languages.
      *
      * @return void
-     *
      * @throws TagException
      */
     public function testDoesNotUpdateLanguageId(): void
@@ -69,7 +66,6 @@ class UpdateTest extends TestCase
      * name which is already taken.
      *
      * @return void
-     *
      * @throws TagException
      */
     public function testForbidsDuplicates(): void
@@ -90,5 +86,4 @@ class UpdateTest extends TestCase
             'name' => 'tag A',
         ]);
     }
-
 }

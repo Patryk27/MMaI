@@ -7,5 +7,4 @@ use App\Tags\Implementation\Services\TagsSearcher;
 
 class InMemoryTagsSearcher extends AbstractInMemorySearcher implements TagsSearcher
 {
-
 }

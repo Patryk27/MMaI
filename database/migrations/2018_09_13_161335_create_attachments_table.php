@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateAttachmentsTable extends Migration
 {
-
     /**
      * @return void
      */
@@ -14,12 +13,23 @@ class CreateAttachmentsTable extends Migration
     {
         Schema::create('attachments', function (Blueprint $table) {
             $table->increments('id');
-            $table->nullableMorphs('attachable');
+            $table->unsignedInteger('page_id')->nullable();
             $table->string('name');
             $table->string('mime');
             $table->unsignedInteger('size');
             $table->string('path');
             $table->timestamps();
+
+            // -- foreign keys -- //
+
+            $table->foreign('page_id')
+                ->references('id')
+                ->on('pages');
+
+            // -- indexes -- //
+
+            $table->index('name');
+            $table->index('mime');
         });
     }
 
@@ -30,5 +40,4 @@ class CreateAttachmentsTable extends Migration
     {
         Schema::dropIfExists('attachments');
     }
-
 }

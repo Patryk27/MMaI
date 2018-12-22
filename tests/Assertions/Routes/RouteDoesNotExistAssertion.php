@@ -10,13 +10,10 @@ use SebastianBergmann\Comparator\ComparisonFailure;
 
 class RouteDoesNotExistAssertion extends Constraint
 {
-
     /**
      * @inheritdoc
-     *
      * @param array $other
      * @return bool
-     *
      * @throws RouteException
      */
     public function matches($other): bool
@@ -37,9 +34,8 @@ class RouteDoesNotExistAssertion extends Constraint
      */
     protected function fail($other, $description, ComparisonFailure $comparisonFailure = null): void
     {
-        throw new ExpectationFailedException(
-            sprintf('Failed asserting that route [subdomain=%s, url=%s] does not exist.', $other['subdomain'], $other['url'])
-        );
+        throw new ExpectationFailedException(sprintf(
+            'Failed asserting that route [subdomain=%s, url=%s] does not exist.', $other['subdomain'], $other['url']
+        ));
     }
-
 }

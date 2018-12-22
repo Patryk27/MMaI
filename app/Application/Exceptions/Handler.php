@@ -8,10 +8,7 @@ use Illuminate\Http\Request;
 
 class Handler extends ExceptionHandler
 {
-
-    /**
-     * @var string[]
-     */
+    /** @var string[] */
     protected $dontFlash = [
         'password',
         'password_confirmation',
@@ -30,5 +27,4 @@ class Handler extends ExceptionHandler
             return redirect()->guest('/');
         }
     }
-
 }

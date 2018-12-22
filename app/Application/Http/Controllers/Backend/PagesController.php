@@ -6,47 +6,31 @@ use App\Application\Http\Controllers\Controller;
 use App\Application\Http\Requests\Backend\Pages\CreatePageRequest;
 use App\Application\Http\Requests\Backend\Pages\UpdatePageRequest;
 use App\Core\DataTables\Handler as DataTablesHandler;
-use App\Core\Exceptions\Exception as CoreException;
 use App\Core\Table\Renderer as TableRenderer;
 use App\Languages\Exceptions\LanguageException;
 use App\Languages\LanguagesFacade;
 use App\Languages\Queries\GetAllLanguagesQuery;
 use App\Pages\Models\Page;
 use App\Pages\PagesFacade;
-use App\Pages\Queries\SearchPageVariantsQuery;
+use App\Pages\Queries\SearchPages;
 use Illuminate\Contracts\View\View as ViewContract;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
 class PagesController extends Controller
 {
-
-    /**
-     * @var TableRenderer
-     */
+    /** @var TableRenderer */
     private $tableRenderer;
 
-    /**
-     * @var DataTablesHandler
-     */
+    /** @var DataTablesHandler */
     private $dataTablesHandler;
 
-    /**
-     * @var LanguagesFacade
-     */
+    /** @var LanguagesFacade */
     private $languagesFacade;
 
-    /**
-     * @var PagesFacade
-     */
+    /** @var PagesFacade */
     private $pagesFacade;
 
-    /**
-     * @param TableRenderer $tableRenderer
-     * @param DataTablesHandler $dataTablesHandler
-     * @param LanguagesFacade $languagesFacade
-     * @param PagesFacade $pagesFacade
-     */
     public function __construct(
         TableRenderer $tableRenderer,
         DataTablesHandler $dataTablesHandler,
@@ -61,7 +45,6 @@ class PagesController extends Controller
 
     /**
      * @return ViewContract
-     *
      * @throws LanguageException
      */
     public function index(): ViewContract
@@ -76,7 +59,7 @@ class PagesController extends Controller
         return view('backend.views.pages.index', [
             'types' => __('base/models/page.enums.type'),
             'languages' => $languages,
-            'statuses' => __('base/models/page-variant.enums.status'),
+            'statuses' => __('base/models/page.enums.status'),
         ]);
     }
 
@@ -99,14 +82,14 @@ class PagesController extends Controller
         $this->dataTablesHandler->setRowsFetcher(function (array $query): Collection {
             return $this->tableRenderer->render(
                 $this->pagesFacade->queryMany(
-                    new SearchPageVariantsQuery($query)
+                    new SearchPages($query)
                 )
             );
         });
 
         $this->dataTablesHandler->setRowsCounter(function (array $query): int {
             return $this->pagesFacade->queryCount(
-                new SearchPageVariantsQuery($query)
+                new SearchPages($query)
             );
         });
 
@@ -119,7 +102,7 @@ class PagesController extends Controller
     public function createPage(): ViewContract
     {
         return view('backend.views.pages.create', [
-            'type' => Page::TYPE_CMS,
+            'type' => Page::TYPE_PAGE,
         ]);
     }
 
@@ -129,15 +112,13 @@ class PagesController extends Controller
     public function createPost(): ViewContract
     {
         return view('backend.views.pages.create', [
-            'type' => Page::TYPE_BLOG,
+            'type' => Page::TYPE_POST,
         ]);
     }
 
     /**
      * @param CreatePageRequest $request
      * @return array
-     *
-     * @throws CoreException
      */
     public function store(CreatePageRequest $request): array
     {
@@ -146,7 +127,7 @@ class PagesController extends Controller
         );
 
         return [
-            'redirectTo' => $page->getBackendEditUrl(),
+            'redirectTo' => $page->getEditUrl(),
         ];
     }
 
@@ -165,8 +146,6 @@ class PagesController extends Controller
      * @param UpdatePageRequest $request
      * @param Page $page
      * @return array
-     *
-     * @throws CoreException
      */
     public function update(UpdatePageRequest $request, Page $page): array
     {
@@ -176,8 +155,7 @@ class PagesController extends Controller
         );
 
         return [
-            'redirectTo' => $page->getBackendEditUrl(),
+            'redirectTo' => $page->getEditUrl(),
         ];
     }
-
 }

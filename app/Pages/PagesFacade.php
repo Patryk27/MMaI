@@ -2,63 +2,44 @@
 
 namespace App\Pages;
 
-use App\Attachments\Exceptions\AttachmentException;
 use App\Pages\Exceptions\PageException;
-use App\Pages\Exceptions\PageVariantNotFoundException;
-use App\Pages\Implementation\Services\Pages\PagesCreator;
-use App\Pages\Implementation\Services\Pages\PagesUpdater;
-use App\Pages\Implementation\Services\PageVariants\PageVariantsQuerier;
-use App\Pages\Implementation\Services\PageVariants\PageVariantsRenderer;
+use App\Pages\Exceptions\PageNotFoundException;
+use App\Pages\Implementation\Services\PagesCreator;
+use App\Pages\Implementation\Services\PagesQuerier;
+use App\Pages\Implementation\Services\PagesRenderer;
+use App\Pages\Implementation\Services\PagesUpdater;
 use App\Pages\Models\Page;
-use App\Pages\Models\PageVariant;
 use App\Pages\Policies\PagePolicy;
-use App\Pages\Policies\PageVariantPolicy;
-use App\Pages\Queries\PageVariantsQuery;
-use App\Pages\ValueObjects\RenderedPageVariant;
-use App\Tags\Exceptions\TagException;
+use App\Pages\Queries\PageQuery;
+use App\Pages\ValueObjects\RenderedPage;
 use Exception;
 use Gate;
 use Illuminate\Support\Collection;
 
 final class PagesFacade
 {
-
-    /**
-     * @var PagesCreator
-     */
+    /** @var PagesCreator */
     private $pagesCreator;
 
-    /**
-     * @var PagesUpdater
-     */
+    /** @var PagesUpdater */
     private $pagesUpdater;
 
-    /**
-     * @var PageVariantsQuerier
-     */
-    private $pageVariantsQuerier;
+    /** @var PagesRenderer */
+    private $pagesRenderer;
 
-    /**
-     * @var PageVariantsRenderer
-     */
-    private $pageVariantsRenderer;
+    /** @var PagesQuerier */
+    private $pagesQuerier;
 
-    /**
-     * @param PagesCreator $pagesCreator
-     * @param PagesUpdater $pagesUpdater
-     * @param PageVariantsQuerier $pageVariantsQuerier
-     * @param PageVariantsRenderer $pageVariantsRenderer
-     */
     public function __construct(
         PagesCreator $pagesCreator,
         PagesUpdater $pagesUpdater,
-        PageVariantsQuerier $pageVariantsQuerier,
-        PageVariantsRenderer $pageVariantsRenderer
+        PagesRenderer $pagesRenderer,
+        PagesQuerier $pagesQuerier
     ) {
         $this->pagesCreator = $pagesCreator;
         $this->pagesUpdater = $pagesUpdater;
-        $this->pageVariantsQuerier = $pageVariantsQuerier;
-        $this->pageVariantsRenderer = $pageVariantsRenderer;
+        $this->pagesRenderer = $pagesRenderer;
+        $this->pagesQuerier = $pagesQuerier;
     }
 
     /**
@@ -67,7 +48,6 @@ final class PagesFacade
     public function boot(): void
     {
         Gate::policy(Page::class, PagePolicy::class);
-        Gate::policy(PageVariant::class, PageVariantPolicy::class);
     }
 
     /**
@@ -76,12 +56,7 @@ final class PagesFacade
      * @param array $pageData
      * @return Page
      *
-     * @throws AttachmentException
-     * @throws PageException
-     * @throws TagException
-     *
      * @see \App\Application\Http\Requests\Backend\Pages\CreatePageRequest
-     * @see \Tests\Unit\Pages\CreateTest
      */
     public function create(array $pageData): Page
     {
@@ -95,12 +70,7 @@ final class PagesFacade
      * @param array $pageData
      * @return void
      *
-     * @throws AttachmentException
-     * @throws PageException
-     * @throws TagException
-     *
      * @see \App\Application\Http\Requests\Backend\Pages\UpdatePageRequest
-     * @see \Tests\Unit\Pages\UpdateTest
      */
     public function update(Page $page, array $pageData): void
     {
@@ -108,63 +78,58 @@ final class PagesFacade
     }
 
     /**
-     * Renders given page variant and returns the rendered VO.
+     * Renders given page and returns the rendered VO.
      *
-     * @param PageVariant $pageVariant
-     * @return RenderedPageVariant
-     *
+     * @param Page $page
+     * @return RenderedPage
      * @throws Exception
      */
-    public function render(PageVariant $pageVariant): RenderedPageVariant
+    public function render(Page $page): RenderedPage
     {
-        return $this->pageVariantsRenderer->render($pageVariant);
+        return $this->pagesRenderer->render($page);
     }
 
     /**
-     * Returns the first page variant matching given query.
-     * Throws an exception if no such page variant exists.
+     * Returns the first page matching given query.
+     * Throws an exception if no such page exists.
      *
-     * @param PageVariantsQuery $query
-     * @return PageVariant
-     *
+     * @param PageQuery $query
+     * @return Page
      * @throws PageException
-     * @throws PageVariantNotFoundException
+     * @throws PageNotFoundException
      */
-    public function queryOne(PageVariantsQuery $query): PageVariant
+    public function queryOne(PageQuery $query): Page
     {
-        $pageVariants = $this->queryMany($query);
+        $pages = $this->queryMany($query);
 
-        if ($pageVariants->isEmpty()) {
-            throw new PageVariantNotFoundException();
+        if ($pages->isEmpty()) {
+            throw new PageNotFoundException();
         }
 
-        return $pageVariants->first();
+        return $pages->first();
     }
 
     /**
-     * Returns all page variants matching given query.
+     * Returns all pages matching given query.
      *
-     * @param PageVariantsQuery $query
-     * @return Collection|PageVariant[]
-     *
+     * @param PageQuery $query
+     * @return Collection|Page[]
      * @throws PageException
      */
-    public function queryMany(PageVariantsQuery $query): Collection
+    public function queryMany(PageQuery $query): Collection
     {
-        return $this->pageVariantsQuerier->query($query);
+        return $this->pagesQuerier->query($query);
     }
 
     /**
-     * Returns number of page variants matching given query.
+     * Returns number of pages matching given query.
      *
-     * @param PageVariantsQuery $query
+     * @param PageQuery $query
      * @return int
-     *
      * @throws PageException
      */
-    public function queryCount(PageVariantsQuery $query): int
+    public function queryCount(PageQuery $query): int
     {
-        return $this->pageVariantsQuerier->count($query);
+        return $this->pagesQuerier->count($query);
     }
-
 }

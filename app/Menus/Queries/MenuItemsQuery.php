@@ -4,5 +4,4 @@ namespace App\Menus\Queries;
 
 interface MenuItemsQuery
 {
-
 }

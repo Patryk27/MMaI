@@ -6,22 +6,15 @@ use App\Core\ValueObjects\HasInitializationConstructor;
 
 final class RequestServed
 {
-
     use HasInitializationConstructor;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $requestUrl;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $requestIp;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     private $responseStatusCode;
 
     /**
@@ -47,5 +40,4 @@ final class RequestServed
     {
         return $this->responseStatusCode;
     }
-
 }

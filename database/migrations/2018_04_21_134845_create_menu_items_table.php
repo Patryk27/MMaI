@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateMenuItemsTable extends Migration
 {
-
     /**
      * @return void
      */
@@ -34,5 +33,4 @@ class CreateMenuItemsTable extends Migration
     {
         Schema::dropIfExists('menu_items');
     }
-
 }

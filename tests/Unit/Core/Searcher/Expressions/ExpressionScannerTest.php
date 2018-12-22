@@ -10,7 +10,6 @@ use Tests\Unit\TestCase;
 
 class ExpressionScannerTest extends TestCase
 {
-
     /**
      * @dataProvider provideCorrectCases
      *
@@ -69,7 +68,7 @@ class ExpressionScannerTest extends TestCase
                 [
                     ['identifier', 'foo'],
                     ['identifier', 'bar'],
-                ]
+                ],
             ],
 
             // Validate scanning strings
@@ -80,7 +79,7 @@ class ExpressionScannerTest extends TestCase
                     ['string', 'foo bar'],
                     ['string', 'foo bar'],
                     ['string', 'foo / bar'],
-                ]
+                ],
             ],
 
             // Validate scanning numbers
@@ -89,7 +88,7 @@ class ExpressionScannerTest extends TestCase
                 [
                     ['number', '1234'],
                     ['number', '12.34'],
-                ]
+                ],
             ],
 
             // Validate scanning values
@@ -104,5 +103,4 @@ class ExpressionScannerTest extends TestCase
             ],
         ];
     }
-
 }

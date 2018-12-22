@@ -6,7 +6,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class CreateTagRequest extends FormRequest
 {
-
     /**
      * @return bool
      */
@@ -25,5 +24,4 @@ class CreateTagRequest extends FormRequest
             'language_id' => 'required',
         ];
     }
-
 }

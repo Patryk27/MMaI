@@ -7,7 +7,6 @@ use App\Languages\Implementation\Services\LanguagesQuerier;
 
 final class LanguagesFactory
 {
-
     /**
      * Builds an instance of @see LanguagesFacade.
      *
@@ -23,5 +22,4 @@ final class LanguagesFactory
             $languagesQuerier
         );
     }
-
 }

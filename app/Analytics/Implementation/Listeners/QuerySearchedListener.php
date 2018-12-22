@@ -7,7 +7,6 @@ use App\SearchEngine\Events\QuerySearched;
 
 final class QuerySearchedListener extends Listener
 {
-
     /**
      * @param QuerySearched $event
      * @return void
@@ -26,5 +25,4 @@ final class QuerySearchedListener extends Listener
             'numberOfMatchedIds' => count($event->getMatchedIds()),
         ]);
     }
-
 }

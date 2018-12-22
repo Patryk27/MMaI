@@ -7,12 +7,10 @@ use App\Tags\Models\Tag;
 
 class CreateTest extends TestCase
 {
-
     /**
      * This test makes sure that the create() method saves tag in the database.
      *
      * @return void
-     *
      * @throws AppException
      */
     public function testCreate(): void
@@ -45,7 +43,6 @@ class CreateTest extends TestCase
      * name in the same language.
      *
      * @return void
-     *
      * @throws AppException
      */
     public function testForbidsDuplicates(): void
@@ -67,5 +64,4 @@ class CreateTest extends TestCase
             'name' => 'foo',
         ]);
     }
-
 }

@@ -6,7 +6,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class SignInRequest extends FormRequest
 {
-
     /**
      * @return bool
      */
@@ -25,5 +24,4 @@ class SignInRequest extends FormRequest
             'password' => 'required',
         ];
     }
-
 }

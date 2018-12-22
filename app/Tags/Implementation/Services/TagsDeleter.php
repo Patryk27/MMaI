@@ -9,21 +9,12 @@ use Illuminate\Contracts\Events\Dispatcher as EventsDispatcherContract;
 
 class TagsDeleter
 {
-
-    /**
-     * @var EventsDispatcherContract
-     */
+    /** @var EventsDispatcherContract */
     private $eventsDispatcher;
 
-    /**
-     * @var TagsRepository
-     */
+    /** @var TagsRepository */
     private $tagsRepository;
 
-    /**
-     * @param EventsDispatcherContract $eventsDispatcher
-     * @param TagsRepository $tagsRepository
-     */
     public function __construct(
         EventsDispatcherContract $eventsDispatcher,
         TagsRepository $tagsRepository
@@ -44,5 +35,4 @@ class TagsDeleter
             new TagDeleted($tag)
         );
     }
-
 }

@@ -6,7 +6,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class CreatePageRequest extends FormRequest
 {
-
     /**
      * @return bool
      */
@@ -21,18 +20,19 @@ class CreatePageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'page.type' => 'required',
-            'page.notes' => ['nullable', 'string'],
+            'language_id' => 'numeric',
 
-            // @todo rename to just `variants`
-            'pageVariants.*.language_id' => 'numeric',
-            'pageVariants.*.url' => ['nullable', 'string', 'regex:/^[a-zA-Z0-9\-\/]*$/'],
-            'pageVariants.*.title' => 'string',
-            'pageVariants.*.tag_ids' => ['nullable', 'array'],
-            'pageVariants.*.status' => 'string',
+            'title' => 'string',
+            'lead' => ['nullable', 'string'],
+            'content' => ['nullable', 'string'],
+            'notes' => ['nullable', 'string'],
 
+            'type' => 'required',
+            'status' => 'required',
+
+            'url' => ['nullable', 'string', 'regex:/^[a-zA-Z0-9\-\/]*$/'],
+            'tag_ids' => ['nullable', 'array'],
             'attachment_ids' => ['nullable', 'array'],
         ];
     }
-
 }

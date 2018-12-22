@@ -13,15 +13,10 @@ use Tests\Unit\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
-
-    /**
-     * @var InMemoryTagsRepository
-     */
+    /** @var InMemoryTagsRepository */
     protected $tagsRepository;
 
-    /**
-     * @var TagsFacade
-     */
+    /** @var TagsFacade */
     protected $tagsFacade;
 
     /**
@@ -47,5 +42,4 @@ abstract class TestCase extends BaseTestCase
             $tagsSearcher
         );
     }
-
 }

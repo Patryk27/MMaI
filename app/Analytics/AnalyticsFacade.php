@@ -18,21 +18,12 @@ use Illuminate\Support\Collection;
 
 final class AnalyticsFacade
 {
-
-    /**
-     * @var EventsRepository
-     */
+    /** @var EventsRepository */
     private $eventsRepository;
 
-    /**
-     * @var EventsQuerier
-     */
+    /** @var EventsQuerier */
     private $eventsQuerier;
 
-    /**
-     * @param EventsRepository $eventsRepository
-     * @param EventsQuerier $eventsQuerier
-     */
     public function __construct(
         EventsRepository $eventsRepository,
         EventsQuerier $eventsQuerier
@@ -87,7 +78,6 @@ final class AnalyticsFacade
      *
      * @param EventsQuery $query
      * @return Collection|Event[]
-     *
      * @throws AnalyticsException
      */
     public function queryMany(EventsQuery $query): Collection
@@ -100,12 +90,10 @@ final class AnalyticsFacade
      *
      * @param EventsQuery $query
      * @return int
-     *
      * @throws AnalyticsException
      */
     public function queryCount(EventsQuery $query): int
     {
         return $this->eventsQuerier->count($query);
     }
-
 }

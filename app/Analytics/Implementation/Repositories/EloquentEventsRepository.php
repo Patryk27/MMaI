@@ -8,15 +8,9 @@ use Throwable;
 
 class EloquentEventsRepository implements EventsRepository
 {
-
-    /**
-     * @var EloquentRepository
-     */
+    /** @var EloquentRepository */
     private $repository;
 
-    /**
-     * @param Event $event
-     */
     public function __construct(
         Event $event
     ) {
@@ -25,12 +19,10 @@ class EloquentEventsRepository implements EventsRepository
 
     /**
      * @inheritDoc
-     *
      * @throws Throwable
      */
     public function persist(Event $event): void
     {
         $this->repository->persist($event);
     }
-
 }

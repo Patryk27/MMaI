@@ -6,24 +6,17 @@ use Illuminate\Session\Store as SessionStore;
 
 class Flasher
 {
-
     private const
         TYPE_SUCCESS = 'success',
         TYPE_INFORMATION = 'info',
         TYPE_WARNING = 'warning',
         TYPE_ERROR = 'danger';
 
-    /**
-     * @var SessionStore
-     */
+    /*** @var SessionStore */
     private $session;
 
-    /**
-     * @param SessionStore $session
-     */
-    public function __construct(
-        SessionStore $session
-    ) {
+    public function __construct(SessionStore $session)
+    {
         $this->session = $session;
     }
 
@@ -87,5 +80,4 @@ class Flasher
 
         $this->session->flash('messages', $messages);
     }
-
 }

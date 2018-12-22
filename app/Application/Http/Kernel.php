@@ -6,10 +6,7 @@ use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
 {
-
-    /**
-     * @var string[]
-     */
+    /** @var string[] */
     protected $middleware = [
         \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
@@ -19,9 +16,7 @@ class Kernel extends HttpKernel
         Middleware\LogRequest::class,
     ];
 
-    /**
-     * @var string[][]
-     */
+    /** @var string[][] */
     protected $middlewareGroups = [
         'web' => [
             \Illuminate\Cookie\Middleware\EncryptCookies::class,
@@ -34,17 +29,14 @@ class Kernel extends HttpKernel
 
         'web:frontend' => [
             Middleware\VerifyIfInstalled::class,
-            Middleware\SetLocale::class,
+            Middleware\SetupLocale::class,
         ],
     ];
 
-    /**
-     * @var string[]
-     */
+    /** @var string[] */
     protected $routeMiddleware = [
         'auth' => \Illuminate\Auth\Middleware\Authenticate::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
     ];
-
 }

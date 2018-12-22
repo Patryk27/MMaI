@@ -12,25 +12,17 @@ use Illuminate\Support\Collection;
 
 class RoutesQuerier
 {
-
-    /**
-     * @var RoutesRepository
-     */
+    /** @var RoutesRepository */
     private $routesRepository;
 
-    /**
-     * @param RoutesRepository $routesRepository
-     */
-    public function __construct(
-        RoutesRepository $routesRepository
-    ) {
+    public function __construct(RoutesRepository $routesRepository)
+    {
         $this->routesRepository = $routesRepository;
     }
 
     /**
      * @param RoutesQuery $query
      * @return Collection|Route[]
-     *
      * @throws RouteException
      */
     public function query(RoutesQuery $query): Collection
@@ -50,10 +42,9 @@ class RoutesQuerier
                 );
 
             default:
-                throw new RouteException(
-                    sprintf('Cannot handle query of class [%s].', get_class($query))
-                );
+                throw new RouteException(sprintf(
+                    'Cannot handle query of class [%s].', get_class($query)
+                ));
         }
     }
-
 }

@@ -11,31 +11,22 @@ use SebastianBergmann\Comparator\ComparisonFailure;
 
 class RoutePointsAtAssertion extends Constraint
 {
-
     /**
      * @inheritdoc
-     *
      * @param Morphable $other
      * @return bool
-     *
      * @throws RouteException
      */
     public function matches($other): bool
     {
         try {
-            /**
-             * @var string $subdomain
-             */
+            /** @var string $subdomain */
             $subdomain = $other['subdomain'];
 
-            /**
-             * @var string $url
-             */
+            /** @var string $url */
             $url = $other['url'];
 
-            /**
-             * @var Morphable $morphable
-             */
+            /** @var Morphable $morphable */
             $morphable = $other['morphable'];
 
             $route = $this->routesFacade->queryOne(
@@ -54,19 +45,13 @@ class RoutePointsAtAssertion extends Constraint
      */
     protected function fail($other, $description, ComparisonFailure $comparisonFailure = null): void
     {
-        /**
-         * @var string $subdomain
-         */
+        /** @var string $subdomain */
         $subdomain = $other['subdomain'];
 
-        /**
-         * @var string $url
-         */
+        /** @var string $url */
         $url = $other['url'];
 
-        /**
-         * @var Morphable $morphable
-         */
+        /** @var Morphable $morphable */
         $morphable = $other['morphable'];
 
         throw new ExpectationFailedException(
@@ -79,5 +64,4 @@ class RoutePointsAtAssertion extends Constraint
             )
         );
     }
-
 }

@@ -12,21 +12,12 @@ use Illuminate\Contracts\View\View as ViewContract;
 
 class FormComposer
 {
-
-    /**
-     * @var LanguagesFacade
-     */
+    /** @var LanguagesFacade */
     private $languagesFacade;
 
-    /**
-     * @var TagsFacade
-     */
+    /** @var TagsFacade */
     private $tagsFacade;
 
-    /**
-     * @param LanguagesFacade $languagesFacade
-     * @param TagsFacade $tagsFacade
-     */
     public function __construct(
         LanguagesFacade $languagesFacade,
         TagsFacade $tagsFacade
@@ -38,7 +29,6 @@ class FormComposer
     /**
      * @param ViewContract $view
      * @return void
-     *
      * @throws LanguageException
      * @throws TagException
      */
@@ -51,8 +41,7 @@ class FormComposer
 
             'tags' => $this->tagsFacade->queryMany(
                 new GetAllTagsQuery()
-            )
+            ),
         ]);
     }
-
 }

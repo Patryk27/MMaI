@@ -8,7 +8,6 @@ use App\Analytics\Implementation\Services\RequestEventsSearcher;
 
 final class AnalyticsFactory
 {
-
     /**
      * Builds an instance of @see AnalyticsFacade.
      *
@@ -27,5 +26,4 @@ final class AnalyticsFactory
             $eventsQuerier
         );
     }
-
 }

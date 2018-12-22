@@ -5,23 +5,13 @@ namespace App\Routes\Implementation\Services;
 use App\Routes\Implementation\Repositories\RoutesRepository;
 use App\Routes\Models\Route;
 
-/**
- * @see \Tests\Unit\Routes\DeleteTest
- */
 class RoutesDeleter
 {
-
-    /**
-     * @var RoutesRepository
-     */
+    /** @var RoutesRepository */
     private $routesRepository;
 
-    /**
-     * @param RoutesRepository $routesRepository
-     */
-    public function __construct(
-        RoutesRepository $routesRepository
-    ) {
+    public function __construct(RoutesRepository $routesRepository)
+    {
         $this->routesRepository = $routesRepository;
     }
 
@@ -42,5 +32,4 @@ class RoutesDeleter
 
         $this->routesRepository->delete($route);
     }
-
 }

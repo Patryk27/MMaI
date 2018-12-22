@@ -7,27 +7,20 @@ use Illuminate\Queue\SerializesModels;
 
 final class QuerySearched
 {
-
     use SerializesModels;
 
-    /**
-     * @var SearchQuery
-     */
+    /** @var SearchQuery */
     private $query;
 
-    /**
-     * @var int[]
-     */
+    /** @var int[] */
     private $matchedIds;
 
     /**
      * @param SearchQuery $query
-     * @param array $matchedIds
+     * @param int[] $matchedIds
      */
-    public function __construct(
-        SearchQuery $query,
-        array $matchedIds
-    ) {
+    public function __construct(SearchQuery $query, array $matchedIds)
+    {
         $this->query = $query;
         $this->matchedIds = $matchedIds;
     }
@@ -47,5 +40,4 @@ final class QuerySearched
     {
         return $this->matchedIds;
     }
-
 }

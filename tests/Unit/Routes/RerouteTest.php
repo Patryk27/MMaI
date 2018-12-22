@@ -3,7 +3,7 @@
 namespace Tests\Unit\Routes;
 
 use App\Core\Exceptions\Exception as AppException;
-use App\Pages\Models\PageVariant;
+use App\Pages\Models\Page;
 use App\Routes\Models\Route;
 
 /**
@@ -11,26 +11,21 @@ use App\Routes\Models\Route;
  *
  * At the beginning we are setting up following routes:
  *
- *   first-route  =>  second-route  =>  [first page variant]
- *   third-route  =>  [second page variant]
+ *   first-route  =>  second-route  =>  [first page]
+ *   third-route  =>  [second page]
  *
  * Then we re-route second route onto the third one and we should end up with:
  *
  *   first-route   => third-route
  *   second-route  => third-route
- *   third-route   => [second page variant]
+ *   third-route   => [second page]
  */
 class RerouteTest extends TestCase
 {
+    /** @var Page[] */
+    private $pages;
 
-    /**
-     * @var PageVariant[]
-     */
-    private $pageVariants;
-
-    /**
-     * @var Route[]
-     */
+    /** @var Route[] */
     private $routes;
 
     /**
@@ -40,16 +35,14 @@ class RerouteTest extends TestCase
     {
         parent::setUp();
 
-        // Set up users
-        $this->pageVariants = [
-            'first' => new PageVariant(),
-            'second' => new PageVariant(),
+        $this->pages = [
+            'first' => new Page(),
+            'second' => new Page(),
         ];
 
-        $this->pageVariants['first']->setAttribute('id', 100);
-        $this->pageVariants['second']->setAttribute('id', 101);
+        $this->pages['first']->setAttribute('id', 100);
+        $this->pages['second']->setAttribute('id', 101);
 
-        // Set up routes
         $this->routes = [
             'first' => new Route([
                 'subdomain' => 'test',
@@ -67,7 +60,6 @@ class RerouteTest extends TestCase
             ]),
         ];
 
-        // Save routes to the database
         foreach ($this->routes as $route) {
             $this->routesRepository->persist($route);
         }
@@ -76,10 +68,10 @@ class RerouteTest extends TestCase
         // persisting), since we need to have been assigned all routes their
         // ids.
         $this->routes['first']->setPointsAt($this->routes['second']);
-        $this->routes['second']->setPointsAt($this->pageVariants['first']);
-        $this->routes['third']->setPointsAt($this->pageVariants['second']);
+        $this->routes['second']->setPointsAt($this->pages['first']);
+        $this->routes['third']->setPointsAt($this->pages['second']);
 
-        // Re-save routes - to save the "set points at" changes
+        // Re-save routes - to persist the "set points at" changes
         foreach ($this->routes as $route) {
             $this->routesRepository->persist($route);
         }
@@ -87,7 +79,6 @@ class RerouteTest extends TestCase
 
     /**
      * @return void
-     *
      * @throws AppException
      */
     public function testReroute(): void
@@ -99,7 +90,6 @@ class RerouteTest extends TestCase
 
         $this->assertRoutePointsAt('test', 'first-route', $this->routes['third']);
         $this->assertRoutePointsAt('test', 'second-route', $this->routes['third']);
-        $this->assertRoutePointsAt('test', 'third-route', $this->pageVariants['second']);
+        $this->assertRoutePointsAt('test', 'third-route', $this->pages['second']);
     }
-
 }

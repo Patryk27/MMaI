@@ -6,10 +6,8 @@ use LogicException;
 
 trait HasInitializationConstructor
 {
-
     /**
      * @param array $properties
-     *
      * @throws LogicException
      */
     public function __construct(array $properties)
@@ -18,9 +16,9 @@ trait HasInitializationConstructor
             $propertyName = camel_case($propertyName);
 
             if (!property_exists($this, $propertyName)) {
-                throw new LogicException(
-                    sprintf('Property [%s] does not exist in class [%s]', $propertyName, get_class($this))
-                );
+                throw new LogicException(sprintf(
+                    'Property [%s] was not found in class [%s].', $propertyName, get_class($this)
+                ));
             }
 
             $this->$propertyName = $propertyValue;

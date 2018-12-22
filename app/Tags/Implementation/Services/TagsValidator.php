@@ -8,25 +8,17 @@ use App\Tags\Models\Tag;
 
 class TagsValidator
 {
-
-    /**
-     * @var TagsRepository
-     */
+    /** @var TagsRepository */
     private $tagsRepository;
 
-    /**
-     * @param TagsRepository $tagsRepository
-     */
-    public function __construct(
-        TagsRepository $tagsRepository
-    ) {
+    public function __construct(TagsRepository $tagsRepository)
+    {
         $this->tagsRepository = $tagsRepository;
     }
 
     /**
      * @param Tag $tag
      * @return void
-     *
      * @throws TagException
      */
     public function validate(Tag $tag): void
@@ -39,7 +31,6 @@ class TagsValidator
     /**
      * @param Tag $tag
      * @return void
-     *
      * @throws TagException
      */
     private function assertHasName(Tag $tag): void
@@ -52,7 +43,6 @@ class TagsValidator
     /**
      * @param Tag $tag
      * @return void
-     *
      * @throws TagException
      */
     private function assertHasLanguage(Tag $tag): void
@@ -65,7 +55,6 @@ class TagsValidator
     /**
      * @param Tag $tag
      * @return void
-     *
      * @throws TagException
      */
     private function assertIsUnique(Tag $tag): void
@@ -76,5 +65,4 @@ class TagsValidator
             throw new TagException('Tag with such name already exists.');
         }
     }
-
 }

@@ -7,18 +7,11 @@ use PHPUnit\Framework\Constraint\Constraint as PHPUnitConstraint;
 
 abstract class Constraint extends PHPUnitConstraint
 {
-
-    /**
-     * @var RoutesFacade
-     */
+    /** @var RoutesFacade */
     protected $routesFacade;
 
-    /**
-     * @param RoutesFacade $routesFacade
-     */
-    public function __construct(
-        RoutesFacade $routesFacade
-    ) {
+    public function __construct(RoutesFacade $routesFacade)
+    {
         parent::__construct();
 
         $this->routesFacade = $routesFacade;
@@ -31,5 +24,4 @@ abstract class Constraint extends PHPUnitConstraint
     {
         return '';
     }
-
 }

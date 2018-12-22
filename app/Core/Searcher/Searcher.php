@@ -7,24 +7,23 @@ use Illuminate\Support\Collection;
 // @todo describe + provide examples
 interface Searcher
 {
-
     /**
      * Applies a text filter.
      *
+     * @see applyFilters()
+     *
      * @param string $query
      * @return void
-     *
-     * @see applyFilters()
      */
     public function applyTextQuery(string $query): void;
 
     /**
      * Applies a per-field search filter.
      *
+     * @see applyTextQuery()
+     *
      * @param array $filters
      * @return void
-     *
-     * @see applyTextQuery()
      */
     public function applyFilters(array $filters): void;
 
@@ -54,11 +53,9 @@ interface Searcher
     public function get(): Collection;
 
     /**
-     * Returns number of matching rows.
-     * Does not fetch the rows themselves.
+     * Returns number of matching rows without fetching rows from the database.
      *
      * @return int
      */
     public function count(): int;
-
 }

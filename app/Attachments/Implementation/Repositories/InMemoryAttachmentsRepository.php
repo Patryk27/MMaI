@@ -8,18 +8,11 @@ use Illuminate\Support\Collection;
 
 class InMemoryAttachmentsRepository implements AttachmentsRepository
 {
-
-    /**
-     * @var InMemoryRepository
-     */
+    /** @var InMemoryRepository */
     private $repository;
 
-    /**
-     * @param InMemoryRepository $repository
-     */
-    public function __construct(
-        InMemoryRepository $repository
-    ) {
+    public function __construct(InMemoryRepository $repository)
+    {
         $this->repository = $repository;
     }
 
@@ -50,9 +43,9 @@ class InMemoryAttachmentsRepository implements AttachmentsRepository
     /**
      * @inheritDoc
      */
-    public function getAllUnbound(): Collection
+    public function getDetached(): Collection
     {
-        return $this->repository->getByMany('attachable_type', null);
+        return $this->repository->getByMany('post_id', null);
     }
 
     /**
@@ -70,5 +63,4 @@ class InMemoryAttachmentsRepository implements AttachmentsRepository
     {
         $this->repository->delete($attachment);
     }
-
 }

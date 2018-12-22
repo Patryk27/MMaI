@@ -8,7 +8,6 @@ use Illuminate\Routing\Route;
 
 class NavigationComposer
 {
-
     private const ITEMS = [
         'backend.dashboard' => [
             'icon' => 'fa fa-tachometer-alt',
@@ -31,20 +30,12 @@ class NavigationComposer
         ],
     ];
 
-    /**
-     * @var UrlGeneratorContract
-     */
+    /** @var UrlGeneratorContract */
     private $urlGenerator;
 
-    /**
-     * @var Route
-     */
+    /** @var Route */
     private $route;
 
-    /**
-     * @param UrlGeneratorContract $urlGenerator
-     * @param Route|null $route
-     */
     public function __construct(
         UrlGeneratorContract $urlGenerator,
         ?Route $route = null // Default `null` value has been provided for the CLI environment (where no route can be passed)
@@ -98,5 +89,4 @@ class NavigationComposer
     {
         return starts_with($this->route->getName(), $route);
     }
-
 }

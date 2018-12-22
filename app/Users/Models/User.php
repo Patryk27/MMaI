@@ -23,15 +23,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  */
 class User extends Authenticatable
 {
-
-    /**
-     * @var string[]
-     */
+    /** @var string[] */
     protected $fillable = [
         'login',
         'name',
         'password',
         'remember_token',
     ];
-
 }

@@ -6,7 +6,6 @@ use App\Analytics\Models\Event;
 
 interface EventsRepository
 {
-
     /**
      * Saves given event to the database.
      *
@@ -14,5 +13,4 @@ interface EventsRepository
      * @return void
      */
     public function persist(Event $event): void;
-
 }

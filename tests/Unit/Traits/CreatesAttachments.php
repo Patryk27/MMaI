@@ -8,15 +8,10 @@ use Illuminate\Filesystem\FilesystemAdapter;
 
 trait CreatesAttachments
 {
-
-    /**
-     * @var FilesystemAdapter
-     */
+    /** @var FilesystemAdapter */
     protected $attachmentsFs;
 
-    /**
-     * @var InMemoryAttachmentsRepository
-     */
+    /** @var InMemoryAttachmentsRepository */
     protected $attachmentsRepository;
 
     /**
@@ -40,5 +35,4 @@ trait CreatesAttachments
 
         return $attachment;
     }
-
 }

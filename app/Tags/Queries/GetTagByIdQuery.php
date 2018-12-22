@@ -4,18 +4,11 @@ namespace App\Tags\Queries;
 
 final class GetTagByIdQuery implements TagsQuery
 {
-
-    /**
-     * @var int
-     */
+    /** @var int */
     private $id;
 
-    /**
-     * @param int $id
-     */
-    public function __construct(
-        int $id
-    ) {
+    public function __construct(int $id)
+    {
         $this->id = $id;
     }
 
@@ -26,5 +19,4 @@ final class GetTagByIdQuery implements TagsQuery
     {
         return $this->id;
     }
-
 }

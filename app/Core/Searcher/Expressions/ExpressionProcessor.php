@@ -4,21 +4,12 @@ namespace App\Core\Searcher\Expressions;
 
 class ExpressionProcessor
 {
-
-    /**
-     * @var ExpressionParser
-     */
+    /** @var ExpressionParser */
     private $parser;
 
-    /**
-     * @var ExpressionHandler
-     */
+    /** @var ExpressionHandler */
     private $handler;
 
-    /**
-     * @param ExpressionParser $parser
-     * @param ExpressionHandler $handler
-     */
     public function __construct(
         ExpressionParser $parser,
         ExpressionHandler $handler
@@ -30,7 +21,6 @@ class ExpressionProcessor
     /**
      * @param string $expression
      * @return void
-     *
      * @throws ExpressionException
      */
     public function process(string $expression): void
@@ -43,21 +33,18 @@ class ExpressionProcessor
                     $expression->getArgument(0),
                     $expression->getArgument(1)
                 );
-
                 break;
 
             case 'regex':
                 $this->handler->regex(
                     $expression->getArgument(0)
                 );
-
                 break;
 
             default:
-                throw new ExpressionException(
-                    sprintf('Unknown function: [%s].', $expression->getFunction())
-                );
+                throw new ExpressionException(sprintf(
+                    'Unknown function: [%s].', $expression->getFunction()
+                ));
         }
     }
-
 }

@@ -8,7 +8,6 @@ use Illuminate\Support\Collection;
 
 interface RoutesRepository
 {
-
     /**
      * Returns route with given subdomain and URL, or `null` if no such route
      * exists.
@@ -52,5 +51,4 @@ interface RoutesRepository
      * @see \App\Routes\Implementation\Services\RoutesDeleter
      */
     public function delete(Route $route): void;
-
 }

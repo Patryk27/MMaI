@@ -9,7 +9,7 @@
             Name
         </th>
 
-        <th data-datatable-column='{"name": "pageVariantCount", "orderable": true}'>
+        <th data-datatable-column='{"name": "associatedPagesCount", "orderable": true}'>
             Number of associated pages
         </th>
 

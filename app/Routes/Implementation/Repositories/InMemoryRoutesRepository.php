@@ -10,18 +10,11 @@ use Illuminate\Support\Collection;
 
 class InMemoryRoutesRepository implements RoutesRepository
 {
-
-    /**
-     * @var InMemoryRepository
-     */
+    /** @var InMemoryRepository */
     private $repository;
 
-    /**
-     * @param InMemoryRepository $repository
-     */
-    public function __construct(
-        InMemoryRepository $repository
-    ) {
+    public function __construct(InMemoryRepository $repository)
+    {
         $this->repository = $repository;
     }
 
@@ -72,5 +65,4 @@ class InMemoryRoutesRepository implements RoutesRepository
     {
         $this->repository->delete($route);
     }
-
 }

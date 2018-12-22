@@ -8,18 +8,11 @@ use Illuminate\Support\Collection;
 
 class EloquentLanguagesRepository implements LanguagesRepository
 {
-
-    /**
-     * @var EloquentRepository
-     */
+    /** @var EloquentRepository */
     private $repository;
 
-    /**
-     * @param Language $language
-     */
-    public function __construct(
-        Language $language
-    ) {
+    public function __construct(Language $language)
+    {
         $this->repository = new EloquentRepository($language);
     }
 
@@ -46,5 +39,4 @@ class EloquentLanguagesRepository implements LanguagesRepository
     {
         return $this->repository->getAll();
     }
-
 }

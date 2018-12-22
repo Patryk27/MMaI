@@ -2,7 +2,6 @@
 
 use App\Languages\Models\Language;
 use App\Pages\Models\Page;
-use App\Pages\Models\PageVariant;
 use App\Routes\Models\Route;
 use App\Tags\Models\Tag;
 use Carbon\Carbon;
@@ -10,24 +9,17 @@ use Faker\Factory as FakerFactory;
 use Faker\Generator as FakerGenerator;
 use Illuminate\Support\Collection;
 
-class RandomPostsSeeder extends Seeder
+final class RandomPostsSeeder extends Seeder
 {
+    private const POST_PER_LANGUAGE = 50;
 
-    private const NUMBER_OF_POSTS_PER_LANGUAGE = 50;
-
-    /**
-     * @var FakerGenerator[]
-     */
+    /** @var FakerGenerator[] */
     private $fakers;
 
-    /**
-     * @var Collection|Language[]
-     */
+    /** @var Collection|Language[] */
     private $languages;
 
-    /**
-     * @var Collection|Tag[]
-     */
+    /** @var Collection|Tag[] */
     private $tags;
 
     public function __construct()
@@ -45,27 +37,24 @@ class RandomPostsSeeder extends Seeder
 
     /**
      * @inheritDoc
-     *
      * @throws Throwable
      */
     public function run(): void
     {
-        $this->command->line(
-            sprintf('About to create <info>%d</info> random posts...', $this->languages->count() * self::NUMBER_OF_POSTS_PER_LANGUAGE)
-        );
+        $this->command->line(sprintf(
+            'About to create <info>%d</info> random posts...', $this->languages->count() * self::POST_PER_LANGUAGE
+        ));
 
-        /**
-         * @var \Illuminate\Console\OutputStyle $output
-         */
+        /** @var \Illuminate\Console\OutputStyle $output */
         $output = $this->command->getOutput();
 
         // Create a progress bar
         $progressBar = $output->createProgressBar(
-            $this->languages->count() * self::NUMBER_OF_POSTS_PER_LANGUAGE
+            $this->languages->count() * self::POST_PER_LANGUAGE
         );
 
         // Begin to create some random posts
-        for ($i = 0; $i < self::NUMBER_OF_POSTS_PER_LANGUAGE; ++$i) {
+        for ($i = 0; $i < self::POST_PER_LANGUAGE; ++$i) {
             $this->createRandomPosts();
 
             $progressBar->advance(
@@ -77,7 +66,7 @@ class RandomPostsSeeder extends Seeder
         $progressBar->finish();
         $this->command->info('');
 
-        // Perform Elasticsearch's re-indexation
+        // Re-index Elasticsearch
         $this->command->info('');
         $this->command->call('app:search-engine:reindex-all');
     }
@@ -89,38 +78,25 @@ class RandomPostsSeeder extends Seeder
      */
     private function createRandomPosts(): void
     {
-        // Create a new page
-        $page = new Page([
-            'type' => Page::TYPE_BLOG,
-        ]);
-
-        $page->saveOrFail();
-
-        // Create new page's page variants
         foreach ($this->languages as $language) {
-            $pageVariant = $this->createRandomPageVariant($page, $language);
+            $page = $this->createRandomPost($language);
 
-            $this->assignPageVariantToRandomTags($pageVariant);
-            $this->createRouteForPageVariant($pageVariant);
+            $this->assignTags($page);
+            $this->assignRoute($page);
         }
     }
 
     /**
-     * @param Page $page
      * @param Language $language
-     * @return PageVariant
-     *
+     * @return Page
      * @throws Throwable
      */
-    private function createRandomPageVariant(Page $page, Language $language): PageVariant
+    private function createRandomPost(Language $language): Page
     {
         $faker = $this->fakers[$language->id];
 
-        $pageVariant = new PageVariant([
-            'page_id' => $page->id,
+        $page = new Page([
             'language_id' => $language->id,
-
-            'status' => PageVariant::STATUS_PUBLISHED,
 
             'title' => $faker->words(
                 $faker->numberBetween(3, 8),
@@ -135,21 +111,24 @@ class RandomPostsSeeder extends Seeder
                 $faker->numberBetween(3000, 10000)
             ),
 
+            'type' => Page::TYPE_PAGE,
+            'status' => Page::STATUS_PUBLISHED,
+
             'published_at' => Carbon::now(),
         ]);
 
-        $pageVariant->saveOrFail();
+        $page->saveOrFail();
 
-        return $pageVariant;
+        return $page;
     }
 
     /**
-     * @param PageVariant $pageVariant
+     * @param Page $page
      * @return void
      */
-    private function assignPageVariantToRandomTags(PageVariant $pageVariant): void
+    private function assignTags(Page $page): void
     {
-        $tags = $this->tags->where('language_id', $pageVariant->language->id);
+        $tags = $this->tags->where('language_id', $page->language->id);
 
         if ($tags->isEmpty()) {
             return;
@@ -159,26 +138,24 @@ class RandomPostsSeeder extends Seeder
             mt_rand(1, $tags->count())
         );
 
-        $pageVariant->tags()->sync(
+        $page->tags()->sync(
             $tags->pluck('id')
         );
     }
 
     /**
-     * @param PageVariant $pageVariant
+     * @param Page $page
      * @return void
-     *
      * @throws Throwable
      */
-    private function createRouteForPageVariant(PageVariant $pageVariant): void
+    private function assignRoute(Page $page): void
     {
         $route = Route::buildFor(
-            $pageVariant->language->slug,
-            sprintf('%04d/%02d/%s', $pageVariant->published_at->year, $pageVariant->published_at->month, kebab_case($pageVariant->title)),
-            $pageVariant
+            $page->language->slug,
+            sprintf('%04d/%02d/%s', $page->published_at->year, $page->published_at->month, kebab_case($page->title)),
+            $page
         );
 
         $route->saveOrFail();
     }
-
 }

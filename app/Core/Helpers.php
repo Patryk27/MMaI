@@ -13,9 +13,9 @@ function unimplemented(): void
     $frames = debug_backtrace();
     $callerFrame = $frames[1];
 
-    throw new UnimplementedException(
-        sprintf('%s::%s', $callerFrame['class'], $callerFrame['function'])
-    );
+    throw new UnimplementedException(sprintf(
+        '%s::%s', $callerFrame['class'], $callerFrame['function']
+    ));
 }
 
 /**

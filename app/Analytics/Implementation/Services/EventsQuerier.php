@@ -10,15 +10,9 @@ use Illuminate\Support\Collection;
 
 class EventsQuerier
 {
-
-    /**
-     * @var RequestEventsSearcher
-     */
+    /** @var RequestEventsSearcher */
     private $requestEventsSearcher;
 
-    /**
-     * @param RequestEventsSearcher $requestEventsQuerier
-     */
     public function __construct(
         RequestEventsSearcher $requestEventsQuerier
     ) {
@@ -28,7 +22,6 @@ class EventsQuerier
     /**
      * @param EventsQuery $query
      * @return Collection|Event[]
-     *
      * @throws AnalyticsException
      */
     public function query(EventsQuery $query): Collection
@@ -38,16 +31,15 @@ class EventsQuerier
                 return $query->applyTo($this->requestEventsSearcher)->get();
 
             default:
-                throw new AnalyticsException(
-                    sprintf('Cannot handle query of class [%s].', get_class($query))
-                );
+                throw new AnalyticsException(sprintf(
+                    'Cannot handle query of class [%s].', get_class($query)
+                ));
         }
     }
 
     /**
      * @param EventsQuery $query
      * @return int
-     *
      * @throws AnalyticsException
      */
     public function count(EventsQuery $query): int
@@ -60,5 +52,4 @@ class EventsQuerier
                 return $this->query($query)->count();
         }
     }
-
 }

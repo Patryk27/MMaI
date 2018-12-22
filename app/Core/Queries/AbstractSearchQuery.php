@@ -6,45 +6,36 @@ use App\Core\Searcher\Searcher;
 
 /**
  * This is a base class which is used to facilitate building "searching"
- * queries, e.g. @see \App\Pages\Queries\SearchPageVariantsQuery.
+ * queries, e.g. @see \App\Pages\Queries\SearchPages.
  */
 abstract class AbstractSearchQuery
 {
-
     /**
      * @see Searcher::applyTextQuery()
-     *
      * @var string
      */
     private $textQuery;
 
     /**
      * @see Searcher::applyFilters()
-     *
      * @var array
      */
     private $filters;
 
     /**
      * @see Searcher::orderBy()
-     *
      * @var array
      */
     private $orderBy;
 
     /**
      * @see Searcher::paginate()
-     *
      * @var array
      */
     private $pagination;
 
-    /**
-     * @param array $query
-     */
-    public function __construct(
-        array $query
-    ) {
+    public function __construct(array $query)
+    {
         $this->textQuery = array_get($query, 'textQuery', '');
         $this->filters = array_get($query, 'filters', []);
         $this->orderBy = array_get($query, 'orderBy', []);
@@ -120,5 +111,4 @@ abstract class AbstractSearchQuery
     {
         return $this->pagination;
     }
-
 }

@@ -10,18 +10,11 @@ use Throwable;
 
 class EloquentRoutesRepository implements RoutesRepository
 {
-
-    /**
-     * @var EloquentRepository
-     */
+    /** @var EloquentRepository */
     private $repository;
 
-    /**
-     * @param Route $route
-     */
-    public function __construct(
-        Route $route
-    ) {
+    public function __construct(Route $route)
+    {
         $this->repository = new EloquentRepository($route);
     }
 
@@ -66,7 +59,6 @@ class EloquentRoutesRepository implements RoutesRepository
 
     /**
      * @inheritDoc
-     *
      * @throws Throwable
      */
     public function persist(Route $route): void
@@ -76,12 +68,10 @@ class EloquentRoutesRepository implements RoutesRepository
 
     /**
      * @inheritDoc
-     *
      * @throws Throwable
      */
     public function delete(Route $route): void
     {
         $this->repository->delete($route);
     }
-
 }

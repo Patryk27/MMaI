@@ -16,8 +16,7 @@ use App\Menus\Implementation\Repositories\EloquentMenuItemsRepository;
 use App\Menus\MenusFacade;
 use App\Menus\MenusFactory;
 use App\Pages\Implementation\Repositories\EloquentPagesRepository;
-use App\Pages\Implementation\Repositories\EloquentPageVariantsRepository;
-use App\Pages\Implementation\Services\PageVariants\Searcher\EloquentPageVariantsSearcher;
+use App\Pages\Implementation\Services\Searcher\EloquentPagesSearcher;
 use App\Pages\PagesFacade;
 use App\Pages\PagesFactory;
 use App\Routes\Implementation\Repositories\EloquentRoutesRepository;
@@ -36,7 +35,6 @@ use Illuminate\Support\ServiceProvider;
 
 final class FacadesProvider extends ServiceProvider
 {
-
     private const FACADES = [
         AnalyticsFacade::class,
         AttachmentsFacade::class,
@@ -94,8 +92,7 @@ final class FacadesProvider extends ServiceProvider
             return PagesFactory::build(
                 $this->app->make(EventsDispatcher::class),
                 $this->app->make(EloquentPagesRepository::class),
-                $this->app->make(EloquentPageVariantsRepository::class),
-                $this->app->make(EloquentPageVariantsSearcher::class),
+                $this->app->make(EloquentPagesSearcher::class),
                 $this->app->make(AttachmentsFacade::class),
                 $this->app->make(TagsFacade::class)
             );
@@ -146,5 +143,4 @@ final class FacadesProvider extends ServiceProvider
             }
         }
     }
-
 }

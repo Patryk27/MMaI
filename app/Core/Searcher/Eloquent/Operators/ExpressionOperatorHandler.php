@@ -14,7 +14,6 @@ use LogicException;
 
 class ExpressionOperatorHandler extends AbstractOperatorHandler implements OperatorHandler
 {
-
     /**
      * @inheritDoc
      */
@@ -25,7 +24,6 @@ class ExpressionOperatorHandler extends AbstractOperatorHandler implements Opera
 
     /**
      * @inheritDoc
-     *
      * @throws CoreException
      */
     public function handle(
@@ -59,7 +57,6 @@ class ExpressionOperatorHandler extends AbstractOperatorHandler implements Opera
      * @param QueryExpression $fieldColumn
      * @param string $operatorValue
      * @return void
-     *
      * @throws ExpressionException
      */
     private function handleExpression(
@@ -110,10 +107,9 @@ class ExpressionOperatorHandler extends AbstractOperatorHandler implements Opera
                 break;
 
             default:
-                throw new LogicException(
-                    sprintf('Unexpected field type: [%s].', $fieldType)
-                );
+                throw new LogicException(sprintf(
+                    'Unexpected field type: [%s].', $fieldType
+                ));
         }
     }
-
 }

@@ -6,13 +6,9 @@ use Illuminate\Foundation\Http\Middleware\TrimStrings as BaseTrimStrings;
 
 final class TrimStrings extends BaseTrimStrings
 {
-
-    /**
-     * @var string[]
-     */
+    /** @var string[] */
     protected $except = [
         'password',
         'password_confirmation',
     ];
-
 }

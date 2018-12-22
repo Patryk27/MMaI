@@ -3,7 +3,7 @@
 namespace App\Application\Http\Controllers\Frontend;
 
 use App\Application\Http\Controllers\Controller;
-use App\Pages\Models\PageVariant;
+use App\Pages\Models\Page;
 use App\Pages\PagesFacade;
 use App\Routes\Exceptions\RouteNotFoundException;
 use App\Routes\Models\Route;
@@ -20,27 +20,15 @@ use Throwable;
 
 class DispatchController extends Controller
 {
-
-    /**
-     * @var GateContract
-     */
+    /** @var GateContract */
     private $gate;
 
-    /**
-     * @var PagesFacade
-     */
+    /** @var PagesFacade */
     private $pagesFacade;
 
-    /**
-     * @var RoutesFacade
-     */
+    /** @var RoutesFacade */
     private $routesFacade;
 
-    /**
-     * @param GateContract $gate
-     * @param PagesFacade $pagesFacade
-     * @param RoutesFacade $routesFacade
-     */
     public function __construct(
         GateContract $gate,
         PagesFacade $pagesFacade,
@@ -54,7 +42,6 @@ class DispatchController extends Controller
     /**
      * @param Request $request
      * @return mixed
-     *
      * @throws Throwable
      */
     public function dispatch(Request $request)
@@ -68,36 +55,34 @@ class DispatchController extends Controller
         }
 
         switch ($route->model_type) {
-            case PageVariant::getMorphableType():
+            case Page::getMorphableType():
                 /** @noinspection PhpParamsInspection */
-                return $this->dispatchPageVariant($route->model);
+                return $this->dispatchPage($route->model);
 
             case Route::getMorphableType():
                 /** @noinspection PhpParamsInspection */
                 return $this->dispatchRoute($route->model);
 
             default:
-                throw new LogicException(
-                    sprintf('Do not know how to dispatch route [model_type=%s].', $route->model_type)
-                );
+                throw new LogicException(sprintf(
+                    'Do not know how to dispatch route [model_type=%s].', $route->model_type
+                ));
         }
     }
 
     /**
-     * @param PageVariant $pageVariant
+     * @param Page $page
      * @return ViewContract
-     *
-     * @throws NotFoundHttpException
      * @throws Exception
      */
-    private function dispatchPageVariant(PageVariant $pageVariant): ViewContract
+    private function dispatchPage(Page $page): ViewContract
     {
-        if ($this->gate->denies('show', [$pageVariant])) {
+        if ($this->gate->denies('show', [$page])) {
             throw new NotFoundHttpException();
         }
 
         return view('frontend.views.pages.show', [
-            'renderedPageVariant' => $this->pagesFacade->render($pageVariant),
+            'renderedPage' => $this->pagesFacade->render($page),
         ]);
     }
 
@@ -111,5 +96,4 @@ class DispatchController extends Controller
             $route->getEntireUrl()
         );
     }
-
 }

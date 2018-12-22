@@ -7,11 +7,9 @@ use App\Routes\Models\Route;
 
 class RoutesValidator
 {
-
     /**
      * @param Route $route
      * @return void
-     *
      * @throws RouteException
      */
     public function validate(Route $route): void
@@ -24,5 +22,4 @@ class RoutesValidator
             throw new RouteException('Route must point at a model.');
         }
     }
-
 }

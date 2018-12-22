@@ -9,18 +9,11 @@ use Throwable;
 
 class EloquentAttachmentsRepository implements AttachmentsRepository
 {
-
-    /**
-     * @var EloquentRepository
-     */
+    /** @var EloquentRepository */
     private $repository;
 
-    /**
-     * @param Attachment $attachment
-     */
-    public function __construct(
-        Attachment $attachment
-    ) {
+    public function __construct(Attachment $attachment)
+    {
         $this->repository = new EloquentRepository($attachment);
     }
 
@@ -51,14 +44,13 @@ class EloquentAttachmentsRepository implements AttachmentsRepository
     /**
      * @inheritDoc
      */
-    public function getAllUnbound(): Collection
+    public function getDetached(): Collection
     {
-        return $this->repository->getByMany('attachable_type', null);
+        return $this->repository->getByMany('post_id', null);
     }
 
     /**
      * @inheritDoc
-     *
      * @throws Throwable
      */
     public function persist(Attachment $attachment): void
@@ -68,12 +60,10 @@ class EloquentAttachmentsRepository implements AttachmentsRepository
 
     /**
      * @inheritDoc
-     *
      * @throws Throwable
      */
     public function delete(Attachment $attachment): void
     {
         $this->repository->delete($attachment);
     }
-
 }

@@ -1,10 +1,9 @@
 @php
     /**
-     * @var \App\Pages\Models\PageVariant $pageVariant
-     * @var \App\Pages\ValueObjects\RenderedPageVariant $renderedPageVariant
+     * @var \App\Pages\ValueObjects\RenderedPage $renderedPage
      */
 @endphp
 
 <article class="page-content">
-    {!! $renderedPageVariant->getContent() !!}
+    {!! $renderedPage->getContent() !!}
 </article>

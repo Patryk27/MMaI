@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 
 class Handler
 {
-
     /**
      * @var callable
      * @see setRowsFetcher()
@@ -121,7 +120,7 @@ class Handler
     private function applyFieldsFilters(Request $request): array
     {
         return [
-            'filters' => $request->get('filters', [])
+            'filters' => $request->get('filters', []),
         ];
     }
 
@@ -159,5 +158,4 @@ class Handler
             ],
         ];
     }
-
 }

@@ -7,7 +7,6 @@ use Illuminate\Support\Collection;
 
 interface TagsRepository
 {
-
     /**
      * Returns tag with specified id or `null` if no such tag exists.
      *
@@ -48,5 +47,4 @@ interface TagsRepository
      * @return void
      */
     public function delete(Tag $tag): void;
-
 }

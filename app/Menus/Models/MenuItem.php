@@ -27,10 +27,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class MenuItem extends Model
 {
-
-    /**
-     * @var string[]
-     */
+    /** @var string[] */
     protected $fillable = [
         'language_id',
         'position',
@@ -38,9 +35,7 @@ class MenuItem extends Model
         'title',
     ];
 
-    /**
-     * @var string[]
-     */
+    /** @var string[] */
     protected $dates = [
         'created_at',
         'updated_at',
@@ -53,5 +48,4 @@ class MenuItem extends Model
     {
         return $this->belongsTo(Language::class);
     }
-
 }

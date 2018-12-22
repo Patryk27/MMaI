@@ -7,8 +7,7 @@ use App\Attachments\AttachmentsFactory;
 use App\Attachments\Implementation\Repositories\InMemoryAttachmentsRepository;
 use App\Core\Repositories\InMemoryRepository;
 use App\Pages\Implementation\Repositories\InMemoryPagesRepository;
-use App\Pages\Implementation\Repositories\InMemoryPageVariantsRepository;
-use App\Pages\Implementation\Services\PageVariants\Searcher\InMemoryPageVariantsSearcher;
+use App\Pages\Implementation\Services\Searcher\InMemoryPagesSearcher;
 use App\Pages\PagesFacade;
 use App\Pages\PagesFactory;
 use App\Tags\Implementation\Repositories\InMemoryTagsRepository;
@@ -26,47 +25,27 @@ use Tests\Unit\Traits\CreatesAttachments;
 
 abstract class TestCase extends BaseTestCase
 {
-
     use CreatesAttachments;
 
-    /**
-     * @var FilesystemAdapter
-     */
+    /** @var FilesystemAdapter */
     protected $attachmentsFs;
 
-    /**
-     * @var InMemoryAttachmentsRepository
-     */
+    /** @var InMemoryAttachmentsRepository */
     protected $attachmentsRepository;
 
-    /**
-     * @var InMemoryPagesRepository
-     */
+    /** @var InMemoryPagesRepository */
     protected $pagesRepository;
 
-    /**
-     * @var InMemoryPageVariantsRepository
-     */
-    protected $pageVariantsRepository;
-
-    /**
-     * @var InMemoryTagsRepository
-     */
+    /** @var InMemoryTagsRepository */
     protected $tagsRepository;
 
-    /**
-     * @var AttachmentsFacade
-     */
+    /** @var AttachmentsFacade */
     protected $attachmentsFacade;
 
-    /**
-     * @var PagesFacade
-     */
+    /** @var PagesFacade */
     protected $pagesFacade;
 
-    /**
-     * @var TagsFacade
-     */
+    /** @var TagsFacade */
     protected $tagsFacade;
 
     /**
@@ -104,8 +83,6 @@ abstract class TestCase extends BaseTestCase
             new InMemoryRepository()
         );
 
-        $this->pageVariantsRepository = new InMemoryPageVariantsRepository();
-
         $this->tagsRepository = new InMemoryTagsRepository(
             new InMemoryRepository([
                 new Tag([
@@ -131,7 +108,7 @@ abstract class TestCase extends BaseTestCase
          */
 
         $tagsSearcher = new InMemoryTagsSearcher();
-        $pageVariantsSearcher = new InMemoryPageVariantsSearcher();
+        $pagesSearcher = new InMemoryPagesSearcher();
 
         /**
          * Instantiate facades
@@ -152,11 +129,9 @@ abstract class TestCase extends BaseTestCase
         $this->pagesFacade = PagesFactory::build(
             $eventsDispatcher,
             $this->pagesRepository,
-            $this->pageVariantsRepository,
-            $pageVariantsSearcher,
+            $pagesSearcher,
             $this->attachmentsFacade,
             $this->tagsFacade
         );
     }
-
 }

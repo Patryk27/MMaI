@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-
     /**
      * @param Request $request
      * @return ViewContract
@@ -19,5 +18,4 @@ class DashboardController extends Controller
             'user' => $request->user(),
         ]);
     }
-
 }

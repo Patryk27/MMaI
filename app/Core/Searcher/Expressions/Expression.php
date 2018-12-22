@@ -4,29 +4,20 @@ namespace App\Core\Searcher\Expressions;
 
 final class Expression
 {
-
     /**
      * Function's name, e.g.: "between".
-     *
      * @var string
      */
     private $function;
 
     /**
      * Function's arguments, e.g.: [100, 200].
-     *
      * @var array
      */
     private $arguments;
 
-    /**
-     * @param string $function
-     * @param array $arguments
-     */
-    public function __construct(
-        string $function,
-        array $arguments
-    ) {
+    public function __construct(string $function, array $arguments)
+    {
         $this->function = $function;
         $this->arguments = $arguments;
     }
@@ -50,18 +41,16 @@ final class Expression
     /**
      * @param int $idx
      * @return mixed
-     *
      * @throws ExpressionException
      */
     public function getArgument(int $idx)
     {
         if (!array_key_exists($idx, $this->arguments)) {
-            throw new ExpressionException(
-                sprintf('Argument #%d was not found.', $idx)
-            );
+            throw new ExpressionException(sprintf(
+                'Argument #%d was not found.', $idx
+            ));
         }
 
         return $this->arguments[$idx];
     }
-
 }

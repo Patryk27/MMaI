@@ -9,7 +9,6 @@ use View;
 
 final class ApplicationProvider extends ServiceProvider
 {
-
     /**
      * @return void
      */
@@ -29,7 +28,6 @@ final class ApplicationProvider extends ServiceProvider
 
         Relation::morphMap([
             \App\Pages\Models\Page::getMorphableType() => \App\Pages\Models\Page::class,
-            \App\Pages\Models\PageVariant::getMorphableType() => \App\Pages\Models\PageVariant::class,
             \App\Routes\Models\Route::getMorphableType() => \App\Routes\Models\Route::class,
         ]);
 
@@ -42,5 +40,4 @@ final class ApplicationProvider extends ServiceProvider
             \App\Application\ViewComposers\Frontend\Layout\NavigationComposer::class => 'frontend.layout.navigation',
         ]);
     }
-
 }

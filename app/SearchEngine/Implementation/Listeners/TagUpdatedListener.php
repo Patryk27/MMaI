@@ -4,28 +4,19 @@ namespace App\SearchEngine\Implementation\Listeners;
 
 use App\Pages\Exceptions\PageException;
 use App\Pages\PagesFacade;
-use App\Pages\Queries\GetPageVariantsByTagIdQuery;
+use App\Pages\Queries\GetPagesByTagIdQuery;
 use App\SearchEngine\SearchEngineFacade;
 use App\Tags\Events\TagUpdated;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 final class TagUpdatedListener implements ShouldQueue
 {
-
-    /**
-     * @var PagesFacade
-     */
+    /** @var PagesFacade */
     private $pagesFacade;
 
-    /**
-     * @var SearchEngineFacade
-     */
+    /** @var SearchEngineFacade */
     private $searchEngineFacade;
 
-    /**
-     * @param PagesFacade $pagesFacade
-     * @param SearchEngineFacade $searchEngineFacade
-     */
     public function __construct(
         PagesFacade $pagesFacade,
         SearchEngineFacade $searchEngineFacade
@@ -37,20 +28,18 @@ final class TagUpdatedListener implements ShouldQueue
     /**
      * @param TagUpdated $event
      * @return void
-     *
      * @throws PageException
      */
     public function handle(TagUpdated $event): void
     {
-        $pageVariants = $this->pagesFacade->queryMany(
-            new GetPageVariantsByTagIdQuery(
+        $pages = $this->pagesFacade->queryMany(
+            new GetPagesByTagIdQuery(
                 $event->getTag()->id
             )
         );
 
-        foreach ($pageVariants as $pageVariant) {
-            $this->searchEngineFacade->index($pageVariant->page);
+        foreach ($pages as $page) {
+            $this->searchEngineFacade->index($page);
         }
     }
-
 }

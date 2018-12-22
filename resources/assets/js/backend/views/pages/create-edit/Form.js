@@ -13,7 +13,7 @@ export default class Form {
 
         this.$dom = {
             form: $form,
-            pageType: $form.find('[name="page_type"]'),
+            type: $form.find('[name="type"]'),
         };
 
         this.$state = {
@@ -78,17 +78,17 @@ export default class Form {
      * @returns {object}
      */
     $serialize() {
-        const { attachments, notes, pageVariants } = this.$state.sections;
+        const { attachments, notes, pages } = this.$state.sections;
 
         return {
             page: {
-                type: this.$dom.pageType.val(),
+                type: this.$dom.type.val(),
                 notes: notes.serialize(),
             },
 
-            pageVariants: pageVariants
-                .filter((pageVariant) => pageVariant.isEnabled())
-                .map((pageVariant) => pageVariant.serialize()),
+            pages: pages
+                .filter((page) => page.isEnabled())
+                .map((page) => page.serialize()),
 
             attachment_ids: attachments.serialize(),
         };

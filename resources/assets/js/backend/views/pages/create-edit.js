@@ -6,7 +6,7 @@ import ButtonComponent from '../../../base/components/ButtonComponent';
 import Form from './create-edit/Form';
 import NotesSection from './create-edit/sections/NotesSection';
 import OverlayComponent from '../../../base/components/OverlayComponent';
-import PageVariantSection from './create-edit/sections/PageVariantSection';
+import PageSection from './create-edit/sections/PageSection';
 
 class View {
 
@@ -24,7 +24,7 @@ class View {
 
         this.$state = {
             formSections: {
-                pageVariants: [],
+                pages: [],
                 attachments: null,
             },
         };
@@ -61,19 +61,16 @@ class View {
             switch ($tab.data('section-type')) {
                 case 'attachments':
                     formSections.attachments = new AttachmentsSection(this.$bus, $tab);
-
                     break;
 
                 case 'notes':
                     formSections.notes = new NotesSection(this.$bus, $tab);
-
                     break;
 
-                case 'page-variant':
-                    formSections.pageVariants.push(
-                        new PageVariantSection(this.$bus, $tab),
+                case 'page':
+                    formSections.pages.push(
+                        new PageSection(this.$bus, $tab),
                     );
-
                     break;
 
                 default:

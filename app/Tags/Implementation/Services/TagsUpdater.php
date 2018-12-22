@@ -10,27 +10,15 @@ use Illuminate\Contracts\Events\Dispatcher as EventsDispatcherContract;
 
 class TagsUpdater
 {
-
-    /**
-     * @var EventsDispatcherContract
-     */
+    /** @var EventsDispatcherContract */
     private $eventsDispatcher;
 
-    /**
-     * @var TagsRepository
-     */
+    /** @var TagsRepository */
     private $tagsRepository;
 
-    /**
-     * @var TagsValidator
-     */
+    /** @var TagsValidator */
     private $tagsValidator;
 
-    /**
-     * @param EventsDispatcherContract $eventsDispatcher
-     * @param TagsRepository $tagsRepository
-     * @param TagsValidator $tagsValidator
-     */
     public function __construct(
         EventsDispatcherContract $eventsDispatcher,
         TagsRepository $tagsRepository,
@@ -45,7 +33,6 @@ class TagsUpdater
      * @param Tag $tag
      * @param array $tagData
      * @return void
-     *
      * @throws TagException
      */
     public function update(Tag $tag, array $tagData): void
@@ -61,5 +48,4 @@ class TagsUpdater
             new TagUpdated($tag)
         );
     }
-
 }

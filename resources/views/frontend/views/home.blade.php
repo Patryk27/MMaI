@@ -1,6 +1,6 @@
 @php
     /**
-     * @var \Illuminate\Contracts\Pagination\LengthAwarePaginator|\App\Pages\ValueObjects\RenderedPageVariant[] $posts
+     * @var \Illuminate\Contracts\Pagination\LengthAwarePaginator|\App\Pages\ValueObjects\RenderedPage[] $renderedPages
      */
 @endphp
 
@@ -11,9 +11,9 @@
 @section('title', config('app.name'))
 
 @section('content')
-    @include('frontend.components.posts.list', [
-        'posts' => $posts,
+    @include('frontend.components.pages.list', [
+        'renderedPages' => $renderedPages,
     ])
 
-    {{ $posts->links() }}
+    {{ $renderedPages->links() }}
 @endsection

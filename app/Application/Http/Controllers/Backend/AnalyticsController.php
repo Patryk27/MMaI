@@ -6,7 +6,6 @@ use App\Application\Http\Controllers\Controller;
 
 class AnalyticsController extends Controller
 {
-
     /**
      * @return mixed
      */
@@ -14,5 +13,4 @@ class AnalyticsController extends Controller
     {
         return view('backend.views.analytics.index');
     }
-
 }

@@ -8,18 +8,11 @@ use Illuminate\Support\Collection;
 
 class EloquentMenuItemsRepository implements MenuItemsRepository
 {
-
-    /**
-     * @var EloquentRepository
-     */
+    /** @var EloquentRepository */
     private $repository;
 
-    /**
-     * @param MenuItem $menuItem
-     */
-    public function __construct(
-        MenuItem $menuItem
-    ) {
+    public function __construct(MenuItem $menuItem)
+    {
         $this->repository = new EloquentRepository($menuItem);
     }
 
@@ -30,5 +23,4 @@ class EloquentMenuItemsRepository implements MenuItemsRepository
     {
         return $this->repository->getByMany('language_id', $languageId);
     }
-
 }

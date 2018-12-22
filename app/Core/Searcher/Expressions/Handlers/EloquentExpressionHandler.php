@@ -9,27 +9,15 @@ use Illuminate\Database\Query\Expression as QueryExpression;
 
 class EloquentExpressionHandler implements ExpressionHandler
 {
-
-    /**
-     * @var EloquentBuilder
-     */
+    /** @var EloquentBuilder */
     private $builder;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $fieldType;
 
-    /**
-     * @var QueryExpression
-     */
+    /** @var QueryExpression */
     private $fieldColumn;
 
-    /**
-     * @param EloquentBuilder $builder
-     * @param string $fieldType
-     * @param QueryExpression $fieldColumn
-     */
     public function __construct(
         EloquentBuilder $builder,
         string $fieldType,
@@ -63,5 +51,4 @@ class EloquentExpressionHandler implements ExpressionHandler
             [$regex]
         );
     }
-
 }

@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateLanguagesTable extends Migration
 {
-
     /**
      * @return void
      */
@@ -38,5 +37,4 @@ class CreateLanguagesTable extends Migration
     {
         Schema::dropIfExists('languages');
     }
-
 }

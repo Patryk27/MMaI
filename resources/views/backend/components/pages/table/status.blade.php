@@ -1,11 +1,11 @@
 @php
     /**
-     * @var \App\Pages\Models\PageVariant $row
+     * @var \App\Pages\Models\Page $row
      */
 
     $presenter = $row->getPresenter();
 @endphp
 
-<span class="badge badge-pill {{ $presenter->getBadgeForStatus() }}" data-column="status">
-    {{ __('base/models/page-variant.enums.status.' . $row->status) }}
+<span class="badge badge-pill {{ $presenter->getStatusBadge() }}" data-column="status">
+    {{ __('base/models/page.enums.status.' . $row->status) }}
 </span>

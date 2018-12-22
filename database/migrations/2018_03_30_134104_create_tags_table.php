@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateTagsTable extends Migration
 {
-
     /**
      * @return void
      */
@@ -37,5 +36,4 @@ class CreateTagsTable extends Migration
     {
         Schema::dropIfExists('tags');
     }
-
 }

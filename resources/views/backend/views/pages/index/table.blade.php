@@ -5,7 +5,7 @@
             Id
         </th>
 
-        <th data-datatable-column='{"name": "pageType"}'>
+        <th data-datatable-column='{"name": "type"}'>
             Type
         </th>
 

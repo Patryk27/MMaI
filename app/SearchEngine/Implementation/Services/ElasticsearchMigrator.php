@@ -6,18 +6,11 @@ use Elasticsearch\Client as ElasticsearchClient;
 
 class ElasticsearchMigrator
 {
-
-    /**
-     * @var ElasticsearchClient
-     */
+    /** @var ElasticsearchClient */
     private $elasticsearch;
 
-    /**
-     * @param ElasticsearchClient $elasticsearch
-     */
-    public function __construct(
-        ElasticsearchClient $elasticsearch
-    ) {
+    public function __construct(ElasticsearchClient $elasticsearch)
+    {
         $this->elasticsearch = $elasticsearch;
     }
 
@@ -52,7 +45,7 @@ class ElasticsearchMigrator
 
             'body' => [
                 'mappings' => [
-                    'page_variants' => [
+                    'pages' => [
                         'properties' => [
                             'id' => [
                                 'type' => 'integer',
@@ -74,14 +67,6 @@ class ElasticsearchMigrator
                             ],
 
                             'created_at' => [
-                                'type' => 'keyword',
-                            ],
-
-                            'page_id' => [
-                                'type' => 'integer',
-                            ],
-
-                            'page_type' => [
                                 'type' => 'keyword',
                             ],
 
@@ -132,5 +117,4 @@ class ElasticsearchMigrator
             ],
         ]);
     }
-
 }

@@ -10,25 +10,14 @@ use Illuminate\Http\Request;
  */
 final class GetRouteBySubdomainAndUrlQuery implements RoutesQuery
 {
-
-    /**
-     * @var string
-     */
+    /** @var string */
     private $subdomain;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $url;
 
-    /**
-     * @param string $subdomain
-     * @param string $url
-     */
-    public function __construct(
-        string $subdomain,
-        string $url
-    ) {
+    public function __construct(string $subdomain, string $url)
+    {
         $this->subdomain = $subdomain;
         $this->url = $url;
     }
@@ -60,5 +49,4 @@ final class GetRouteBySubdomainAndUrlQuery implements RoutesQuery
     {
         return $this->url;
     }
-
 }

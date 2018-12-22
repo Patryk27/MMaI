@@ -3,7 +3,7 @@
 namespace App\Tags\Models;
 
 use App\Languages\Models\Language;
-use App\Pages\Models\PageVariant;
+use App\Pages\Models\Page;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
@@ -22,14 +22,11 @@ use Illuminate\Database\Eloquent\Model;
  * -----
  *
  * @property-read Language $language
- * @property-read EloquentCollection|PageVariant[] $pageVariants
+ * @property-read EloquentCollection|Page[] $pages
  */
 class Tag extends Model
 {
-
-    /**
-     * @var string[]
-     */
+    /** @var string[] */
     protected $fillable = [
         'language_id',
         'name',
@@ -46,9 +43,8 @@ class Tag extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function pageVariants()
+    public function pages()
     {
-        return $this->belongsToMany(PageVariant::class);
+        return $this->belongsToMany(Page::class);
     }
-
 }

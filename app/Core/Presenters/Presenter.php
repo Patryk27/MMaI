@@ -6,10 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 abstract class Presenter
 {
-
-    /**
-     * @var Model
-     */
+    /** @var Model */
     protected $model;
 
     /**
@@ -22,5 +19,4 @@ abstract class Presenter
     {
         $this->model = $model;
     }
-
 }

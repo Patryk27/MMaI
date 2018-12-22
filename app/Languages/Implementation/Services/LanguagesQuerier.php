@@ -13,25 +13,17 @@ use Illuminate\Support\Collection;
 
 class LanguagesQuerier
 {
-
-    /**
-     * @var LanguagesRepository
-     */
+    /** @var LanguagesRepository */
     private $languagesRepository;
 
-    /**
-     * @param LanguagesRepository $languagesRepository
-     */
-    public function __construct(
-        LanguagesRepository $languagesRepository
-    ) {
+    public function __construct(LanguagesRepository $languagesRepository)
+    {
         $this->languagesRepository = $languagesRepository;
     }
 
     /**
      * @param LanguagesQuery $query
      * @return Collection|Language[]
-     *
      * @throws LanguageException
      */
     public function query(LanguagesQuery $query): Collection
@@ -55,10 +47,9 @@ class LanguagesQuerier
                 );
 
             default:
-                throw new LanguageException(
-                    sprintf('Cannot handle query of class [%s].', get_class($query))
-                );
+                throw new LanguageException(sprintf(
+                    'Cannot handle query of class [%s].', get_class($query)
+                ));
         }
     }
-
 }

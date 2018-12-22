@@ -14,15 +14,10 @@ use Tests\Unit\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
-
-    /**
-     * @var InMemoryRoutesRepository
-     */
+    /** @var InMemoryRoutesRepository */
     protected $routesRepository;
 
-    /**
-     * @var RoutesFacade
-     */
+    /** @var RoutesFacade */
     protected $routesFacade;
 
     /**
@@ -85,5 +80,4 @@ abstract class TestCase extends BaseTestCase
 
         $this->assertThat($payload, new RoutePointsAtAssertion($this->routesFacade));
     }
-
 }

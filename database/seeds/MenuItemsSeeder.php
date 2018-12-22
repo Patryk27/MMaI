@@ -3,9 +3,8 @@
 use App\Languages\Models\Language;
 use App\Menus\Models\MenuItem;
 
-class MenuItemsSeeder extends Seeder
+final class MenuItemsSeeder extends Seeder
 {
-
     /**
      * @return void
      */
@@ -27,8 +26,12 @@ class MenuItemsSeeder extends Seeder
      * @param string $title
      * @return void
      */
-    private function createMenuItem(string $languageSlug, int $position, string $url, string $title): void
-    {
+    private function createMenuItem(
+        string $languageSlug,
+        int $position,
+        string $url,
+        string $title
+    ): void {
         $language = Language::where('slug', $languageSlug)->firstOrFail();
 
         MenuItem::create([
@@ -38,5 +41,4 @@ class MenuItemsSeeder extends Seeder
             'title' => $title,
         ]);
     }
-
 }

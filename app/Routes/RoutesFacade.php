@@ -15,39 +15,21 @@ use Illuminate\Support\Collection;
 
 final class RoutesFacade
 {
-
-    /**
-     * @var RoutesRepository
-     */
+    /** @var RoutesRepository */
     private $routesRepository;
 
-    /**
-     * @var RoutesValidator
-     */
+    /** @var RoutesValidator */
     private $routesValidator;
 
-    /**
-     * @var RoutesDeleter
-     */
+    /** @var RoutesDeleter */
     private $routesDeleter;
 
-    /**
-     * @var RoutesRerouter
-     */
+    /** @var RoutesRerouter */
     private $routesRerouter;
 
-    /**
-     * @var RoutesQuerier
-     */
+    /** @var RoutesQuerier */
     private $routesQuerier;
 
-    /**
-     * @param RoutesRepository $routesRepository
-     * @param RoutesValidator $routesValidator
-     * @param RoutesDeleter $routesDeleter
-     * @param RoutesRerouter $routesRerouter
-     * @param RoutesQuerier $routesQuerier
-     */
     public function __construct(
         RoutesRepository $routesRepository,
         RoutesValidator $routesValidator,
@@ -67,8 +49,6 @@ final class RoutesFacade
      *
      * @param Route $route
      * @return void
-     *
-     * @see \Tests\Unit\Routes\DeleteTest
      */
     public function delete(Route $route): void
     {
@@ -81,10 +61,7 @@ final class RoutesFacade
      * @param Route $oldRoute
      * @param Route $newRoute
      * @return void
-     *
      * @throws RouteException
-     *
-     * @see \Tests\Unit\Routes\RerouteTest
      */
     public function reroute(Route $oldRoute, Route $newRoute): void
     {
@@ -100,7 +77,6 @@ final class RoutesFacade
      *
      * @param RoutesQuery $query
      * @return Route
-     *
      * @throws RouteException
      * @throws RouteNotFoundException
      */
@@ -120,12 +96,10 @@ final class RoutesFacade
      *
      * @param RoutesQuery $query
      * @return Collection|Route[]
-     *
      * @throws RouteException
      */
     public function queryMany(RoutesQuery $query): Collection
     {
         return $this->routesQuerier->query($query);
     }
-
 }

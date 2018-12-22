@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  * This model describes a single route.
  *
  * It can point at:
- *   - a page variant,
+ *   - a page,
  *   - a route (in which case it is a redirection).
  *
  * -----
@@ -29,10 +29,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Route extends Model implements Morphable
 {
-
-    /**
-     * @var string[]
-     */
+    /** @var string[] */
     protected $fillable = [
         'subdomain',
         'url',
@@ -105,5 +102,4 @@ class Route extends Model implements Morphable
     {
         return 'route';
     }
-
 }

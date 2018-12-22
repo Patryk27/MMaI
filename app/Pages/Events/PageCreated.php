@@ -7,20 +7,13 @@ use Illuminate\Queue\SerializesModels;
 
 final class PageCreated
 {
-
     use SerializesModels;
 
-    /**
-     * @var Page
-     */
+    /** @var Page */
     private $page;
 
-    /**
-     * @param Page $page
-     */
-    public function __construct(
-        Page $page
-    ) {
+    public function __construct(Page $page)
+    {
         $this->page = $page;
     }
 
@@ -31,5 +24,4 @@ final class PageCreated
     {
         return $this->page;
     }
-
 }

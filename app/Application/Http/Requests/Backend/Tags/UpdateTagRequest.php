@@ -6,7 +6,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateTagRequest extends FormRequest
 {
-
     /**
      * @return bool
      */
@@ -24,5 +23,4 @@ class UpdateTagRequest extends FormRequest
             'name' => 'required',
         ];
     }
-
 }

@@ -14,33 +14,18 @@ use Illuminate\Support\Collection;
 
 final class TagsFacade
 {
-
-    /**
-     * @var TagsCreator
-     */
+    /** @var TagsCreator */
     private $tagsCreator;
 
-    /**
-     * @var TagsUpdater
-     */
+    /** @var TagsUpdater */
     private $tagsUpdater;
 
-    /**
-     * @var TagsDeleter
-     */
+    /** @var TagsDeleter */
     private $tagsDeleter;
 
-    /**
-     * @var TagsQuerier
-     */
+    /** @var TagsQuerier */
     private $tagsQuerier;
 
-    /**
-     * @param TagsCreator $tagsCreator
-     * @param TagsUpdater $tagsUpdater
-     * @param TagsDeleter $tagsDeleter
-     * @param TagsQuerier $tagsQuerier
-     */
     public function __construct(
         TagsCreator $tagsCreator,
         TagsUpdater $tagsUpdater,
@@ -58,11 +43,7 @@ final class TagsFacade
      *
      * @param array $tagData
      * @return Tag
-     *
      * @throws TagException
-     *
-     * @see \App\Application\Http\Requests\Backend\Tags\CreateTagRequest
-     * @see \Tests\Unit\Tags\CreateTest
      */
     public function create(array $tagData): Tag
     {
@@ -74,11 +55,7 @@ final class TagsFacade
      *
      * @param Tag $tag
      * @param array $tagData
-     *
      * @throws TagException
-     *
-     * @see \App\Application\Http\Requests\Backend\Tags\UpdateTagRequest
-     * @see \Tests\Unit\Tags\UpdateTest
      */
     public function update(Tag $tag, array $tagData): void
     {
@@ -87,7 +64,7 @@ final class TagsFacade
 
     /**
      * Removes given tag.
-     * All page variants assigned to this tag will be un-assigned from it.
+     * All pages assigned to this tag will be un-assigned from it.
      *
      * @param Tag $tag
      * @return void
@@ -103,7 +80,6 @@ final class TagsFacade
      *
      * @param TagsQuery $query
      * @return Tag
-     *
      * @throws TagException
      * @throws TagNotFoundException
      */
@@ -123,7 +99,6 @@ final class TagsFacade
      *
      * @param TagsQuery $query
      * @return Collection|Tag[]
-     *
      * @throws TagException
      */
     public function queryMany(TagsQuery $query): Collection
@@ -136,12 +111,10 @@ final class TagsFacade
      *
      * @param TagsQuery $query
      * @return int
-     *
      * @throws TagException
      */
     public function queryCount(TagsQuery $query): int
     {
         return $this->tagsQuerier->count($query);
     }
-
 }

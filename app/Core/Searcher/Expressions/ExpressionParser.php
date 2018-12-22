@@ -4,11 +4,9 @@ namespace App\Core\Searcher\Expressions;
 
 class ExpressionParser
 {
-
     /**
      * @param string $expression
      * @return Expression
-     *
      * @throws ExpressionException
      */
     public function parse(string $expression): Expression
@@ -42,5 +40,4 @@ class ExpressionParser
 
         return new Expression($function, $arguments);
     }
-
 }

@@ -10,7 +10,6 @@ use App\Core\Searcher\Eloquent\EloquentMapper;
 
 class EloquentRequestEventsSearcher extends AbstractEloquentSearcher implements RequestEventsSearcher
 {
-
     private const FIELDS = [
         SearchRequestEventsQuery::FIELD_ID => [
             'column' => 'events.id',
@@ -38,16 +37,8 @@ class EloquentRequestEventsSearcher extends AbstractEloquentSearcher implements 
         ],
     ];
 
-    /**
-     * @param Event $event
-     */
-    public function __construct(
-        Event $event
-    ) {
-        parent::__construct(
-            $event,
-            self::FIELDS
-        );
+    public function __construct(Event $event)
+    {
+        parent::__construct($event, self::FIELDS);
     }
-
 }

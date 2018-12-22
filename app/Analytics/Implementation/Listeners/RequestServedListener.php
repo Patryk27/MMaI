@@ -7,7 +7,6 @@ use App\Application\Events\RequestServed;
 
 final class RequestServedListener extends Listener
 {
-
     /**
      * @param RequestServed $event
      * @return void
@@ -25,5 +24,4 @@ final class RequestServedListener extends Listener
             ],
         ]);
     }
-
 }

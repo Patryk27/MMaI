@@ -3,12 +3,10 @@
 use App\Languages\Models\Language;
 use App\Tags\Models\Tag;
 
-class TagsSeeder extends Seeder
+final class TagsSeeder extends Seeder
 {
-
     /**
      * @return void
-     *
      * @throws Throwable
      */
     public function run(): void
@@ -27,7 +25,6 @@ class TagsSeeder extends Seeder
      * @param string $languageSlug
      * @param string $name
      * @return void
-     *
      * @throws Throwable
      */
     private function createTag(string $languageSlug, string $name): void
@@ -39,5 +36,4 @@ class TagsSeeder extends Seeder
             'name' => $name,
         ]);
     }
-
 }

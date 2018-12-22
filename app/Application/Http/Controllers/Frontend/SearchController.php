@@ -8,36 +8,23 @@ use App\Core\Exceptions\Exception as CoreException;
 use App\Core\Language\Detector as LanguageDetector;
 use App\Pages\Exceptions\PageException;
 use App\Pages\Models\Page;
-use App\Pages\Models\PageVariant;
 use App\Pages\PagesFacade;
-use App\Pages\ValueObjects\RenderedPageVariant;
+use App\Pages\ValueObjects\RenderedPage;
 use App\SearchEngine\Queries\SearchQuery;
 use App\SearchEngine\SearchEngineFacade;
 use Illuminate\Support\Collection;
 
 class SearchController extends Controller
 {
-
-    /**
-     * @var LanguageDetector
-     */
+    /** @var LanguageDetector */
     private $languageDetector;
 
-    /**
-     * @var SearchEngineFacade
-     */
+    /** @var SearchEngineFacade */
     private $searchEngineFacade;
 
-    /**
-     * @var PagesFacade
-     */
+    /** @var PagesFacade */
     private $pagesFacade;
 
-    /**
-     * @param LanguageDetector $languageDetector
-     * @param SearchEngineFacade $searchEngineFacade
-     * @param PagesFacade $pagesFacade
-     */
     public function __construct(
         LanguageDetector $languageDetector,
         SearchEngineFacade $searchEngineFacade,
@@ -59,7 +46,6 @@ class SearchController extends Controller
     /**
      * @param SearchRequest $request
      * @return mixed
-     *
      * @throws PageException
      * @throws CoreException
      */
@@ -67,26 +53,21 @@ class SearchController extends Controller
     {
         $language = $this->languageDetector->detectOrFail($request);
 
-        /**
-         * @var Collection|PageVariant[] $posts
-         */
-        $posts = $this->searchEngineFacade->search(
+        /** @var Collection|Page[] $pages */
+        $pages = $this->searchEngineFacade->search(
             new SearchQuery([
                 'query' => $request->get('query'),
-                'pageType' => Page::TYPE_BLOG,
+                'type' => Page::TYPE_POST,
                 'language' => $language,
             ])
         );
 
-        /**
-         * @var Collection|RenderedPageVariant[] $posts
-         */
-        $posts = $posts->map([$this->pagesFacade, 'render']);
+        /** @var Collection|RenderedPage[] $pages */
+        $renderedPages = $pages->map([$this->pagesFacade, 'render']);
 
         return view('frontend.views.search', [
             'query' => $request->get('query'),
-            'posts' => $posts,
+            'renderedPages' => $renderedPages,
         ]);
     }
-
 }

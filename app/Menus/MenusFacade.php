@@ -11,18 +11,11 @@ use Illuminate\Support\Collection;
 
 final class MenusFacade
 {
-
-    /**
-     * @var MenuItemsQuerier
-     */
+    /** @var MenuItemsQuerier */
     private $menuItemsQuerier;
 
-    /**
-     * @param MenuItemsQuerier $menuItemsQuerier
-     */
-    public function __construct(
-        MenuItemsQuerier $menuItemsQuerier
-    ) {
+    public function __construct(MenuItemsQuerier $menuItemsQuerier)
+    {
         $this->menuItemsQuerier = $menuItemsQuerier;
     }
 
@@ -32,7 +25,6 @@ final class MenusFacade
      *
      * @param MenuItemsQuery $query
      * @return MenuItem
-     *
      * @throws MenuException
      * @throws MenuItemNotFoundException
      */
@@ -52,12 +44,10 @@ final class MenusFacade
      *
      * @param MenuItemsQuery $query
      * @return Collection|MenuItem[]
-     *
      * @throws MenuException
      */
     public function queryMany(MenuItemsQuery $query): Collection
     {
         return $this->menuItemsQuerier->query($query);
     }
-
 }

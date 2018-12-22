@@ -8,32 +8,17 @@ use App\Tags\Implementation\Repositories\TagsRepository;
 use App\Tags\Models\Tag;
 use Illuminate\Contracts\Events\Dispatcher as EventsDispatcherContract;
 
-/**
- * @see \Tests\Unit\Tags\CreateTest
- */
 class TagsCreator
 {
-
-    /**
-     * @var EventsDispatcherContract
-     */
+    /** @var EventsDispatcherContract */
     private $eventsDispatcher;
 
-    /**
-     * @var TagsRepository
-     */
+    /** @var TagsRepository */
     private $tagsRepository;
 
-    /**
-     * @var TagsValidator
-     */
+    /** @var TagsValidator */
     private $tagsValidator;
 
-    /**
-     * @param EventsDispatcherContract $eventsDispatcher
-     * @param TagsRepository $tagsRepository
-     * @param TagsValidator $tagsValidator
-     */
     public function __construct(
         EventsDispatcherContract $eventsDispatcher,
         TagsRepository $tagsRepository,
@@ -47,7 +32,6 @@ class TagsCreator
     /**
      * @param array $tagData
      * @return Tag
-     *
      * @throws TagException
      */
     public function create(array $tagData): Tag
@@ -65,5 +49,4 @@ class TagsCreator
 
         return $tag;
     }
-
 }

@@ -6,13 +6,12 @@ use App\Pages\Events\PageCreated;
 use App\Pages\Events\PageUpdated;
 use App\Pages\Exceptions\PageException;
 use App\Pages\Models\Page;
-use App\Pages\Models\PageVariant;
 use App\SearchEngine\Implementation\Listeners\PageCreatedListener;
 use App\SearchEngine\Implementation\Listeners\PageUpdatedListener;
 use App\SearchEngine\Implementation\Listeners\TagUpdatedListener;
 use App\SearchEngine\Implementation\Services\ElasticsearchMigrator;
 use App\SearchEngine\Implementation\Services\PagesIndexer;
-use App\SearchEngine\Implementation\Services\PageVariantsSearcher;
+use App\SearchEngine\Implementation\Services\PagesSearcher;
 use App\SearchEngine\Queries\SearchQuery;
 use App\Tags\Events\TagUpdated;
 use Event;
@@ -20,35 +19,23 @@ use Illuminate\Support\Collection;
 
 final class SearchEngineFacade
 {
-
-    /**
-     * @var ElasticsearchMigrator
-     */
+    /** @var ElasticsearchMigrator */
     private $elasticsearchMigrator;
 
-    /**
-     * @var PagesIndexer
-     */
+    /** @var PagesIndexer */
     private $pagesIndexer;
 
-    /**
-     * @var PageVariantsSearcher
-     */
-    private $pageVariantsSearcher;
+    /** @var PagesSearcher */
+    private $pagesSearcher;
 
-    /**
-     * @param ElasticsearchMigrator $elasticsearchMigrator
-     * @param PagesIndexer $pagesIndexer
-     * @param PageVariantsSearcher $pageVariantsSearcher
-     */
     public function __construct(
         ElasticsearchMigrator $elasticsearchMigrator,
         PagesIndexer $pagesIndexer,
-        PageVariantsSearcher $pageVariantsSearcher
+        PagesSearcher $pagesSearcher
     ) {
         $this->elasticsearchMigrator = $elasticsearchMigrator;
         $this->pagesIndexer = $pagesIndexer;
-        $this->pageVariantsSearcher = $pageVariantsSearcher;
+        $this->pagesSearcher = $pagesSearcher;
     }
 
     /**
@@ -73,15 +60,13 @@ final class SearchEngineFacade
 
     /**
      * @param SearchQuery $query
-     * @return Collection|PageVariant[]
-     *
+     * @return Collection|Page[]
      * @throws PageException
      */
     public function search(SearchQuery $query): Collection
     {
         $this->elasticsearchMigrator->migrate();
 
-        return $this->pageVariantsSearcher->search($query);
+        return $this->pagesSearcher->search($query);
     }
-
 }

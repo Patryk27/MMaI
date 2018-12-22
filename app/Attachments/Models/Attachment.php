@@ -2,17 +2,16 @@
 
 namespace App\Attachments\Models;
 
-use App\Attachments\Models\Interfaces\Attachable;
 use App\Attachments\Presenters\AttachmentPresenter;
 use App\Core\Models\HasPresenter;
 use App\Core\Models\Presentable;
+use App\Pages\Models\Page;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property-read int $id
- * @property string|null $attachable_type
- * @property int|null $attachable_id
+ * @property int|null $page_id
  * @property string $name
  * @property string $mime
  * @property int $size
@@ -22,7 +21,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * -----
  *
- * @property-read Model|Attachable|null $attachable
+ * @property-read Page $page
  *
  * -----
  *
@@ -30,35 +29,29 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Attachment extends Model implements Presentable
 {
-
     use HasPresenter;
 
-    /**
-     * @var string[]
-     */
+    /** @var string[] */
     protected $fillable = [
-        'attachable_type',
-        'attachable_id',
+        'page_id',
         'name',
         'mime',
         'size',
         'path',
     ];
 
-    /**
-     * @var string[]
-     */
+    /** @var string[] */
     protected $dates = [
         'created_at',
         'updated_at',
     ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function attachable()
+    public function page()
     {
-        return $this->morphTo();
+        return $this->belongsTo(Page::class);
     }
 
     /**
@@ -92,5 +85,4 @@ class Attachment extends Model implements Presentable
     {
         return AttachmentPresenter::class;
     }
-
 }

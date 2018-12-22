@@ -8,18 +8,11 @@ use Illuminate\Support\Collection;
 
 class InMemoryTagsRepository implements TagsRepository
 {
-
-    /**
-     * @var InMemoryRepository
-     */
+    /** @var InMemoryRepository */
     private $repository;
 
-    /**
-     * @param InMemoryRepository $repository
-     */
-    public function __construct(
-        InMemoryRepository $repository
-    ) {
+    public function __construct(InMemoryRepository $repository)
+    {
         $this->repository = $repository;
     }
 
@@ -66,5 +59,4 @@ class InMemoryTagsRepository implements TagsRepository
     {
         $this->repository->delete($tag);
     }
-
 }

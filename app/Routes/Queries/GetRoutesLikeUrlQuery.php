@@ -10,18 +10,11 @@ namespace App\Routes\Queries;
  */
 final class GetRoutesLikeUrlQuery implements RoutesQuery
 {
-
-    /**
-     * @var string
-     */
+    /** @var string */
     private $url;
 
-    /**
-     * @param string $url
-     */
-    public function __construct(
-        string $url
-    ) {
+    public function __construct(string $url)
+    {
         $this->url = $url;
     }
 
@@ -32,5 +25,4 @@ final class GetRoutesLikeUrlQuery implements RoutesQuery
     {
         return $this->url;
     }
-
 }

@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Routes;
 
-use App\Pages\Models\PageVariant;
+use App\Pages\Models\Page;
 use App\Routes\Models\Route;
 
 /**
@@ -10,8 +10,8 @@ use App\Routes\Models\Route;
  *
  * At the beginning we are setting up following routes:
  *
- *   first-route   =>  second-route  =>  third-route  => [first page variant]
- *   fourth-route  =>  [second page variant]
+ *   first-route   =>  second-route  =>  third-route  => [first page]
+ *   fourth-route  =>  [second page]
  *
  * (that is: the first route points at the second one, which points at the third
  * one, while the fourth is entirely independent on them).
@@ -19,12 +19,12 @@ use App\Routes\Models\Route;
  * Then we are deleting the second route, which should leave us with following
  * structure:
  *
- *   first-route  =>  third-route  => [first page variant]
+ *   first-route  =>  third-route  => [first page]
  *   fourth-route
  *
  * Then we delete the first route, which should leave us with:
  *
- *   third-route  => [first page variant]
+ *   third-route  => [first page]
  *   fourth-route
  *
  * Then we delete the third route and so we end up left with only the fourth
@@ -32,15 +32,10 @@ use App\Routes\Models\Route;
  */
 class DeleteTest extends TestCase
 {
+    /** @var Page[] */
+    private $pages;
 
-    /**
-     * @var PageVariant[]
-     */
-    private $pageVariants;
-
-    /**
-     * @var Route[]
-     */
+    /** @var Route[] */
     private $routes;
 
     /**
@@ -50,16 +45,14 @@ class DeleteTest extends TestCase
     {
         parent::setUp();
 
-        // Set up users
-        $this->pageVariants = [
-            'first' => new PageVariant(),
-            'second' => new PageVariant(),
+        $this->pages = [
+            'first' => new Page(),
+            'second' => new Page(),
         ];
 
-        $this->pageVariants['first']->setAttribute('id', 100);
-        $this->pageVariants['second']->setAttribute('id', 101);
+        $this->pages['first']->setAttribute('id', 100);
+        $this->pages['second']->setAttribute('id', 101);
 
-        // Set up routes
         $this->routes = [
             'first' => new Route([
                 'subdomain' => 'test',
@@ -82,7 +75,6 @@ class DeleteTest extends TestCase
             ]),
         ];
 
-        // Save routes to the database
         foreach ($this->routes as $route) {
             $this->routesRepository->persist($route);
         }
@@ -92,10 +84,10 @@ class DeleteTest extends TestCase
         // ids.
         $this->routes['first']->setPointsAt($this->routes['second']);
         $this->routes['second']->setPointsAt($this->routes['third']);
-        $this->routes['third']->setPointsAt($this->pageVariants['first']);
-        $this->routes['fourth']->setPointsAt($this->pageVariants['second']);
+        $this->routes['third']->setPointsAt($this->pages['first']);
+        $this->routes['fourth']->setPointsAt($this->pages['second']);
 
-        // Re-save routes - to save the "set points at" changes
+        // Re-save routes - to persist the "set points at" changes
         foreach ($this->routes as $route) {
             $this->routesRepository->persist($route);
         }
@@ -116,8 +108,8 @@ class DeleteTest extends TestCase
         $this->assertRouteExists('test', 'fourth-route');
 
         $this->assertRoutePointsAt('test', 'first-route', $this->routes['third']);
-        $this->assertRoutePointsAt('test', 'third-route', $this->pageVariants['first']);
-        $this->assertRoutePointsAt('test', 'fourth-route', $this->pageVariants['second']);
+        $this->assertRoutePointsAt('test', 'third-route', $this->pages['first']);
+        $this->assertRoutePointsAt('test', 'fourth-route', $this->pages['second']);
 
         // ----- //
 
@@ -129,8 +121,8 @@ class DeleteTest extends TestCase
         $this->assertRouteExists('test', 'third-route');
         $this->assertRouteExists('test', 'fourth-route');
 
-        $this->assertRoutePointsAt('test', 'third-route', $this->pageVariants['first']);
-        $this->assertRoutePointsAt('test', 'fourth-route', $this->pageVariants['second']);
+        $this->assertRoutePointsAt('test', 'third-route', $this->pages['first']);
+        $this->assertRoutePointsAt('test', 'fourth-route', $this->pages['second']);
 
         // ----- //
 
@@ -141,7 +133,6 @@ class DeleteTest extends TestCase
         $this->assertRouteDoesNotExist('test', 'third-route');
         $this->assertRouteExists('test', 'fourth-route');
 
-        $this->assertRoutePointsAt('test', 'fourth-route', $this->pageVariants['second']);
+        $this->assertRoutePointsAt('test', 'fourth-route', $this->pages['second']);
     }
-
 }

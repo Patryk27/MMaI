@@ -4,23 +4,15 @@ namespace App\Core\Searcher\Expressions;
 
 class ExpressionScanner
 {
-
-    /**
-     * @var string
-     */
+    /** @var string */
     private $expression;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     private $position;
 
-    /**
-     * @param string $expression
-     */
     public function __construct(string $expression)
     {
-        $this->expression = trim($expression);
+        $this->expression = $expression;
         $this->position = 0;
     }
 
@@ -75,9 +67,9 @@ class ExpressionScanner
         $actual = $this->read();
 
         if ($actual !== $expected) {
-            throw new ExpressionException(
-                sprintf('At [%d]: [%s] was not expected here - expecting [%s].', $this->position, $actual, $expected)
-            );
+            throw new ExpressionException(sprintf(
+                'At [%d]: [%s] was not expected here - expecting [%s].', $this->position, $actual, $expected
+            ));
         }
     }
 
@@ -90,9 +82,9 @@ class ExpressionScanner
     public function expectEnd(): void
     {
         if ($this->has()) {
-            throw new ExpressionException(
-                sprintf('At [%d]: Expression was expected to be terminated here.', $this->position)
-            );
+            throw new ExpressionException(sprintf(
+                'At [%d]: Expression was expected to be terminated here.', $this->position
+            ));
         }
     }
 
@@ -110,9 +102,9 @@ class ExpressionScanner
         $identifier = $this->readWhile('ctype_alnum');
 
         if (strlen($identifier) === 0) {
-            throw new ExpressionException(
-                sprintf('At [%d]: Expected an identifier.', $this->position)
-            );
+            throw new ExpressionException(sprintf(
+                'At [%d]: Expected an identifier.', $this->position
+            ));
         }
 
         return $identifier;
@@ -135,9 +127,9 @@ class ExpressionScanner
         $enclosure = $this->read();
 
         if (!in_array($enclosure, ['"', "'", '/'])) {
-            throw new ExpressionException(
-                sprintf('At [%d]: Expected a string.', $this->position)
-            );
+            throw new ExpressionException(sprintf(
+                'At [%d]: Expected a string.', $this->position
+            ));
         }
 
         // Read the string
@@ -172,9 +164,9 @@ class ExpressionScanner
         });
 
         if (strlen($number) === 0) {
-            throw new ExpressionException(
-                sprintf('At [%d]: Expected a number.', $this->position)
-            );
+            throw new ExpressionException(sprintf(
+                'At [%d]: Expected a number.', $this->position
+            ));
         }
 
         return $number;
@@ -204,9 +196,9 @@ class ExpressionScanner
                 return $this->readIdentifier();
 
             default:
-                throw new ExpressionException(
-                    sprintf('At [%d]: Expected a value.', $this->position)
-                );
+                throw new ExpressionException(sprintf(
+                    'At [%d]: Expected a value.', $this->position
+                ));
         }
     }
 
@@ -238,5 +230,4 @@ class ExpressionScanner
 
         return $result;
     }
-
 }

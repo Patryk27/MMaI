@@ -9,23 +9,14 @@ use LogicException;
 
 class Renderer
 {
-
-    /**
-     * @var ViewFactoryContract
-     */
+    /** @var ViewFactoryContract */
     private $viewFactory;
 
-    /**
-     * @var ViewContract[]
-     */
+    /** @var ViewContract[] */
     private $columns;
 
-    /**
-     * @param ViewFactoryContract $viewFactory
-     */
-    public function __construct(
-        ViewFactoryContract $viewFactory
-    ) {
+    public function __construct(ViewFactoryContract $viewFactory)
+    {
         $this->viewFactory = $viewFactory;
     }
 
@@ -35,18 +26,18 @@ class Renderer
      * Example:
      *  $renderer->addColumn('user', 'backend.something.somewhere.userName')
      *
+     * @see addColumns()
+     *
      * @param string $columnName
      * @param string $viewName
      * @return void
-     *
-     * @see addColumns()
      */
     public function addColumn(string $columnName, string $viewName): void
     {
         if (array_has($this->columns, $columnName)) {
-            throw new LogicException(
-                sprintf('Column [%s] has been already added into the renderer.', $columnName)
-            );
+            throw new LogicException(sprintf(
+                'Column [%s] has been already added into the renderer.', $columnName
+            ));
         }
 
         $this->columns[$columnName] = $this->viewFactory->make($viewName);
@@ -61,10 +52,10 @@ class Renderer
      *    'language' => 'backend.something.somewhere.language',
      *  ]);
      *
+     * @see addColumn()
+     *
      * @param array $columns
      * @return void
-     *
-     * @see addColumn()
      */
     public function addColumns(array $columns): void
     {
@@ -93,5 +84,4 @@ class Renderer
             return $result;
         });
     }
-
 }

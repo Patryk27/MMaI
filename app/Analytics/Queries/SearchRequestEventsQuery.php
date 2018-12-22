@@ -10,9 +10,7 @@ namespace App\Analytics\Queries;
  */
 final class SearchRequestEventsQuery extends AbstractSearchEventsQuery implements EventsQuery
 {
-
     public const
         FIELD_REQUEST_URL = 'requestUrl',
         FIELD_RESPONSE_STATUS_CODE = 'responseStatusCode';
-
 }

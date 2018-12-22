@@ -11,18 +11,11 @@ use Illuminate\Support\Collection;
 
 final class LanguagesFacade
 {
-
-    /**
-     * @var LanguagesQuerier
-     */
+    /** @var LanguagesQuerier */
     private $languagesQuerier;
 
-    /**
-     * @param LanguagesQuerier $languagesQuerier
-     */
-    public function __construct(
-        LanguagesQuerier $languagesQuerier
-    ) {
+    public function __construct(LanguagesQuerier $languagesQuerier)
+    {
         $this->languagesQuerier = $languagesQuerier;
     }
 
@@ -32,7 +25,6 @@ final class LanguagesFacade
      *
      * @param LanguagesQuery $query
      * @return Language
-     *
      * @throws LanguageException
      * @throws LanguageNotFoundException
      */
@@ -52,12 +44,10 @@ final class LanguagesFacade
      *
      * @param LanguagesQuery $query
      * @return Collection|Language[]
-     *
      * @throws LanguageException
      */
     public function queryMany(LanguagesQuery $query): Collection
     {
         return $this->languagesQuerier->query($query);
     }
-
 }

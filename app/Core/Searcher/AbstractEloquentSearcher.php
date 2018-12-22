@@ -12,35 +12,20 @@ use Illuminate\Support\Collection;
 
 class AbstractEloquentSearcher implements Searcher
 {
-
-    /**
-     * @var EloquentBuilder
-     */
+    /** @var EloquentBuilder */
     protected $builder;
 
-    /**
-     * @var EloquentMapper
-     */
+    /** @var EloquentMapper */
     protected $mapper;
 
-    /**
-     * @var EloquentTextQuerier
-     */
+    /** @var EloquentTextQuerier */
     protected $textQuerier;
 
-    /**
-     * @var EloquentFilterer
-     */
+    /** @var EloquentFilterer */
     protected $filterer;
 
-    /**
-     * @param Model $model
-     * @param array $fields
-     */
-    public function __construct(
-        Model $model,
-        array $fields
-    ) {
+    public function __construct(Model $model, array $fields)
+    {
         $this->builder = $model->newQuery();
         $this->mapper = new EloquentMapper($fields);
         $this->textQuerier = new EloquentTextQuerier($this->mapper);
@@ -57,7 +42,6 @@ class AbstractEloquentSearcher implements Searcher
 
     /**
      * @inheritdoc
-     *
      * @throws CoreException
      */
     public function applyFilters(array $fields): void
@@ -67,7 +51,6 @@ class AbstractEloquentSearcher implements Searcher
 
     /**
      * @inheritdoc
-     *
      * @throws CoreException
      */
     public function orderBy(string $fieldName, bool $ascending): void
@@ -101,5 +84,4 @@ class AbstractEloquentSearcher implements Searcher
     {
         return $this->builder->count();
     }
-
 }

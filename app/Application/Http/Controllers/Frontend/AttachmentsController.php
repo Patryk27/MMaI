@@ -10,18 +10,11 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class AttachmentsController extends Controller
 {
-
-    /**
-     * @var AttachmentsFacade
-     */
+    /** @var AttachmentsFacade */
     private $attachmentsFacade;
 
-    /**
-     * @param AttachmentsFacade $attachmentsFacade
-     */
-    public function __construct(
-        AttachmentsFacade $attachmentsFacade
-    ) {
+    public function __construct(AttachmentsFacade $attachmentsFacade)
+    {
         $this->attachmentsFacade = $attachmentsFacade;
     }
 
@@ -49,5 +42,4 @@ class AttachmentsController extends Controller
             'Content-Type' => $attachment->mime,
         ]);
     }
-
 }

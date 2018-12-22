@@ -1,7 +1,7 @@
 @php
     /**
      * @var string $query
-     * @var \Illuminate\Support\Collection|\App\Pages\ValueObjects\RenderedPageVariant[] $posts
+     * @var \Illuminate\Support\Collection|\App\Pages\ValueObjects\RenderedPage[] $renderedPages
      */
 @endphp
 

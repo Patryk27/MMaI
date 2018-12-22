@@ -12,30 +12,17 @@ use Illuminate\Contracts\Events\Dispatcher as EventsDispatcherContract;
 
 class AuthorizationController extends Controller
 {
-
-    // Route to which users are redirected after being signed in.
     private const AFTER_SIGN_IN_ROUTE = 'backend.dashboard.index';
 
-    /**
-     * @var EventsDispatcherContract
-     */
+    /** @var EventsDispatcherContract */
     private $eventsDispatcher;
 
-    /**
-     * @var StatefulGuardContract
-     */
+    /** @var StatefulGuardContract */
     private $authGuard;
 
-    /**
-     * @var Flasher
-     */
+    /** @var Flasher */
     private $flasher;
 
-    /**
-     * @param EventsDispatcherContract $eventsDispatcher
-     * @param AuthManager $authManager
-     * @param Flasher $flasher
-     */
     public function __construct(
         EventsDispatcherContract $eventsDispatcher,
         AuthManager $authManager,
@@ -103,5 +90,4 @@ class AuthorizationController extends Controller
 
         return redirect('/');
     }
-
 }

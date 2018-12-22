@@ -1,6 +1,6 @@
 @php
     /**
-     * @var \App\Pages\Models\PageVariant $row
+     * @var \App\Pages\Models\Page $row
      */
 @endphp
 
@@ -11,7 +11,7 @@
         </a>
     @endisset
 
-    <a class="btn btn-sm btn-primary btn-icon-only" href="{{ $row->getBackendEditUrl() }}">
+    <a class="btn btn-sm btn-primary btn-icon-only" href="{{ $row->getEditUrl() }}">
         <i class="fa fa-edit"></i>
     </a>
 </div>

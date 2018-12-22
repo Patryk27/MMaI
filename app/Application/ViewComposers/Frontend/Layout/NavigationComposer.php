@@ -15,27 +15,15 @@ use Illuminate\Support\Collection;
 
 class NavigationComposer
 {
-
-    /**
-     * @var Request
-     */
+    /** @var Request */
     private $request;
 
-    /**
-     * @var LanguageDetector
-     */
+    /** @var LanguageDetector */
     private $languageDetector;
 
-    /**
-     * @var MenusFacade
-     */
+    /** @var MenusFacade */
     private $menusFacade;
 
-    /**
-     * @param Request $request
-     * @param LanguageDetector $languageDetector
-     * @param MenusFacade $menusFacade
-     */
     public function __construct(
         Request $request,
         LanguageDetector $languageDetector,
@@ -49,7 +37,6 @@ class NavigationComposer
     /**
      * @param View $view
      * @return void
-     *
      * @throws Exception
      */
     public function compose(View $view): void
@@ -64,7 +51,6 @@ class NavigationComposer
     /**
      * @param Language $currentLanguage
      * @return Collection|MenuItem[]
-     *
      * @throws MenuException
      */
     private function getMenuItems(Language $currentLanguage): Collection
@@ -73,5 +59,4 @@ class NavigationComposer
             new GetMenuItemsByLanguageIdQuery($currentLanguage->id)
         );
     }
-
 }

@@ -8,27 +8,15 @@ use Illuminate\Contracts\Filesystem\Filesystem as FilesystemContract;
 
 class AttachmentsGarbageCollector
 {
-
-    /**
-     * @var FilesystemContract
-     */
+    /** @var FilesystemContract */
     private $attachmentsFs;
 
-    /**
-     * @var AttachmentsRepository
-     */
+    /** @var AttachmentsRepository */
     private $attachmentsRepository;
 
-    /**
-     * @var AttachmentsDeleter
-     */
+    /** @var AttachmentsDeleter */
     private $attachmentsDeleter;
 
-    /**
-     * @param FilesystemContract $attachmentsFs
-     * @param AttachmentsRepository $attachmentsRepository
-     * @param AttachmentsDeleter $attachmentsDeleter
-     */
     public function __construct(
         FilesystemContract $attachmentsFs,
         AttachmentsRepository $attachmentsRepository,
@@ -48,7 +36,7 @@ class AttachmentsGarbageCollector
         $scannedAttachmentsCount = 0;
         $removedAttachmentsCount = 0;
 
-        foreach ($this->attachmentsRepository->getAllUnbound() as $attachment) {
+        foreach ($this->attachmentsRepository->getDetached() as $attachment) {
             $scannedAttachmentsCount += 1;
 
             if ($aggressive || $attachment->created_at->diffInDays() >= 1) {
@@ -63,5 +51,4 @@ class AttachmentsGarbageCollector
             'removedAttachmentsCount' => $removedAttachmentsCount,
         ]);
     }
-
 }

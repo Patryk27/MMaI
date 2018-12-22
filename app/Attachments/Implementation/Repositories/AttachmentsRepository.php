@@ -7,7 +7,6 @@ use Illuminate\Support\Collection;
 
 interface AttachmentsRepository
 {
-
     /**
      * Returns attachment with given id or `null` if no such attachment exists.
      *
@@ -33,11 +32,11 @@ interface AttachmentsRepository
     public function getAll(): Collection;
 
     /**
-     * Returns all the unbound attachments.
+     * Returns all the attachments that have not been bound to a page.
      *
      * @return Collection|Attachment[]
      */
-    public function getAllUnbound(): Collection;
+    public function getDetached(): Collection;
 
     /**
      * Saves given attachment in the database.
@@ -54,5 +53,4 @@ interface AttachmentsRepository
      * @return void
      */
     public function delete(Attachment $attachment): void;
-
 }

@@ -2,9 +2,8 @@
 
 use App\Languages\Models\Language;
 
-class LanguagesSeeder extends Seeder
+final class LanguagesSeeder extends Seeder
 {
-
     /**
      * @return void
      * @throws Throwable
@@ -38,5 +37,4 @@ class LanguagesSeeder extends Seeder
             'native_name' => $nativeName,
         ]);
     }
-
 }
