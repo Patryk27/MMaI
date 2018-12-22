@@ -20,19 +20,15 @@
             </div>
 
             <div class="modal-body">
-                {{-- Tag name --}}
                 <div class="form-group">
-                    {{ Form::label('name', 'Tag\'s name') }}
-
+                    {{ Form::label('name', 'Name') }}
                     {{ Form::text('name', '', [
                         'class' => 'form-control',
                     ]) }}
                 </div>
 
-                {{-- Tag language --}}
                 <div class="form-group">
-                    {{ Form::label('language_id', 'Tag\'s language') }}
-
+                    {{ Form::label('language_id', 'Language') }}
                     {{ Form::select('language_id', $languages, null, [
                         'class' => 'custom-select',
                     ]) }}

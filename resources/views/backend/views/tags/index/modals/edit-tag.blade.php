@@ -14,10 +14,8 @@
             </div>
 
             <div class="modal-body">
-                {{-- Tag name --}}
                 <div class="form-group">
-                    {{ Form::label('name', 'Tag\'s name') }}
-
+                    {{ Form::label('name', 'Name') }}
                     {{ Form::text('name', '', [
                         'class' => 'form-control',
                     ]) }}
