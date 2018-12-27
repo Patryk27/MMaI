@@ -1,0 +1,2 @@
+import './pages/create-edit';
+import './pages/index';

@@ -1,4 +1,4 @@
-&--authenticated {
+body[data-layout="backend.authenticated"] {
   .site-container {
     @import 'authenticated/content';
     @import 'authenticated/navigation';

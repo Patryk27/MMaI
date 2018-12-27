@@ -8,20 +8,20 @@ use App\SearchEngine\Implementation\Services\ElasticsearchMigrator;
 use App\SearchEngine\Implementation\Services\PagesIndexer;
 use App\SearchEngine\Implementation\Services\PagesSearcher;
 use Elasticsearch\Client as ElasticsearchClient;
-use Illuminate\Contracts\Events\Dispatcher as EventsDispatcherContract;
+use Illuminate\Contracts\Events\Dispatcher as EventsDispatcher;
 
 final class SearchEngineFactory
 {
     /**
      * Builds an instance of @see SearchEngineFacade.
      *
-     * @param EventsDispatcherContract $eventsDispatcher
+     * @param EventsDispatcher $eventsDispatcher
      * @param ElasticsearchClient $elasticsearch
      * @param PagesFacade $pagesFacade
      * @return SearchEngineFacade
      */
     public static function build(
-        EventsDispatcherContract $eventsDispatcher,
+        EventsDispatcher $eventsDispatcher,
         ElasticsearchClient $elasticsearch,
         PagesFacade $pagesFacade
     ): SearchEngineFacade {

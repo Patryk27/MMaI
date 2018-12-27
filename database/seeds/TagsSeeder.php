@@ -1,6 +1,5 @@
 <?php
 
-use App\Languages\Models\Language;
 use App\Tags\Models\Tag;
 
 final class TagsSeeder extends Seeder
@@ -22,17 +21,15 @@ final class TagsSeeder extends Seeder
     }
 
     /**
-     * @param string $languageSlug
+     * @param string $website
      * @param string $name
      * @return void
      * @throws Throwable
      */
-    private function createTag(string $languageSlug, string $name): void
+    private function createTag(string $website, string $name): void
     {
-        $language = Language::where('slug', $languageSlug)->firstOrFail();
-
         Tag::create([
-            'language_id' => $language->id,
+            'website_id' => $this->getWebsite($website)->id,
             'name' => $name,
         ]);
     }

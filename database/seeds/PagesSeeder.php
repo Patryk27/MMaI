@@ -1,6 +1,5 @@
 <?php
 
-use App\Languages\Models\Language;
 use App\Pages\Models\Page;
 use App\Routes\Models\Route;
 use App\Tags\Models\Tag;
@@ -19,23 +18,21 @@ final class PagesSeeder extends Seeder
     {
         $this->now = Carbon::now();
 
-        $this->createAboutPages();
+        $this->createAboutMePages();
         $this->createExamplePosts();
     }
 
     /**
-     * Creates default "about me" pages.
-     *
      * @return void
      * @throws Throwable
      */
-    private function createAboutPages(): void
+    private function createAboutMePages(): void
     {
         $this->createPage([
             'type' => Page::TYPE_PAGE,
             'status' => Page::STATUS_PUBLISHED,
 
-            'language' => 'en',
+            'website' => 'en',
             'url' => 'about-me',
 
             'title' => 'About me',
@@ -48,7 +45,7 @@ final class PagesSeeder extends Seeder
             'type' => Page::TYPE_PAGE,
             'status' => Page::STATUS_PUBLISHED,
 
-            'language' => 'pl',
+            'website' => 'pl',
             'url' => 'o-mnie',
 
             'title' => 'O mnie',
@@ -59,8 +56,6 @@ final class PagesSeeder extends Seeder
     }
 
     /**
-     * Creates default example posts.
-     *
      * @return void
      * @throws Throwable
      */
@@ -72,7 +67,7 @@ final class PagesSeeder extends Seeder
             'type' => Page::TYPE_POST,
             'status' => Page::STATUS_PUBLISHED,
 
-            'language' => 'en',
+            'website' => 'en',
             'url' => sprintf('%s/%s', $date, 'welcome'),
 
             'title' => 'My first post',
@@ -91,7 +86,7 @@ final class PagesSeeder extends Seeder
             'type' => Page::TYPE_POST,
             'status' => Page::STATUS_PUBLISHED,
 
-            'language' => 'pl',
+            'website' => 'pl',
             'url' => sprintf('%s/%s', $date, 'witaj'),
 
             'title' => 'Mój pierwszy post',
@@ -108,33 +103,33 @@ final class PagesSeeder extends Seeder
     }
 
     /**
-     * @param array $pageData
+     * @param array $data
      * @return void
      * @throws Throwable
      */
-    private function createPage(array $pageData): void
+    private function createPage(array $data): void
     {
-        $language = Language::where('slug', $pageData['language'])->firstOrFail();
+        $website = $this->getWebsite($data['website']);
 
         $page = Page::create([
-            'type' => $pageData['type'],
-            'status' => $pageData['status'],
+            'website_id' => $website->id,
 
-            'language_id' => $language->id,
+            'type' => $data['type'],
+            'status' => $data['status'],
 
-            'title' => $pageData['title'],
-            'lead' => array_get($pageData, 'lead'),
-            'content' => $pageData['content'],
+            'title' => $data['title'],
+            'lead' => array_get($data, 'lead'),
+            'content' => $data['content'],
 
-            'published_at' => $pageData['published_at'],
+            'published_at' => $data['published_at'],
         ]);
 
-        $route = Route::buildFor($language->slug, $pageData['url'], $page);
+        $route = Route::build($website->slug, $data['url'], $page);
         $route->saveOrFail();
 
-        foreach (array_get($pageData, 'tags', []) as $tagName) {
+        foreach (array_get($data, 'tags', []) as $tagName) {
             $tag = Tag::query()
-                ->where('language_id', $language->id)
+                ->where('website_id', $website->id)
                 ->where('name', $tagName)
                 ->firstOrFail();
 

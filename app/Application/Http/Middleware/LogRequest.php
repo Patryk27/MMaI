@@ -3,16 +3,16 @@
 namespace App\Application\Http\Middleware;
 
 use App\Application\Events\RequestServed;
-use Illuminate\Contracts\Events\Dispatcher as EventsDispatcherContract;
+use Illuminate\Contracts\Events\Dispatcher as EventsDispatcher;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 final class LogRequest
 {
-    /** @var EventsDispatcherContract */
+    /** @var EventsDispatcher */
     private $eventsDispatcher;
 
-    public function __construct(EventsDispatcherContract $eventsDispatcher)
+    public function __construct(EventsDispatcher $eventsDispatcher)
     {
         $this->eventsDispatcher = $eventsDispatcher;
     }

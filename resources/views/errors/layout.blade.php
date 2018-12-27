@@ -1,6 +1,6 @@
 @extends('base.layout', [
-    'layoutClass' => 'frontend frontend--layout',
-    'pageClass' => 'frontend--views--error',
+    'layout' => 'frontend',
+    'view' => 'frontend.error',
 ])
 
 @section('layout-title')

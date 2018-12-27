@@ -7,7 +7,7 @@ use App\Pages\Implementation\Repositories\PagesRepository;
 use App\Pages\Models\Page;
 use App\Pages\Queries\GetPagesByIdsQuery;
 use App\Pages\Queries\GetPagesByTagIdQuery;
-use App\Pages\Queries\PageQuery;
+use App\Pages\Queries\PagesQuery;
 use App\Pages\Queries\SearchPages;
 use Illuminate\Support\Collection;
 
@@ -28,11 +28,11 @@ class PagesQuerier
     }
 
     /**
-     * @param PageQuery $query
+     * @param PagesQuery $query
      * @return Collection|Page[]
      * @throws PageException
      */
-    public function query(PageQuery $query): Collection
+    public function query(PagesQuery $query): Collection
     {
         switch (true) {
             case $query instanceof GetPagesByIdsQuery:
@@ -58,11 +58,11 @@ class PagesQuerier
     /**
      * Returns number of pages matching given query.
      *
-     * @param PageQuery $query
+     * @param PagesQuery $query
      * @return int
      * @throws PageException
      */
-    public function count(PageQuery $query): int
+    public function count(PagesQuery $query): int
     {
         switch (true) {
             case $query instanceof SearchPages:

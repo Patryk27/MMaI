@@ -1,5 +1,4 @@
-body.frontend {
-  @import 'frontend/layout';
-  @import 'frontend/views';
-  @import 'frontend/components';
-}
+@import 'frontend/layout';
+@import 'frontend/views';
+@import 'frontend/components';
+

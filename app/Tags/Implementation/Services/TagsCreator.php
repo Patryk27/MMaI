@@ -6,11 +6,11 @@ use App\Tags\Events\TagCreated;
 use App\Tags\Exceptions\TagException;
 use App\Tags\Implementation\Repositories\TagsRepository;
 use App\Tags\Models\Tag;
-use Illuminate\Contracts\Events\Dispatcher as EventsDispatcherContract;
+use Illuminate\Contracts\Events\Dispatcher as EventsDispatcher;
 
 class TagsCreator
 {
-    /** @var EventsDispatcherContract */
+    /** @var EventsDispatcher */
     private $eventsDispatcher;
 
     /** @var TagsRepository */
@@ -20,7 +20,7 @@ class TagsCreator
     private $tagsValidator;
 
     public function __construct(
-        EventsDispatcherContract $eventsDispatcher,
+        EventsDispatcher $eventsDispatcher,
         TagsRepository $tagsRepository,
         TagsValidator $tagsValidator
     ) {
@@ -37,7 +37,7 @@ class TagsCreator
     public function create(array $tagData): Tag
     {
         $tag = new Tag(
-            array_only($tagData, ['language_id', 'name'])
+            array_only($tagData, ['website_id', 'name'])
         );
 
         $this->tagsValidator->validate($tag);

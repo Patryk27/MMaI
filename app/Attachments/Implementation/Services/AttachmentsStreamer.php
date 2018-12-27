@@ -5,14 +5,14 @@ namespace App\Attachments\Implementation\Services;
 use App\Attachments\Exceptions\AttachmentException;
 use App\Attachments\Models\Attachment;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
-use Illuminate\Contracts\Filesystem\Filesystem as FilesystemContract;
+use Illuminate\Contracts\Filesystem\Filesystem;
 
 class AttachmentsStreamer
 {
-    /** @var FilesystemContract */
+    /** @var Filesystem */
     private $attachmentsFs;
 
-    public function __construct(FilesystemContract $attachmentsFs)
+    public function __construct(Filesystem $attachmentsFs)
     {
         $this->attachmentsFs = $attachmentsFs;
     }

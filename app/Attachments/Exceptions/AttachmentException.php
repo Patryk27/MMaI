@@ -2,8 +2,8 @@
 
 namespace App\Attachments\Exceptions;
 
-use App\Core\Exceptions\Exception as CoreException;
+use App\Core\Exceptions\Exception;
 
-class AttachmentException extends CoreException
+class AttachmentException extends Exception
 {
 }

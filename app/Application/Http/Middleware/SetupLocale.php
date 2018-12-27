@@ -2,8 +2,8 @@
 
 namespace App\Application\Http\Middleware;
 
-use App\Core\Language\Detector as LanguageDetector;
-use App\Languages\Exceptions\LanguageException;
+use App\Core\Websites\WebsiteDetector;
+use App\Websites\Exceptions\WebsiteException;
 use Illuminate\Http\Request;
 use Illuminate\Translation\Translator;
 
@@ -12,27 +12,27 @@ final class SetupLocale
     /** @var Translator */
     private $translator;
 
-    /** @var LanguageDetector */
-    private $languageDetector;
+    /** @var WebsiteDetector */
+    private $websiteDetector;
 
     public function __construct(
         Translator $translator,
-        LanguageDetector $languageDetector
+        WebsiteDetector $websiteDetector
     ) {
         $this->translator = $translator;
-        $this->languageDetector = $languageDetector;
+        $this->websiteDetector = $websiteDetector;
     }
 
     /**
      * @param Request $request
      * @param callable $next
      * @return mixed
-     * @throws LanguageException
+     * @throws WebsiteException
      */
     public function handle(Request $request, callable $next)
     {
-        if ($language = $this->languageDetector->detect($request)) {
-            $this->translator->setLocale($language->iso_639_code);
+        if ($website = $this->websiteDetector->detect($request)) {
+            $this->translator->setLocale($website->language->iso639_code);
         }
 
         return $next($request);

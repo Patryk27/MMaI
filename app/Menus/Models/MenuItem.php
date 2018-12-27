@@ -2,8 +2,8 @@
 
 namespace App\Menus\Models;
 
-use App\Languages\Models\Language;
 use App\Routes\Models\Route;
+use App\Websites\Models\Website;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * -----
  *
  * @property-read int $id
- * @property int $language_id
+ * @property int $website_id
  * @property int $position
  * @property string $url
  * @property string $title
@@ -22,14 +22,14 @@ use Illuminate\Database\Eloquent\Model;
  *
  * -----
  *
- * @property-read Language $language
  * @property-read Route|null $route
+ * @property-read Website $website
  */
 class MenuItem extends Model
 {
     /** @var string[] */
     protected $fillable = [
-        'language_id',
+        'website_id',
         'position',
         'url',
         'title',
@@ -44,8 +44,8 @@ class MenuItem extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function language()
+    public function website()
     {
-        return $this->belongsTo(Language::class);
+        return $this->belongsTo(Website::class);
     }
 }

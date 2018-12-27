@@ -20,7 +20,7 @@ class CreatePageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'language_id' => 'numeric',
+            'website_id' => 'numeric',
 
             'title' => 'string',
             'lead' => ['nullable', 'string'],
@@ -32,6 +32,8 @@ class CreatePageRequest extends FormRequest
 
             'url' => ['nullable', 'string', 'regex:/^[a-zA-Z0-9\-\/]*$/'],
             'tag_ids' => ['nullable', 'array'],
+
+            // @todo rename to just "attachments"? if so, rename also the "tag_ids"
             'attachment_ids' => ['nullable', 'array'],
         ];
     }

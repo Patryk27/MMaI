@@ -2,7 +2,7 @@
 
 namespace App\SearchEngine\Queries;
 
-use App\Languages\Models\Language;
+use App\Websites\Models\Website;
 
 final class SearchQuery
 {
@@ -13,22 +13,22 @@ final class SearchQuery
     private $query;
 
     /**
-     * If set, returned pages are limited to those with given type.
+     * If set, returned pages are limited to given type.
      * @var string|null
      */
     private $type;
 
     /**
-     * If set, returned pages are limited to those with given language.
-     * @var Language|null
+     * If set, returned pages are limited to given website.
+     * @var Website|null
      */
-    private $language;
+    private $website;
 
     public function __construct(array $payload)
     {
         $this->query = array_get($payload, 'query', '');
         $this->type = array_get($payload, 'type');
-        $this->language = array_get($payload, 'language');
+        $this->website = array_get($payload, 'website');
     }
 
     /**
@@ -42,17 +42,17 @@ final class SearchQuery
     /**
      * @return bool
      */
-    public function hasLanguage(): bool
+    public function hasWebsite(): bool
     {
-        return isset($this->language);
+        return isset($this->website);
     }
 
     /**
-     * @return Language|null
+     * @return Website|null
      */
-    public function getLanguage(): ?Language
+    public function getWebsite(): ?Website
     {
-        return $this->language;
+        return $this->website;
     }
 
     /**

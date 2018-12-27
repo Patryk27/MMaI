@@ -2,7 +2,7 @@
 
 namespace App\Application\ViewComposers\Backend\Layout;
 
-use Illuminate\Contracts\Routing\UrlGenerator as UrlGeneratorContract;
+use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Contracts\View\View;
 use Illuminate\Routing\Route;
 
@@ -30,14 +30,14 @@ class NavigationComposer
         ],
     ];
 
-    /** @var UrlGeneratorContract */
+    /** @var UrlGenerator */
     private $urlGenerator;
 
     /** @var Route */
     private $route;
 
     public function __construct(
-        UrlGeneratorContract $urlGenerator,
+        UrlGenerator $urlGenerator,
         ?Route $route = null // Default `null` value has been provided for the CLI environment (where no route can be passed)
     )
     {

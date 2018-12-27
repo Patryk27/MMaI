@@ -4,7 +4,7 @@ use App\Pages\Models\Page;
 
 return [
     'fields' => [
-        'language_id' => 'Language',
+        'website_id' => 'Website',
         'title' => 'Title',
         'lead ' => 'Lead',
         'content' => 'Content',
@@ -17,9 +17,9 @@ return [
 
         // -- relationships -- //
 
-        'language' => 'Language',
         'route' => 'Route',
         'tags' => 'Tags',
+        'website' => 'Website',
     ],
 
     'enums' => [

@@ -27,11 +27,11 @@ class InMemoryTagsRepository implements TagsRepository
     /**
      * @inheritDoc
      */
-    public function getByLanguageIdAndName(int $languageId, string $name): ?Tag
+    public function getByWebsiteIdAndName(int $websiteId, string $name): ?Tag
     {
         return $this->repository
             ->getAll()
-            ->where('language_id', $languageId)
+            ->where('website_id', $websiteId)
             ->where('name', $name)
             ->first();
     }

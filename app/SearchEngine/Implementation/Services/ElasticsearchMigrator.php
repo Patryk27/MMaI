@@ -70,11 +70,11 @@ class ElasticsearchMigrator
                                 'type' => 'keyword',
                             ],
 
-                            'language_id' => [
+                            'website_id' => [
                                 'type' => 'integer',
                             ],
 
-                            'language' => [
+                            'website' => [
                                 'type' => 'keyword',
                             ],
 

@@ -19,8 +19,8 @@ class EloquentMenuItemsRepository implements MenuItemsRepository
     /**
      * @inheritDoc
      */
-    public function getByLanguageId(int $languageId): Collection
+    public function getByWebsiteId(int $websiteId): Collection
     {
-        return $this->repository->getByMany('language_id', $languageId);
+        return $this->repository->getByMany('website_id', $websiteId);
     }
 }

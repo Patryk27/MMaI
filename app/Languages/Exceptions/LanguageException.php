@@ -2,8 +2,8 @@
 
 namespace App\Languages\Exceptions;
 
-use App\Core\Exceptions\Exception as CoreException;
+use App\Core\Exceptions\Exception;
 
-class LanguageException extends CoreException
+class LanguageException extends Exception
 {
 }

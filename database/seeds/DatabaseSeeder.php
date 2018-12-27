@@ -17,13 +17,15 @@ final class DatabaseSeeder extends Seeder
             'routes',
             'tags',
             'users',
+            'websites',
         ]);
 
         $this->call(UsersSeeder::class);
         $this->call(LanguagesSeeder::class);
+        $this->call(WebsitesSeeder::class);
+        $this->call(MenusSeeder::class);
         $this->call(TagsSeeder::class);
         $this->call(PagesSeeder::class);
-        $this->call(MenuItemsSeeder::class);
 
         $this->command->info('');
         $this->command->call('app:search-engine:reindex-all');

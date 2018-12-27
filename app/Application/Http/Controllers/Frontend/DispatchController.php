@@ -10,8 +10,8 @@ use App\Routes\Models\Route;
 use App\Routes\Queries\GetRouteBySubdomainAndUrlQuery;
 use App\Routes\RoutesFacade;
 use Exception;
-use Illuminate\Contracts\Auth\Access\Gate as GateContract;
-use Illuminate\Contracts\View\View as ViewContract;
+use Illuminate\Contracts\Auth\Access\Gate;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use LogicException;
@@ -20,7 +20,7 @@ use Throwable;
 
 class DispatchController extends Controller
 {
-    /** @var GateContract */
+    /** @var Gate */
     private $gate;
 
     /** @var PagesFacade */
@@ -30,7 +30,7 @@ class DispatchController extends Controller
     private $routesFacade;
 
     public function __construct(
-        GateContract $gate,
+        Gate $gate,
         PagesFacade $pagesFacade,
         RoutesFacade $routesFacade
     ) {
@@ -72,10 +72,10 @@ class DispatchController extends Controller
 
     /**
      * @param Page $page
-     * @return ViewContract
+     * @return View
      * @throws Exception
      */
-    private function dispatchPage(Page $page): ViewContract
+    private function dispatchPage(Page $page): View
     {
         if ($this->gate->denies('show', [$page])) {
             throw new NotFoundHttpException();
@@ -93,7 +93,7 @@ class DispatchController extends Controller
     private function dispatchRoute(Route $route): RedirectResponse
     {
         return new RedirectResponse(
-            $route->getEntireUrl()
+            $route->getAbsoluteUrl()
         );
     }
 }

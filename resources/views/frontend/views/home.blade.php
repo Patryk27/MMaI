@@ -5,7 +5,7 @@
 @endphp
 
 @extends('frontend.layout', [
-    'pageClass' => 'frontend--views--pages--show',
+    'view' => 'frontend.home',
 ])
 
 @section('title', config('app.name'))

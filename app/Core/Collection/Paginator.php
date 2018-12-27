@@ -2,14 +2,13 @@
 
 namespace App\Core\Collection;
 
-use Illuminate\Contracts\Pagination\LengthAwarePaginator as LengthAwarePaginatorContract;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 
 class Paginator
 {
-    /*** @var Request */
+    /** @var Request */
     private $request;
 
     public function __construct(Request $request)
@@ -23,9 +22,9 @@ class Paginator
      * @param Collection $items
      * @param int $totalNumberOfItems
      * @param int $numberOfItemsPerPage
-     * @return LengthAwarePaginatorContract
+     * @return LengthAwarePaginator
      */
-    public function build(Collection $items, int $totalNumberOfItems, int $numberOfItemsPerPage): LengthAwarePaginatorContract
+    public function build(Collection $items, int $totalNumberOfItems, int $numberOfItemsPerPage): LengthAwarePaginator
     {
         $paginator = new LengthAwarePaginator(
             $items,

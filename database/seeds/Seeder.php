@@ -1,5 +1,6 @@
 <?php
 
+use App\Websites\Models\Website;
 use Illuminate\Database\Seeder as BaseSeeder;
 
 abstract class Seeder extends BaseSeeder
@@ -19,12 +20,17 @@ abstract class Seeder extends BaseSeeder
             $tables = [$tables];
         }
 
-        DB::statement('SET foreign_key_checks=0');
-
         foreach ($tables as $table) {
             DB::table($table)->truncate();
         }
+    }
 
-        DB::statement('SET foreign_key_checks=1');
+    /**
+     * @param string $slug
+     * @return Website
+     */
+    protected function getWebsite(string $slug): Website
+    {
+        return Website::where('slug', $slug)->firstOrFail();
     }
 }

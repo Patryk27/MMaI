@@ -11,7 +11,7 @@ final class SearchTagsQuery extends AbstractSearchQuery implements TagsQuery
         FIELD_NAME = 'name',
         FIELD_CREATED_AT = 'createdAt',
 
-        FIELD_LANGUAGE_ID = 'languageId',
+        FIELD_WEBSITE_ID = 'websiteId',
 
         FIELD_ASSIGNED_PAGES_COUNT = 'assignedPagesCount';
 }

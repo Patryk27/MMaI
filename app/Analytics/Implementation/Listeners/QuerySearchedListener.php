@@ -18,7 +18,7 @@ final class QuerySearchedListener extends Listener
         $this->analyticsFacade->create(Event::TYPE_QUERY_SEARCHED, [
             'query' => [
                 'query' => $query->getQuery(),
-                'languageId' => $query->getLanguage() ? $query->getLanguage()->id : null,
+                'languageId' => $query->getWebsite() ? $query->getWebsite()->id : null,
             ],
 
             'matchedIds' => $event->getMatchedIds(),

@@ -5,40 +5,40 @@ namespace App\Application\Http\Controllers\Frontend;
 use App\Application\Http\Controllers\Controller;
 use App\Core\Collection\Paginator as CollectionPaginator;
 use App\Core\Exceptions\Exception as CoreException;
-use App\Core\Language\Detector as LanguageDetector;
-use App\Languages\Exceptions\LanguageException;
+use App\Core\Websites\WebsiteDetector;
 use App\Pages\Exceptions\PageException;
 use App\Pages\Models\Page;
 use App\Pages\PagesFacade;
 use App\Pages\Queries\SearchPages;
-use Illuminate\Contracts\View\Factory as ViewFactoryContract;
+use App\Websites\Exceptions\WebsiteException;
+use Illuminate\Contracts\View\Factory as ViewFactory;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
     private const NUMBER_OF_ITEMS_PER_PAGE = 10;
 
-    /** @var ViewFactoryContract */
+    /** @var ViewFactory */
     private $viewFactory;
 
     /** @var CollectionPaginator */
     private $paginator;
 
-    /** @var LanguageDetector */
-    private $languageDetector;
+    /** @var WebsiteDetector */
+    private $websiteDetector;
 
     /** @var PagesFacade */
     private $pagesFacade;
 
     public function __construct(
-        ViewFactoryContract $viewFactory,
+        ViewFactory $viewFactory,
         CollectionPaginator $paginator,
-        LanguageDetector $languageDetector,
+        WebsiteDetector $websiteDetector,
         PagesFacade $pagesFacade
     ) {
         $this->viewFactory = $viewFactory;
         $this->paginator = $paginator;
-        $this->languageDetector = $languageDetector;
+        $this->websiteDetector = $websiteDetector;
         $this->pagesFacade = $pagesFacade;
     }
 
@@ -47,13 +47,13 @@ class HomeController extends Controller
      * @return mixed
      * @throws CoreException
      * @throws PageException
-     * @throws LanguageException
+     * @throws WebsiteException
      *
      * @todo a bit too much happens in here
      */
     public function index(Request $request)
     {
-        $language = $this->languageDetector->detectOrFail($request);
+        $website = $this->websiteDetector->detectOrFail($request);
 
         $query = [
             'filters' => [
@@ -67,9 +67,9 @@ class HomeController extends Controller
                     'value' => Page::TYPE_POST,
                 ],
 
-                SearchPages::FIELD_LANGUAGE_ID => [
+                SearchPages::FIELD_WEBSITE_ID => [
                     'operator' => 'expression',
-                    'value' => $language->id,
+                    'value' => $website->id,
                 ],
             ],
 

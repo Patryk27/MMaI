@@ -8,10 +8,10 @@ use Illuminate\Support\Collection;
 interface MenuItemsRepository
 {
     /**
-     * Returns all menu items which belong to given language.
+     * Returns all the menu items that belong to specified website.
      *
-     * @param int $languageId
+     * @param int $websiteId
      * @return Collection|MenuItem[]
      */
-    public function getByLanguageId(int $languageId): Collection;
+    public function getByWebsiteId(int $websiteId): Collection;
 }

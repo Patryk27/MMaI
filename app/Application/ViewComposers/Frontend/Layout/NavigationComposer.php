@@ -3,12 +3,12 @@
 namespace App\Application\ViewComposers\Frontend\Layout;
 
 use App\Core\Exceptions\Exception;
-use App\Core\Language\Detector as LanguageDetector;
-use App\Languages\Models\Language;
+use App\Core\Websites\WebsiteDetector;
 use App\Menus\Exceptions\MenuException;
 use App\Menus\MenusFacade;
 use App\Menus\Models\MenuItem;
-use App\Menus\Queries\GetMenuItemsByLanguageIdQuery;
+use App\Menus\Queries\GetMenuItemsByWebsiteIdQuery;
+use App\Websites\Models\Website;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -18,19 +18,19 @@ class NavigationComposer
     /** @var Request */
     private $request;
 
-    /** @var LanguageDetector */
-    private $languageDetector;
+    /** @var WebsiteDetector */
+    private $websiteDetector;
 
     /** @var MenusFacade */
     private $menusFacade;
 
     public function __construct(
         Request $request,
-        LanguageDetector $languageDetector,
+        WebsiteDetector $websiteDetector,
         MenusFacade $menusFacade
     ) {
         $this->request = $request;
-        $this->languageDetector = $languageDetector;
+        $this->websiteDetector = $websiteDetector;
         $this->menusFacade = $menusFacade;
     }
 
@@ -41,22 +41,23 @@ class NavigationComposer
      */
     public function compose(View $view): void
     {
-        $currentLanguage = $this->languageDetector->detectOrFail($this->request);
+        $website = $this->websiteDetector->detectOrFail($this->request);
 
         $view->with([
-            'menuItems' => $this->getMenuItems($currentLanguage),
+            'website' => $website,
+            'menuItems' => $this->getMenuItems($website),
         ]);
     }
 
     /**
-     * @param Language $currentLanguage
+     * @param Website $website
      * @return Collection|MenuItem[]
      * @throws MenuException
      */
-    private function getMenuItems(Language $currentLanguage): Collection
+    private function getMenuItems(Website $website): Collection
     {
         return $this->menusFacade->queryMany(
-            new GetMenuItemsByLanguageIdQuery($currentLanguage->id)
+            new GetMenuItemsByWebsiteIdQuery($website->id)
         );
     }
 }

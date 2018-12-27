@@ -25,8 +25,8 @@ class PagesValidator
     private function validateTags(Page $page): void
     {
         foreach ($page->tags as $tag) {
-            if ($tag->language_id !== $page->language_id) {
-                throw new PageException('Page cannot contain tags from other languages.');
+            if ($tag->website_id !== $page->website) {
+                throw new PageException('Page cannot contain tags from other websites.');
             }
         }
     }

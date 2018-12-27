@@ -4,9 +4,11 @@ use App\Languages\Models\Language;
 use App\Pages\Models\Page;
 use App\Routes\Models\Route;
 use App\Tags\Models\Tag;
+use App\Websites\Models\Website;
 use Carbon\Carbon;
 use Faker\Factory as FakerFactory;
 use Faker\Generator as FakerGenerator;
+use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Collection;
 
 final class RandomPostsSeeder extends Seeder
@@ -19,6 +21,9 @@ final class RandomPostsSeeder extends Seeder
     /** @var Collection|Language[] */
     private $languages;
 
+    /** @var Collection|Website[] */
+    private $websites;
+
     /** @var Collection|Tag[] */
     private $tags;
 
@@ -26,11 +31,12 @@ final class RandomPostsSeeder extends Seeder
     {
         $this->fakers = [];
         $this->languages = Language::all();
+        $this->websites = Website::all();
         $this->tags = Tag::all();
 
         foreach ($this->languages as $language) {
             $this->fakers[$language->id] = FakerFactory::create(
-                sprintf('%s_%s', $language->iso_639_code, strtoupper($language->iso_3166_code))
+                sprintf('%s_%s', $language->iso639_code, strtoupper($language->iso3166_code))
             );
         }
     }
@@ -45,7 +51,7 @@ final class RandomPostsSeeder extends Seeder
             'About to create <info>%d</info> random posts...', $this->languages->count() * self::POST_PER_LANGUAGE
         ));
 
-        /** @var \Illuminate\Console\OutputStyle $output */
+        /** @var OutputStyle $output */
         $output = $this->command->getOutput();
 
         // Create a progress bar
@@ -73,13 +79,12 @@ final class RandomPostsSeeder extends Seeder
 
     /**
      * @return void
-     *
      * @throws Throwable
      */
     private function createRandomPosts(): void
     {
-        foreach ($this->languages as $language) {
-            $page = $this->createRandomPost($language);
+        foreach ($this->websites as $website) {
+            $page = $this->createRandomPost($website);
 
             $this->assignTags($page);
             $this->assignRoute($page);
@@ -87,16 +92,16 @@ final class RandomPostsSeeder extends Seeder
     }
 
     /**
-     * @param Language $language
+     * @param Website $website
      * @return Page
      * @throws Throwable
      */
-    private function createRandomPost(Language $language): Page
+    private function createRandomPost(Website $website): Page
     {
-        $faker = $this->fakers[$language->id];
+        $faker = $this->fakers[$website->language->id];
 
         $page = new Page([
-            'language_id' => $language->id,
+            'website_id' => $website->id,
 
             'title' => $faker->words(
                 $faker->numberBetween(3, 8),
@@ -128,7 +133,7 @@ final class RandomPostsSeeder extends Seeder
      */
     private function assignTags(Page $page): void
     {
-        $tags = $this->tags->where('language_id', $page->language->id);
+        $tags = $this->tags->where('language_id', $page->website->language->id);
 
         if ($tags->isEmpty()) {
             return;
@@ -150,8 +155,8 @@ final class RandomPostsSeeder extends Seeder
      */
     private function assignRoute(Page $page): void
     {
-        $route = Route::buildFor(
-            $page->language->slug,
+        $route = Route::build(
+            $page->website->slug,
             sprintf('%04d/%02d/%s', $page->published_at->year, $page->published_at->month, kebab_case($page->title)),
             $page
         );

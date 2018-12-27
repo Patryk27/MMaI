@@ -24,7 +24,7 @@ class TagsValidator
     public function validate(Tag $tag): void
     {
         $this->assertHasName($tag);
-        $this->assertHasLanguage($tag);
+        $this->assertHasWebsite($tag);
         $this->assertIsUnique($tag);
     }
 
@@ -45,10 +45,10 @@ class TagsValidator
      * @return void
      * @throws TagException
      */
-    private function assertHasLanguage(Tag $tag): void
+    private function assertHasWebsite(Tag $tag): void
     {
-        if (is_null($tag->language_id)) {
-            throw new TagException('Tag must be assigned a language.');
+        if (is_null($tag->website_id)) {
+            throw new TagException('Tag must be assigned a website.');
         }
     }
 
@@ -59,7 +59,7 @@ class TagsValidator
      */
     private function assertIsUnique(Tag $tag): void
     {
-        $duplicatedTag = $this->tagsRepository->getByLanguageIdAndName($tag->language_id, $tag->name);
+        $duplicatedTag = $this->tagsRepository->getByWebsiteIdAndName($tag->website_id, $tag->name);
 
         if (isset($duplicatedTag) && $duplicatedTag->id !== $tag->id) {
             throw new TagException('Tag with such name already exists.');

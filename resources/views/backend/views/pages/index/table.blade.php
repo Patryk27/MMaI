@@ -5,12 +5,12 @@
             Id
         </th>
 
-        <th data-datatable-column='{"name": "type"}'>
-            Type
+        <th data-datatable-column='{"name": "websiteName", "orderable": true}'>
+            Website
         </th>
 
-        <th data-datatable-column='{"name": "languageName", "orderable": true}'>
-            Language
+        <th data-datatable-column='{"name": "type"}'>
+            Type
         </th>
 
         <th data-datatable-column='{"name": "title", "orderable": true}'>

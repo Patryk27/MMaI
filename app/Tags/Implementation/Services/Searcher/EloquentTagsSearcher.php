@@ -27,8 +27,8 @@ class EloquentTagsSearcher extends AbstractEloquentSearcher implements TagsSearc
             'type' => EloquentMapper::FIELD_TYPE_DATETIME,
         ],
 
-        SearchTagsQuery::FIELD_LANGUAGE_ID => [
-            'column' => 'tags.language_id',
+        SearchTagsQuery::FIELD_WEBSITE_ID => [
+            'column' => 'tags.website_id',
             'type' => EloquentMapper::FIELD_TYPE_NUMBER,
         ],
 

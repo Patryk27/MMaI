@@ -62,18 +62,18 @@ final class SearchCommand extends Command
     {
         $tableHeaders = [
             'id' => 'Id',
+            'website' => 'Website',
             'route' => 'Route',
             'title' => 'Title',
-            'language' => 'Language',
             'created_at' => 'Created at',
         ];
 
         $tableRows = $pages->map(function (Page $page): array {
             return [
                 'id' => $page->id,
-                'route' => isset($page->route) ? $page->route->getEntireUrl() : '',
+                'website' => $page->website->slug,
+                'route' => isset($page->route) ? $page->route->getAbsoluteUrl() : '',
                 'title' => $page->title,
-                'language' => $page->language->english_name,
                 'created_at' => $page->created_at->format('Y-m-d'),
             ];
         });

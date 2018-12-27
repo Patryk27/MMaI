@@ -7,13 +7,13 @@ use App\Application\Http\Requests\Backend\Pages\CreatePageRequest;
 use App\Application\Http\Requests\Backend\Pages\UpdatePageRequest;
 use App\Core\DataTables\Handler as DataTablesHandler;
 use App\Core\Table\Renderer as TableRenderer;
-use App\Languages\Exceptions\LanguageException;
-use App\Languages\LanguagesFacade;
-use App\Languages\Queries\GetAllLanguagesQuery;
 use App\Pages\Models\Page;
 use App\Pages\PagesFacade;
 use App\Pages\Queries\SearchPages;
-use Illuminate\Contracts\View\View as ViewContract;
+use App\Websites\Exceptions\WebsiteException;
+use App\Websites\Queries\GetAllWebsitesQuery;
+use App\Websites\WebsitesFacade;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
@@ -25,8 +25,8 @@ class PagesController extends Controller
     /** @var DataTablesHandler */
     private $dataTablesHandler;
 
-    /** @var LanguagesFacade */
-    private $languagesFacade;
+    /** @var WebsitesFacade */
+    private $websitesFacade;
 
     /** @var PagesFacade */
     private $pagesFacade;
@@ -34,32 +34,33 @@ class PagesController extends Controller
     public function __construct(
         TableRenderer $tableRenderer,
         DataTablesHandler $dataTablesHandler,
-        LanguagesFacade $languagesFacade,
+        WebsitesFacade $websitesFacade,
         PagesFacade $pagesFacade
     ) {
         $this->tableRenderer = $tableRenderer;
         $this->dataTablesHandler = $dataTablesHandler;
-        $this->languagesFacade = $languagesFacade;
+        $this->websitesFacade = $websitesFacade;
         $this->pagesFacade = $pagesFacade;
     }
 
     /**
-     * @return ViewContract
-     * @throws LanguageException
+     * @return View
+     * @throws WebsiteException
      */
-    public function index(): ViewContract
+    public function index(): View
     {
-        $languages = $this->languagesFacade->queryMany(
-            new GetAllLanguagesQuery()
+        $websites = $this->websitesFacade->queryMany(
+            new GetAllWebsitesQuery()
         );
 
-        $languages = $languages->sortBy('english_name');
-        $languages = $languages->pluck('english_name', 'id');
+        $websites = $websites
+            ->sortBy('name')
+            ->pluck('name', 'id');
 
         return view('backend.views.pages.index', [
             'types' => __('base/models/page.enums.type'),
-            'languages' => $languages,
             'statuses' => __('base/models/page.enums.status'),
+            'websites' => $websites,
         ]);
     }
 
@@ -71,8 +72,8 @@ class PagesController extends Controller
     {
         $this->tableRenderer->addColumns([
             'id' => 'backend.components.table.id',
+            'website' => 'backend.components.pages.table.website',
             'type' => 'backend.components.pages.table.type',
-            'language' => 'backend.components.pages.table.language',
             'title' => 'backend.components.pages.table.title',
             'status' => 'backend.components.pages.table.status',
             'createdAt' => 'backend.components.table.created-at',
@@ -97,9 +98,9 @@ class PagesController extends Controller
     }
 
     /**
-     * @return ViewContract
+     * @return View
      */
-    public function createPage(): ViewContract
+    public function createPage(): View
     {
         return view('backend.views.pages.create', [
             'type' => Page::TYPE_PAGE,
@@ -107,9 +108,9 @@ class PagesController extends Controller
     }
 
     /**
-     * @return ViewContract
+     * @return View
      */
-    public function createPost(): ViewContract
+    public function createPost(): View
     {
         return view('backend.views.pages.create', [
             'type' => Page::TYPE_POST,
@@ -117,45 +118,13 @@ class PagesController extends Controller
     }
 
     /**
-     * @param CreatePageRequest $request
-     * @return array
-     */
-    public function store(CreatePageRequest $request): array
-    {
-        $page = $this->pagesFacade->create(
-            $request->all()
-        );
-
-        return [
-            'redirectTo' => $page->getEditUrl(),
-        ];
-    }
-
-    /**
      * @param Page $page
-     * @return ViewContract
+     * @return View
      */
-    public function edit(Page $page): ViewContract
+    public function edit(Page $page): View
     {
         return view('backend.views.pages.edit', [
             'page' => $page,
         ]);
-    }
-
-    /**
-     * @param UpdatePageRequest $request
-     * @param Page $page
-     * @return array
-     */
-    public function update(UpdatePageRequest $request, Page $page): array
-    {
-        $this->pagesFacade->update(
-            $page,
-            $request->all()
-        );
-
-        return [
-            'redirectTo' => $page->getEditUrl(),
-        ];
     }
 }

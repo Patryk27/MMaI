@@ -9,12 +9,11 @@ use App\Core\DataTables\Handler as DataTablesHandler;
 use App\Core\Table\Renderer as TableRenderer;
 use App\Languages\Exceptions\LanguageException;
 use App\Languages\LanguagesFacade;
-use App\Languages\Queries\GetAllLanguagesQuery;
 use App\Tags\Exceptions\TagException;
 use App\Tags\Models\Tag;
 use App\Tags\Queries\SearchTagsQuery;
 use App\Tags\TagsFacade;
-use Illuminate\Contracts\View\View as ViewContract;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
@@ -45,20 +44,20 @@ class TagsController extends Controller
     }
 
     /**
-     * @return ViewContract
+     * @return View
      * @throws LanguageException
      */
-    public function index(): ViewContract
+    public function index(): View
     {
-        $languages = $this->languagesFacade->queryMany(
-            new GetAllLanguagesQuery()
-        );
-
-        $languages = $languages->sortBy('english_name');
-        $languages = $languages->pluck('english_name', 'id');
+//        $languages = $this->languagesFacade->queryMany(
+//            new GetAllLanguagesQuery()
+//        );
+//
+//        $languages = $languages->sortBy('english_name');
+//        $languages = $languages->pluck('english_name', 'id');
 
         return view('backend.views.tags.index', [
-            'languages' => $languages,
+            'websites' => [] // @todo,
         ]);
     }
 

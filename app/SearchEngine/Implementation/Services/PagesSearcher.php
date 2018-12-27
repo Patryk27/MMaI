@@ -9,12 +9,12 @@ use App\Pages\Queries\GetPagesByIdsQuery;
 use App\SearchEngine\Events\QuerySearched;
 use App\SearchEngine\Queries\SearchQuery;
 use Elasticsearch\Client as ElasticsearchClient;
-use Illuminate\Contracts\Events\Dispatcher as EventsDispatcherContract;
+use Illuminate\Contracts\Events\Dispatcher as EventsDispatcher;
 use Illuminate\Support\Collection;
 
 class PagesSearcher
 {
-    /** @var EventsDispatcherContract */
+    /** @var EventsDispatcher */
     private $eventsDispatcher;
 
     /** @var ElasticsearchClient */
@@ -24,7 +24,7 @@ class PagesSearcher
     private $pagesFacade;
 
     public function __construct(
-        EventsDispatcherContract $eventsDispatcher,
+        EventsDispatcher $eventsDispatcher,
         ElasticsearchClient $elasticsearch,
         PagesFacade $pagesFacade
     ) {
@@ -69,10 +69,10 @@ class PagesSearcher
             ];
         }
 
-        if ($query->hasLanguage()) {
+        if ($query->hasWebsite()) {
             $filters[] = [
                 'term' => [
-                    'language_id' => $query->getLanguage()->id,
+                    'website_id' => $query->getWebsite()->id,
                 ],
             ];
         }

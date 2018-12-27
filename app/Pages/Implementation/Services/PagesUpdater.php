@@ -8,15 +8,12 @@ use App\Pages\Exceptions\PageException;
 use App\Pages\Implementation\Repositories\PagesRepository;
 use App\Pages\Models\Page;
 use App\Tags\Exceptions\TagException;
-use Illuminate\Contracts\Events\Dispatcher as EventsDispatcherContract;
+use Illuminate\Contracts\Events\Dispatcher as EventsDispatcher;
 
-/**
- * @see \Tests\Unit\Pages\UpdateTest
- */
 class PagesUpdater
 {
     /**
-     * @var EventsDispatcherContract
+     * @var EventsDispatcher
      */
     private $eventsDispatcher;
 

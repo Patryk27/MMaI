@@ -4,11 +4,11 @@ namespace App\Attachments\Implementation\Services;
 
 use App\Attachments\Implementation\Repositories\AttachmentsRepository;
 use App\Attachments\ValueObjects\AttachmentsGarbageCollectorResult;
-use Illuminate\Contracts\Filesystem\Filesystem as FilesystemContract;
+use Illuminate\Contracts\Filesystem\Filesystem;
 
 class AttachmentsGarbageCollector
 {
-    /** @var FilesystemContract */
+    /** @var Filesystem */
     private $attachmentsFs;
 
     /** @var AttachmentsRepository */
@@ -18,7 +18,7 @@ class AttachmentsGarbageCollector
     private $attachmentsDeleter;
 
     public function __construct(
-        FilesystemContract $attachmentsFs,
+        Filesystem $attachmentsFs,
         AttachmentsRepository $attachmentsRepository,
         AttachmentsDeleter $attachmentsDeleter
     ) {

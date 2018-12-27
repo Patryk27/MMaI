@@ -1,5 +1,5 @@
 @extends('backend.layouts.authenticated', [
-    'pageClass' => 'backend--views--analytics--requests',
+    'view' => 'backend.analytics.requests',
 ])
 
 @section('title', 'Latest requests')

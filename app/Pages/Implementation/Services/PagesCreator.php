@@ -6,12 +6,12 @@ use App\Attachments\AttachmentsFacade;
 use App\Pages\Implementation\Repositories\PagesRepository;
 use App\Pages\Models\Page;
 use App\Routes\Models\Route;
-use Illuminate\Contracts\Events\Dispatcher as EventsDispatcherContract;
+use Illuminate\Contracts\Events\Dispatcher as EventsDispatcher;
 use Throwable;
 
 class PagesCreator
 {
-    /** @var EventsDispatcherContract */
+    /** @var EventsDispatcher */
     private $eventsDispatcher;
 
     /** @var PagesRepository */
@@ -24,7 +24,7 @@ class PagesCreator
     private $attachmentsFacade;
 
     public function __construct(
-        EventsDispatcherContract $eventsDispatcher,
+        EventsDispatcher $eventsDispatcher,
         PagesRepository $pagesRepository,
         PagesValidator $pagesValidator,
         AttachmentsFacade $attachmentsFacade
@@ -43,7 +43,7 @@ class PagesCreator
     public function create(array $pageData): Page
     {
         $page = new Page([
-            'language_id' => array_get($pageData, 'language_id'),
+            'website_id' => array_get($pageData, 'website_id'),
 
             'title' => array_get($pageData, 'title'),
             'lead' => array_get($pageData, 'lead'),
@@ -56,7 +56,7 @@ class PagesCreator
 
         if (strlen($pageData['url']) > 0) {
             $route = new Route([
-                'subdomain' => $page->language->slug ?? '',
+                'subdomain' => $page->website->slug ?? '',
                 'url' => $pageData['url'],
             ]);
 

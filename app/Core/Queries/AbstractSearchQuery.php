@@ -3,11 +3,9 @@
 namespace App\Core\Queries;
 
 use App\Core\Searcher\Searcher;
+use Exception;
+use Illuminate\Http\Request;
 
-/**
- * This is a base class which is used to facilitate building "searching"
- * queries, e.g. @see \App\Pages\Queries\SearchPages.
- */
 abstract class AbstractSearchQuery
 {
     /**
@@ -40,6 +38,28 @@ abstract class AbstractSearchQuery
         $this->filters = array_get($query, 'filters', []);
         $this->orderBy = array_get($query, 'orderBy', []);
         $this->pagination = array_get($query, 'pagination', []);
+    }
+
+    /**
+     * @param Request $request
+     * @return $this
+     * @throws Exception
+     */
+    public static function fromRequest(Request $request): self
+    {
+        if ($request->has('query')) {
+            $query = json_decode($request->get('query'), true);
+
+            if (!is_array($query)) {
+                throw new Exception(sprintf(
+                    'Given query is not a valid JSON.'
+                ));
+            }
+        } else {
+            $query = [];
+        }
+
+        return new static($query);
     }
 
     /**

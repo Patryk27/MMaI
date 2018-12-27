@@ -2,6 +2,8 @@
 
 use App\Application\Http\Controllers\Backend\Analytics\RequestsController as AnalyticsRequestsController;
 use App\Application\Http\Controllers\Backend\AnalyticsController;
+use App\Application\Http\Controllers\Backend\Api\PagesController as ApiPagesController;
+use App\Application\Http\Controllers\Backend\Api\TagsController as ApiTagsController;
 use App\Application\Http\Controllers\Backend\AttachmentsController;
 use App\Application\Http\Controllers\Backend\AuthorizationController;
 use App\Application\Http\Controllers\Backend\DashboardController;
@@ -28,6 +30,18 @@ Route::domain('backend.' . env('APP_DOMAIN'))->group(function () {
     });
 
     Route::group(['middleware' => 'auth'], function () {
+        // /api
+        Route::group(['prefix' => 'api'], function () {
+            // /api/tags
+            Route::get('tags', ApiTagsController::class . '@index');
+
+            // /api/pages
+            Route::post('pages', ApiPagesController::class . '@store');
+
+            // /api/pages/:id
+            Route::put('pages/{page}', ApiPagesController::class . '@update');
+        });
+
         // /dashboard
         Route::group(['prefix' => 'dashboard'], function () {
             Route::get('/', DashboardController::class . '@index')

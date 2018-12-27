@@ -8,19 +8,19 @@ use App\Attachments\Implementation\Services\AttachmentsDeleter;
 use App\Attachments\Implementation\Services\AttachmentsGarbageCollector;
 use App\Attachments\Implementation\Services\AttachmentsQuerier;
 use App\Attachments\Implementation\Services\AttachmentsStreamer;
-use Illuminate\Contracts\Filesystem\Filesystem as FilesystemContract;
+use Illuminate\Contracts\Filesystem\Filesystem as Filesystem;
 
 final class AttachmentsFactory
 {
     /**
      * Builds an instance of @see AttachmentsFacade.
      *
-     * @param FilesystemContract $attachmentsFs
+     * @param Filesystem $attachmentsFs
      * @param AttachmentsRepository $attachmentsRepository
      * @return AttachmentsFacade
      */
     public static function build(
-        FilesystemContract $attachmentsFs,
+        Filesystem $attachmentsFs,
         AttachmentsRepository $attachmentsRepository
     ): AttachmentsFacade {
         $attachmentsCreator = new AttachmentsCreator($attachmentsFs, $attachmentsRepository);

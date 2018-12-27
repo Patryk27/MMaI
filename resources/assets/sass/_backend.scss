@@ -1,4 +1,2 @@
-body.backend {
-  @import 'backend/views';
-  @import 'backend/layouts';
-}
+@import 'backend/views';
+@import 'backend/layouts';

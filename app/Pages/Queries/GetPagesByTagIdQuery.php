@@ -2,9 +2,9 @@
 
 namespace App\Pages\Queries;
 
-final class GetPagesByTagIdQuery implements PageQuery
+final class GetPagesByTagIdQuery implements PagesQuery
 {
-    /*** @var int */
+    /** @var int */
     private $tagId;
 
     public function __construct(int $tagId)

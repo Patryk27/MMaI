@@ -28,11 +28,11 @@ class EloquentTagsRepository implements TagsRepository
     /**
      * @inheritDoc
      */
-    public function getByLanguageIdAndName(int $languageId, string $name): ?Tag
+    public function getByWebsiteIdAndName(int $websiteId, string $name): ?Tag
     {
         $stmt = $this->repository->newQuery();
         $stmt
-            ->where('language_id', $languageId)
+            ->where('website_id', $websiteId)
             ->where('name', $name);
 
         return $stmt->first();

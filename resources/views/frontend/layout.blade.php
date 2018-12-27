@@ -1,12 +1,12 @@
 @php
     /**
-     * @var string $pageClass
+     * @var string $view
      */
 @endphp
 
 @extends('base.layout', [
-    'layoutClass' => 'frontend frontend--layout',
-    'pageClass' => $pageClass,
+    'layout' => 'frontend',
+    'view' => $view,
 ])
 
 @section('layout-title')
@@ -19,6 +19,6 @@
             @yield('content')
         </div>
 
-        @include('frontend.layout.navigation')
+        @include('frontend.components.layout.navigation')
     </div>
 @endsection

@@ -28,8 +28,11 @@ use App\Tags\Implementation\Repositories\EloquentTagsRepository;
 use App\Tags\Implementation\Services\Searcher\EloquentTagsSearcher;
 use App\Tags\TagsFacade;
 use App\Tags\TagsFactory;
+use App\Websites\Implementation\Repositories\EloquentWebsitesRepository;
+use App\Websites\WebsitesFacade;
+use App\Websites\WebsitesFactory;
 use Cviebrock\LaravelElasticsearch\Manager as ElasticsearchManager;
-use Illuminate\Contracts\Filesystem\Factory as FilesystemFactoryContract;
+use Illuminate\Contracts\Filesystem\Factory as FilesystemFactory;
 use Illuminate\Events\Dispatcher as EventsDispatcher;
 use Illuminate\Support\ServiceProvider;
 
@@ -44,6 +47,7 @@ final class FacadesProvider extends ServiceProvider
         RoutesFacade::class,
         SearchEngineFacade::class,
         TagsFacade::class,
+        WebsitesFacade::class,
     ];
 
     /**
@@ -68,7 +72,7 @@ final class FacadesProvider extends ServiceProvider
         // == Attachments == //
         $this->app->singleton(AttachmentsFacade::class, function (): AttachmentsFacade {
             return AttachmentsFactory::build(
-                $this->app->make(FilesystemFactoryContract::class)->disk('attachments'),
+                $this->app->make(FilesystemFactory::class)->disk('attachments'),
                 $this->app->make(EloquentAttachmentsRepository::class)
             );
         });
@@ -120,6 +124,13 @@ final class FacadesProvider extends ServiceProvider
                 $this->app->make(EventsDispatcher::class),
                 $this->app->make(EloquentTagsRepository::class),
                 $this->app->make(EloquentTagsSearcher::class)
+            );
+        });
+
+        // == Websites == //
+        $this->app->singleton(WebsitesFacade::class, function (): WebsitesFacade {
+            return WebsitesFactory::build(
+                $this->app->make(EloquentWebsitesRepository::class)
             );
         });
     }

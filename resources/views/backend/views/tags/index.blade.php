@@ -1,5 +1,5 @@
 @extends('backend.layouts.authenticated', [
-    'pageClass' => 'backend--views--tags--index',
+    'view' => 'backend.tags.index',
 ])
 
 @section('title', 'Tags')

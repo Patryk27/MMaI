@@ -4,18 +4,18 @@ namespace App\Attachments\Implementation\Services;
 
 use App\Attachments\Implementation\Repositories\AttachmentsRepository;
 use App\Attachments\Models\Attachment;
-use Illuminate\Contracts\Filesystem\Filesystem as FilesystemContract;
+use Illuminate\Contracts\Filesystem\Filesystem as Filesystem;
 
 class AttachmentsDeleter
 {
-    /** @var FilesystemContract */
+    /** @var Filesystem */
     private $attachmentsFs;
 
     /** @var AttachmentsRepository */
     private $attachmentsRepository;
 
     public function __construct(
-        FilesystemContract $attachmentsFs,
+        Filesystem $attachmentsFs,
         AttachmentsRepository $attachmentsRepository
     ) {
         $this->attachmentsFs = $attachmentsFs;

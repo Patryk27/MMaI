@@ -30,12 +30,16 @@ class EloquentFilterer
     public function applyFilters(EloquentBuilder $builder, array $filters): void
     {
         foreach ($filters as $fieldName => $filter) {
-            $operatorName = array_get($filter, 'operator');
-            $operatorValue = array_get($filter, 'value');
-
-            if (isset($operatorName, $operatorValue)) {
-                $this->applyFilter($builder, $fieldName, $operatorName, $operatorValue);
+            if (is_array($filter)) {
+                $operatorName = array_get($filter, 'operator');
+                $operatorValue = array_get($filter, 'value');
+            } else {
+                // @todo provide comment
+                $operatorName = 'expression';
+                $operatorValue = $filter;
             }
+
+            $this->applyFilter($builder, $fieldName, $operatorName, $operatorValue);
         }
     }
 

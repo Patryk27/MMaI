@@ -5,7 +5,7 @@ namespace App\Menus\Implementation\Services;
 use App\Menus\Exceptions\MenuException;
 use App\Menus\Implementation\Repositories\MenuItemsRepository;
 use App\Menus\Models\MenuItem;
-use App\Menus\Queries\GetMenuItemsByLanguageIdQuery;
+use App\Menus\Queries\GetMenuItemsByWebsiteIdQuery;
 use App\Menus\Queries\MenuItemsQuery;
 use Illuminate\Support\Collection;
 
@@ -27,9 +27,9 @@ class MenuItemsQuerier
     public function query(MenuItemsQuery $query): Collection
     {
         switch (true) {
-            case $query instanceof GetMenuItemsByLanguageIdQuery:
-                return $this->menuItemsRepository->getByLanguageId(
-                    $query->getLanguageId()
+            case $query instanceof GetMenuItemsByWebsiteIdQuery:
+                return $this->menuItemsRepository->getByWebsiteId(
+                    $query->getWebsiteId()
                 );
 
             default:

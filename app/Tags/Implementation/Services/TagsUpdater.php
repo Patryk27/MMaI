@@ -6,11 +6,11 @@ use App\Tags\Events\TagUpdated;
 use App\Tags\Exceptions\TagException;
 use App\Tags\Implementation\Repositories\TagsRepository;
 use App\Tags\Models\Tag;
-use Illuminate\Contracts\Events\Dispatcher as EventsDispatcherContract;
+use Illuminate\Contracts\Events\Dispatcher as EventsDispatcher;
 
 class TagsUpdater
 {
-    /** @var EventsDispatcherContract */
+    /** @var EventsDispatcher */
     private $eventsDispatcher;
 
     /** @var TagsRepository */
@@ -20,7 +20,7 @@ class TagsUpdater
     private $tagsValidator;
 
     public function __construct(
-        EventsDispatcherContract $eventsDispatcher,
+        EventsDispatcher $eventsDispatcher,
         TagsRepository $tagsRepository,
         TagsValidator $tagsValidator
     ) {

@@ -1,4 +1,4 @@
-&--create, &--edit {
+body[data-view="backend.pages.create"], body[data-view="backend.pages.edit"] {
   .is-enabled-checkbox {
     margin-bottom: 1em;
   }

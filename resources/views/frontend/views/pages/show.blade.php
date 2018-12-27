@@ -7,7 +7,7 @@
 @endphp
 
 @extends('frontend.layout', [
-    'pageClass' => 'frontend--views--pages--show',
+    'view' => 'frontend.pages.show',
 ])
 
 @section('layout-meta')

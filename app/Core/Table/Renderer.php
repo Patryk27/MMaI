@@ -2,20 +2,20 @@
 
 namespace App\Core\Table;
 
-use Illuminate\Contracts\View\Factory as ViewFactoryContract;
-use Illuminate\Contracts\View\View as ViewContract;
+use Illuminate\Contracts\View\Factory as ViewFactory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
 use LogicException;
 
 class Renderer
 {
-    /** @var ViewFactoryContract */
+    /** @var ViewFactory */
     private $viewFactory;
 
-    /** @var ViewContract[] */
+    /** @var View[] */
     private $columns;
 
-    public function __construct(ViewFactoryContract $viewFactory)
+    public function __construct(ViewFactory $viewFactory)
     {
         $this->viewFactory = $viewFactory;
     }

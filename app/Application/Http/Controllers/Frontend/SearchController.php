@@ -5,7 +5,7 @@ namespace App\Application\Http\Controllers\Frontend;
 use App\Application\Http\Controllers\Controller;
 use App\Application\Http\Requests\Frontend\SearchRequest;
 use App\Core\Exceptions\Exception as CoreException;
-use App\Core\Language\Detector as LanguageDetector;
+use App\Core\Websites\WebsiteDetector;
 use App\Pages\Exceptions\PageException;
 use App\Pages\Models\Page;
 use App\Pages\PagesFacade;
@@ -16,8 +16,8 @@ use Illuminate\Support\Collection;
 
 class SearchController extends Controller
 {
-    /** @var LanguageDetector */
-    private $languageDetector;
+    /** @var WebsiteDetector */
+    private $websiteDetector;
 
     /** @var SearchEngineFacade */
     private $searchEngineFacade;
@@ -26,11 +26,11 @@ class SearchController extends Controller
     private $pagesFacade;
 
     public function __construct(
-        LanguageDetector $languageDetector,
+        WebsiteDetector $websiteDetector,
         SearchEngineFacade $searchEngineFacade,
         PagesFacade $pagesFacade
     ) {
-        $this->languageDetector = $languageDetector;
+        $this->websiteDetector = $websiteDetector;
         $this->searchEngineFacade = $searchEngineFacade;
         $this->pagesFacade = $pagesFacade;
     }
@@ -51,14 +51,14 @@ class SearchController extends Controller
      */
     public function search(SearchRequest $request)
     {
-        $language = $this->languageDetector->detectOrFail($request);
+        $website = $this->websiteDetector->detectOrFail($request);
 
         /** @var Collection|Page[] $pages */
         $pages = $this->searchEngineFacade->search(
             new SearchQuery([
                 'query' => $request->get('query'),
                 'type' => Page::TYPE_POST,
-                'language' => $language,
+                'website' => $website,
             ])
         );
 

@@ -1,4 +1,2 @@
-&--layouts {
-  @import 'layouts/authenticated';
-  @import 'layouts/guest';
-}
+@import 'layouts/authenticated';
+@import 'layouts/guest';

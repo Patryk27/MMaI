@@ -1,7 +1,7 @@
 @php
     /**
-     * @var string $layoutClass
-     * @var string $pageClass
+     * @var string $layout
+     * @var string $view
      */
 @endphp
 
@@ -20,7 +20,7 @@
     <link rel="stylesheet" type="text/css" href="/css/app.css"/>
 </head>
 
-<body class="{{ $layoutClass . ' ' . $pageClass }}">
+<body data-layout="{{ $layout }}" data-view="{{ $view }}">
     <div id="overlay">
         <div class="loader loader-tile"></div>
     </div>

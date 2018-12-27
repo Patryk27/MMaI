@@ -7,14 +7,6 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * This model describes a single route.
- *
- * It can point at:
- *   - a page,
- *   - a route (in which case it is a redirection).
- *
- * -----
- *
  * @property-read int $id
  * @property string $subdomain
  * @property string $url
@@ -45,7 +37,7 @@ class Route extends Model implements Morphable
      * @param Morphable $morphable
      * @return Route
      */
-    public static function buildFor(string $subdomain, string $url, Morphable $morphable): Route
+    public static function build(string $subdomain, string $url, Morphable $morphable): Route
     {
         return new self([
             'subdomain' => $subdomain,
@@ -64,8 +56,6 @@ class Route extends Model implements Morphable
     }
 
     /**
-     * Changes route's target to given one ("re-routes" the route).
-     *
      * @param Morphable $morphable
      * @return void
      */
@@ -82,7 +72,7 @@ class Route extends Model implements Morphable
     /**
      * @return string
      */
-    public function getEntireUrl(): string
+    public function getAbsoluteUrl(): string
     {
         return sprintf('%s://%s.%s/%s', env('APP_PROTOCOL'), $this->subdomain, env('APP_DOMAIN'), $this->url);
     }

@@ -10,7 +10,7 @@ use App\Pages\Implementation\Services\PagesRenderer;
 use App\Pages\Implementation\Services\PagesUpdater;
 use App\Pages\Models\Page;
 use App\Pages\Policies\PagePolicy;
-use App\Pages\Queries\PageQuery;
+use App\Pages\Queries\PagesQuery;
 use App\Pages\ValueObjects\RenderedPage;
 use Exception;
 use Gate;
@@ -93,12 +93,12 @@ final class PagesFacade
      * Returns the first page matching given query.
      * Throws an exception if no such page exists.
      *
-     * @param PageQuery $query
+     * @param PagesQuery $query
      * @return Page
      * @throws PageException
      * @throws PageNotFoundException
      */
-    public function queryOne(PageQuery $query): Page
+    public function queryOne(PagesQuery $query): Page
     {
         $pages = $this->queryMany($query);
 
@@ -112,11 +112,11 @@ final class PagesFacade
     /**
      * Returns all pages matching given query.
      *
-     * @param PageQuery $query
+     * @param PagesQuery $query
      * @return Collection|Page[]
      * @throws PageException
      */
-    public function queryMany(PageQuery $query): Collection
+    public function queryMany(PagesQuery $query): Collection
     {
         return $this->pagesQuerier->query($query);
     }
@@ -124,11 +124,11 @@ final class PagesFacade
     /**
      * Returns number of pages matching given query.
      *
-     * @param PageQuery $query
+     * @param PagesQuery $query
      * @return int
      * @throws PageException
      */
-    public function queryCount(PageQuery $query): int
+    public function queryCount(PagesQuery $query): int
     {
         return $this->pagesQuerier->count($query);
     }

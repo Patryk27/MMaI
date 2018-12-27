@@ -1,5 +1,5 @@
 @extends('backend.layouts.guest', [
-    'pageClass' => 'backend--views--auth--in',
+    'view' => 'backend.auth.in',
 ])
 
 @section('title', 'Signing in')
@@ -12,10 +12,7 @@
     ]) }}
 
     <div class="form-group">
-        <label for="login">
-            Login
-        </label>
-
+        {{ Form::label('login', 'Login') }}
         {{ Form::text('login', null, [
             'name' => 'login',
             'class' => 'form-control',
@@ -25,10 +22,7 @@
     </div>
 
     <div class="form-group">
-        <label for="exampleInputPassword1">
-            Password
-        </label>
-
+        {{ Form::label('password', 'Password') }}
         {{ Form::password('password', [
             'name' => 'password',
             'class' => 'form-control',

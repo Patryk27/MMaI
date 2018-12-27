@@ -7,24 +7,24 @@ use App\Application\Http\Controllers\Controller;
 use App\Application\Http\Requests\Backend\Auth\SignInRequest;
 use App\Core\Layout\Flasher;
 use Illuminate\Auth\AuthManager;
-use Illuminate\Contracts\Auth\StatefulGuard as StatefulGuardContract;
-use Illuminate\Contracts\Events\Dispatcher as EventsDispatcherContract;
+use Illuminate\Contracts\Auth\StatefulGuard;
+use Illuminate\Contracts\Events\Dispatcher as EventsDispatcher;
 
 class AuthorizationController extends Controller
 {
     private const AFTER_SIGN_IN_ROUTE = 'backend.dashboard.index';
 
-    /** @var EventsDispatcherContract */
+    /** @var EventsDispatcher */
     private $eventsDispatcher;
 
-    /** @var StatefulGuardContract */
+    /** @var StatefulGuard */
     private $authGuard;
 
     /** @var Flasher */
     private $flasher;
 
     public function __construct(
-        EventsDispatcherContract $eventsDispatcher,
+        EventsDispatcher $eventsDispatcher,
         AuthManager $authManager,
         Flasher $flasher
     ) {

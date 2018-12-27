@@ -1,6 +1,6 @@
 @php
     /**
-     * @var \Illuminate\Support\Collection|int[] $languages
+     * @var \Illuminate\Support\Collection|int[] $websites
      */
 @endphp
 
@@ -28,8 +28,8 @@
                 </div>
 
                 <div class="form-group">
-                    {{ Form::label('language_id', 'Language') }}
-                    {{ Form::select('language_id', $languages, null, [
+                    {{ Form::label('website_id', 'Website') }}
+                    {{ Form::select('website_id', $websites, null, [
                         'class' => 'custom-select',
                     ]) }}
                 </div>

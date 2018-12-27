@@ -6,17 +6,17 @@ use App\Attachments\Models\Attachment;
 use App\Core\Models\HasPresenter;
 use App\Core\Models\Morphable;
 use App\Core\Models\Presentable;
-use App\Languages\Models\Language;
 use App\Pages\Presenters\PagePresenter;
 use App\Routes\Models\Route;
 use App\Tags\Models\Tag;
+use App\Websites\Models\Website;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property-read int $id
- * @property int $language_id
+ * @property int $website_id
  * @property string $title
  * @property string|null $lead
  * @property string $content
@@ -30,9 +30,9 @@ use Illuminate\Database\Eloquent\Model;
  * -----
  *
  * @property-read EloquentCollection|Attachment[] $attachments
- * @property-read Language $language
  * @property-read Route|null $route
  * @property-read EloquentCollection|Tag[] $tags
+ * @property-read Website $website
  *
  * -----
  *
@@ -53,7 +53,7 @@ class Page extends Model implements Morphable, Presentable
 
     /** @var string[] */
     protected $fillable = [
-        'language_id',
+        'website_id',
         'title',
         'lead',
         'content',
@@ -72,9 +72,10 @@ class Page extends Model implements Morphable, Presentable
 
     /** @var string[] */
     protected $with = [
-        'language',
+        'attachments',
         'route',
         'tags',
+        'website',
     ];
 
     /**
@@ -83,14 +84,6 @@ class Page extends Model implements Morphable, Presentable
     public function attachments()
     {
         return $this->hasMany(Attachment::class)->orderBy('name');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function language()
-    {
-        return $this->belongsTo(Language::class);
     }
 
     /**
@@ -107,6 +100,14 @@ class Page extends Model implements Morphable, Presentable
     public function tags()
     {
         return $this->belongsToMany(Tag::class)->orderBy('name');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function website()
+    {
+        return $this->belongsTo(Website::class);
     }
 
     /**

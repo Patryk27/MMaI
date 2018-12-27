@@ -14,7 +14,7 @@
         <article class="post-item">
             {{-- Header --}}
             <header class="post-header">
-                <a href="{{ $page->route->getEntireUrl()  }}">
+                <a href="{{ $page->route->getAbsoluteUrl()  }}">
                     {{ $page->title }}
                 </a>
             </header>

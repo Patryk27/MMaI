@@ -3,14 +3,14 @@
 namespace App\Application\Http\Controllers\Backend;
 
 use App\Application\Http\Controllers\Controller;
-use Illuminate\Contracts\View\View as ViewContract;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
     /**
      * @param Request $request
-     * @return ViewContract
+     * @return View
      */
     public function index(Request $request)
     {

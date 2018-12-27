@@ -37,13 +37,13 @@ class EloquentPagesSearcher extends AbstractEloquentSearcher implements PagesSea
             'type' => EloquentMapper::FIELD_TYPE_DATETIME,
         ],
 
-        SearchPages::FIELD_LANGUAGE_ID => [
-            'column' => 'languages.id',
+        SearchPages::FIELD_WEBSITE_ID => [
+            'column' => 'websites.id',
             'type' => EloquentMapper::FIELD_TYPE_NUMBER,
         ],
 
-        SearchPages::FIELD_LANGUAGE_NAME => [
-            'column' => 'languages.english_name',
+        SearchPages::FIELD_WEBSITE_NAME => [
+            'column' => 'websites.name',
             'type' => EloquentMapper::FIELD_TYPE_STRING,
         ],
 
@@ -56,13 +56,14 @@ class EloquentPagesSearcher extends AbstractEloquentSearcher implements PagesSea
     /**
      * @param Page $page
      */
-    public function __construct(Page $page) {
+    public function __construct(Page $page)
+    {
         parent::__construct($page, self::FIELDS);
 
         $this->builder->selectRaw('pages.*');
 
-        // Include languages
-        $this->builder->join('languages', 'languages.id', 'pages.language_id');
+        // Include websites
+        $this->builder->join('websites', 'websites.id', 'pages.website_id');
 
         // Include routes
         $this->builder->leftJoin('routes', function (JoinClause $join): void {
@@ -73,7 +74,7 @@ class EloquentPagesSearcher extends AbstractEloquentSearcher implements PagesSea
             // between the 'pages' and 'routes' tables, which causes this query
             // to fail in some cases (e.g. when ordering by routes):
             $join->whereRaw(sprintf(
-                'routes.model_type = "%s"', Page::getMorphableType()
+                'routes.model_type = \'%s\'', Page::getMorphableType()
             ));
         });
     }

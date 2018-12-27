@@ -1,5 +1,5 @@
 @extends('backend.layouts.authenticated', [
-    'pageClass' => 'backend--views--analytics--index',
+    'view' => 'backend.analytics.index',
 ])
 
 @section('title', 'Analytics')

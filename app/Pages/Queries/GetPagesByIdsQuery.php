@@ -2,7 +2,7 @@
 
 namespace App\Pages\Queries;
 
-final class GetPagesByIdsQuery implements PageQuery
+final class GetPagesByIdsQuery implements PagesQuery
 {
     /** @var int[] */
     private $ids;

@@ -7,7 +7,6 @@ use App\Languages\Implementation\Repositories\LanguagesRepository;
 use App\Languages\Models\Language;
 use App\Languages\Queries\GetAllLanguagesQuery;
 use App\Languages\Queries\GetLanguageByIdQuery;
-use App\Languages\Queries\GetLanguageBySlugQuery;
 use App\Languages\Queries\LanguagesQuery;
 use Illuminate\Support\Collection;
 
@@ -36,13 +35,6 @@ class LanguagesQuerier
                 return collect_one(
                     $this->languagesRepository->getById(
                         $query->getId()
-                    )
-                );
-
-            case $query instanceof GetLanguageBySlugQuery:
-                return collect_one(
-                    $this->languagesRepository->getBySlug(
-                        $query->getSlug()
                     )
                 );
 

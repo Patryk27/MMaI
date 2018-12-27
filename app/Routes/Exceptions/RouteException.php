@@ -2,8 +2,8 @@
 
 namespace App\Routes\Exceptions;
 
-use App\Core\Exceptions\Exception as CoreException;
+use App\Core\Exceptions\Exception;
 
-class RouteException extends CoreException
+class RouteException extends Exception
 {
 }

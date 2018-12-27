@@ -9,20 +9,20 @@ use App\Tags\Implementation\Services\TagsQuerier;
 use App\Tags\Implementation\Services\TagsSearcher;
 use App\Tags\Implementation\Services\TagsUpdater;
 use App\Tags\Implementation\Services\TagsValidator;
-use Illuminate\Contracts\Events\Dispatcher as EventsDispatcherContract;
+use Illuminate\Contracts\Events\Dispatcher as EventsDispatcher;
 
 final class TagsFactory
 {
     /**
      * Builds an instance of @see TagsFacade.
      *
-     * @param EventsDispatcherContract $eventsDispatcher
+     * @param EventsDispatcher $eventsDispatcher
      * @param TagsRepository $tagsRepository
      * @param TagsSearcher $tagsSearcher
      * @return TagsFacade
      */
     public static function build(
-        EventsDispatcherContract $eventsDispatcher,
+        EventsDispatcher $eventsDispatcher,
         TagsRepository $tagsRepository,
         TagsSearcher $tagsSearcher
     ): TagsFacade {

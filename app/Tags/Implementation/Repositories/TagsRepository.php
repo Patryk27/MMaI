@@ -16,14 +16,14 @@ interface TagsRepository
     public function getById(int $id): ?Tag;
 
     /**
-     * Returns tag with specified language id and name, or `null` if no such tag
+     * Returns tag with specified website and name, or `null` if no such tag
      * exists.
      *
-     * @param int $languageId
+     * @param int $websiteId
      * @param string $name
      * @return Tag|null
      */
-    public function getByLanguageIdAndName(int $languageId, string $name): ?Tag;
+    public function getByWebsiteIdAndName(int $websiteId, string $name): ?Tag;
 
     /**
      * Returns all the tags.

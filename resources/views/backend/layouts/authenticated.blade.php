@@ -1,12 +1,12 @@
 @php
     /**
-     * @var string $pageClass
+     * @var string $view
      */
 @endphp
 
 @extends('base.layout', [
-    'layoutClass' => 'backend backend--layouts--authenticated',
-    'pageClass' => $pageClass,
+    'layout' => 'backend.authenticated',
+    'view' => $view,
 ])
 
 @section('layout-title')

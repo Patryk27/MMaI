@@ -2,7 +2,7 @@
 
 namespace App\Analytics\Exceptions;
 
-use Exception;
+use App\Core\Exceptions\Exception;
 
 class AnalyticsException extends Exception
 {
