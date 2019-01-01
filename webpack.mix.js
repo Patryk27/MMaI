@@ -1,6 +1,4 @@
-// noinspection JSUnresolvedFunction
 const mix = require('laravel-mix');
 
-mix
-    .js('resources/assets/js/app.js', 'public/js')
-    .sass('resources/assets/sass/app.scss', 'public/css');
+mix.ts('resources/assets/js/app.ts', 'public/assets');
+mix.sass('resources/assets/css/app.scss', 'public/assets');

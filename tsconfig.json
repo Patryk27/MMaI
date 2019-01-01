@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "lib": [
+      "es2015",
+      "es2017",
+      "dom"
+    ],
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "removeComments": true,
+    "skipLibCheck": true,
+//    "strictNullChecks": true, @todo enable at some point
+    "sourceMap": true,
+    "target": "es6",
+    "types": [
+      "jquery"
+    ]
+  },
+  "include": [
+    "resources/assets/js/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

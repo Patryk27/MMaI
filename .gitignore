@@ -1,9 +1,9 @@
 /.idea
 /node_modules
 
-/public/css
-/public/fonts
-/public/js
+!/public/assets/.gitkeep
+/public/assets
+/public/mix-manifest.json
 /public/storage
 
 /storage/*.key

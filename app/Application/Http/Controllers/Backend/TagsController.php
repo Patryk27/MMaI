@@ -7,12 +7,13 @@ use App\Application\Http\Requests\Backend\Tags\CreateTagRequest;
 use App\Application\Http\Requests\Backend\Tags\UpdateTagRequest;
 use App\Core\DataTables\Handler as DataTablesHandler;
 use App\Core\Table\Renderer as TableRenderer;
-use App\Languages\Exceptions\LanguageException;
-use App\Languages\LanguagesFacade;
 use App\Tags\Exceptions\TagException;
 use App\Tags\Models\Tag;
 use App\Tags\Queries\SearchTagsQuery;
 use App\Tags\TagsFacade;
+use App\Websites\Exceptions\WebsiteException;
+use App\Websites\Queries\GetAllWebsitesQuery;
+use App\Websites\WebsitesFacade;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -25,39 +26,36 @@ class TagsController extends Controller
     /** @var DataTablesHandler */
     private $dataTablesHandler;
 
-    /** @var LanguagesFacade */
-    private $languagesFacade;
-
     /** @var TagsFacade */
     private $tagsFacade;
+
+    /** @var WebsitesFacade */
+    private $websitesFacade;
 
     public function __construct(
         TableRenderer $tableRenderer,
         DataTablesHandler $dataTablesHandler,
-        LanguagesFacade $languagesFacade,
-        TagsFacade $tagsFacade
+        TagsFacade $tagsFacade,
+        WebsitesFacade $websitesFacade
     ) {
         $this->tableRenderer = $tableRenderer;
         $this->dataTablesHandler = $dataTablesHandler;
-        $this->languagesFacade = $languagesFacade;
         $this->tagsFacade = $tagsFacade;
+        $this->websitesFacade = $websitesFacade;
     }
 
     /**
      * @return View
-     * @throws LanguageException
+     * @throws WebsiteException
      */
     public function index(): View
     {
-//        $languages = $this->languagesFacade->queryMany(
-//            new GetAllLanguagesQuery()
-//        );
-//
-//        $languages = $languages->sortBy('english_name');
-//        $languages = $languages->pluck('english_name', 'id');
+        $websites = $this->websitesFacade->queryMany(
+            new GetAllWebsitesQuery()
+        );
 
         return view('backend.views.tags.index', [
-            'websites' => [] // @todo,
+            'websites' => $websites->sortBy('name')->pluck('name', 'id'),
         ]);
     }
 

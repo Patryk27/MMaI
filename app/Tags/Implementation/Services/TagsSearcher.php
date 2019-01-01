@@ -15,5 +15,4 @@ interface TagsSearcher extends Searcher
      */
     public function get(): Collection;
     #endregion
-
 }

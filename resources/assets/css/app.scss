@@ -1,0 +1,15 @@
+@import 'variables';
+@import '~bootstrap/scss/bootstrap';
+@import '~flag-icon-css/sass/flag-icon';
+@import '~flatpickr/dist/themes/material_blue.css';
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+@import '~@fortawesome/fontawesome-free/scss/solid';
+@import '~datatables.net-bs4/css/dataTables.bootstrap4.min.css';
+@import '~select2/dist/css/select2.min.css';
+@import '~simplemde/dist/simplemde.min.css';
+@import '~tippy.js/dist/tippy.css';
+
+@import 'vendor-overwrites';
+@import 'base';
+@import 'backend';
+@import 'frontend';
