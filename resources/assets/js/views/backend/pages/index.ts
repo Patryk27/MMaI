@@ -29,11 +29,10 @@ function getFilters(): any {
 
 app.addViewInitializer('backend.pages.index', () => {
     const dataTable = new InteractiveTable({
-        loaderSelector: '#pages-loader',
-        tableSelector: '#pages-table',
-
         autofocus: true,
-        source: '/pages/search',
+        loaderSelector: '#pages-loader',
+        source: '/api/pages',
+        tableSelector: '#pages-table',
 
         onPrepareRequest(request) {
             return Object.assign(request, {

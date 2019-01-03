@@ -35,16 +35,16 @@ class AbstractEloquentSearcher implements Searcher
     /**
      * @inheritdoc
      */
-    public function applyTextQuery(string $query): void
+    public function search(string $query): void
     {
-        $this->textQuerier->applyTextQuery($query);
+        $this->textQuerier->applyQuery($query);
     }
 
     /**
      * @inheritdoc
      * @throws CoreException
      */
-    public function applyFilters(array $fields): void
+    public function filter(array $fields): void
     {
         $this->filterer->applyFilters($this->builder, $fields);
     }

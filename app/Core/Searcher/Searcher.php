@@ -10,22 +10,22 @@ interface Searcher
     /**
      * Applies a text filter.
      *
-     * @see applyFilters()
+     * @see filter()
      *
      * @param string $query
      * @return void
      */
-    public function applyTextQuery(string $query): void;
+    public function search(string $query): void;
 
     /**
      * Applies a per-field search filter.
      *
-     * @see applyTextQuery()
+     * @see search()
      *
      * @param array $filters
      * @return void
      */
-    public function applyFilters(array $filters): void;
+    public function filter(array $filters): void;
 
     /**
      * Sorts the results.

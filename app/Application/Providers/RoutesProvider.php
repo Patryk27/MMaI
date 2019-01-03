@@ -12,7 +12,11 @@ final class RoutesProvider extends BaseRouteServiceProvider
      */
     public function map(): void
     {
-        Route::middleware('web')->group(
+        Route::middleware(['web', 'web:api'])->group(
+            base_path('routes/api.php')
+        );
+
+        Route::middleware(['web', 'web:backend'])->group(
             base_path('routes/backend.php')
         );
 

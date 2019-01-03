@@ -3,19 +3,17 @@
 namespace App\Core\Queries;
 
 use App\Core\Searcher\Searcher;
-use Exception;
-use Illuminate\Http\Request;
 
 abstract class AbstractSearchQuery
 {
     /**
-     * @see Searcher::applyTextQuery()
+     * @see Searcher::search()
      * @var string
      */
-    private $textQuery;
+    private $query;
 
     /**
-     * @see Searcher::applyFilters()
+     * @see Searcher::filter()
      * @var array
      */
     private $filters;
@@ -34,32 +32,10 @@ abstract class AbstractSearchQuery
 
     public function __construct(array $query)
     {
-        $this->textQuery = array_get($query, 'textQuery', '');
+        $this->query = array_get($query, 'query', '');
         $this->filters = array_get($query, 'filters', []);
         $this->orderBy = array_get($query, 'orderBy', []);
         $this->pagination = array_get($query, 'pagination', []);
-    }
-
-    /**
-     * @param Request $request
-     * @return $this
-     * @throws Exception
-     */
-    public static function fromRequest(Request $request): self
-    {
-        if ($request->has('query')) {
-            $query = json_decode($request->get('query'), true);
-
-            if (!is_array($query)) {
-                throw new Exception(sprintf(
-                    'Given query is not a valid JSON.'
-                ));
-            }
-        } else {
-            $query = [];
-        }
-
-        return new static($query);
     }
 
     /**
@@ -70,11 +46,11 @@ abstract class AbstractSearchQuery
      */
     public function applyTo(Searcher $searcher): Searcher
     {
-        $searcher->applyTextQuery(
-            $this->getTextQuery()
+        $searcher->search(
+            $this->getQuery()
         );
 
-        $searcher->applyFilters(
+        $searcher->filter(
             $this->getFilters()
         );
 
@@ -95,9 +71,9 @@ abstract class AbstractSearchQuery
     /**
      * @return string
      */
-    public function getTextQuery(): string
+    public function getQuery(): string
     {
-        return $this->textQuery;
+        return $this->query;
     }
 
     /**

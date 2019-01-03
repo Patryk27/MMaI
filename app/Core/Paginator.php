@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Core\Collection;
+namespace App\Core;
 
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 
-class Paginator
+final class Paginator
 {
     /** @var Request */
     private $request;

@@ -9,8 +9,8 @@
             Name
         </th>
 
-        <th data-datatable-column='{"name": "associatedPagesCount", "orderable": true}'>
-            Number of associated pages
+        <th data-datatable-column='{"name": "assignedPagesCount", "orderable": true}'>
+            Assigned pages
         </th>
 
         <th data-datatable-column='{"name": "createdAt", "orderable": true}'>

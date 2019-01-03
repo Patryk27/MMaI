@@ -10,8 +10,6 @@ abstract class Presenter
     protected $model;
 
     /**
-     * Sets model for which this presenter will work.
-     *
      * @param Model $model
      * @return void
      */

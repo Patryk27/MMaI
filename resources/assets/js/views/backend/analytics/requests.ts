@@ -35,11 +35,10 @@ function getFilters(): any {
 
 app.addViewInitializer('backend.analytics.requests', () => {
     const dataTable = new InteractiveTable({
-        loaderSelector: '#requests-loader',
-        tableSelector: '#requests-table',
-
         autofocus: true,
-        source: '/analytics/requests/search',
+        loaderSelector: '#requests-loader',
+        source: '/api/analytics/requests',
+        tableSelector: '#requests-table',
 
         onPrepareRequest(request) {
             return Object.assign(request, {

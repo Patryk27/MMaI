@@ -6,12 +6,11 @@ export class AttachmentsFacade {
 
     public static create(file: File): ApiTrackedResponse<Attachment> {
         const data = new FormData();
-
         data.append('attachment', file);
 
         return ApiClient.trackedRequest({
             method: 'post',
-            url: '/attachments',
+            url: '/api/attachments',
             data,
         });
     }

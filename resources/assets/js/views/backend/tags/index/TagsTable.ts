@@ -13,7 +13,7 @@ export class TagsTable {
         this.dataTable = new InteractiveTable({
             autofocus: true,
             loaderSelector: loader,
-            source: '/tags/search',
+            source: '/api/tags',
             tableSelector: table,
 
             onPrepareRequest: (request) => {
@@ -35,10 +35,7 @@ export class TagsTable {
     }
 
     public refresh(filters: any): void {
-        this.state.filters = {
-            website_id: filters.websiteIds,
-        };
-
+        this.state.filters = filters;
         this.dataTable.refresh();
     }
 

@@ -18,7 +18,7 @@ abstract class AbstractInMemorySearcher implements Searcher
     /**
      * @inheritDoc
      */
-    public function applyTextQuery(string $query): void
+    public function search(string $query): void
     {
         unimplemented();
     }
@@ -26,7 +26,7 @@ abstract class AbstractInMemorySearcher implements Searcher
     /**
      * @inheritDoc
      */
-    public function applyFilters(array $filters): void
+    public function filter(array $filters): void
     {
         unimplemented();
     }

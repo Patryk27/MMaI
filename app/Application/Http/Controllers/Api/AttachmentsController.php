@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Application\Http\Controllers\Backend;
+namespace App\Application\Http\Controllers\Api;
 
 use App\Application\Http\Controllers\Controller;
 use App\Application\Http\Requests\Backend\Attachments\CreateAttachmentRequest;

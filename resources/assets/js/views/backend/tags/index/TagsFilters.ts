@@ -24,7 +24,7 @@ export class TagsFilters {
 
     public submit(): void {
         this.bus.emit('filters::submitted', {
-            websiteIds: {
+            websiteId: {
                 operator: 'in',
                 value: this.dom.websiteIds.val(),
             },

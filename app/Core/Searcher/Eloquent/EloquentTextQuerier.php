@@ -16,7 +16,7 @@ class EloquentTextQuerier
      * @param string $query
      * @return void
      */
-    public function applyTextQuery(string $query): void
+    public function applyQuery(string $query): void
     {
         if (strlen($query) === 0) {
             return;

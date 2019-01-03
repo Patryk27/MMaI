@@ -3,17 +3,18 @@ import swal from 'sweetalert';
 import { ApiClient } from '../api/ApiClient';
 import { Loader } from './Loader';
 
-interface DataTableComponentConfiguration {
+interface InteractiveTableConfiguration {
     tableSelector: string | JQuery;
     loaderSelector?: string | JQuery;
-    onPrepareRequest?: (request: any) => any;
     source: string;
     autofocus?: boolean;
+
+    onPrepareRequest?: (request: any) => any;
 }
 
 export class InteractiveTable {
 
-    private readonly config: DataTableComponentConfiguration;
+    private readonly config: InteractiveTableConfiguration;
     private readonly dataTable: any;
     private readonly loader?: Loader;
 
@@ -21,7 +22,7 @@ export class InteractiveTable {
         table: JQuery,
     };
 
-    constructor(config: DataTableComponentConfiguration) {
+    constructor(config: InteractiveTableConfiguration) {
         this.config = config;
 
         if (config.loaderSelector) {
@@ -84,18 +85,15 @@ export class InteractiveTable {
 
         const request = {
             columns,
-
-            textQuery: dtRequest.search.value,
+            query: dtRequest.search.value,
 
             pagination: {
                 page: dtRequest.start / dtRequest.length,
                 perPage: dtRequest.length,
             },
 
-            // @todo make sure sorting works correctly
             orderBy: {
-                column: columns[dtRequest.order[0].column],
-                direction: dtRequest.order[0].dir,
+                [columns[dtRequest.order[0].column]]: dtRequest.order[0].dir,
             },
         };
 
@@ -108,11 +106,19 @@ export class InteractiveTable {
         }
 
         try {
-            callback(await ApiClient.request({
-                method: 'post',
+            const response: any = await ApiClient.request({
+                method: 'get',
                 url: this.config.source,
-                data: this.buildRequest(dtRequest),
-            }));
+                params: {
+                    query: JSON.stringify(this.buildRequest(dtRequest)),
+                },
+            });
+
+            callback({
+                recordsTotal: response.allCount,
+                recordsFiltered: response.matchingCount,
+                data: response.items,
+            });
         } catch (error) {
             // noinspection JSIgnoredPromiseFromCall
             swal({

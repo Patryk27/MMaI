@@ -41,8 +41,8 @@ app.addViewInitializer('backend.tags.index', () => {
     });
 
     bus.on('filters::submitted', (filters) => {
-        if (filters.websiteIds.value.length === 1) {
-            tagsCreator.setWebsiteId(filters.websiteIds.value[0]);
+        if (filters.websiteId.value.length === 1) {
+            tagsCreator.setWebsiteId(filters.websiteId.value[0]);
         }
 
         tagsTable.refresh(filters);

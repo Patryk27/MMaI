@@ -3,8 +3,8 @@
 namespace App\Application\Http\Controllers\Frontend;
 
 use App\Application\Http\Controllers\Controller;
-use App\Core\Collection\Paginator as CollectionPaginator;
 use App\Core\Exceptions\Exception as CoreException;
+use App\Core\Paginator as CollectionPaginator;
 use App\Core\Websites\WebsiteDetector;
 use App\Pages\Exceptions\PageException;
 use App\Pages\Models\Page;
