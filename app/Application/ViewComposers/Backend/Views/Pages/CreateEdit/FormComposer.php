@@ -8,8 +8,7 @@ use App\Websites\Queries\GetAllWebsitesQuery;
 use App\Websites\WebsitesFacade;
 use Illuminate\Contracts\View\View;
 
-class FormComposer
-{
+class FormComposer {
     /** @var TagsFacade */
     private $tagsFacade;
 
@@ -29,8 +28,7 @@ class FormComposer
      * @return void
      * @throws Exception
      */
-    public function compose(View $view): void
-    {
+    public function compose(View $view): void {
         $view->with([
             'websites' => $this->websitesFacade->queryMany(
                 new GetAllWebsitesQuery()

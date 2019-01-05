@@ -4,21 +4,18 @@ namespace App\SearchEngine\Implementation\Services;
 
 use Elasticsearch\Client as ElasticsearchClient;
 
-class ElasticsearchMigrator
-{
+class ElasticsearchMigrator {
     /** @var ElasticsearchClient */
     private $elasticsearch;
 
-    public function __construct(ElasticsearchClient $elasticsearch)
-    {
+    public function __construct(ElasticsearchClient $elasticsearch) {
         $this->elasticsearch = $elasticsearch;
     }
 
     /**
      * @return void
      */
-    public function migrate(): void
-    {
+    public function migrate(): void {
         if (!$this->doesIndexExist('pages')) {
             $this->createPagesIndex();
         }
@@ -28,8 +25,7 @@ class ElasticsearchMigrator
      * @param string $index
      * @return bool
      */
-    private function doesIndexExist(string $index): bool
-    {
+    private function doesIndexExist(string $index): bool {
         return $this->elasticsearch->indices()->exists([
             'index' => $index,
         ]);
@@ -38,8 +34,7 @@ class ElasticsearchMigrator
     /**
      * @return void
      */
-    private function createPagesIndex(): void
-    {
+    private function createPagesIndex(): void {
         $this->elasticsearch->indices()->create([
             'index' => 'pages',
 

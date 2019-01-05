@@ -2,8 +2,7 @@
 
 namespace App\Core\Searcher\Expressions;
 
-final class Expression
-{
+final class Expression {
     /**
      * Function's name, e.g.: "between".
      * @var string
@@ -16,8 +15,7 @@ final class Expression
      */
     private $arguments;
 
-    public function __construct(string $function, array $arguments)
-    {
+    public function __construct(string $function, array $arguments) {
         $this->function = $function;
         $this->arguments = $arguments;
     }
@@ -25,16 +23,14 @@ final class Expression
     /**
      * @return string
      */
-    public function getFunction(): string
-    {
+    public function getFunction(): string {
         return $this->function;
     }
 
     /**
      * @return array
      */
-    public function getArguments(): array
-    {
+    public function getArguments(): array {
         return $this->arguments;
     }
 
@@ -43,8 +39,7 @@ final class Expression
      * @return mixed
      * @throws ExpressionException
      */
-    public function getArgument(int $idx)
-    {
+    public function getArgument(int $idx) {
         if (!array_key_exists($idx, $this->arguments)) {
             throw new ExpressionException(sprintf(
                 'Argument #%d was not found.', $idx

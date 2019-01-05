@@ -11,8 +11,7 @@ use Faker\Generator as FakerGenerator;
 use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Collection;
 
-final class RandomPostsSeeder extends Seeder
-{
+final class RandomPostsSeeder extends Seeder {
     private const POST_PER_LANGUAGE = 50;
 
     /** @var FakerGenerator[] */
@@ -27,8 +26,7 @@ final class RandomPostsSeeder extends Seeder
     /** @var Collection|Tag[] */
     private $tags;
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->fakers = [];
         $this->languages = Language::all();
         $this->websites = Website::all();
@@ -45,8 +43,7 @@ final class RandomPostsSeeder extends Seeder
      * @inheritDoc
      * @throws Throwable
      */
-    public function run(): void
-    {
+    public function run(): void {
         $this->command->line(sprintf(
             'About to create <info>%d</info> random posts...', $this->languages->count() * self::POST_PER_LANGUAGE
         ));
@@ -81,8 +78,7 @@ final class RandomPostsSeeder extends Seeder
      * @return void
      * @throws Throwable
      */
-    private function createRandomPosts(): void
-    {
+    private function createRandomPosts(): void {
         foreach ($this->websites as $website) {
             $page = $this->createRandomPost($website);
 
@@ -96,8 +92,7 @@ final class RandomPostsSeeder extends Seeder
      * @return Page
      * @throws Throwable
      */
-    private function createRandomPost(Website $website): Page
-    {
+    private function createRandomPost(Website $website): Page {
         $faker = $this->fakers[$website->language->id];
 
         $page = new Page([
@@ -131,8 +126,7 @@ final class RandomPostsSeeder extends Seeder
      * @param Page $page
      * @return void
      */
-    private function assignTags(Page $page): void
-    {
+    private function assignTags(Page $page): void {
         $tags = $this->tags->where('language_id', $page->website->language->id);
 
         if ($tags->isEmpty()) {
@@ -153,8 +147,7 @@ final class RandomPostsSeeder extends Seeder
      * @return void
      * @throws Throwable
      */
-    private function assignRoute(Page $page): void
-    {
+    private function assignRoute(Page $page): void {
         $route = Route::build(
             $page->website->slug,
             sprintf('%04d/%02d/%s', $page->published_at->year, $page->published_at->month, kebab_case($page->title)),

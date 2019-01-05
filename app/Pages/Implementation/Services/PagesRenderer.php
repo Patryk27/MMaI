@@ -6,13 +6,11 @@ use App\Pages\Models\Page;
 use App\Pages\ValueObjects\RenderedPage;
 use League\CommonMark\CommonMarkConverter;
 
-class PagesRenderer
-{
+class PagesRenderer {
     /** @var CommonMarkConverter */
     private $commonMarkConverter;
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->commonMarkConverter = new CommonMarkConverter();
     }
 
@@ -20,8 +18,7 @@ class PagesRenderer
      * @param Page $page
      * @return RenderedPage
      */
-    public function render(Page $page): RenderedPage
-    {
+    public function render(Page $page): RenderedPage {
         return new RenderedPage([
             'page' => $page,
             'lead' => $this->commonMarkConverter->convertToHtml($page->lead ?? ''),

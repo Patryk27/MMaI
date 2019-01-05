@@ -20,8 +20,7 @@ use App\Routes\Models\Route;
  *   second-route  => third-route
  *   third-route   => [second page]
  */
-class RerouteTest extends TestCase
-{
+class RerouteTest extends TestCase {
     /** @var Page[] */
     private $pages;
 
@@ -31,8 +30,7 @@ class RerouteTest extends TestCase
     /**
      * @inheritdoc
      */
-    public function setUp(): void
-    {
+    public function setUp(): void {
         parent::setUp();
 
         $this->pages = [
@@ -81,8 +79,7 @@ class RerouteTest extends TestCase
      * @return void
      * @throws AppException
      */
-    public function testReroute(): void
-    {
+    public function testReroute(): void {
         $this->routesFacade->reroute(
             $this->routes['second'],
             $this->routes['third']

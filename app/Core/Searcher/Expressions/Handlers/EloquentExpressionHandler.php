@@ -7,8 +7,7 @@ use App\Core\Searcher\Expressions\ExpressionHandler;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Query\Expression as QueryExpression;
 
-class EloquentExpressionHandler implements ExpressionHandler
-{
+class EloquentExpressionHandler implements ExpressionHandler {
     /** @var EloquentBuilder */
     private $builder;
 
@@ -31,8 +30,7 @@ class EloquentExpressionHandler implements ExpressionHandler
     /**
      * @inheritDoc
      */
-    public function between($min, $max): void
-    {
+    public function between($min, $max): void {
         if ($this->fieldType === EloquentMapper::FIELD_TYPE_NUMBER) {
             $min = (float)$min;
             $max = (float)$max;
@@ -44,8 +42,7 @@ class EloquentExpressionHandler implements ExpressionHandler
     /**
      * @inheritDoc
      */
-    public function regex($regex): void
-    {
+    public function regex($regex): void {
         $this->builder->whereRaw(
             sprintf('%s regexp ?', $this->fieldColumn),
             [$regex]

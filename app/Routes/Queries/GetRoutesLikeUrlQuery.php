@@ -8,21 +8,18 @@ namespace App\Routes\Queries;
  *
  * @todo include subdomain
  */
-final class GetRoutesLikeUrlQuery implements RoutesQuery
-{
+final class GetRoutesLikeUrlQuery implements RoutesQuery {
     /** @var string */
     private $url;
 
-    public function __construct(string $url)
-    {
+    public function __construct(string $url) {
         $this->url = $url;
     }
 
     /**
      * @return string
      */
-    public function getUrl(): string
-    {
+    public function getUrl(): string {
         return $this->url;
     }
 }

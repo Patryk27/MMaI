@@ -25,8 +25,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read Route|null $route
  * @property-read Website $website
  */
-class MenuItem extends Model
-{
+class MenuItem extends Model {
     /** @var string[] */
     protected $fillable = [
         'website_id',
@@ -44,8 +43,7 @@ class MenuItem extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function website()
-    {
+    public function website() {
         return $this->belongsTo(Website::class);
     }
 }

@@ -6,8 +6,7 @@ use App\Core\Searcher\Searcher;
 use App\Pages\Models\Page;
 use Illuminate\Support\Collection;
 
-interface PagesSearcher extends Searcher
-{
+interface PagesSearcher extends Searcher {
     #region Inherited from Searcher
     /**
      * @inheritdoc

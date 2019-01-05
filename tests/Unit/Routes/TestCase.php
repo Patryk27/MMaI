@@ -12,8 +12,7 @@ use Tests\Assertions\Routes\RouteExistsAssertion;
 use Tests\Assertions\Routes\RoutePointsAtAssertion;
 use Tests\Unit\TestCase as BaseTestCase;
 
-abstract class TestCase extends BaseTestCase
-{
+abstract class TestCase extends BaseTestCase {
     /** @var InMemoryRoutesRepository */
     protected $routesRepository;
 
@@ -23,8 +22,7 @@ abstract class TestCase extends BaseTestCase
     /**
      * @return void
      */
-    public function setUp(): void
-    {
+    public function setUp(): void {
         parent::setUp();
 
         $this->routesRepository = new InMemoryRoutesRepository(
@@ -39,8 +37,7 @@ abstract class TestCase extends BaseTestCase
      * @param string $url
      * @return void
      */
-    protected function assertRouteExists(string $subdomain, string $url): void
-    {
+    protected function assertRouteExists(string $subdomain, string $url): void {
         $payload = [
             'subdomain' => $subdomain,
             'url' => $url,
@@ -54,8 +51,7 @@ abstract class TestCase extends BaseTestCase
      * @param string $url
      * @return void
      */
-    protected function assertRouteDoesNotExist(string $subdomain, string $url): void
-    {
+    protected function assertRouteDoesNotExist(string $subdomain, string $url): void {
         $payload = [
             'subdomain' => $subdomain,
             'url' => $url,
@@ -70,8 +66,7 @@ abstract class TestCase extends BaseTestCase
      * @param Morphable $morphable
      * @return void
      */
-    protected function assertRoutePointsAt(string $subdomain, string $url, Morphable $morphable): void
-    {
+    protected function assertRoutePointsAt(string $subdomain, string $url, Morphable $morphable): void {
         $payload = [
             'subdomain' => $subdomain,
             'url' => $url,

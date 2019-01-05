@@ -5,8 +5,7 @@ namespace App\Core\Searcher;
 use Illuminate\Support\Collection;
 
 // @todo describe + provide examples
-interface Searcher
-{
+interface Searcher {
     /**
      * Applies a text filter.
      *

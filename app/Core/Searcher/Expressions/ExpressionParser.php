@@ -2,15 +2,13 @@
 
 namespace App\Core\Searcher\Expressions;
 
-class ExpressionParser
-{
+class ExpressionParser {
     /**
      * @param string $expression
      * @return Expression
      * @throws ExpressionException
      */
-    public function parse(string $expression): Expression
-    {
+    public function parse(string $expression): Expression {
         $scanner = new ExpressionScanner($expression);
 
         // Expression must start with a colon

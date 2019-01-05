@@ -2,14 +2,12 @@
 
 use App\Languages\Models\Language;
 
-final class LanguagesSeeder extends Seeder
-{
+final class LanguagesSeeder extends Seeder {
     /**
      * @return void
      * @throws Throwable
      */
-    public function run(): void
-    {
+    public function run(): void {
         $this->createLanguage('pl', 'pl', 'Polish', 'Polski');
         $this->createLanguage('en', 'us', 'English', 'English');
     }

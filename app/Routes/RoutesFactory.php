@@ -8,8 +8,7 @@ use App\Routes\Implementation\Services\RoutesQuerier;
 use App\Routes\Implementation\Services\RoutesRerouter;
 use App\Routes\Implementation\Services\RoutesValidator;
 
-final class RoutesFactory
-{
+final class RoutesFactory {
     /**
      * Builds an instance of @see RoutesFacade.
      *

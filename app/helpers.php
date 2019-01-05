@@ -8,8 +8,7 @@ use Illuminate\Support\Collection;
  *
  * @return void
  */
-function unimplemented(): void
-{
+function unimplemented(): void {
     $frames = debug_backtrace();
     $callerFrame = $frames[1];
 
@@ -37,8 +36,7 @@ function unimplemented(): void
  * @param mixed|null $value
  * @return Collection
  */
-function collect_one($value): Collection
-{
+function collect_one($value): Collection {
     $collection = new Collection();
 
     if (isset($value)) {

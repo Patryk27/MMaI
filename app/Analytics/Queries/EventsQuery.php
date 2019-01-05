@@ -2,6 +2,5 @@
 
 namespace App\Analytics\Queries;
 
-interface EventsQuery
-{
+interface EventsQuery {
 }

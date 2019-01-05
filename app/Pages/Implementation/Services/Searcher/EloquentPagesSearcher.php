@@ -9,8 +9,7 @@ use App\Pages\Models\Page;
 use App\Pages\Queries\SearchPages;
 use Illuminate\Database\Query\JoinClause;
 
-class EloquentPagesSearcher extends AbstractEloquentSearcher implements PagesSearcher
-{
+class EloquentPagesSearcher extends AbstractEloquentSearcher implements PagesSearcher {
     private const FIELDS = [
         SearchPages::FIELD_ID => [
             'column' => 'pages.id',
@@ -56,8 +55,7 @@ class EloquentPagesSearcher extends AbstractEloquentSearcher implements PagesSea
     /**
      * @param Page $page
      */
-    public function __construct(Page $page)
-    {
+    public function __construct(Page $page) {
         parent::__construct($page, self::FIELDS);
 
         $this->builder->selectRaw('pages.*');
@@ -82,8 +80,7 @@ class EloquentPagesSearcher extends AbstractEloquentSearcher implements PagesSea
     /**
      * @inheritdoc
      */
-    public function count(): int
-    {
+    public function count(): int {
         return $this->builder->count('pages.id');
     }
 }

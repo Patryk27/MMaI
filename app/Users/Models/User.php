@@ -21,8 +21,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property-read Carbon $created_at
  * @property-read Carbon $updated_at
  */
-class User extends Authenticatable
-{
+class User extends Authenticatable {
     /** @var string[] */
     protected $fillable = [
         'login',

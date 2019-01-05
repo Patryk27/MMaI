@@ -4,8 +4,7 @@ namespace App\Core\Layout;
 
 use Illuminate\Session\Store as SessionStore;
 
-class Flasher
-{
+class Flasher {
     private const
         TYPE_SUCCESS = 'success',
         TYPE_INFORMATION = 'info',
@@ -15,8 +14,7 @@ class Flasher
     /*** @var SessionStore */
     private $session;
 
-    public function __construct(SessionStore $session)
-    {
+    public function __construct(SessionStore $session) {
         $this->session = $session;
     }
 
@@ -26,8 +24,7 @@ class Flasher
      * @param string $content
      * @return void
      */
-    public function flashSuccess(string $content): void
-    {
+    public function flashSuccess(string $content): void {
         $this->flash(self::TYPE_SUCCESS, $content);
     }
 
@@ -37,8 +34,7 @@ class Flasher
      * @param string $content
      * @return void
      */
-    public function flashInformation(string $content): void
-    {
+    public function flashInformation(string $content): void {
         $this->flash(self::TYPE_INFORMATION, $content);
     }
 
@@ -48,8 +44,7 @@ class Flasher
      * @param string $content
      * @return void
      */
-    public function flashWarning(string $content): void
-    {
+    public function flashWarning(string $content): void {
         $this->flash(self::TYPE_WARNING, $content);
     }
 
@@ -59,8 +54,7 @@ class Flasher
      * @param string $content
      * @return void
      */
-    public function flashError(string $content): void
-    {
+    public function flashError(string $content): void {
         $this->flash(self::TYPE_ERROR, $content);
     }
 
@@ -69,8 +63,7 @@ class Flasher
      * @param string $content
      * @return void
      */
-    private function flash(string $type, string $content): void
-    {
+    private function flash(string $type, string $content): void {
         $messages = $this->session->get('messages', []);
 
         $messages[] = [

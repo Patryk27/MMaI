@@ -9,8 +9,7 @@ use App\SearchEngine\SearchEngineFacade;
 use App\Tags\Events\TagUpdated;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-final class TagUpdatedListener implements ShouldQueue
-{
+final class TagUpdatedListener implements ShouldQueue {
     /** @var PagesFacade */
     private $pagesFacade;
 
@@ -30,8 +29,7 @@ final class TagUpdatedListener implements ShouldQueue
      * @return void
      * @throws PageException
      */
-    public function handle(TagUpdated $event): void
-    {
+    public function handle(TagUpdated $event): void {
         $pages = $this->pagesFacade->queryMany(
             new GetPagesByTagIdQuery(
                 $event->getTag()->id

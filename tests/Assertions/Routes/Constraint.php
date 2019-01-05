@@ -5,13 +5,11 @@ namespace Tests\Assertions\Routes;
 use App\Routes\RoutesFacade;
 use PHPUnit\Framework\Constraint\Constraint as PHPUnitConstraint;
 
-abstract class Constraint extends PHPUnitConstraint
-{
+abstract class Constraint extends PHPUnitConstraint {
     /** @var RoutesFacade */
     protected $routesFacade;
 
-    public function __construct(RoutesFacade $routesFacade)
-    {
+    public function __construct(RoutesFacade $routesFacade) {
         parent::__construct();
 
         $this->routesFacade = $routesFacade;
@@ -20,8 +18,7 @@ abstract class Constraint extends PHPUnitConstraint
     /**
      * @inheritDoc
      */
-    public function toString(): string
-    {
+    public function toString(): string {
         return '';
     }
 }

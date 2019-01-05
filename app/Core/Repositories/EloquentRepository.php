@@ -14,21 +14,18 @@ use Throwable;
  *
  * E.g. @see \App\Routes\Implementation\Repositories\EloquentRoutesRepository.
  */
-final class EloquentRepository
-{
+final class EloquentRepository {
     /** @var Model */
     private $model;
 
-    public function __construct(Model $model)
-    {
+    public function __construct(Model $model) {
         $this->model = $model;
     }
 
     /**
      * @return EloquentBuilder
      */
-    public function newQuery(): EloquentBuilder
-    {
+    public function newQuery(): EloquentBuilder {
         return $this->model->newQuery();
     }
 
@@ -39,8 +36,7 @@ final class EloquentRepository
      * @param int $id
      * @return mixed|null
      */
-    public function getById(int $id)
-    {
+    public function getById(int $id) {
         return $this->getBy('id', $id);
     }
 
@@ -51,8 +47,7 @@ final class EloquentRepository
      * @return void
      * @throws Throwable
      */
-    public function persist(Model $model): void
-    {
+    public function persist(Model $model): void {
         $this->assertModelHasCorrectType($model);
         $model->saveOrFail();
     }
@@ -64,8 +59,7 @@ final class EloquentRepository
      * @return void
      * @throws Throwable
      */
-    public function delete(Model $model): void
-    {
+    public function delete(Model $model): void {
         $this->assertModelHasCorrectType($model);
         $model->delete();
     }
@@ -80,8 +74,7 @@ final class EloquentRepository
      * @param mixed $attributeValue
      * @return mixed|null
      */
-    public function getBy(string $attributeName, $attributeValue)
-    {
+    public function getBy(string $attributeName, $attributeValue) {
         return $this->model->where($attributeName, $attributeValue)->first();
     }
 
@@ -92,8 +85,7 @@ final class EloquentRepository
      * @param mixed $attributeValue
      * @return Collection|Model[]
      */
-    public function getByMany(string $attributeName, $attributeValue): Collection
-    {
+    public function getByMany(string $attributeName, $attributeValue): Collection {
         return $this->model->where($attributeName, $attributeValue)->get();
     }
 
@@ -102,8 +94,7 @@ final class EloquentRepository
      *
      * @return Collection|Model[]
      */
-    public function getAll(): Collection
-    {
+    public function getAll(): Collection {
         return $this->model->all();
     }
 
@@ -115,8 +106,7 @@ final class EloquentRepository
      * @return void
      * @throws RepositoryException
      */
-    private function assertModelHasCorrectType($model): void
-    {
+    private function assertModelHasCorrectType($model): void {
         if (!$model instanceof $this->model) {
             throw RepositoryException::makeModelIsInvalid(sprintf(
                 'model is not an instance of [%s].', get_class($this->model)

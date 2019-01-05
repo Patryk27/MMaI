@@ -6,8 +6,7 @@ use App\Core\Models\Morphable;
 use App\Routes\Models\Route;
 use Illuminate\Support\Collection;
 
-interface RoutesRepository
-{
+interface RoutesRepository {
     /**
      * Returns route with given subdomain and URL, or `null` if no such route
      * exists.

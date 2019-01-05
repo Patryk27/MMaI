@@ -5,13 +5,11 @@ namespace App\Application\Providers;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as BaseRouteServiceProvider;
 use Illuminate\Support\Facades\Route;
 
-final class RoutesProvider extends BaseRouteServiceProvider
-{
+final class RoutesProvider extends BaseRouteServiceProvider {
     /**
      * @return void
      */
-    public function map(): void
-    {
+    public function map(): void {
         Route::middleware(['web', 'web:api'])->group(
             base_path('routes/api.php')
         );

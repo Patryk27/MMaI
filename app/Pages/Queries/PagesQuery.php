@@ -2,6 +2,5 @@
 
 namespace App\Pages\Queries;
 
-interface PagesQuery
-{
+interface PagesQuery {
 }

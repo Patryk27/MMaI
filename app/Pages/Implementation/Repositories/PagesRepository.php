@@ -5,8 +5,7 @@ namespace App\Pages\Implementation\Repositories;
 use App\Pages\Models\Page;
 use Illuminate\Support\Collection;
 
-interface PagesRepository
-{
+interface PagesRepository {
     /**
      * Returns page with given id or `null` if no such page exists.
      *

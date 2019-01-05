@@ -2,8 +2,7 @@
 
 namespace App\Core\Searcher\Expressions;
 
-class ExpressionProcessor
-{
+class ExpressionProcessor {
     /** @var ExpressionParser */
     private $parser;
 
@@ -23,8 +22,7 @@ class ExpressionProcessor
      * @return void
      * @throws ExpressionException
      */
-    public function process(string $expression): void
-    {
+    public function process(string $expression): void {
         $expression = $this->parser->parse($expression);
 
         switch ($expression->getFunction()) {

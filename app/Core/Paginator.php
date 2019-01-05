@@ -6,13 +6,11 @@ use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 
-final class Paginator
-{
+final class Paginator {
     /** @var Request */
     private $request;
 
-    public function __construct(Request $request)
-    {
+    public function __construct(Request $request) {
         $this->request = $request;
     }
 
@@ -24,8 +22,7 @@ final class Paginator
      * @param int $numberOfItemsPerPage
      * @return LengthAwarePaginator
      */
-    public function build(Collection $items, int $totalNumberOfItems, int $numberOfItemsPerPage): LengthAwarePaginator
-    {
+    public function build(Collection $items, int $totalNumberOfItems, int $numberOfItemsPerPage): LengthAwarePaginator {
         $paginator = new LengthAwarePaginator(
             $items,
             $totalNumberOfItems,
@@ -46,8 +43,7 @@ final class Paginator
      *
      * @return int
      */
-    public function getCurrentPageNumber(): int
-    {
+    public function getCurrentPageNumber(): int {
         return $this->request->get('page') ?? 1;
     }
 }

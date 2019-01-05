@@ -9,8 +9,7 @@ use App\Routes\Models\Route;
 use Illuminate\Contracts\Events\Dispatcher as EventsDispatcher;
 use Throwable;
 
-class PagesCreator
-{
+class PagesCreator {
     /** @var EventsDispatcher */
     private $eventsDispatcher;
 
@@ -40,8 +39,7 @@ class PagesCreator
      * @return Page
      * @throws Throwable
      */
-    public function create(array $pageData): Page
-    {
+    public function create(array $pageData): Page {
         $page = new Page([
             'website_id' => array_get($pageData, 'website_id'),
 

@@ -7,13 +7,11 @@ use Illuminate\Support\ServiceProvider;
 use Schema;
 use View;
 
-final class ApplicationProvider extends ServiceProvider
-{
+final class ApplicationProvider extends ServiceProvider {
     /**
      * @return void
      */
-    public function register(): void
-    {
+    public function register(): void {
         if ($this->app->environment() !== 'production') {
             $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
         }
@@ -22,8 +20,7 @@ final class ApplicationProvider extends ServiceProvider
     /**
      * @return void
      */
-    public function boot(): void
-    {
+    public function boot(): void {
         Schema::defaultStringLength(191);
 
         Relation::morphMap([

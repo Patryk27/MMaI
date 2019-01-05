@@ -12,8 +12,7 @@ use League\Flysystem\Memory\MemoryAdapter;
 use Tests\Unit\TestCase as BaseTestCase;
 use Tests\Unit\Traits\CreatesAttachments;
 
-abstract class TestCase extends BaseTestCase
-{
+abstract class TestCase extends BaseTestCase {
     use CreatesAttachments;
 
     /** @var FilesystemAdapter */
@@ -28,8 +27,7 @@ abstract class TestCase extends BaseTestCase
     /**
      * @inheritdoc
      */
-    public function setUp(): void
-    {
+    public function setUp(): void {
         parent::setUp();
 
         $this->attachmentsFs = new FilesystemAdapter(

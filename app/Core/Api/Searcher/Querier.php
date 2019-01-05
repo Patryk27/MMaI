@@ -5,8 +5,7 @@ namespace App\Core\Api\Searcher;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
-final class Querier
-{
+final class Querier {
     /** @var callable */
     private $counter;
 
@@ -17,8 +16,7 @@ final class Querier
      * @param callable $counter
      * @return void
      */
-    public function setCounter(callable $counter): void
-    {
+    public function setCounter(callable $counter): void {
         $this->counter = $counter;
     }
 
@@ -26,8 +24,7 @@ final class Querier
      * @param callable $fetcher
      * @return void
      */
-    public function setFetcher(callable $fetcher): void
-    {
+    public function setFetcher(callable $fetcher): void {
         $this->fetcher = $fetcher;
     }
 
@@ -37,8 +34,7 @@ final class Querier
      *
      * @return int
      */
-    public function countAllItems(): int
-    {
+    public function countAllItems(): int {
         return ($this->counter)([]);
     }
 
@@ -49,8 +45,7 @@ final class Querier
      * @param array $query
      * @return int
      */
-    public function countMatchingItems(array $query): int
-    {
+    public function countMatchingItems(array $query): int {
         if (isset($query['pagination'])) {
             unset($query['pagination']);
         }
@@ -64,8 +59,7 @@ final class Querier
      * @param array $query
      * @return Collection|Model[]
      */
-    public function searchItems(array $query): Collection
-    {
+    public function searchItems(array $query): Collection {
         return ($this->fetcher)($query);
     }
 }

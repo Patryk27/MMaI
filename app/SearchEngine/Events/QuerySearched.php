@@ -5,8 +5,7 @@ namespace App\SearchEngine\Events;
 use App\SearchEngine\Queries\SearchQuery;
 use Illuminate\Queue\SerializesModels;
 
-final class QuerySearched
-{
+final class QuerySearched {
     use SerializesModels;
 
     /** @var SearchQuery */
@@ -19,8 +18,7 @@ final class QuerySearched
      * @param SearchQuery $query
      * @param int[] $matchedIds
      */
-    public function __construct(SearchQuery $query, array $matchedIds)
-    {
+    public function __construct(SearchQuery $query, array $matchedIds) {
         $this->query = $query;
         $this->matchedIds = $matchedIds;
     }
@@ -28,16 +26,14 @@ final class QuerySearched
     /**
      * @return SearchQuery
      */
-    public function getQuery(): SearchQuery
-    {
+    public function getQuery(): SearchQuery {
         return $this->query;
     }
 
     /**
      * @return int[]
      */
-    public function getMatchedIds(): array
-    {
+    public function getMatchedIds(): array {
         return $this->matchedIds;
     }
 }

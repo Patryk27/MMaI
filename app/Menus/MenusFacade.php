@@ -9,13 +9,11 @@ use App\Menus\Models\MenuItem;
 use App\Menus\Queries\MenuItemsQuery;
 use Illuminate\Support\Collection;
 
-final class MenusFacade
-{
+final class MenusFacade {
     /** @var MenuItemsQuerier */
     private $menuItemsQuerier;
 
-    public function __construct(MenuItemsQuerier $menuItemsQuerier)
-    {
+    public function __construct(MenuItemsQuerier $menuItemsQuerier) {
         $this->menuItemsQuerier = $menuItemsQuerier;
     }
 
@@ -28,8 +26,7 @@ final class MenusFacade
      * @throws MenuException
      * @throws MenuItemNotFoundException
      */
-    public function queryOne(MenuItemsQuery $query): MenuItem
-    {
+    public function queryOne(MenuItemsQuery $query): MenuItem {
         $menuItems = $this->queryMany($query);
 
         if ($menuItems->isEmpty()) {
@@ -46,8 +43,7 @@ final class MenusFacade
      * @return Collection|MenuItem[]
      * @throws MenuException
      */
-    public function queryMany(MenuItemsQuery $query): Collection
-    {
+    public function queryMany(MenuItemsQuery $query): Collection {
         return $this->menuItemsQuerier->query($query);
     }
 }

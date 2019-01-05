@@ -13,8 +13,7 @@ use App\Pages\Implementation\Services\PagesValidator;
 use App\Tags\TagsFacade;
 use Illuminate\Contracts\Events\Dispatcher as EventsDispatcher;
 
-final class PagesFactory
-{
+final class PagesFactory {
     /**
      * Builds an instance of @see PagesFacade.
      *

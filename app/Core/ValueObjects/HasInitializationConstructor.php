@@ -4,14 +4,12 @@ namespace App\Core\ValueObjects;
 
 use LogicException;
 
-trait HasInitializationConstructor
-{
+trait HasInitializationConstructor {
     /**
      * @param array $properties
      * @throws LogicException
      */
-    public function __construct(array $properties)
-    {
+    public function __construct(array $properties) {
         foreach ($properties as $propertyName => $propertyValue) {
             $propertyName = camel_case($propertyName);
 

@@ -14,8 +14,7 @@ use App\Websites\Exceptions\WebsiteException;
 use Illuminate\Contracts\View\Factory as ViewFactory;
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
-{
+class HomeController extends Controller {
     private const NUMBER_OF_ITEMS_PER_PAGE = 10;
 
     /** @var ViewFactory */
@@ -51,8 +50,7 @@ class HomeController extends Controller
      *
      * @todo a bit too much happens in here
      */
-    public function index(Request $request)
-    {
+    public function index(Request $request) {
         $website = $this->websiteDetector->detectOrFail($request);
 
         $query = [

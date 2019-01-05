@@ -9,13 +9,11 @@ use App\Websites\Queries\GetAllWebsitesQuery;
 use App\Websites\WebsitesFacade;
 use Illuminate\Contracts\View\View;
 
-class PagesController extends Controller
-{
+class PagesController extends Controller {
     /** @var WebsitesFacade */
     private $websitesFacade;
 
-    public function __construct(WebsitesFacade $websitesFacade)
-    {
+    public function __construct(WebsitesFacade $websitesFacade) {
         $this->websitesFacade = $websitesFacade;
     }
 
@@ -23,8 +21,7 @@ class PagesController extends Controller
      * @return View
      * @throws WebsiteException
      */
-    public function index(): View
-    {
+    public function index(): View {
         $websites = $this->websitesFacade->queryMany(
             new GetAllWebsitesQuery()
         );
@@ -43,8 +40,7 @@ class PagesController extends Controller
     /**
      * @return View
      */
-    public function createPage(): View
-    {
+    public function createPage(): View {
         return view('backend.views.pages.create', [
             'type' => Page::TYPE_PAGE,
         ]);
@@ -53,8 +49,7 @@ class PagesController extends Controller
     /**
      * @return View
      */
-    public function createPost(): View
-    {
+    public function createPost(): View {
         return view('backend.views.pages.create', [
             'type' => Page::TYPE_POST,
         ]);
@@ -64,8 +59,7 @@ class PagesController extends Controller
      * @param Page $page
      * @return View
      */
-    public function edit(Page $page): View
-    {
+    public function edit(Page $page): View {
         return view('backend.views.pages.edit', [
             'page' => $page,
         ]);

@@ -8,8 +8,7 @@ use App\Tags\Implementation\Repositories\TagsRepository;
 use App\Tags\Models\Tag;
 use Illuminate\Contracts\Events\Dispatcher as EventsDispatcher;
 
-class TagsCreator
-{
+class TagsCreator {
     /** @var EventsDispatcher */
     private $eventsDispatcher;
 
@@ -34,8 +33,7 @@ class TagsCreator
      * @return Tag
      * @throws TagException
      */
-    public function create(array $tagData): Tag
-    {
+    public function create(array $tagData): Tag {
         $tag = new Tag(
             array_only($tagData, ['website_id', 'name'])
         );

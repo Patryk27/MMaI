@@ -9,13 +9,11 @@ use App\Languages\Models\Language;
 use App\Languages\Queries\LanguagesQuery;
 use Illuminate\Support\Collection;
 
-final class LanguagesFacade
-{
+final class LanguagesFacade {
     /** @var LanguagesQuerier */
     private $languagesQuerier;
 
-    public function __construct(LanguagesQuerier $languagesQuerier)
-    {
+    public function __construct(LanguagesQuerier $languagesQuerier) {
         $this->languagesQuerier = $languagesQuerier;
     }
 
@@ -28,8 +26,7 @@ final class LanguagesFacade
      * @throws LanguageException
      * @throws LanguageNotFoundException
      */
-    public function queryOne(LanguagesQuery $query): Language
-    {
+    public function queryOne(LanguagesQuery $query): Language {
         $languages = $this->queryMany($query);
 
         if ($languages->isEmpty()) {
@@ -46,8 +43,7 @@ final class LanguagesFacade
      * @return Collection|Language[]
      * @throws LanguageException
      */
-    public function queryMany(LanguagesQuery $query): Collection
-    {
+    public function queryMany(LanguagesQuery $query): Collection {
         return $this->languagesQuerier->query($query);
     }
 }

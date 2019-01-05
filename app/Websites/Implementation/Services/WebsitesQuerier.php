@@ -9,13 +9,11 @@ use App\Websites\Queries\GetWebsiteBySlugQuery;
 use App\Websites\Queries\WebsitesQuery;
 use Illuminate\Support\Collection;
 
-class WebsitesQuerier
-{
+class WebsitesQuerier {
     /** @var WebsitesRepository */
     private $websitesRepository;
 
-    public function __construct(WebsitesRepository $websitesRepository)
-    {
+    public function __construct(WebsitesRepository $websitesRepository) {
         $this->websitesRepository = $websitesRepository;
     }
 
@@ -24,8 +22,7 @@ class WebsitesQuerier
      * @return Collection
      * @throws WebsiteException
      */
-    public function query(WebsitesQuery $query): Collection
-    {
+    public function query(WebsitesQuery $query): Collection {
         switch (true) {
             case $query instanceof GetAllWebsitesQuery:
                 return $this->websitesRepository->getAll();

@@ -13,53 +13,46 @@ use Illuminate\Support\Collection;
  * We need a dummy implementation though to construct instances of the
  * @see \App\Pages\PagesFacade for instance.
  */
-abstract class AbstractInMemorySearcher implements Searcher
-{
+abstract class AbstractInMemorySearcher implements Searcher {
     /**
      * @inheritDoc
      */
-    public function search(string $query): void
-    {
+    public function search(string $query): void {
         unimplemented();
     }
 
     /**
      * @inheritDoc
      */
-    public function filter(array $filters): void
-    {
+    public function filter(array $filters): void {
         unimplemented();
     }
 
     /**
      * @inheritDoc
      */
-    public function orderBy(string $fieldName, bool $ascending): void
-    {
+    public function orderBy(string $fieldName, bool $ascending): void {
         unimplemented();
     }
 
     /**
      * @inheritDoc
      */
-    public function paginate(int $page, int $perPage): void
-    {
+    public function paginate(int $page, int $perPage): void {
         unimplemented();
     }
 
     /**
      * @inheritDoc
      */
-    public function get(): Collection
-    {
+    public function get(): Collection {
         unimplemented();
     }
 
     /**
      * @inheritDoc
      */
-    public function count(): int
-    {
+    public function count(): int {
         unimplemented();
     }
 }

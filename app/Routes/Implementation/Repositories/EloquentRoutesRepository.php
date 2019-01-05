@@ -8,21 +8,18 @@ use App\Routes\Models\Route;
 use Illuminate\Support\Collection;
 use Throwable;
 
-class EloquentRoutesRepository implements RoutesRepository
-{
+class EloquentRoutesRepository implements RoutesRepository {
     /** @var EloquentRepository */
     private $repository;
 
-    public function __construct(Route $route)
-    {
+    public function __construct(Route $route) {
         $this->repository = new EloquentRepository($route);
     }
 
     /**
      * @inheritDoc
      */
-    public function getBySubdomainAndUrl(string $subdomain, string $url): ?Route
-    {
+    public function getBySubdomainAndUrl(string $subdomain, string $url): ?Route {
         return $this->repository
             ->newQuery()
             ->where([
@@ -35,8 +32,7 @@ class EloquentRoutesRepository implements RoutesRepository
     /**
      * @inheritDoc
      */
-    public function getLikeUrl(string $url): Collection
-    {
+    public function getLikeUrl(string $url): Collection {
         return $this->repository
             ->newQuery()
             ->where('url', 'like', $url)
@@ -46,8 +42,7 @@ class EloquentRoutesRepository implements RoutesRepository
     /**
      * @inheritDoc
      */
-    public function getPointingAt(Morphable $morphable): Collection
-    {
+    public function getPointingAt(Morphable $morphable): Collection {
         return $this->repository
             ->newQuery()
             ->where([
@@ -61,8 +56,7 @@ class EloquentRoutesRepository implements RoutesRepository
      * @inheritDoc
      * @throws Throwable
      */
-    public function persist(Route $route): void
-    {
+    public function persist(Route $route): void {
         $this->repository->persist($route);
     }
 
@@ -70,8 +64,7 @@ class EloquentRoutesRepository implements RoutesRepository
      * @inheritDoc
      * @throws Throwable
      */
-    public function delete(Route $route): void
-    {
+    public function delete(Route $route): void {
         $this->repository->delete($route);
     }
 }

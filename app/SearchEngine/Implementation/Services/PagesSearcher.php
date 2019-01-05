@@ -12,8 +12,7 @@ use Elasticsearch\Client as ElasticsearchClient;
 use Illuminate\Contracts\Events\Dispatcher as EventsDispatcher;
 use Illuminate\Support\Collection;
 
-class PagesSearcher
-{
+class PagesSearcher {
     /** @var EventsDispatcher */
     private $eventsDispatcher;
 
@@ -38,8 +37,7 @@ class PagesSearcher
      * @return Collection|Page[]
      * @throws PageException
      */
-    public function search(SearchQuery $query): Collection
-    {
+    public function search(SearchQuery $query): Collection {
         $pageIds = $this->getMatchingPageIds($query);
 
         $this->eventsDispatcher->dispatch(
@@ -57,8 +55,7 @@ class PagesSearcher
      * @param SearchQuery $query
      * @return Collection|int[]
      */
-    private function getMatchingPageIds(SearchQuery $query): Collection
-    {
+    private function getMatchingPageIds(SearchQuery $query): Collection {
         $filters = [];
 
         if ($query->hasType()) {

@@ -9,8 +9,7 @@ use App\Tags\Models\Tag;
 use App\Tags\Queries\SearchTagsQuery;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 
-class EloquentTagsSearcher extends AbstractEloquentSearcher implements TagsSearcher
-{
+class EloquentTagsSearcher extends AbstractEloquentSearcher implements TagsSearcher {
     private const FIELDS = [
         SearchTagsQuery::FIELD_ID => [
             'column' => 'tags.id',
@@ -38,8 +37,7 @@ class EloquentTagsSearcher extends AbstractEloquentSearcher implements TagsSearc
         ],
     ];
 
-    public function __construct(Tag $tag)
-    {
+    public function __construct(Tag $tag) {
         parent::__construct($tag, self::FIELDS);
 
         $this->builder->selectRaw('tags.*');
@@ -59,8 +57,7 @@ class EloquentTagsSearcher extends AbstractEloquentSearcher implements TagsSearc
     /**
      * @inheritdoc
      */
-    public function count(): int
-    {
+    public function count(): int {
         return $this->get()->count(); // @todo provide a better implementation
     }
 }

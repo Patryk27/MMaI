@@ -6,13 +6,11 @@ use App\Routes\Exceptions\RouteException;
 use App\Routes\Implementation\Repositories\RoutesRepository;
 use App\Routes\Models\Route;
 
-class RoutesRerouter
-{
+class RoutesRerouter {
     /** @var RoutesRepository */
     private $routesRepository;
 
-    public function __construct(RoutesRepository $routesRepository)
-    {
+    public function __construct(RoutesRepository $routesRepository) {
         $this->routesRepository = $routesRepository;
     }
 
@@ -24,8 +22,7 @@ class RoutesRerouter
      *
      * @todo utilize transactions / move to repository
      */
-    public function reroute(Route $oldRoute, Route $newRoute): void
-    {
+    public function reroute(Route $oldRoute, Route $newRoute): void {
         if (!$oldRoute->exists || !$newRoute->exists) {
             throw new RouteException('Cannot re-route non-existing routes.');
         }

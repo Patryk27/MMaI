@@ -6,8 +6,7 @@ use App\Attachments\Implementation\Repositories\AttachmentsRepository;
 use App\Attachments\ValueObjects\AttachmentsGarbageCollectorResult;
 use Illuminate\Contracts\Filesystem\Filesystem;
 
-class AttachmentsGarbageCollector
-{
+class AttachmentsGarbageCollector {
     /** @var Filesystem */
     private $attachmentsFs;
 
@@ -31,8 +30,7 @@ class AttachmentsGarbageCollector
      * @param bool $aggressive
      * @return AttachmentsGarbageCollectorResult
      */
-    public function collectGarbage(bool $aggressive): AttachmentsGarbageCollectorResult
-    {
+    public function collectGarbage(bool $aggressive): AttachmentsGarbageCollectorResult {
         $scannedAttachmentsCount = 0;
         $removedAttachmentsCount = 0;
 

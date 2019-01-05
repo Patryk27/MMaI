@@ -5,8 +5,7 @@ namespace App\Application\Console\Commands\Attachments;
 use App\Attachments\AttachmentsFacade;
 use Illuminate\Console\Command;
 
-final class CollectGarbageCommand extends Command
-{
+final class CollectGarbageCommand extends Command {
     /** @var string */
     protected $signature = 'app:attachments:gc {--aggressive}';
 
@@ -16,8 +15,7 @@ final class CollectGarbageCommand extends Command
     /** @var AttachmentsFacade */
     private $attachmentsFacade;
 
-    public function __construct(AttachmentsFacade $attachmentsFacade)
-    {
+    public function __construct(AttachmentsFacade $attachmentsFacade) {
         parent::__construct();
 
         $this->attachmentsFacade = $attachmentsFacade;
@@ -26,8 +24,7 @@ final class CollectGarbageCommand extends Command
     /**
      * @return void
      */
-    public function handle(): void
-    {
+    public function handle(): void {
         $this->output->writeln('Removing detached attachments...');
 
         $result = $this->attachmentsFacade->collectGarbage(

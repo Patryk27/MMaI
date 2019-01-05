@@ -5,13 +5,11 @@ namespace App\Core\Searcher\Eloquent\Operators;
 use App\Core\Exceptions\Exception as CoreException;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 
-class InOperatorHandler extends AbstractOperatorHandler implements OperatorHandler
-{
+class InOperatorHandler extends AbstractOperatorHandler implements OperatorHandler {
     /**
      * @inheritDoc
      */
-    public function canHandle(string $operatorName): bool
-    {
+    public function canHandle(string $operatorName): bool {
         return $operatorName === 'in';
     }
 

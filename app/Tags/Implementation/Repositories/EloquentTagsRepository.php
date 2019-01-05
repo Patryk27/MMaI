@@ -7,29 +7,25 @@ use App\Tags\Models\Tag;
 use Illuminate\Support\Collection;
 use Throwable;
 
-class EloquentTagsRepository implements TagsRepository
-{
+class EloquentTagsRepository implements TagsRepository {
     /** @var EloquentRepository */
     private $repository;
 
-    public function __construct(Tag $tag)
-    {
+    public function __construct(Tag $tag) {
         $this->repository = new EloquentRepository($tag);
     }
 
     /**
      * @inheritDoc
      */
-    public function getById(int $id): ?Tag
-    {
+    public function getById(int $id): ?Tag {
         return $this->repository->getById($id);
     }
 
     /**
      * @inheritDoc
      */
-    public function getByWebsiteIdAndName(int $websiteId, string $name): ?Tag
-    {
+    public function getByWebsiteIdAndName(int $websiteId, string $name): ?Tag {
         $stmt = $this->repository->newQuery();
         $stmt
             ->where('website_id', $websiteId)
@@ -41,8 +37,7 @@ class EloquentTagsRepository implements TagsRepository
     /**
      * @inheritDoc
      */
-    public function getAll(): Collection
-    {
+    public function getAll(): Collection {
         return $this->repository
             ->getAll()
             ->sortBy('name');
@@ -52,8 +47,7 @@ class EloquentTagsRepository implements TagsRepository
      * @inheritDoc
      * @throws Throwable
      */
-    public function persist(Tag $tag): void
-    {
+    public function persist(Tag $tag): void {
         $this->repository->persist($tag);
     }
 
@@ -61,8 +55,7 @@ class EloquentTagsRepository implements TagsRepository
      * @inheritDoc
      * @throws Throwable
      */
-    public function delete(Tag $tag): void
-    {
+    public function delete(Tag $tag): void {
         $this->repository->delete($tag);
     }
 }

@@ -30,8 +30,7 @@ use App\Routes\Models\Route;
  * Then we delete the third route and so we end up left with only the fourth
  * one.
  */
-class DeleteTest extends TestCase
-{
+class DeleteTest extends TestCase {
     /** @var Page[] */
     private $pages;
 
@@ -41,8 +40,7 @@ class DeleteTest extends TestCase
     /**
      * @inheritdoc
      */
-    public function setUp(): void
-    {
+    public function setUp(): void {
         parent::setUp();
 
         $this->pages = [
@@ -96,8 +94,7 @@ class DeleteTest extends TestCase
     /**
      * @return void
      */
-    public function testDelete(): void
-    {
+    public function testDelete(): void {
         $this->routesFacade->delete(
             $this->routes['second']
         );

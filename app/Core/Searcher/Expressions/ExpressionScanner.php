@@ -2,16 +2,14 @@
 
 namespace App\Core\Searcher\Expressions;
 
-class ExpressionScanner
-{
+class ExpressionScanner {
     /** @var string */
     private $expression;
 
     /** @var int */
     private $position;
 
-    public function __construct(string $expression)
-    {
+    public function __construct(string $expression) {
         $this->expression = $expression;
         $this->position = 0;
     }
@@ -21,8 +19,7 @@ class ExpressionScanner
      *
      * @return bool
      */
-    public function has(): bool
-    {
+    public function has(): bool {
         return $this->position < mb_strlen($this->expression);
     }
 
@@ -33,8 +30,7 @@ class ExpressionScanner
      * @return string
      * @throws ExpressionException
      */
-    public function read(): string
-    {
+    public function read(): string {
         if (!$this->has()) {
             throw new ExpressionException('Unexpected end of expression.');
         }
@@ -47,8 +43,7 @@ class ExpressionScanner
      *
      * @return string|null
      */
-    public function peek(): ?string
-    {
+    public function peek(): ?string {
         return $this->expression[$this->position] ?? null;
     }
 
@@ -60,8 +55,7 @@ class ExpressionScanner
      * @return void
      * @throws ExpressionException
      */
-    public function expect(string $expected): void
-    {
+    public function expect(string $expected): void {
         $this->skipWhitespaces();
 
         $actual = $this->read();
@@ -79,8 +73,7 @@ class ExpressionScanner
      * @return void
      * @throws ExpressionException
      */
-    public function expectEnd(): void
-    {
+    public function expectEnd(): void {
         if ($this->has()) {
             throw new ExpressionException(sprintf(
                 'At [%d]: Expression was expected to be terminated here.', $this->position
@@ -95,8 +88,7 @@ class ExpressionScanner
      * @return string
      * @throws ExpressionException
      */
-    public function readIdentifier(): string
-    {
+    public function readIdentifier(): string {
         $this->skipWhitespaces();
 
         $identifier = $this->readWhile('ctype_alnum');
@@ -117,8 +109,7 @@ class ExpressionScanner
      * @return string
      * @throws ExpressionException
      */
-    public function readString(): string
-    {
+    public function readString(): string {
         $this->skipWhitespaces();
 
         $string = '';
@@ -155,8 +146,7 @@ class ExpressionScanner
      * @return string
      * @throws ExpressionException
      */
-    public function readNumber(): string
-    {
+    public function readNumber(): string {
         $this->skipWhitespaces();
 
         $number = $this->readWhile(function (?string $ch): bool {
@@ -179,8 +169,7 @@ class ExpressionScanner
      * @return string
      * @throws ExpressionException
      */
-    public function readValue(): string
-    {
+    public function readValue(): string {
         $this->skipWhitespaces();
 
         $char = $this->peek();
@@ -206,8 +195,7 @@ class ExpressionScanner
      * @return void
      * @throws ExpressionException
      */
-    private function skipWhitespaces(): void
-    {
+    private function skipWhitespaces(): void {
         $this->readWhile(function (?string $char): bool {
             return $char === ' ';
         });
@@ -220,8 +208,7 @@ class ExpressionScanner
      * @return string
      * @throws ExpressionException
      */
-    private function readWhile(callable $predicate): string
-    {
+    private function readWhile(callable $predicate): string {
         $result = '';
 
         while ($predicate($this->peek())) {

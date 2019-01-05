@@ -4,8 +4,7 @@ namespace App\Analytics\Implementation\Repositories;
 
 use App\Analytics\Models\Event;
 
-interface EventsRepository
-{
+interface EventsRepository {
     /**
      * Saves given event to the database.
      *

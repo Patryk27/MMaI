@@ -14,8 +14,7 @@ use App\Pages\Queries\SearchPages;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
-class PagesController extends Controller
-{
+class PagesController extends Controller {
     /** @var ApiSearcher */
     private $apiSearcher;
 
@@ -35,8 +34,7 @@ class PagesController extends Controller
      * @return ApiSearcherResponse
      * @throws CoreException
      */
-    public function index(Request $request): ApiSearcherResponse
-    {
+    public function index(Request $request): ApiSearcherResponse {
         $baseView = 'backend.components.table.';
         $pagesView = 'backend.components.pages.table.';
 
@@ -65,8 +63,7 @@ class PagesController extends Controller
      * @param CreatePageRequest $request
      * @return array
      */
-    public function store(CreatePageRequest $request): array
-    {
+    public function store(CreatePageRequest $request): array {
         $page = $this->pagesFacade->create(
             $request->all()
         );
@@ -81,8 +78,7 @@ class PagesController extends Controller
      * @param Page $page
      * @return array
      */
-    public function update(UpdatePageRequest $request, Page $page): array
-    {
+    public function update(UpdatePageRequest $request, Page $page): array {
         $this->pagesFacade->update(
             $page,
             $request->all()

@@ -8,13 +8,11 @@ use App\Core\Searcher\Eloquent\Operators\InOperatorHandler;
 use App\Core\Searcher\Eloquent\Operators\OperatorHandler;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 
-class EloquentFilterer
-{
+class EloquentFilterer {
     /** @var OperatorHandler[] */
     private $operatorHandlers;
 
-    public function __construct(EloquentMapper $mapper)
-    {
+    public function __construct(EloquentMapper $mapper) {
         $this->operatorHandlers = [
             new ExpressionOperatorHandler($mapper),
             new InOperatorHandler($mapper),
@@ -27,8 +25,7 @@ class EloquentFilterer
      * @return void
      * @throws CoreException
      */
-    public function applyFilters(EloquentBuilder $builder, array $filters): void
-    {
+    public function applyFilters(EloquentBuilder $builder, array $filters): void {
         foreach ($filters as $fieldName => $filter) {
             if (is_array($filter)) {
                 $operatorName = array_get($filter, 'operator');

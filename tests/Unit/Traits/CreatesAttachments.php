@@ -6,8 +6,7 @@ use App\Attachments\Implementation\Repositories\InMemoryAttachmentsRepository;
 use App\Attachments\Models\Attachment;
 use Illuminate\Filesystem\FilesystemAdapter;
 
-trait CreatesAttachments
-{
+trait CreatesAttachments {
     /** @var FilesystemAdapter */
     protected $attachmentsFs;
 
@@ -23,8 +22,7 @@ trait CreatesAttachments
      * @param string $name
      * @return Attachment
      */
-    protected function createAttachment(string $name): Attachment
-    {
+    protected function createAttachment(string $name): Attachment {
         $attachment = new Attachment([
             'name' => $name,
             'path' => $name,

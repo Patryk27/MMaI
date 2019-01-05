@@ -16,8 +16,7 @@ use App\SearchEngine\Events\QuerySearched;
 use Event as EventFacade;
 use Illuminate\Support\Collection;
 
-final class AnalyticsFacade
-{
+final class AnalyticsFacade {
     /** @var EventsRepository */
     private $eventsRepository;
 
@@ -35,8 +34,7 @@ final class AnalyticsFacade
     /**
      * @return void
      */
-    public function boot(): void
-    {
+    public function boot(): void {
         EventFacade::listen(LoginAttempted::class, LoginAttemptedListener::class);
         EventFacade::listen(QuerySearched::class, QuerySearchedListener::class);
         EventFacade::listen(RequestServed::class, RequestServedListener::class);
@@ -49,8 +47,7 @@ final class AnalyticsFacade
      * @param array $eventPayload
      * @return Event
      */
-    public function create(string $eventType, array $eventPayload)
-    {
+    public function create(string $eventType, array $eventPayload) {
         $event = new Event([
             'type' => $eventType,
             'payload' => $eventPayload,
@@ -68,8 +65,7 @@ final class AnalyticsFacade
      * @param EventsQuery $query
      * @return Event
      */
-    public function queryOne(EventsQuery $query): Event
-    {
+    public function queryOne(EventsQuery $query): Event {
         unimplemented();
     }
 
@@ -80,8 +76,7 @@ final class AnalyticsFacade
      * @return Collection|Event[]
      * @throws AnalyticsException
      */
-    public function queryMany(EventsQuery $query): Collection
-    {
+    public function queryMany(EventsQuery $query): Collection {
         return $this->eventsQuerier->query($query);
     }
 
@@ -92,8 +87,7 @@ final class AnalyticsFacade
      * @return int
      * @throws AnalyticsException
      */
-    public function queryCount(EventsQuery $query): int
-    {
+    public function queryCount(EventsQuery $query): int {
         return $this->eventsQuerier->count($query);
     }
 }

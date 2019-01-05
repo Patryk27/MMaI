@@ -3,13 +3,11 @@
 use App\Languages\Models\Language;
 use App\Websites\Models\Website;
 
-final class WebsitesSeeder extends Seeder
-{
+final class WebsitesSeeder extends Seeder {
     /**
      * @inheritDoc
      */
-    public function run(): void
-    {
+    public function run(): void {
         $this->createWebsite('en', 'en', 'English', 'Tis\' my site');
         $this->createWebsite('pl', 'pl', 'Polski', 'To moja strona');
     }

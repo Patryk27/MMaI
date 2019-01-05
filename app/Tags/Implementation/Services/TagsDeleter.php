@@ -7,8 +7,7 @@ use App\Tags\Implementation\Repositories\TagsRepository;
 use App\Tags\Models\Tag;
 use Illuminate\Contracts\Events\Dispatcher as EventsDispatcher;
 
-class TagsDeleter
-{
+class TagsDeleter {
     /** @var EventsDispatcher */
     private $eventsDispatcher;
 
@@ -27,8 +26,7 @@ class TagsDeleter
      * @param Tag $tag
      * @return void
      */
-    public function delete(Tag $tag): void
-    {
+    public function delete(Tag $tag): void {
         $this->tagsRepository->delete($tag);
 
         $this->eventsDispatcher->dispatch(

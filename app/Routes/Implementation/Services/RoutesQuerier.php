@@ -10,13 +10,11 @@ use App\Routes\Queries\GetRoutesLikeUrlQuery;
 use App\Routes\Queries\RoutesQuery;
 use Illuminate\Support\Collection;
 
-class RoutesQuerier
-{
+class RoutesQuerier {
     /** @var RoutesRepository */
     private $routesRepository;
 
-    public function __construct(RoutesRepository $routesRepository)
-    {
+    public function __construct(RoutesRepository $routesRepository) {
         $this->routesRepository = $routesRepository;
     }
 
@@ -25,8 +23,7 @@ class RoutesQuerier
      * @return Collection|Route[]
      * @throws RouteException
      */
-    public function query(RoutesQuery $query): Collection
-    {
+    public function query(RoutesQuery $query): Collection {
         switch (true) {
             case $query instanceof GetRouteBySubdomainAndUrlQuery:
                 return collect_one(

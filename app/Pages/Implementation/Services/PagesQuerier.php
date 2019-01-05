@@ -11,8 +11,7 @@ use App\Pages\Queries\PagesQuery;
 use App\Pages\Queries\SearchPages;
 use Illuminate\Support\Collection;
 
-class PagesQuerier
-{
+class PagesQuerier {
     /** @var PagesRepository */
     private $pagesRepository;
 
@@ -32,8 +31,7 @@ class PagesQuerier
      * @return Collection|Page[]
      * @throws PageException
      */
-    public function query(PagesQuery $query): Collection
-    {
+    public function query(PagesQuery $query): Collection {
         switch (true) {
             case $query instanceof GetPagesByIdsQuery:
                 return $this->pagesRepository->getByIds(
@@ -62,8 +60,7 @@ class PagesQuerier
      * @return int
      * @throws PageException
      */
-    public function count(PagesQuery $query): int
-    {
+    public function count(PagesQuery $query): int {
         switch (true) {
             case $query instanceof SearchPages:
                 return $query->applyTo($this->pagesSearcher)->count();

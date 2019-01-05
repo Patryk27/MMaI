@@ -6,8 +6,7 @@ use App\Core\Searcher\Searcher;
 use App\Tags\Models\Tag;
 use Illuminate\Support\Collection;
 
-interface TagsSearcher extends Searcher
-{
+interface TagsSearcher extends Searcher {
     #region Inherited from Searcher
     /**
      * @inheritdoc

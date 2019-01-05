@@ -4,14 +4,12 @@ namespace App\SearchEngine\Implementation\Services;
 
 use App\Pages\Models\Page;
 
-class PagesIndexer
-{
+class PagesIndexer {
     /**
      * @param Page $page
      * @return void
      */
-    public function index(Page $page): void
-    {
+    public function index(Page $page): void {
 //        unimplemented();
     }
 }

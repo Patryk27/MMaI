@@ -8,8 +8,7 @@ use App\Analytics\Queries\EventsQuery;
 use App\Analytics\Queries\SearchRequestEventsQuery;
 use Illuminate\Support\Collection;
 
-class EventsQuerier
-{
+class EventsQuerier {
     /** @var RequestEventsSearcher */
     private $requestEventsSearcher;
 
@@ -24,8 +23,7 @@ class EventsQuerier
      * @return Collection|Event[]
      * @throws AnalyticsException
      */
-    public function query(EventsQuery $query): Collection
-    {
+    public function query(EventsQuery $query): Collection {
         switch (true) {
             case $query instanceof SearchRequestEventsQuery:
                 return $query->applyTo($this->requestEventsSearcher)->get();
@@ -42,8 +40,7 @@ class EventsQuerier
      * @return int
      * @throws AnalyticsException
      */
-    public function count(EventsQuery $query): int
-    {
+    public function count(EventsQuery $query): int {
         switch (true) {
             case $query instanceof SearchRequestEventsQuery:
                 return $query->applyTo($this->requestEventsSearcher)->count();

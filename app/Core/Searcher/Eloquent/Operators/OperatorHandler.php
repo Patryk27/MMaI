@@ -4,8 +4,7 @@ namespace App\Core\Searcher\Eloquent\Operators;
 
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 
-interface OperatorHandler
-{
+interface OperatorHandler {
     /**
      * @param string $operatorName
      * @return bool

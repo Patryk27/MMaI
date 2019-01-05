@@ -16,8 +16,7 @@ use Exception;
 use Gate;
 use Illuminate\Support\Collection;
 
-final class PagesFacade
-{
+final class PagesFacade {
     /** @var PagesCreator */
     private $pagesCreator;
 
@@ -45,8 +44,7 @@ final class PagesFacade
     /**
      * @return void
      */
-    public function boot(): void
-    {
+    public function boot(): void {
         Gate::policy(Page::class, PagePolicy::class);
     }
 
@@ -58,8 +56,7 @@ final class PagesFacade
      *
      * @see \App\Application\Http\Requests\Backend\Pages\CreatePageRequest
      */
-    public function create(array $pageData): Page
-    {
+    public function create(array $pageData): Page {
         return $this->pagesCreator->create($pageData);
     }
 
@@ -72,8 +69,7 @@ final class PagesFacade
      *
      * @see \App\Application\Http\Requests\Backend\Pages\UpdatePageRequest
      */
-    public function update(Page $page, array $pageData): void
-    {
+    public function update(Page $page, array $pageData): void {
         $this->pagesUpdater->update($page, $pageData);
     }
 
@@ -84,8 +80,7 @@ final class PagesFacade
      * @return RenderedPage
      * @throws Exception
      */
-    public function render(Page $page): RenderedPage
-    {
+    public function render(Page $page): RenderedPage {
         return $this->pagesRenderer->render($page);
     }
 
@@ -98,8 +93,7 @@ final class PagesFacade
      * @throws PageException
      * @throws PageNotFoundException
      */
-    public function queryOne(PagesQuery $query): Page
-    {
+    public function queryOne(PagesQuery $query): Page {
         $pages = $this->queryMany($query);
 
         if ($pages->isEmpty()) {
@@ -116,8 +110,7 @@ final class PagesFacade
      * @return Collection|Page[]
      * @throws PageException
      */
-    public function queryMany(PagesQuery $query): Collection
-    {
+    public function queryMany(PagesQuery $query): Collection {
         return $this->pagesQuerier->query($query);
     }
 
@@ -128,8 +121,7 @@ final class PagesFacade
      * @return int
      * @throws PageException
      */
-    public function queryCount(PagesQuery $query): int
-    {
+    public function queryCount(PagesQuery $query): int {
         return $this->pagesQuerier->count($query);
     }
 }

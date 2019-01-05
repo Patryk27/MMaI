@@ -10,8 +10,7 @@ use App\SearchEngine\SearchEngineFacade;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
 
-final class ReindexAllCommand extends Command
-{
+final class ReindexAllCommand extends Command {
     /** @var string */
     protected $signature = 'app:search-engine:reindex-all';
 
@@ -38,8 +37,7 @@ final class ReindexAllCommand extends Command
      * @return void
      * @throws PageException
      */
-    public function handle(): void
-    {
+    public function handle(): void {
         $this->reindexPages(
             $this->getPages()
         );
@@ -49,8 +47,7 @@ final class ReindexAllCommand extends Command
      * @return Collection|Page[]
      * @throws PageException
      */
-    private function getPages(): Collection
-    {
+    private function getPages(): Collection {
         return $this->pagesFacade->queryMany(
             new SearchPages([])
         );
@@ -60,8 +57,7 @@ final class ReindexAllCommand extends Command
      * @param Collection $pages
      * @return void
      */
-    private function reindexPages(Collection $pages): void
-    {
+    private function reindexPages(Collection $pages): void {
         $this->output->writeln(sprintf(
             'About to reindex <info>%d</info> pages...', $pages->count()
         ));

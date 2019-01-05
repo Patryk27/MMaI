@@ -2,6 +2,5 @@
 
 namespace App\Tags\Queries;
 
-interface TagsQuery
-{
+interface TagsQuery {
 }

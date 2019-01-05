@@ -6,8 +6,7 @@ use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Contracts\View\View;
 use Illuminate\Routing\Route;
 
-class NavigationComposer
-{
+class NavigationComposer {
     private const ITEMS = [
         'backend.dashboard' => [
             'icon' => 'fa fa-tachometer-alt',
@@ -39,8 +38,7 @@ class NavigationComposer
     public function __construct(
         UrlGenerator $urlGenerator,
         ?Route $route = null // Default `null` value has been provided for the CLI environment (where no route can be passed)
-    )
-    {
+    ) {
         $this->urlGenerator = $urlGenerator;
         $this->route = $route;
     }
@@ -49,8 +47,7 @@ class NavigationComposer
      * @param View $view
      * @return void
      */
-    public function compose(View $view): void
-    {
+    public function compose(View $view): void {
         $view->with([
             'menuItems' => $this->getMenuItems(),
         ]);
@@ -59,8 +56,7 @@ class NavigationComposer
     /**
      * @return array
      */
-    private function getMenuItems(): array
-    {
+    private function getMenuItems(): array {
         $items = [];
 
         foreach (self::ITEMS as $route => $item) {
@@ -85,8 +81,7 @@ class NavigationComposer
      * @param string $route
      * @return bool
      */
-    private function isRouteActive(string $route): bool
-    {
+    private function isRouteActive(string $route): bool {
         return starts_with($this->route->getName(), $route);
     }
 }

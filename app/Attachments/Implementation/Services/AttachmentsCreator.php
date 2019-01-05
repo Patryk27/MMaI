@@ -8,8 +8,7 @@ use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Http\UploadedFile;
 use Throwable;
 
-class AttachmentsCreator
-{
+class AttachmentsCreator {
     /** @var Filesystem */
     private $attachmentsFs;
 
@@ -29,8 +28,7 @@ class AttachmentsCreator
      * @return Attachment
      * @throws Throwable
      */
-    public function createFromFile(UploadedFile $file): Attachment
-    {
+    public function createFromFile(UploadedFile $file): Attachment {
         $attachment = new Attachment([
             'name' => $file->getClientOriginalName() ?? $file->getFilename(),
             'size' => $file->getSize(),

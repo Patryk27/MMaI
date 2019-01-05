@@ -5,8 +5,7 @@ namespace App\Menus;
 use App\Menus\Implementation\Repositories\MenuItemsRepository;
 use App\Menus\Implementation\Services\MenuItemsQuerier;
 
-final class MenusFactory
-{
+final class MenusFactory {
     /**
      * Builds an instance of @see MenusFacade.
      *

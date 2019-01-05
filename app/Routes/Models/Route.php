@@ -19,8 +19,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property-read Model|Morphable $model
  */
-class Route extends Model implements Morphable
-{
+class Route extends Model implements Morphable {
     /** @var string[] */
     protected $fillable = [
         'subdomain',
@@ -37,8 +36,7 @@ class Route extends Model implements Morphable
      * @param Morphable $morphable
      * @return Route
      */
-    public static function build(string $subdomain, string $url, Morphable $morphable): Route
-    {
+    public static function build(string $subdomain, string $url, Morphable $morphable): Route {
         return new self([
             'subdomain' => $subdomain,
             'url' => $url,
@@ -50,8 +48,7 @@ class Route extends Model implements Morphable
     /**
      * @return \Illuminate\Database\Eloquent\Relations\MorphTo
      */
-    public function model()
-    {
+    public function model() {
         return $this->morphTo();
     }
 
@@ -59,8 +56,7 @@ class Route extends Model implements Morphable
      * @param Morphable $morphable
      * @return void
      */
-    public function setPointsAt(Morphable $morphable): void
-    {
+    public function setPointsAt(Morphable $morphable): void {
         $this->fill([
             'model_type' => $morphable->getMorphableType(),
             'model_id' => $morphable->getMorphableId(),
@@ -72,24 +68,21 @@ class Route extends Model implements Morphable
     /**
      * @return string
      */
-    public function getAbsoluteUrl(): string
-    {
+    public function getAbsoluteUrl(): string {
         return sprintf('%s://%s.%s/%s', env('APP_PROTOCOL'), $this->subdomain, env('APP_DOMAIN'), $this->url);
     }
 
     /**
      * @inheritDoc
      */
-    public function getMorphableId(): int
-    {
+    public function getMorphableId(): int {
         return $this->id;
     }
 
     /**
      * @inheritDoc
      */
-    public static function getMorphableType(): string
-    {
+    public static function getMorphableType(): string {
         return 'route';
     }
 }

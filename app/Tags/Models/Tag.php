@@ -24,8 +24,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read EloquentCollection|Page[] $pages
  * @property-read Website $website
  */
-class Tag extends Model
-{
+class Tag extends Model {
     /** @var string[] */
     protected $fillable = [
         'website_id',
@@ -35,16 +34,14 @@ class Tag extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function pages()
-    {
+    public function pages() {
         return $this->belongsToMany(Page::class);
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function website()
-    {
+    public function website() {
         return $this->belongsTo(Website::class);
     }
 }

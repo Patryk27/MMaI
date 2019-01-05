@@ -9,16 +9,14 @@ use App\Routes\Queries\GetRouteBySubdomainAndUrlQuery;
 use PHPUnit\Framework\ExpectationFailedException;
 use SebastianBergmann\Comparator\ComparisonFailure;
 
-class RoutePointsAtAssertion extends Constraint
-{
+class RoutePointsAtAssertion extends Constraint {
     /**
      * @inheritdoc
      * @param Morphable $other
      * @return bool
      * @throws RouteException
      */
-    public function matches($other): bool
-    {
+    public function matches($other): bool {
         try {
             /** @var string $subdomain */
             $subdomain = $other['subdomain'];
@@ -43,8 +41,7 @@ class RoutePointsAtAssertion extends Constraint
     /**
      * @inheritdoc
      */
-    protected function fail($other, $description, ComparisonFailure $comparisonFailure = null): void
-    {
+    protected function fail($other, $description, ComparisonFailure $comparisonFailure = null): void {
         /** @var string $subdomain */
         $subdomain = $other['subdomain'];
 

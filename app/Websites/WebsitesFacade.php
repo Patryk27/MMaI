@@ -9,13 +9,11 @@ use App\Websites\Models\Website;
 use App\Websites\Queries\WebsitesQuery;
 use Illuminate\Support\Collection;
 
-final class WebsitesFacade
-{
+final class WebsitesFacade {
     /** @var WebsitesQuerier */
     private $websitesQuerier;
 
-    public function __construct(WebsitesQuerier $websitesQuerier)
-    {
+    public function __construct(WebsitesQuerier $websitesQuerier) {
         $this->websitesQuerier = $websitesQuerier;
     }
 
@@ -25,8 +23,7 @@ final class WebsitesFacade
      * @throws WebsiteException
      * @throws WebsiteNotFoundException
      */
-    public function queryOne(WebsitesQuery $query): Website
-    {
+    public function queryOne(WebsitesQuery $query): Website {
         $websites = $this->queryMany($query);
 
         if ($websites->isEmpty()) {
@@ -41,8 +38,7 @@ final class WebsitesFacade
      * @return Collection
      * @throws WebsiteException
      */
-    public function queryMany(WebsitesQuery $query): Collection
-    {
+    public function queryMany(WebsitesQuery $query): Collection {
         return $this->websitesQuerier->query($query);
     }
 }

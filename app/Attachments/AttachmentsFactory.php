@@ -10,8 +10,7 @@ use App\Attachments\Implementation\Services\AttachmentsQuerier;
 use App\Attachments\Implementation\Services\AttachmentsStreamer;
 use Illuminate\Contracts\Filesystem\Filesystem as Filesystem;
 
-final class AttachmentsFactory
-{
+final class AttachmentsFactory {
     /**
      * Builds an instance of @see AttachmentsFacade.
      *

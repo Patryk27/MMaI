@@ -12,13 +12,11 @@ use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Query\Expression as QueryExpression;
 use LogicException;
 
-class ExpressionOperatorHandler extends AbstractOperatorHandler implements OperatorHandler
-{
+class ExpressionOperatorHandler extends AbstractOperatorHandler implements OperatorHandler {
     /**
      * @inheritDoc
      */
-    public function canHandle(string $operatorName): bool
-    {
+    public function canHandle(string $operatorName): bool {
         return $operatorName === 'expression';
     }
 

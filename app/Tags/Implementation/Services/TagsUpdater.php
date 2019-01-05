@@ -8,8 +8,7 @@ use App\Tags\Implementation\Repositories\TagsRepository;
 use App\Tags\Models\Tag;
 use Illuminate\Contracts\Events\Dispatcher as EventsDispatcher;
 
-class TagsUpdater
-{
+class TagsUpdater {
     /** @var EventsDispatcher */
     private $eventsDispatcher;
 
@@ -35,8 +34,7 @@ class TagsUpdater
      * @return void
      * @throws TagException
      */
-    public function update(Tag $tag, array $tagData): void
-    {
+    public function update(Tag $tag, array $tagData): void {
         if (isset($tagData['name'])) {
             $tag->name = $tagData['name'];
         }

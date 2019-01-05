@@ -10,13 +10,11 @@ use App\Languages\Queries\GetLanguageByIdQuery;
 use App\Languages\Queries\LanguagesQuery;
 use Illuminate\Support\Collection;
 
-class LanguagesQuerier
-{
+class LanguagesQuerier {
     /** @var LanguagesRepository */
     private $languagesRepository;
 
-    public function __construct(LanguagesRepository $languagesRepository)
-    {
+    public function __construct(LanguagesRepository $languagesRepository) {
         $this->languagesRepository = $languagesRepository;
     }
 
@@ -25,8 +23,7 @@ class LanguagesQuerier
      * @return Collection|Language[]
      * @throws LanguageException
      */
-    public function query(LanguagesQuery $query): Collection
-    {
+    public function query(LanguagesQuery $query): Collection {
         switch (true) {
             case $query instanceof GetAllLanguagesQuery:
                 return $this->languagesRepository->getAll();

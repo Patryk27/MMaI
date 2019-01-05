@@ -6,8 +6,7 @@ namespace App\Core\Models;
  * This interface is used to mark model as "morphable", so it can be used in
  * polymorphic relationships.
  */
-interface Morphable
-{
+interface Morphable {
     /**
      * Returns id (primary key) of this morphable, e.g. `5`.
      *

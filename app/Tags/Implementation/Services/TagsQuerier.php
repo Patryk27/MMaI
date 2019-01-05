@@ -11,8 +11,7 @@ use App\Tags\Queries\SearchTagsQuery;
 use App\Tags\Queries\TagsQuery;
 use Illuminate\Support\Collection;
 
-class TagsQuerier
-{
+class TagsQuerier {
     /** @var TagsRepository */
     private $tagsRepository;
 
@@ -32,8 +31,7 @@ class TagsQuerier
      * @return Collection|Tag[]
      * @throws TagException
      */
-    public function query(TagsQuery $query): Collection
-    {
+    public function query(TagsQuery $query): Collection {
         switch (true) {
             case $query instanceof GetAllTagsQuery:
                 return $this->tagsRepository->getAll();
@@ -62,8 +60,7 @@ class TagsQuerier
      * @return int
      * @throws TagException
      */
-    public function count(TagsQuery $query): int
-    {
+    public function count(TagsQuery $query): int {
         switch (true) {
             case $query instanceof SearchTagsQuery:
                 return $query->applyTo($this->tagsSearcher)->count();

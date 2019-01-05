@@ -10,8 +10,7 @@ use App\Pages\Models\Page;
 use App\Tags\Exceptions\TagException;
 use Illuminate\Contracts\Events\Dispatcher as EventsDispatcher;
 
-class PagesUpdater
-{
+class PagesUpdater {
     /**
      * @var EventsDispatcher
      */
@@ -41,7 +40,6 @@ class PagesUpdater
      * @throws PageException
      * @throws TagException
      */
-    public function update(Page $page, array $pageData): void
-    {
+    public function update(Page $page, array $pageData): void {
     }
 }

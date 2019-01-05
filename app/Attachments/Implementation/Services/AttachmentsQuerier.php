@@ -10,13 +10,11 @@ use App\Attachments\Queries\GetAttachmentByIdQuery;
 use App\Attachments\Queries\GetAttachmentByPathQuery;
 use Illuminate\Support\Collection;
 
-class AttachmentsQuerier
-{
+class AttachmentsQuerier {
     /** @var AttachmentsRepository */
     private $attachmentsRepository;
 
-    public function __construct(AttachmentsRepository $attachmentsRepository)
-    {
+    public function __construct(AttachmentsRepository $attachmentsRepository) {
         $this->attachmentsRepository = $attachmentsRepository;
     }
 
@@ -25,8 +23,7 @@ class AttachmentsQuerier
      * @return Collection|Attachment[]
      * @throws AttachmentException
      */
-    public function query(AttachmentsQuery $query): Collection
-    {
+    public function query(AttachmentsQuery $query): Collection {
         switch (true) {
             case $query instanceof GetAttachmentByIdQuery:
                 return collect_one(

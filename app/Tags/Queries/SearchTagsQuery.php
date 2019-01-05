@@ -4,8 +4,7 @@ namespace App\Tags\Queries;
 
 use App\Core\Queries\AbstractSearchQuery;
 
-final class SearchTagsQuery extends AbstractSearchQuery implements TagsQuery
-{
+final class SearchTagsQuery extends AbstractSearchQuery implements TagsQuery {
     public const
         FIELD_ID = 'id',
         FIELD_NAME = 'name',

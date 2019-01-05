@@ -8,8 +8,7 @@ use LogicException;
 use PHPUnit\Framework\AssertionFailedError;
 use Tests\Unit\TestCase;
 
-class ExpressionScannerTest extends TestCase
-{
+class ExpressionScannerTest extends TestCase {
     /**
      * @dataProvider provideCorrectCases
      *
@@ -18,8 +17,7 @@ class ExpressionScannerTest extends TestCase
      * @return void
      * @throws ExpressionException
      */
-    public function testCorrectCase(string $expression, array $expectedTokens): void
-    {
+    public function testCorrectCase(string $expression, array $expectedTokens): void {
         $scanner = new ExpressionScanner($expression);
 
         while (!empty($expectedTokens)) {
@@ -59,8 +57,7 @@ class ExpressionScannerTest extends TestCase
     /**
      * @return array
      */
-    public function provideCorrectCases(): array
-    {
+    public function provideCorrectCases(): array {
         return [
             // Validate scanning identifiers
             [

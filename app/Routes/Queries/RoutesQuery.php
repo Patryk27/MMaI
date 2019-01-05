@@ -2,6 +2,5 @@
 
 namespace App\Routes\Queries;
 
-interface RoutesQuery
-{
+interface RoutesQuery {
 }

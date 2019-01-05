@@ -7,14 +7,12 @@ use App\Pages\Models\Page;
 use App\Tags\Models\Tag;
 use Illuminate\Support\Collection;
 
-class CreateTest extends TestCase
-{
+class CreateTest extends TestCase {
     /**
      * @return void
      * @throws AppException
      */
-    public function testFillsBasicProperties(): void
-    {
+    public function testFillsBasicProperties(): void {
         $page = $this->pagesFacade->create([
             'language_id' => 100,
 
@@ -40,8 +38,7 @@ class CreateTest extends TestCase
      * @return void
      * @throws AppException
      */
-    public function testCreatesRouteWhenNecessary(): void
-    {
+    public function testCreatesRouteWhenNecessary(): void {
         $page = $this->pagesFacade->create([
             'url' => 'somewhere',
         ]);
@@ -54,8 +51,7 @@ class CreateTest extends TestCase
      * @return void
      * @throws AppException
      */
-    public function testDoesNotCreateRouteWhenUnnecessary(): void
-    {
+    public function testDoesNotCreateRouteWhenUnnecessary(): void {
         $page = $this->pagesFacade->create([
             'language_id' => 100,
         ]);
@@ -68,8 +64,7 @@ class CreateTest extends TestCase
      * @return void
      * @throws AppException
      */
-    public function testAddsTags(): void
-    {
+    public function testAddsTags(): void {
         /** @var Collection|Tag[] $tags */
         $tags = $this->tagsRepository
             ->getAll()
@@ -93,8 +88,7 @@ class CreateTest extends TestCase
      * @return void
      * @throws AppException
      */
-    public function testForbidsToAddTagFromOtherLanguage(): void
-    {
+    public function testForbidsToAddTagFromOtherLanguage(): void {
         $this->expectExceptionMessage('Page cannot contain tags from other languages.');
 
         /** @var Collection|Tag[] $tags */
@@ -115,8 +109,7 @@ class CreateTest extends TestCase
      * @return void
      * @throws AppException
      */
-    public function testAddsAttachments(): void
-    {
+    public function testAddsAttachments(): void {
         $attachmentA = $this->createAttachment('attachment-a');
         $attachmentB = $this->createAttachment('attachment-b');
 
@@ -139,8 +132,7 @@ class CreateTest extends TestCase
      * @return void
      * @throws AppException
      */
-    public function testFailsOnNonExistingAttachment(): void
-    {
+    public function testFailsOnNonExistingAttachment(): void {
         $this->expectExceptionMessage('Attachment was not found.');
 
         $this->pagesFacade->create([

@@ -9,8 +9,7 @@ use App\SearchEngine\SearchEngineFacade;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
 
-final class SearchCommand extends Command
-{
+final class SearchCommand extends Command {
     public const NAME = 'app:search-engine:search';
 
     /** @var string */
@@ -22,8 +21,7 @@ final class SearchCommand extends Command
     /** @var SearchEngineFacade */
     private $searchEngineFacade;
 
-    public function __construct(SearchEngineFacade $searchEngineFacade)
-    {
+    public function __construct(SearchEngineFacade $searchEngineFacade) {
         $this->searchEngineFacade = $searchEngineFacade;
 
         parent::__construct();
@@ -33,8 +31,7 @@ final class SearchCommand extends Command
      * @return void
      * @throws PageException
      */
-    public function handle(): void
-    {
+    public function handle(): void {
         $pages = $this->searchEngineFacade->search(
             new SearchQuery([
                 'query' => $this->input->getArgument('query'),
@@ -58,8 +55,7 @@ final class SearchCommand extends Command
      * @param Collection $pages
      * @return void
      */
-    private function renderTable(Collection $pages): void
-    {
+    private function renderTable(Collection $pages): void {
         $tableHeaders = [
             'id' => 'Id',
             'website' => 'Website',

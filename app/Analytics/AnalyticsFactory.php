@@ -6,8 +6,7 @@ use App\Analytics\Implementation\Repositories\EventsRepository;
 use App\Analytics\Implementation\Services\EventsQuerier;
 use App\Analytics\Implementation\Services\RequestEventsSearcher;
 
-final class AnalyticsFactory
-{
+final class AnalyticsFactory {
     /**
      * Builds an instance of @see AnalyticsFacade.
      *

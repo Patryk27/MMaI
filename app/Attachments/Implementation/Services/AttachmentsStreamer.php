@@ -7,13 +7,11 @@ use App\Attachments\Models\Attachment;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Contracts\Filesystem\Filesystem;
 
-class AttachmentsStreamer
-{
+class AttachmentsStreamer {
     /** @var Filesystem */
     private $attachmentsFs;
 
-    public function __construct(Filesystem $attachmentsFs)
-    {
+    public function __construct(Filesystem $attachmentsFs) {
         $this->attachmentsFs = $attachmentsFs;
     }
 
@@ -22,8 +20,7 @@ class AttachmentsStreamer
      * @return resource
      * @throws AttachmentException
      */
-    public function stream(Attachment $attachment)
-    {
+    public function stream(Attachment $attachment) {
         try {
             $stream = $this->attachmentsFs->readStream($attachment->path);
         } catch (FileNotFoundException $ex) {

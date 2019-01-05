@@ -9,13 +9,11 @@ use App\Menus\Queries\GetMenuItemsByWebsiteIdQuery;
 use App\Menus\Queries\MenuItemsQuery;
 use Illuminate\Support\Collection;
 
-class MenuItemsQuerier
-{
+class MenuItemsQuerier {
     /** @var MenuItemsRepository */
     private $menuItemsRepository;
 
-    public function __construct(MenuItemsRepository $menuItemsRepository)
-    {
+    public function __construct(MenuItemsRepository $menuItemsRepository) {
         $this->menuItemsRepository = $menuItemsRepository;
     }
 
@@ -24,8 +22,7 @@ class MenuItemsQuerier
      * @return Collection|MenuItem[]
      * @throws MenuException
      */
-    public function query(MenuItemsQuery $query): Collection
-    {
+    public function query(MenuItemsQuery $query): Collection {
         switch (true) {
             case $query instanceof GetMenuItemsByWebsiteIdQuery:
                 return $this->menuItemsRepository->getByWebsiteId(

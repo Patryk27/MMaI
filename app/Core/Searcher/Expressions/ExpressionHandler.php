@@ -2,8 +2,7 @@
 
 namespace App\Core\Searcher\Expressions;
 
-interface ExpressionHandler
-{
+interface ExpressionHandler {
     /**
      * Handles the "between" function.
      *

@@ -8,16 +8,14 @@ use App\Tags\Models\Tag;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Collection;
 
-class UpdateTest extends TestCase
-{
+class UpdateTest extends TestCase {
     /** @var Page */
     private $page;
 
     /**
      * @inheritdoc
      */
-    public function setUp(): void
-    {
+    public function setUp(): void {
         parent::setUp();
 
         /** @var Collection|Tag[] $tags */
@@ -51,8 +49,7 @@ class UpdateTest extends TestCase
      * @return void
      * @throws AppException
      */
-    public function testUpdatesBasicProperties(): void
-    {
+    public function testUpdatesBasicProperties(): void {
         $this->pagesFacade->update($this->page, [
             'lead' => 'some updated lead',
             'notes' => 'some updated notes',
@@ -68,8 +65,7 @@ class UpdateTest extends TestCase
      * @return void
      * @throws AppException
      */
-    public function testDoesNotAllowToChangeLanguage(): void
-    {
+    public function testDoesNotAllowToChangeLanguage(): void {
         $this->pagesFacade->update($this->page, [
             'language_id' => 150,
         ]);
@@ -83,8 +79,7 @@ class UpdateTest extends TestCase
      * @return void
      * @throws AppException
      */
-    public function testSetsPublishedAt(): void
-    {
+    public function testSetsPublishedAt(): void {
         $this->pagesFacade->update($this->page, [
             'url' => 'somewhere',
             'status' => Page::STATUS_PUBLISHED,
@@ -104,8 +99,7 @@ class UpdateTest extends TestCase
      * @return void
      * @throws AppException
      */
-    public function testCreatesRoute(): void
-    {
+    public function testCreatesRoute(): void {
         $this->pagesFacade->update($this->page, [
             'url' => 'somewhere',
         ]);
@@ -120,8 +114,7 @@ class UpdateTest extends TestCase
      * @return void
      * @throws AppException
      */
-    public function testUpdatesRoute(): void
-    {
+    public function testUpdatesRoute(): void {
         // Step 1: create a new route (so that we will be able to update it
         // later)
         $this->pagesFacade->update($this->page, [
@@ -145,8 +138,7 @@ class UpdateTest extends TestCase
      * @return void
      * @throws AppException
      */
-    public function testDeletesRoute(): void
-    {
+    public function testDeletesRoute(): void {
         // Step 1: create a new route (so that we will be able to remove it
         // later)
         $this->pagesFacade->update($this->page, [
@@ -169,8 +161,7 @@ class UpdateTest extends TestCase
      * @return void
      * @throws AppException
      */
-    public function testForbidsToPublishPageWithoutRoute(): void
-    {
+    public function testForbidsToPublishPageWithoutRoute(): void {
         $this->expectExceptionMessage('Published page must have a route.');
 
         $this->pagesFacade->update($this->page, [
@@ -182,8 +173,7 @@ class UpdateTest extends TestCase
      * @return void
      * @throws AppException
      */
-    public function testForbidsToPublishPostWithoutLead(): void
-    {
+    public function testForbidsToPublishPostWithoutLead(): void {
         $this->expectExceptionMessage('Published post must contain a lead.');
 
         // Step 1: create an example post
@@ -202,8 +192,7 @@ class UpdateTest extends TestCase
      * @return void
      * @throws AppException
      */
-    public function testAddsTags(): void
-    {
+    public function testAddsTags(): void {
         /** @var Collection|Tag[] $tags */
         $tags = $this->tagsRepository
             ->getAll()
@@ -226,8 +215,7 @@ class UpdateTest extends TestCase
      * @return void
      * @throws AppException
      */
-    public function testRemovesTags(): void
-    {
+    public function testRemovesTags(): void {
         $this->pagesFacade->update($this->page, [
             'tag_ids' => [],
         ]);
@@ -238,8 +226,7 @@ class UpdateTest extends TestCase
     /**
      * @throws AppException
      */
-    public function testAddsAttachments(): void
-    {
+    public function testAddsAttachments(): void {
         $attachmentA = $this->createAttachment('attachment-a');
         $attachmentB = $this->createAttachment('attachment-b');
 
@@ -258,8 +245,7 @@ class UpdateTest extends TestCase
     /**
      * @throws AppException
      */
-    public function testRemovesAttachments(): void
-    {
+    public function testRemovesAttachments(): void {
         $attachmentA = $this->createAttachment('attachment-a');
         $attachmentB = $this->createAttachment('attachment-b');
 

@@ -2,6 +2,5 @@
 
 namespace App\Websites\Queries;
 
-final class GetAllWebsitesQuery implements WebsitesQuery
-{
+final class GetAllWebsitesQuery implements WebsitesQuery {
 }

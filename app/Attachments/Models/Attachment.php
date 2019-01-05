@@ -27,8 +27,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @method AttachmentPresenter getPresenter()
  */
-class Attachment extends Model implements Presentable
-{
+class Attachment extends Model implements Presentable {
     use HasPresenter;
 
     /** @var string[] */
@@ -49,16 +48,14 @@ class Attachment extends Model implements Presentable
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function page()
-    {
+    public function page() {
         return $this->belongsTo(Page::class);
     }
 
     /**
      * @return string
      */
-    public function getSizeForHumans(): string
-    {
+    public function getSizeForHumans(): string {
         $size = $this->size;
 
         foreach (['B', 'KB', 'MB', 'GB'] as $unitIdx => $unit) {
@@ -81,8 +78,7 @@ class Attachment extends Model implements Presentable
     /**
      * @inheritDoc
      */
-    public static function getPresenterClass(): string
-    {
+    public static function getPresenterClass(): string {
         return AttachmentPresenter::class;
     }
 }

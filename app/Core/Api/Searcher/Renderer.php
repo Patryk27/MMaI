@@ -6,16 +6,14 @@ use Illuminate\Contracts\View\Factory as ViewFactory;
 use Illuminate\Contracts\View\View;
 use LogicException;
 
-final class Renderer
-{
+final class Renderer {
     /** @var ViewFactory */
     private $viewFactory;
 
     /** @var View[] */
     private $columns = [];
 
-    public function __construct(ViewFactory $viewFactory)
-    {
+    public function __construct(ViewFactory $viewFactory) {
         $this->viewFactory = $viewFactory;
     }
 
@@ -24,8 +22,7 @@ final class Renderer
      * @param string $viewName
      * @return void
      */
-    public function addColumn(string $columnName, string $viewName): void
-    {
+    public function addColumn(string $columnName, string $viewName): void {
         if (array_has($this->columns, $columnName)) {
             throw new LogicException(sprintf(
                 'Column [%s] already exists.', $columnName
@@ -39,8 +36,7 @@ final class Renderer
      * @param mixed $row
      * @return array
      */
-    public function render($row): array
-    {
+    public function render($row): array {
         $result = [];
 
         foreach ($this->columns as $column) {

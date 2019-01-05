@@ -4,8 +4,7 @@ namespace App\Core\Queries;
 
 use App\Core\Searcher\Searcher;
 
-abstract class AbstractSearchQuery
-{
+abstract class AbstractSearchQuery {
     /**
      * @see Searcher::search()
      * @var string
@@ -30,8 +29,7 @@ abstract class AbstractSearchQuery
      */
     private $pagination;
 
-    public function __construct(array $query)
-    {
+    public function __construct(array $query) {
         $this->query = array_get($query, 'query', '');
         $this->filters = array_get($query, 'filters', []);
         $this->orderBy = array_get($query, 'orderBy', []);
@@ -44,8 +42,7 @@ abstract class AbstractSearchQuery
      * @param Searcher $searcher
      * @return Searcher
      */
-    public function applyTo(Searcher $searcher): Searcher
-    {
+    public function applyTo(Searcher $searcher): Searcher {
         $searcher->search(
             $this->getQuery()
         );
@@ -71,40 +68,35 @@ abstract class AbstractSearchQuery
     /**
      * @return string
      */
-    public function getQuery(): string
-    {
+    public function getQuery(): string {
         return $this->query;
     }
 
     /**
      * @return array
      */
-    public function getFilters(): array
-    {
+    public function getFilters(): array {
         return $this->filters;
     }
 
     /**
      * @return array
      */
-    public function getOrderBy(): array
-    {
+    public function getOrderBy(): array {
         return $this->orderBy;
     }
 
     /**
      * @return bool
      */
-    public function hasPagination(): bool
-    {
+    public function hasPagination(): bool {
         return !empty($this->pagination);
     }
 
     /**
      * @return array
      */
-    public function getPagination(): array
-    {
+    public function getPagination(): array {
         return $this->pagination;
     }
 }

@@ -7,13 +7,11 @@ use Illuminate\Contracts\Events\Dispatcher as EventsDispatcher;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-final class LogRequest
-{
+final class LogRequest {
     /** @var EventsDispatcher */
     private $eventsDispatcher;
 
-    public function __construct(EventsDispatcher $eventsDispatcher)
-    {
+    public function __construct(EventsDispatcher $eventsDispatcher) {
         $this->eventsDispatcher = $eventsDispatcher;
     }
 
@@ -22,8 +20,7 @@ final class LogRequest
      * @param callable $next
      * @return mixed
      */
-    public function handle(Request $request, callable $next)
-    {
+    public function handle(Request $request, callable $next) {
         return $next($request);
     }
 
@@ -32,8 +29,7 @@ final class LogRequest
      * @param Response $response
      * @return void
      */
-    public function terminate(Request $request, Response $response): void
-    {
+    public function terminate(Request $request, Response $response): void {
         $this->eventsDispatcher->dispatch(
             new RequestServed([
                 'requestUrl' => $request->getUri(),

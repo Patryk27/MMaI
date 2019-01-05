@@ -12,8 +12,7 @@ use App\Tags\Models\Tag;
 use App\Tags\Queries\TagsQuery;
 use Illuminate\Support\Collection;
 
-final class TagsFacade
-{
+final class TagsFacade {
     /** @var TagsCreator */
     private $tagsCreator;
 
@@ -45,8 +44,7 @@ final class TagsFacade
      * @return Tag
      * @throws TagException
      */
-    public function create(array $tagData): Tag
-    {
+    public function create(array $tagData): Tag {
         return $this->tagsCreator->create($tagData);
     }
 
@@ -57,8 +55,7 @@ final class TagsFacade
      * @param array $tagData
      * @throws TagException
      */
-    public function update(Tag $tag, array $tagData): void
-    {
+    public function update(Tag $tag, array $tagData): void {
         $this->tagsUpdater->update($tag, $tagData);
     }
 
@@ -69,8 +66,7 @@ final class TagsFacade
      * @param Tag $tag
      * @return void
      */
-    public function delete(Tag $tag): void
-    {
+    public function delete(Tag $tag): void {
         $this->tagsDeleter->delete($tag);
     }
 
@@ -83,8 +79,7 @@ final class TagsFacade
      * @throws TagException
      * @throws TagNotFoundException
      */
-    public function queryOne(TagsQuery $query): Tag
-    {
+    public function queryOne(TagsQuery $query): Tag {
         $tags = $this->queryMany($query);
 
         if ($tags->isEmpty()) {
@@ -101,8 +96,7 @@ final class TagsFacade
      * @return Collection|Tag[]
      * @throws TagException
      */
-    public function queryMany(TagsQuery $query): Collection
-    {
+    public function queryMany(TagsQuery $query): Collection {
         return $this->tagsQuerier->query($query);
     }
 
@@ -113,8 +107,7 @@ final class TagsFacade
      * @return int
      * @throws TagException
      */
-    public function queryCount(TagsQuery $query): int
-    {
+    public function queryCount(TagsQuery $query): int {
         return $this->tagsQuerier->count($query);
     }
 }

@@ -11,8 +11,7 @@ use Illuminate\Events\Dispatcher as EventsDispatcher;
 use Illuminate\Support\Testing\Fakes\EventFake;
 use Tests\Unit\TestCase as BaseTestCase;
 
-abstract class TestCase extends BaseTestCase
-{
+abstract class TestCase extends BaseTestCase {
     /** @var InMemoryTagsRepository */
     protected $tagsRepository;
 
@@ -22,8 +21,7 @@ abstract class TestCase extends BaseTestCase
     /**
      * @return void
      */
-    public function setUp(): void
-    {
+    public function setUp(): void {
         parent::setUp();
 
         $eventsDispatcher = new EventFake(

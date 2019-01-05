@@ -6,8 +6,7 @@ use App\Attachments\Implementation\Repositories\AttachmentsRepository;
 use App\Attachments\Models\Attachment;
 use Illuminate\Contracts\Filesystem\Filesystem as Filesystem;
 
-class AttachmentsDeleter
-{
+class AttachmentsDeleter {
     /** @var Filesystem */
     private $attachmentsFs;
 
@@ -26,8 +25,7 @@ class AttachmentsDeleter
      * @param Attachment $attachment
      * @return void
      */
-    public function delete(Attachment $attachment): void
-    {
+    public function delete(Attachment $attachment): void {
         $this->attachmentsFs->delete($attachment->path);
         $this->attachmentsRepository->delete($attachment);
     }

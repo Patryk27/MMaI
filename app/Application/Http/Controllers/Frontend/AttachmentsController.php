@@ -8,13 +8,11 @@ use App\Attachments\Exceptions\AttachmentException;
 use App\Attachments\Queries\GetAttachmentByPathQuery;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class AttachmentsController extends Controller
-{
+class AttachmentsController extends Controller {
     /** @var AttachmentsFacade */
     private $attachmentsFacade;
 
-    public function __construct(AttachmentsFacade $attachmentsFacade)
-    {
+    public function __construct(AttachmentsFacade $attachmentsFacade) {
         $this->attachmentsFacade = $attachmentsFacade;
     }
 
@@ -22,8 +20,7 @@ class AttachmentsController extends Controller
      * @param string $path
      * @return mixed
      */
-    public function attachment(string $path)
-    {
+    public function attachment(string $path) {
         try {
             $attachment = $this->attachmentsFacade->queryOne(
                 new GetAttachmentByPathQuery($path)

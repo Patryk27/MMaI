@@ -16,16 +16,14 @@ use Illuminate\Http\Request;
  *   - @see \App\Application\Http\Controllers\Api\PagesController
  *   - @see \App\Application\Http\Controllers\Api\TagsController
  */
-final class ApiSearcher
-{
+final class ApiSearcher {
     /** @var Querier */
     private $querier;
 
     /** @var Renderer */
     private $renderer;
 
-    public function __construct(Querier $querier, Renderer $renderer)
-    {
+    public function __construct(Querier $querier, Renderer $renderer) {
         $this->querier = $querier;
         $this->renderer = $renderer;
     }
@@ -35,8 +33,7 @@ final class ApiSearcher
      * @param string $view
      * @return void
      */
-    public function addColumn(string $column, string $view): void
-    {
+    public function addColumn(string $column, string $view): void {
         $this->renderer->addColumn($column, $view);
     }
 
@@ -46,8 +43,7 @@ final class ApiSearcher
      * @param array $columns
      * @return void
      */
-    public function addColumns(array $columns): void
-    {
+    public function addColumns(array $columns): void {
         foreach ($columns as $column => $view) {
             $this->addColumn($column, $view);
         }
@@ -71,8 +67,7 @@ final class ApiSearcher
      * @param callable $counter
      * @return void
      */
-    public function setCounter(callable $counter): void
-    {
+    public function setCounter(callable $counter): void {
         $this->querier->setCounter($counter);
     }
 
@@ -94,8 +89,7 @@ final class ApiSearcher
      * @param callable $fetcher
      * @return void
      */
-    public function setFetcher(callable $fetcher): void
-    {
+    public function setFetcher(callable $fetcher): void {
         $this->querier->setFetcher($fetcher);
     }
 
@@ -105,8 +99,7 @@ final class ApiSearcher
      * # Example
      *
      * ```php
-     * class MyController
-     * {
+     * class MyController {
      *   // ... //
      *
      *   public function index(Request $request): ApiSearcherResponse {
@@ -122,8 +115,7 @@ final class ApiSearcher
      * @return ApiSearcherResponse
      * @throws CoreException
      */
-    public function search(Request $request): ApiSearcherResponse
-    {
+    public function search(Request $request): ApiSearcherResponse {
         $query = $this->extractQuery($request);
 
         $allCount = $this->querier->countAllItems();
@@ -145,8 +137,7 @@ final class ApiSearcher
      * @return array
      * @throws CoreException
      */
-    private function extractQuery(Request $request): array
-    {
+    private function extractQuery(Request $request): array {
         if (!$request->has('query')) {
             return [];
         }

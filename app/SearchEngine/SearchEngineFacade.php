@@ -17,8 +17,7 @@ use App\Tags\Events\TagUpdated;
 use Event;
 use Illuminate\Support\Collection;
 
-final class SearchEngineFacade
-{
+final class SearchEngineFacade {
     /** @var ElasticsearchMigrator */
     private $elasticsearchMigrator;
 
@@ -41,8 +40,7 @@ final class SearchEngineFacade
     /**
      * @return void
      */
-    public function boot(): void
-    {
+    public function boot(): void {
         Event::listen(PageCreated::class, PageCreatedListener::class);
         Event::listen(PageUpdated::class, PageUpdatedListener::class);
         Event::listen(TagUpdated::class, TagUpdatedListener::class);
@@ -52,8 +50,7 @@ final class SearchEngineFacade
      * @param Page $page
      * @return void
      */
-    public function index(Page $page): void
-    {
+    public function index(Page $page): void {
         $this->elasticsearchMigrator->migrate();
         $this->pagesIndexer->index($page);
     }
@@ -63,8 +60,7 @@ final class SearchEngineFacade
      * @return Collection|Page[]
      * @throws PageException
      */
-    public function search(SearchQuery $query): Collection
-    {
+    public function search(SearchQuery $query): Collection {
         $this->elasticsearchMigrator->migrate();
 
         return $this->pagesSearcher->search($query);

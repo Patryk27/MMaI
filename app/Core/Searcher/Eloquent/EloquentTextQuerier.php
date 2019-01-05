@@ -2,13 +2,11 @@
 
 namespace App\Core\Searcher\Eloquent;
 
-class EloquentTextQuerier
-{
+class EloquentTextQuerier {
     /** @var EloquentMapper */
     private $mapper;
 
-    public function __construct(EloquentMapper $mapper)
-    {
+    public function __construct(EloquentMapper $mapper) {
         $this->mapper = $mapper;
     }
 
@@ -16,8 +14,7 @@ class EloquentTextQuerier
      * @param string $query
      * @return void
      */
-    public function applyQuery(string $query): void
-    {
+    public function applyQuery(string $query): void {
         if (strlen($query) === 0) {
             return;
         }

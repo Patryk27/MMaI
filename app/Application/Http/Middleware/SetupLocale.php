@@ -7,8 +7,7 @@ use App\Websites\Exceptions\WebsiteException;
 use Illuminate\Http\Request;
 use Illuminate\Translation\Translator;
 
-final class SetupLocale
-{
+final class SetupLocale {
     /** @var Translator */
     private $translator;
 
@@ -29,8 +28,7 @@ final class SetupLocale
      * @return mixed
      * @throws WebsiteException
      */
-    public function handle(Request $request, callable $next)
-    {
+    public function handle(Request $request, callable $next) {
         if ($website = $this->websiteDetector->detect($request)) {
             $this->translator->setLocale($website->language->iso639_code);
         }

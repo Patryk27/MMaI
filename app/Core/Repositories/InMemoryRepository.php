@@ -13,8 +13,7 @@ use LogicException;
  *
  * E.g. @see \App\Routes\Implementation\Repositories\InMemoryRoutesRepository.
  */
-final class InMemoryRepository
-{
+final class InMemoryRepository {
     /**
      * List of all the items present in this repository.
      * @var Collection|Model[]
@@ -33,8 +32,7 @@ final class InMemoryRepository
      *
      * @param array $items
      */
-    public function __construct(array $items = [])
-    {
+    public function __construct(array $items = []) {
         $this->items = new Collection();
 
         foreach ($items as $item) {
@@ -50,8 +48,7 @@ final class InMemoryRepository
      * @param mixed $attributeValue
      * @return mixed|null
      */
-    public function getBy(string $attributeName, $attributeValue)
-    {
+    public function getBy(string $attributeName, $attributeValue) {
         $models = $this->getByMany($attributeName, $attributeValue);
 
         if ($models->isEmpty()) {
@@ -68,8 +65,7 @@ final class InMemoryRepository
      * @param mixed $attributeValue
      * @return Collection|Model[]
      */
-    public function getByMany(string $attributeName, $attributeValue): Collection
-    {
+    public function getByMany(string $attributeName, $attributeValue): Collection {
         return $this->items
             ->where($attributeName, $attributeValue)
             ->map(function (Model $model): Model {
@@ -82,8 +78,7 @@ final class InMemoryRepository
      *
      * @return Collection|Model[]
      */
-    public function getAll(): Collection
-    {
+    public function getAll(): Collection {
         return $this->items->map(function (Model $model): Model {
             return clone $model;
         });
@@ -95,8 +90,7 @@ final class InMemoryRepository
      * @param Model $model
      * @return void
      */
-    public function persist(Model $model): void
-    {
+    public function persist(Model $model): void {
         if ($model->exists) {
             $this->update($model);
         } else {
@@ -110,8 +104,7 @@ final class InMemoryRepository
      * @param Model $model
      * @return void
      */
-    public function delete(Model $model): void
-    {
+    public function delete(Model $model): void {
         $id = $model->getAttribute('id');
 
         if (!$this->items->has($id)) {
@@ -127,8 +120,7 @@ final class InMemoryRepository
      * @param Model $model
      * @return void
      */
-    private function insert(Model $model): void
-    {
+    private function insert(Model $model): void {
         if ($this->items->has($this->incrementingId)) {
             throw new LogicException(sprintf(
                 'In-memory repository already contains model [id=%d].', $this->incrementingId
@@ -160,8 +152,7 @@ final class InMemoryRepository
      * @param Model $model
      * @return void
      */
-    private function update(Model $model): void
-    {
+    private function update(Model $model): void {
         $id = $model->getAttribute('id');
 
         if (!$this->items->has($id)) {

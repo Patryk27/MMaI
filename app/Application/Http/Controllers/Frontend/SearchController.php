@@ -14,8 +14,7 @@ use App\SearchEngine\Queries\SearchQuery;
 use App\SearchEngine\SearchEngineFacade;
 use Illuminate\Support\Collection;
 
-class SearchController extends Controller
-{
+class SearchController extends Controller {
     /** @var WebsiteDetector */
     private $websiteDetector;
 
@@ -38,8 +37,7 @@ class SearchController extends Controller
     /**
      * @return mixed
      */
-    public function index()
-    {
+    public function index() {
         return view('frontend.views.search.index');
     }
 
@@ -49,8 +47,7 @@ class SearchController extends Controller
      * @throws PageException
      * @throws CoreException
      */
-    public function search(SearchRequest $request)
-    {
+    public function search(SearchRequest $request) {
         $website = $this->websiteDetector->detectOrFail($request);
 
         /** @var Collection|Page[] $pages */

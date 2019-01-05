@@ -8,13 +8,11 @@ use App\Websites\Queries\GetAllWebsitesQuery;
 use App\Websites\WebsitesFacade;
 use Illuminate\Contracts\View\View;
 
-class TagsController extends Controller
-{
+class TagsController extends Controller {
     /** @var WebsitesFacade */
     private $websitesFacade;
 
-    public function __construct(WebsitesFacade $websitesFacade)
-    {
+    public function __construct(WebsitesFacade $websitesFacade) {
         $this->websitesFacade = $websitesFacade;
     }
 
@@ -22,8 +20,7 @@ class TagsController extends Controller
      * @return View
      * @throws WebsiteException
      */
-    public function index(): View
-    {
+    public function index(): View {
         $websites = $this->websitesFacade->queryMany(
             new GetAllWebsitesQuery()
         );

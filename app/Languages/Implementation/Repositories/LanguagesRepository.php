@@ -5,8 +5,7 @@ namespace App\Languages\Implementation\Repositories;
 use App\Languages\Models\Language;
 use Illuminate\Support\Collection;
 
-interface LanguagesRepository
-{
+interface LanguagesRepository {
     /**
      * Returns language with specified id.
      *

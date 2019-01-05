@@ -10,8 +10,7 @@ use Illuminate\Auth\AuthManager;
 use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Contracts\Events\Dispatcher as EventsDispatcher;
 
-class AuthorizationController extends Controller
-{
+class AuthorizationController extends Controller {
     private const AFTER_SIGN_IN_ROUTE = 'backend.dashboard.index';
 
     /** @var EventsDispatcher */
@@ -36,8 +35,7 @@ class AuthorizationController extends Controller
     /**
      * @return mixed
      */
-    public function in()
-    {
+    public function in() {
         if ($this->authGuard->check()) {
             return redirect()->route(self::AFTER_SIGN_IN_ROUTE);
         }
@@ -49,8 +47,7 @@ class AuthorizationController extends Controller
      * @param SignInRequest $request
      * @return mixed
      */
-    public function doIn(SignInRequest $request)
-    {
+    public function doIn(SignInRequest $request) {
         // If user is already signed in, redirect him / her to appropriate route
         if ($this->authGuard->check()) {
             return redirect()->route(self::AFTER_SIGN_IN_ROUTE);
@@ -83,8 +80,7 @@ class AuthorizationController extends Controller
     /**
      * @return mixed
      */
-    public function out()
-    {
+    public function out() {
         $this->authGuard->logout();
         $this->flasher->flashSuccess('You have been signed out.');
 

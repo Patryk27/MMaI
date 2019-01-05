@@ -13,8 +13,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
-class NavigationComposer
-{
+class NavigationComposer {
     /** @var Request */
     private $request;
 
@@ -39,8 +38,7 @@ class NavigationComposer
      * @return void
      * @throws Exception
      */
-    public function compose(View $view): void
-    {
+    public function compose(View $view): void {
         $website = $this->websiteDetector->detectOrFail($this->request);
 
         $view->with([
@@ -54,8 +52,7 @@ class NavigationComposer
      * @return Collection|MenuItem[]
      * @throws MenuException
      */
-    private function getMenuItems(Website $website): Collection
-    {
+    private function getMenuItems(Website $website): Collection {
         return $this->menusFacade->queryMany(
             new GetMenuItemsByWebsiteIdQuery($website->id)
         );

@@ -6,8 +6,7 @@ use App\Core\ValueObjects\HasInitializationConstructor;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Http\JsonResponse;
 
-final class ApiSearcherResponse implements Responsable
-{
+final class ApiSearcherResponse implements Responsable {
     use HasInitializationConstructor;
 
     /** @var int */
@@ -24,8 +23,7 @@ final class ApiSearcherResponse implements Responsable
      *
      * @return int
      */
-    public function getAllCount(): int
-    {
+    public function getAllCount(): int {
         return $this->allCount;
     }
 
@@ -35,8 +33,7 @@ final class ApiSearcherResponse implements Responsable
      *
      * @return int
      */
-    public function getMatchingCount(): int
-    {
+    public function getMatchingCount(): int {
         return $this->matchingCount;
     }
 
@@ -45,16 +42,14 @@ final class ApiSearcherResponse implements Responsable
      *
      * @return array[]
      */
-    public function getItems(): array
-    {
+    public function getItems(): array {
         return $this->items;
     }
 
     /**
      * @inheritDoc
      */
-    public function toResponse($request)
-    {
+    public function toResponse($request) {
         return JsonResponse::create([
             'allCount' => $this->allCount,
             'matchingCount' => $this->matchingCount,

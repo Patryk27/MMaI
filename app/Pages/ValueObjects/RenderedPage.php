@@ -5,8 +5,7 @@ namespace App\Pages\ValueObjects;
 use App\Core\ValueObjects\HasInitializationConstructor;
 use App\Pages\Models\Page;
 
-final class RenderedPage
-{
+final class RenderedPage {
     use HasInitializationConstructor;
 
     /** @var Page */
@@ -21,24 +20,21 @@ final class RenderedPage
     /**
      * @return Page
      */
-    public function getPage(): Page
-    {
+    public function getPage(): Page {
         return $this->page;
     }
 
     /**
      * @return string
      */
-    public function getLead(): string
-    {
+    public function getLead(): string {
         return $this->lead;
     }
 
     /**
      * @return string
      */
-    public function getContent(): string
-    {
+    public function getContent(): string {
         return $this->content;
     }
 }

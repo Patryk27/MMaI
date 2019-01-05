@@ -10,8 +10,7 @@ use App\SearchEngine\Implementation\Services\PagesSearcher;
 use Elasticsearch\Client as ElasticsearchClient;
 use Illuminate\Contracts\Events\Dispatcher as EventsDispatcher;
 
-final class SearchEngineFactory
-{
+final class SearchEngineFactory {
     /**
      * Builds an instance of @see SearchEngineFacade.
      *

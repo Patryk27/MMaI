@@ -6,8 +6,7 @@ use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Request;
 
-class Handler extends ExceptionHandler
-{
+class Handler extends ExceptionHandler {
     /** @var string[] */
     protected $dontFlash = [
         'password',
@@ -19,8 +18,7 @@ class Handler extends ExceptionHandler
      * @param AuthenticationException $exception
      * @return mixed
      */
-    protected function unauthenticated($request, AuthenticationException $exception)
-    {
+    protected function unauthenticated($request, AuthenticationException $exception) {
         if ($request->expectsJson()) {
             return response()->json(['message' => $exception->getMessage()], 401);
         } else {

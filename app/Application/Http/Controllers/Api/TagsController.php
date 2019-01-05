@@ -15,8 +15,7 @@ use App\Tags\TagsFacade;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
-class TagsController extends Controller
-{
+class TagsController extends Controller {
     /** @var ApiSearcher */
     private $apiSearcher;
 
@@ -36,8 +35,7 @@ class TagsController extends Controller
      * @return ApiSearcherResponse
      * @throws CoreException
      */
-    public function index(Request $request): ApiSearcherResponse
-    {
+    public function index(Request $request): ApiSearcherResponse {
         $baseView = 'backend.components.table.';
         $tagsView = 'backend.components.tags.table.';
 
@@ -65,8 +63,7 @@ class TagsController extends Controller
      * @return void
      * @throws TagException
      */
-    public function store(CreateTagRequest $request): void
-    {
+    public function store(CreateTagRequest $request): void {
         $this->tagsFacade->create(
             $request->all()
         );
@@ -78,8 +75,7 @@ class TagsController extends Controller
      * @return void
      * @throws TagException
      */
-    public function update(UpdateTagRequest $request, Tag $tag): void
-    {
+    public function update(UpdateTagRequest $request, Tag $tag): void {
         $this->tagsFacade->update(
             $tag,
             $request->all()
@@ -90,8 +86,7 @@ class TagsController extends Controller
      * @param Tag $tag
      * @return void
      */
-    public function destroy(Tag $tag): void
-    {
+    public function destroy(Tag $tag): void {
         $this->tagsFacade->delete($tag);
     }
 }

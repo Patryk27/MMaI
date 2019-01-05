@@ -15,8 +15,7 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
 use Throwable;
 
-final class AttachmentsFacade
-{
+final class AttachmentsFacade {
     /** @var AttachmentsCreator */
     private $attachmentsCreator;
 
@@ -48,8 +47,7 @@ final class AttachmentsFacade
      * @return Attachment
      * @throws Throwable
      */
-    public function createFromFile(UploadedFile $file): Attachment
-    {
+    public function createFromFile(UploadedFile $file): Attachment {
         return $this->attachmentsCreator->createFromFile($file);
     }
 
@@ -68,8 +66,7 @@ final class AttachmentsFacade
      * @param bool $aggressive
      * @return AttachmentsGarbageCollectorResult
      */
-    public function collectGarbage(bool $aggressive = false): AttachmentsGarbageCollectorResult
-    {
+    public function collectGarbage(bool $aggressive = false): AttachmentsGarbageCollectorResult {
         return $this->attachmentsGarbageCollector->collectGarbage($aggressive);
     }
 
@@ -80,8 +77,7 @@ final class AttachmentsFacade
      * @return resource
      * @throws AttachmentException
      */
-    public function stream(Attachment $attachment)
-    {
+    public function stream(Attachment $attachment) {
         return $this->attachmentsStreamer->stream($attachment);
     }
 
@@ -93,8 +89,7 @@ final class AttachmentsFacade
      * @return Attachment
      * @throws AttachmentException
      */
-    public function queryOne(AttachmentsQuery $query): Attachment
-    {
+    public function queryOne(AttachmentsQuery $query): Attachment {
         $attachments = $this->queryMany($query);
 
         if ($attachments->isEmpty()) {
@@ -111,8 +106,7 @@ final class AttachmentsFacade
      * @return Collection|Attachment[]
      * @throws AttachmentException
      */
-    public function queryMany(AttachmentsQuery $query): Collection
-    {
+    public function queryMany(AttachmentsQuery $query): Collection {
         return $this->attachmentsQuerier->query($query);
     }
 }

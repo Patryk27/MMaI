@@ -8,21 +8,18 @@ use App\Routes\Models\Route;
 use App\Routes\Models\Route as Routes;
 use Illuminate\Support\Collection;
 
-class InMemoryRoutesRepository implements RoutesRepository
-{
+class InMemoryRoutesRepository implements RoutesRepository {
     /** @var InMemoryRepository */
     private $repository;
 
-    public function __construct(InMemoryRepository $repository)
-    {
+    public function __construct(InMemoryRepository $repository) {
         $this->repository = $repository;
     }
 
     /**
      * @inheritDoc
      */
-    public function getBySubdomainAndUrl(string $subdomain, string $url): ?Routes
-    {
+    public function getBySubdomainAndUrl(string $subdomain, string $url): ?Routes {
         return $this->repository
             ->getByMany('subdomain', $subdomain)
             ->where('url', $url)
@@ -32,16 +29,14 @@ class InMemoryRoutesRepository implements RoutesRepository
     /**
      * @inheritDoc
      */
-    public function getLikeUrl(string $url): Collection
-    {
+    public function getLikeUrl(string $url): Collection {
         unimplemented();
     }
 
     /**
      * @inheritDoc
      */
-    public function getPointingAt(Morphable $morphable): Collection
-    {
+    public function getPointingAt(Morphable $morphable): Collection {
         return $this->repository
             ->getAll()
             ->filter(function (Route $route) use ($morphable): bool {
@@ -53,16 +48,14 @@ class InMemoryRoutesRepository implements RoutesRepository
     /**
      * @inheritDoc
      */
-    public function persist(Routes $route): void
-    {
+    public function persist(Routes $route): void {
         $this->repository->persist($route);
     }
 
     /**
      * @inheritDoc
      */
-    public function delete(Routes $route): void
-    {
+    public function delete(Routes $route): void {
         $this->repository->delete($route);
     }
 }

@@ -38,8 +38,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @method PagePresenter getPresenter()
  */
-class Page extends Model implements Morphable, Presentable
-{
+class Page extends Model implements Morphable, Presentable {
     use HasPresenter;
 
     public const
@@ -81,104 +80,91 @@ class Page extends Model implements Morphable, Presentable
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function attachments()
-    {
+    public function attachments() {
         return $this->hasMany(Attachment::class)->orderBy('name');
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\MorphOne
      */
-    public function route()
-    {
+    public function route() {
         return $this->morphOne(Route::class, 'model');
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function tags()
-    {
+    public function tags() {
         return $this->belongsToMany(Tag::class)->orderBy('name');
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function website()
-    {
+    public function website() {
         return $this->belongsTo(Website::class);
     }
 
     /**
      * @return bool
      */
-    public function isPost(): bool
-    {
+    public function isPost(): bool {
         return $this->type === self::TYPE_POST;
     }
 
     /**
      * @return bool
      */
-    public function isPage(): bool
-    {
+    public function isPage(): bool {
         return $this->type === self::TYPE_PAGE;
     }
 
     /**
      * @return bool
      */
-    public function isDraft(): bool
-    {
+    public function isDraft(): bool {
         return $this->status === self::STATUS_DRAFT;
     }
 
     /**
      * @return bool
      */
-    public function isPublished(): bool
-    {
+    public function isPublished(): bool {
         return $this->status === self::STATUS_PUBLISHED;
     }
 
     /**
      * @return bool
      */
-    public function isDeleted(): bool
-    {
+    public function isDeleted(): bool {
         return $this->status === self::STATUS_DELETED;
     }
 
     /**
      * @return string
      */
-    public function getEditUrl(): string
-    {
+    public function getEditUrl(): string {
         return route('backend.pages.edit', $this->id);
     }
 
     /**
      * @inheritDoc
      */
-    public function getMorphableId(): int
-    {
+    public function getMorphableId(): int {
         return $this->id;
     }
 
     /**
      * @inheritDoc
      */
-    public static function getMorphableType(): string
-    {
+    public static function getMorphableType(): string {
         return 'page';
     }
 
     /**
      * @inheritdoc
      */
-    public static function getPresenterClass(): string
-    {
+    public static function getPresenterClass(): string {
         return PagePresenter::class;
     }
 }

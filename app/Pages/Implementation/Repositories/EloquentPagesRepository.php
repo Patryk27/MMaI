@@ -8,8 +8,7 @@ use App\Routes\RoutesFacade;
 use Illuminate\Database\Connection as DatabaseConnection;
 use Illuminate\Support\Collection;
 
-class EloquentPagesRepository implements PagesRepository
-{
+class EloquentPagesRepository implements PagesRepository {
     /** @var DatabaseConnection */
     private $db;
 
@@ -32,32 +31,28 @@ class EloquentPagesRepository implements PagesRepository
     /**
      * @inheritDoc
      */
-    public function getById(int $id): ?Page
-    {
+    public function getById(int $id): ?Page {
         unimplemented();
     }
 
     /**
      * @inheritDoc
      */
-    public function getByIds(array $ids): Collection
-    {
+    public function getByIds(array $ids): Collection {
         unimplemented();
     }
 
     /**
      * @inheritDoc
      */
-    public function getByTagId(int $tagId): Collection
-    {
+    public function getByTagId(int $tagId): Collection {
         unimplemented();
     }
 
     /**
      * @inheritDoc
      */
-    public function persist(Page $page): void
-    {
+    public function persist(Page $page): void {
         unimplemented();
     }
 }

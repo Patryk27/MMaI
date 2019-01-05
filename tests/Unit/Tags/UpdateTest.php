@@ -4,16 +4,14 @@ namespace Tests\Unit\Tags;
 
 use App\Tags\Exceptions\TagException;
 
-class UpdateTest extends TestCase
-{
+class UpdateTest extends TestCase {
     /**
      * This test checks basic functionality of the "update()" method.
      *
      * @return void
      * @throws TagException
      */
-    public function testUpdate(): void
-    {
+    public function testUpdate(): void {
         // Create some tag
         $tag = $this->tagsFacade->create([
             'language_id' => 100,
@@ -40,8 +38,7 @@ class UpdateTest extends TestCase
      * @return void
      * @throws TagException
      */
-    public function testDoesNotUpdateLanguageId(): void
-    {
+    public function testDoesNotUpdateLanguageId(): void {
         // Create some tag
         $tag = $this->tagsFacade->create([
             'language_id' => 100,
@@ -68,8 +65,7 @@ class UpdateTest extends TestCase
      * @return void
      * @throws TagException
      */
-    public function testForbidsDuplicates(): void
-    {
+    public function testForbidsDuplicates(): void {
         $this->tagsFacade->create([
             'language_id' => 100,
             'name' => 'tag A',

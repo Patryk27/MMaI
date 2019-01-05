@@ -13,8 +13,7 @@ use App\Routes\Models\Route;
 use App\Routes\Queries\RoutesQuery;
 use Illuminate\Support\Collection;
 
-final class RoutesFacade
-{
+final class RoutesFacade {
     /** @var RoutesRepository */
     private $routesRepository;
 
@@ -50,8 +49,7 @@ final class RoutesFacade
      * @param Route $route
      * @return void
      */
-    public function delete(Route $route): void
-    {
+    public function delete(Route $route): void {
         $this->routesDeleter->delete($route);
     }
 
@@ -63,8 +61,7 @@ final class RoutesFacade
      * @return void
      * @throws RouteException
      */
-    public function reroute(Route $oldRoute, Route $newRoute): void
-    {
+    public function reroute(Route $oldRoute, Route $newRoute): void {
         $this->routesValidator->validate($oldRoute);
         $this->routesValidator->validate($newRoute);
 
@@ -80,8 +77,7 @@ final class RoutesFacade
      * @throws RouteException
      * @throws RouteNotFoundException
      */
-    public function queryOne(RoutesQuery $query): Route
-    {
+    public function queryOne(RoutesQuery $query): Route {
         $routes = $this->queryMany($query);
 
         if ($routes->isEmpty()) {
@@ -98,8 +94,7 @@ final class RoutesFacade
      * @return Collection|Route[]
      * @throws RouteException
      */
-    public function queryMany(RoutesQuery $query): Collection
-    {
+    public function queryMany(RoutesQuery $query): Collection {
         return $this->routesQuerier->query($query);
     }
 }

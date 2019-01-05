@@ -6,15 +6,13 @@ use App\Core\Repositories\InMemoryRepository;
 use App\Users\Models\User;
 use Tests\Unit\TestCase;
 
-class InMemoryRepositoryTest extends TestCase
-{
+class InMemoryRepositoryTest extends TestCase {
     /**
      * This test checks basic functionality of the "getBy()" method.
      *
      * @return void
      */
-    public function testGetBy(): void
-    {
+    public function testGetBy(): void {
         $repository = new InMemoryRepository([
             new User([
                 'login' => 'A',
@@ -52,8 +50,7 @@ class InMemoryRepositoryTest extends TestCase
      *
      * @return void
      */
-    public function testGetByReturnsClones(): void
-    {
+    public function testGetByReturnsClones(): void {
         $repository = new InMemoryRepository([
             new User([
                 'login' => 'First',
@@ -75,8 +72,7 @@ class InMemoryRepositoryTest extends TestCase
      *
      * @return void
      */
-    public function testPersist(): void
-    {
+    public function testPersist(): void {
         $repository = new InMemoryRepository();
 
         $userA = new User([
@@ -110,8 +106,7 @@ class InMemoryRepositoryTest extends TestCase
      *
      * @return void
      */
-    public function testPersistsSavesClones(): void
-    {
+    public function testPersistsSavesClones(): void {
         $repository = new InMemoryRepository([
             $user = new User([
                 'login' => 'A',
@@ -134,8 +129,7 @@ class InMemoryRepositoryTest extends TestCase
      *
      * @return void
      */
-    public function testPersistSetsTimestamps(): void
-    {
+    public function testPersistSetsTimestamps(): void {
         new InMemoryRepository([
             $user = new User([
                 'login' => 'A',
@@ -151,8 +145,7 @@ class InMemoryRepositoryTest extends TestCase
      *
      * @return void
      */
-    public function testDelete(): void
-    {
+    public function testDelete(): void {
         $repository = new InMemoryRepository([
             new User([
                 'login' => 'A',

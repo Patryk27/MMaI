@@ -2,6 +2,5 @@
 
 namespace App\Menus\Queries;
 
-interface MenuItemsQuery
-{
+interface MenuItemsQuery {
 }

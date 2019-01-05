@@ -5,16 +5,14 @@ namespace Tests\Unit\Tags;
 use App\Core\Exceptions\Exception as AppException;
 use App\Tags\Models\Tag;
 
-class CreateTest extends TestCase
-{
+class CreateTest extends TestCase {
     /**
      * This test makes sure that the create() method saves tag in the database.
      *
      * @return void
      * @throws AppException
      */
-    public function testCreate(): void
-    {
+    public function testCreate(): void {
         // Make sure repository is empty when we're starting
         $this->assertCount(0, $this->tagsRepository->getAll());
 
@@ -45,8 +43,7 @@ class CreateTest extends TestCase
      * @return void
      * @throws AppException
      */
-    public function testForbidsDuplicates(): void
-    {
+    public function testForbidsDuplicates(): void {
         $this->tagsFacade->create([
             'language_id' => 100,
             'name' => 'foo',

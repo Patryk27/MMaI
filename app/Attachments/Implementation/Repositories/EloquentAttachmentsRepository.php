@@ -7,45 +7,39 @@ use App\Core\Repositories\EloquentRepository;
 use Illuminate\Support\Collection;
 use Throwable;
 
-class EloquentAttachmentsRepository implements AttachmentsRepository
-{
+class EloquentAttachmentsRepository implements AttachmentsRepository {
     /** @var EloquentRepository */
     private $repository;
 
-    public function __construct(Attachment $attachment)
-    {
+    public function __construct(Attachment $attachment) {
         $this->repository = new EloquentRepository($attachment);
     }
 
     /**
      * @inheritDoc
      */
-    public function getById(int $id): ?Attachment
-    {
+    public function getById(int $id): ?Attachment {
         return $this->repository->getById($id);
     }
 
     /**
      * @inheritDoc
      */
-    public function getByPath(string $path): ?Attachment
-    {
+    public function getByPath(string $path): ?Attachment {
         return $this->repository->getBy('path', $path);
     }
 
     /**
      * @inheritDoc
      */
-    public function getAll(): Collection
-    {
+    public function getAll(): Collection {
         return $this->repository->getAll();
     }
 
     /**
      * @inheritDoc
      */
-    public function getDetached(): Collection
-    {
+    public function getDetached(): Collection {
         return $this->repository->getByMany('post_id', null);
     }
 
@@ -53,8 +47,7 @@ class EloquentAttachmentsRepository implements AttachmentsRepository
      * @inheritDoc
      * @throws Throwable
      */
-    public function persist(Attachment $attachment): void
-    {
+    public function persist(Attachment $attachment): void {
         $this->repository->persist($attachment);
     }
 
@@ -62,8 +55,7 @@ class EloquentAttachmentsRepository implements AttachmentsRepository
      * @inheritDoc
      * @throws Throwable
      */
-    public function delete(Attachment $attachment): void
-    {
+    public function delete(Attachment $attachment): void {
         $this->repository->delete($attachment);
     }
 }

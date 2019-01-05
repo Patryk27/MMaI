@@ -5,8 +5,7 @@ use App\Routes\Models\Route;
 use App\Tags\Models\Tag;
 use Carbon\Carbon;
 
-final class PagesSeeder extends Seeder
-{
+final class PagesSeeder extends Seeder {
     /*** @var Carbon */
     private $now;
 
@@ -14,8 +13,7 @@ final class PagesSeeder extends Seeder
      * @return void
      * @throws Throwable
      */
-    public function run(): void
-    {
+    public function run(): void {
         $this->now = Carbon::now();
 
         $this->createAboutMePages();
@@ -26,8 +24,7 @@ final class PagesSeeder extends Seeder
      * @return void
      * @throws Throwable
      */
-    private function createAboutMePages(): void
-    {
+    private function createAboutMePages(): void {
         $this->createPage([
             'type' => Page::TYPE_PAGE,
             'status' => Page::STATUS_PUBLISHED,
@@ -59,8 +56,7 @@ final class PagesSeeder extends Seeder
      * @return void
      * @throws Throwable
      */
-    private function createExamplePosts(): void
-    {
+    private function createExamplePosts(): void {
         $date = sprintf('%04d/%02d', $this->now->year, $this->now->month);
 
         $this->createPage([
@@ -107,8 +103,7 @@ final class PagesSeeder extends Seeder
      * @return void
      * @throws Throwable
      */
-    private function createPage(array $data): void
-    {
+    private function createPage(array $data): void {
         $website = $this->getWebsite($data['website']);
 
         $page = Page::create([

@@ -1,12 +1,10 @@
 <?php
 
-final class DatabaseSeeder extends Seeder
-{
+final class DatabaseSeeder extends Seeder {
     /**
      * @return void
      */
-    public function run(): void
-    {
+    public function run(): void {
         $this->truncate([
             'attachments',
             'events',

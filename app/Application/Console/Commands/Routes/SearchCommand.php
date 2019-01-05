@@ -9,8 +9,7 @@ use App\Routes\RoutesFacade;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
 
-final class SearchCommand extends Command
-{
+final class SearchCommand extends Command {
     /** @var string */
     protected $signature = 'app:routes:search {query?}';
 
@@ -20,8 +19,7 @@ final class SearchCommand extends Command
     /** @var RoutesFacade */
     private $routesFacade;
 
-    public function __construct(RoutesFacade $routesFacade)
-    {
+    public function __construct(RoutesFacade $routesFacade) {
         $this->routesFacade = $routesFacade;
 
         parent::__construct();
@@ -31,8 +29,7 @@ final class SearchCommand extends Command
      * @return void
      * @throws RouteException
      */
-    public function handle(): void
-    {
+    public function handle(): void {
         $routes = $this->findRoutes();
 
         $this->output->writeln(sprintf(
@@ -46,8 +43,7 @@ final class SearchCommand extends Command
      * @return Collection|Route[]
      * @throws RouteException
      */
-    private function findRoutes(): Collection
-    {
+    private function findRoutes(): Collection {
         $query = $this->input->getArgument('query') ?? '';
 
         if (!str_contains($query, '%')) {
@@ -71,8 +67,7 @@ final class SearchCommand extends Command
      * @param Collection|Route[] $routes
      * @return void
      */
-    private function renderTable(Collection $routes): void
-    {
+    private function renderTable(Collection $routes): void {
         $tableHeaders = [
             'id' => 'Id',
             'route' => 'Route',

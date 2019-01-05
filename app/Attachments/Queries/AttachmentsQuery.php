@@ -2,6 +2,5 @@
 
 namespace App\Attachments\Queries;
 
-interface AttachmentsQuery
-{
+interface AttachmentsQuery {
 }

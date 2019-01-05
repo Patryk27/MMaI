@@ -2,6 +2,5 @@
 
 namespace App\Languages\Queries;
 
-interface LanguagesQuery
-{
+interface LanguagesQuery {
 }

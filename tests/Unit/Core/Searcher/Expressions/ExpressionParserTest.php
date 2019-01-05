@@ -7,16 +7,14 @@ use App\Core\Searcher\Expressions\ExpressionException;
 use App\Core\Searcher\Expressions\ExpressionParser;
 use Tests\Unit\TestCase;
 
-class ExpressionParserTest extends TestCase
-{
+class ExpressionParserTest extends TestCase {
     /** @var ExpressionParser */
     private $parser;
 
     /**
      * @return void
      */
-    public function setUp(): void
-    {
+    public function setUp(): void {
         $this->parser = new ExpressionParser();
     }
 
@@ -28,8 +26,7 @@ class ExpressionParserTest extends TestCase
      * @return void
      * @throws ExpressionException
      */
-    public function testCorrectCase(string $expression, Expression $expectedExpression): void
-    {
+    public function testCorrectCase(string $expression, Expression $expectedExpression): void {
         $this->assertEquals(
             $expectedExpression,
             $this->parser->parse($expression)
@@ -44,8 +41,7 @@ class ExpressionParserTest extends TestCase
      * @return void
      * @throws ExpressionException
      */
-    public function testInvalidCase(string $expression, string $expectedError): void
-    {
+    public function testInvalidCase(string $expression, string $expectedError): void {
         $this->expectException(ExpressionException::class);
         $this->expectExceptionMessage($expectedError);
 
@@ -55,8 +51,7 @@ class ExpressionParserTest extends TestCase
     /**
      * @return array
      */
-    public function provideCorrectCases(): array
-    {
+    public function provideCorrectCases(): array {
         return [
             [
                 ':foo',
@@ -78,8 +73,7 @@ class ExpressionParserTest extends TestCase
     /**
      * @return array
      */
-    public function provideInvalidCases(): array
-    {
+    public function provideInvalidCases(): array {
         return [
             [
                 'foo()',

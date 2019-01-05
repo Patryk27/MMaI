@@ -4,13 +4,11 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateWebsitesTable extends Migration
-{
+class CreateWebsitesTable extends Migration {
     /**
      * @return void
      */
-    public function up()
-    {
+    public function up() {
         Schema::create('websites', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('language_id');
@@ -35,8 +33,7 @@ class CreateWebsitesTable extends Migration
     /**
      * @return void
      */
-    public function down()
-    {
+    public function down() {
         Schema::dropIfExists('websites');
     }
 }

@@ -8,16 +8,14 @@ use Carbon\Carbon;
 /**
  * @see \App\Attachments\Implementation\Services\AttachmentsGarbageCollector
  */
-class CollectGarbageTest extends TestCase
-{
+class CollectGarbageTest extends TestCase {
     /** @var Attachment[] */
     private $attachments;
 
     /**
      * @inheritdoc
      */
-    public function setUp(): void
-    {
+    public function setUp(): void {
         parent::setUp();
 
         $this->attachments = [
@@ -45,8 +43,7 @@ class CollectGarbageTest extends TestCase
      *
      * @return void
      */
-    public function testNonAggressive(): void
-    {
+    public function testNonAggressive(): void {
         // Execute the garbage collector
         $this->attachmentsFacade->collectGarbage(false);
 
@@ -65,8 +62,7 @@ class CollectGarbageTest extends TestCase
      *
      * @return void
      */
-    public function testAggressive(): void
-    {
+    public function testAggressive(): void {
         // Execute the garbage collector
         $this->attachmentsFacade->collectGarbage(true);
 

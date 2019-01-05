@@ -2,13 +2,11 @@
 
 use App\Menus\Models\MenuItem;
 
-final class MenusSeeder extends Seeder
-{
+final class MenusSeeder extends Seeder {
     /**
      * @return void
      */
-    public function run(): void
-    {
+    public function run(): void {
         $this->createItem('en', 1, 'https://google.com', 'My favorite site');
         $this->createItem('pl', 1, 'https://google.pl', 'Moja ulubiona strona');
     }

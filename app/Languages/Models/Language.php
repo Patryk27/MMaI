@@ -24,8 +24,7 @@ use Illuminate\Support\Carbon;
  * @property-read Carbon $created_at
  * @property-read Carbon $updated_at
  */
-class Language extends Model
-{
+class Language extends Model {
     /** @var string[] */
     protected $fillable = [
         'iso639_code',

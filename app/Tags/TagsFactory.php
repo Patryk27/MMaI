@@ -11,8 +11,7 @@ use App\Tags\Implementation\Services\TagsUpdater;
 use App\Tags\Implementation\Services\TagsValidator;
 use Illuminate\Contracts\Events\Dispatcher as EventsDispatcher;
 
-final class TagsFactory
-{
+final class TagsFactory {
     /**
      * Builds an instance of @see TagsFacade.
      *

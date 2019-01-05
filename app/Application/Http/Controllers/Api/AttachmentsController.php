@@ -7,13 +7,11 @@ use App\Application\Http\Requests\Backend\Attachments\CreateAttachmentRequest;
 use App\Attachments\AttachmentsFacade;
 use Throwable;
 
-class AttachmentsController extends Controller
-{
+class AttachmentsController extends Controller {
     /** @var AttachmentsFacade */
     private $attachmentsFacade;
 
-    public function __construct(AttachmentsFacade $attachmentsFacade)
-    {
+    public function __construct(AttachmentsFacade $attachmentsFacade) {
         $this->attachmentsFacade = $attachmentsFacade;
     }
 
@@ -22,8 +20,7 @@ class AttachmentsController extends Controller
      * @return array
      * @throws Throwable
      */
-    public function store(CreateAttachmentRequest $request): array
-    {
+    public function store(CreateAttachmentRequest $request): array {
         $attachment = $this->attachmentsFacade->createFromFile(
             $request->file('attachment')
         );

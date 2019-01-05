@@ -5,8 +5,7 @@ namespace App\Tags\Implementation\Repositories;
 use App\Tags\Models\Tag;
 use Illuminate\Support\Collection;
 
-interface TagsRepository
-{
+interface TagsRepository {
     /**
      * Returns tag with specified id or `null` if no such tag exists.
      *

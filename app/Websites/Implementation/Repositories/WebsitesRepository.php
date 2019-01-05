@@ -5,8 +5,7 @@ namespace App\Websites\Implementation\Repositories;
 use App\Websites\Models\Website;
 use Illuminate\Support\Collection;
 
-interface WebsitesRepository
-{
+interface WebsitesRepository {
     /**
      * Returns website with specified id.
      *

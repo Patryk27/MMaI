@@ -10,13 +10,11 @@ use App\Websites\Queries\GetWebsiteBySlugQuery;
 use App\Websites\WebsitesFacade;
 use Illuminate\Http\Request;
 
-class WebsiteDetector
-{
+class WebsiteDetector {
     /** @var WebsitesFacade */
     private $websitesFacade;
 
-    public function __construct(WebsitesFacade $websitesFacade)
-    {
+    public function __construct(WebsitesFacade $websitesFacade) {
         $this->websitesFacade = $websitesFacade;
     }
 
@@ -25,8 +23,7 @@ class WebsiteDetector
      * @return Website|null
      * @throws WebsiteException
      */
-    public function detect(Request $request): ?Website
-    {
+    public function detect(Request $request): ?Website {
         try {
             $subdomain = $request->route('subdomain');
 
@@ -44,8 +41,7 @@ class WebsiteDetector
      * @throws CoreException
      * @throws WebsiteException
      */
-    public function detectOrFail(Request $request): Website
-    {
+    public function detectOrFail(Request $request): Website {
         $website = $this->detect($request);
 
         if (is_null($website)) {

@@ -18,8 +18,7 @@ use LogicException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
-class DispatchController extends Controller
-{
+class DispatchController extends Controller {
     /** @var Gate */
     private $gate;
 
@@ -44,8 +43,7 @@ class DispatchController extends Controller
      * @return mixed
      * @throws Throwable
      */
-    public function dispatch(Request $request)
-    {
+    public function dispatch(Request $request) {
         try {
             $route = $this->routesFacade->queryOne(
                 GetRouteBySubdomainAndUrlQuery::buildFromRequest($request)
@@ -75,8 +73,7 @@ class DispatchController extends Controller
      * @return View
      * @throws Exception
      */
-    private function dispatchPage(Page $page): View
-    {
+    private function dispatchPage(Page $page): View {
         if ($this->gate->denies('show', [$page])) {
             throw new NotFoundHttpException();
         }
@@ -90,8 +87,7 @@ class DispatchController extends Controller
      * @param Route $route
      * @return RedirectResponse
      */
-    private function dispatchRoute(Route $route): RedirectResponse
-    {
+    private function dispatchRoute(Route $route): RedirectResponse {
         return new RedirectResponse(
             $route->getAbsoluteUrl()
         );

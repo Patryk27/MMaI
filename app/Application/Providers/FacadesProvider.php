@@ -36,8 +36,7 @@ use Illuminate\Contracts\Filesystem\Factory as FilesystemFactory;
 use Illuminate\Events\Dispatcher as EventsDispatcher;
 use Illuminate\Support\ServiceProvider;
 
-final class FacadesProvider extends ServiceProvider
-{
+final class FacadesProvider extends ServiceProvider {
     private const FACADES = [
         AnalyticsFacade::class,
         AttachmentsFacade::class,
@@ -53,8 +52,7 @@ final class FacadesProvider extends ServiceProvider
     /**
      * @return void
      */
-    public function register(): void
-    {
+    public function register(): void {
         // Unit tests instantiate facades on their own, so we might as well just
         // skip this step
         if ($this->app->runningUnitTests()) {
@@ -138,8 +136,7 @@ final class FacadesProvider extends ServiceProvider
     /**
      * @return void
      */
-    public function boot(): void
-    {
+    public function boot(): void {
         // Unit tests instantiate facades on their own, so we might as well just
         // skip this step
         if ($this->app->runningUnitTests()) {

@@ -10,8 +10,7 @@ use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
-class AbstractEloquentSearcher implements Searcher
-{
+class AbstractEloquentSearcher implements Searcher {
     /** @var EloquentBuilder */
     protected $builder;
 
@@ -24,8 +23,7 @@ class AbstractEloquentSearcher implements Searcher
     /** @var EloquentFilterer */
     protected $filterer;
 
-    public function __construct(Model $model, array $fields)
-    {
+    public function __construct(Model $model, array $fields) {
         $this->builder = $model->newQuery();
         $this->mapper = new EloquentMapper($fields);
         $this->textQuerier = new EloquentTextQuerier($this->mapper);
@@ -35,8 +33,7 @@ class AbstractEloquentSearcher implements Searcher
     /**
      * @inheritdoc
      */
-    public function search(string $query): void
-    {
+    public function search(string $query): void {
         $this->textQuerier->applyQuery($query);
     }
 
@@ -44,8 +41,7 @@ class AbstractEloquentSearcher implements Searcher
      * @inheritdoc
      * @throws CoreException
      */
-    public function filter(array $fields): void
-    {
+    public function filter(array $fields): void {
         $this->filterer->applyFilters($this->builder, $fields);
     }
 
@@ -53,8 +49,7 @@ class AbstractEloquentSearcher implements Searcher
      * @inheritdoc
      * @throws CoreException
      */
-    public function orderBy(string $fieldName, bool $ascending): void
-    {
+    public function orderBy(string $fieldName, bool $ascending): void {
         $this->builder->orderBy(
             $this->mapper->getColumn($fieldName),
             $ascending ? 'asc' : 'desc'
@@ -64,24 +59,21 @@ class AbstractEloquentSearcher implements Searcher
     /**
      * @inheritdoc
      */
-    public function paginate(int $page, int $perPage): void
-    {
+    public function paginate(int $page, int $perPage): void {
         $this->builder->forPage($page, $perPage);
     }
 
     /**
      * @inheritdoc
      */
-    public function get(): Collection
-    {
+    public function get(): Collection {
         return $this->builder->get();
     }
 
     /**
      * @inheritdoc
      */
-    public function count(): int
-    {
+    public function count(): int {
         return $this->builder->count();
     }
 }

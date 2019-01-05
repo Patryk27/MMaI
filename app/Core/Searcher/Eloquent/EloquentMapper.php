@@ -5,8 +5,7 @@ namespace App\Core\Searcher\Eloquent;
 use App\Core\Exceptions\Exception as CoreException;
 use Illuminate\Database\Query\Expression as QueryExpression;
 
-class EloquentMapper
-{
+class EloquentMapper {
     public const
         FIELD_TYPE_DATE = 'date',
         FIELD_TYPE_DATETIME = 'datetime',
@@ -30,8 +29,7 @@ class EloquentMapper
      * @return QueryExpression
      * @throws CoreException
      */
-    public function getColumn(string $fieldName): QueryExpression
-    {
+    public function getColumn(string $fieldName): QueryExpression {
         return new QueryExpression(
             $this->get($fieldName)['column']
         );
@@ -42,8 +40,7 @@ class EloquentMapper
      * @return string
      * @throws CoreException
      */
-    public function getType(string $fieldName): string
-    {
+    public function getType(string $fieldName): string {
         return $this->get($fieldName)['type'];
     }
 
@@ -52,8 +49,7 @@ class EloquentMapper
      * @return array
      * @throws CoreException
      */
-    private function get(string $fieldName): array
-    {
+    private function get(string $fieldName): array {
         if (array_has($this->fields, $fieldName)) {
             return $this->fields[$fieldName];
         }

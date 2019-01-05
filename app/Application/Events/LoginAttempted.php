@@ -4,8 +4,7 @@ namespace App\Application\Events;
 
 use App\Core\ValueObjects\HasInitializationConstructor;
 
-final class LoginAttempted
-{
+final class LoginAttempted {
     use HasInitializationConstructor;
 
     /**
@@ -23,16 +22,14 @@ final class LoginAttempted
     /**
      * @return string
      */
-    public function getLogin(): string
-    {
+    public function getLogin(): string {
         return $this->login;
     }
 
     /**
      * @return bool
      */
-    public function isSuccessful(): bool
-    {
+    public function isSuccessful(): bool {
         return $this->successful;
     }
 }
