@@ -8,7 +8,6 @@ export class Tippy {
      */
     static once(target: any, options: Props) {
         if (target instanceof jQuery) {
-            // @ts-ignore
             target = target[0];
         }
 

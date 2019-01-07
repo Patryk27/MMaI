@@ -1,5 +1,5 @@
 import { app } from '../../../Application';
-import { InteractiveTable } from '../../../components/InteractiveTable';
+import { InteractiveTable } from '../../../ui/components';
 
 function getFilters(): any {
     const filters = $('#requests-filters');
@@ -34,7 +34,7 @@ function getFilters(): any {
 }
 
 app.addViewInitializer('backend.analytics.requests', () => {
-    const dataTable = new InteractiveTable({
+    const table = new InteractiveTable({
         autofocus: true,
         loaderSelector: '#requests-loader',
         source: '/api/analytics/requests',
@@ -48,9 +48,9 @@ app.addViewInitializer('backend.analytics.requests', () => {
     });
 
     $('#requests-filters').on('change', () => {
-        dataTable.refresh();
+        table.refresh();
     });
 
-    dataTable.refresh();
+    table.refresh();
 });
 

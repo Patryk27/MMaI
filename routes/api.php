@@ -34,5 +34,8 @@ Route::prefix('api')->group(function () {
 
         // PUT /api/tags/:tag
         Route::put('{tag}', TagsController::class . '@update');
+
+        // DELETE /api/tags/:tag
+        Route::delete('{tag}', TagsController::class . '@destroy');
     });
 });

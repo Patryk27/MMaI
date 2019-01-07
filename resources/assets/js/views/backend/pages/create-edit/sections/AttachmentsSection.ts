@@ -22,7 +22,10 @@ export class AttachmentsSection {
             attachmentsTable: container.find('#attachments-table'),
         };
 
-        this.dom.addAttachmentButton.on('click', () => this.uploader.pickAndUpload());
+        this.dom.addAttachmentButton.on('click', () => {
+            // noinspection JSIgnoredPromiseFromCall
+            this.uploader.pickAndUpload();
+        });
 
         this.table = new AttachmentsTable(this.dom.attachmentsTable);
 
@@ -36,7 +39,10 @@ export class AttachmentsSection {
             });
         });
 
-        this.table.onRowAction('delete', ({ attachment }) => this.deleter.delete(attachment));
+        this.table.onRowAction('delete', ({ attachment }) => {
+            // noinspection JSIgnoredPromiseFromCall
+            this.deleter.delete(attachment);
+        });
 
         this.deleter = new AttachmentsDeleter(bus, this.table);
         this.uploader = new AttachmentsUploader(bus, this.table);

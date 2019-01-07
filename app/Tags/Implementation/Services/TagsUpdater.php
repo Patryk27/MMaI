@@ -35,7 +35,7 @@ class TagsUpdater {
      * @throws TagException
      */
     public function update(Tag $tag, array $tagData): void {
-        if (isset($tagData['name'])) {
+        if (array_has($tagData, 'name')) {
             $tag->name = $tagData['name'];
         }
 

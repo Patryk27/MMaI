@@ -11,46 +11,38 @@ export class TagsDeleter {
         this.bus = bus;
     }
 
-    public async run(tag: Tag): Promise<void> {
-        const result = await swal({
-            title: 'Are you sure?',
-            text: `Do you want to delete tag [${tag.name}]?`,
-            icon: 'warning',
-            dangerMode: true,
-
-            buttons: {
-                cancel: {
-                    text: 'Cancel',
-                },
-
-                confirm: {
-                    text: 'Delete',
-                    closeModal: false,
-                },
-            },
-        });
-
-        if (!result) {
-            return;
-        }
-
-        swal.close();
+    public async delete(tag: Tag): Promise<void> {
+        // const result = await swal({
+        //     title: 'Deleting tag',
+        //     text: `Do you want to delete tag [${tag.name}]?`,
+        //     icon: 'warning',
+        //     dangerMode: true,
+        //     buttons: {
+        //         cancel: true,
+        //         confirm: {
+        //             text: 'Delete',
+        //             closeModal: false,
+        //         },
+        //     },
+        // });
+        //
+        // if (!result) {
+        //     return;
+        // }
 
         try {
             await TagsFacade.delete(tag.id);
 
-            // noinspection JSIgnoredPromiseFromCall
-            swal({
+            this.bus.emit('tag::deleted');
+
+            await swal({
                 title: 'Success',
                 text: 'Tag has been deleted.',
                 icon: 'success',
             });
-
-            this.bus.emit('tag::deleted');
         } catch (error) {
-            // noinspection JSIgnoredPromiseFromCall
-            swal({
-                title: 'Cannot delete tag',
+            await swal({
+                title: 'An error occurred',
                 text: error.toString(),
                 icon: 'error',
             });

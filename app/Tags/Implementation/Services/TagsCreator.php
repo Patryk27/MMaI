@@ -34,9 +34,10 @@ class TagsCreator {
      * @throws TagException
      */
     public function create(array $tagData): Tag {
-        $tag = new Tag(
-            array_only($tagData, ['website_id', 'name'])
-        );
+        $tag = new Tag([
+            'website_id' => array_get($tagData, 'websiteId'),
+            'name' => array_get($tagData, 'name'),
+        ]);
 
         $this->tagsValidator->validate($tag);
         $this->tagsRepository->persist($tag);

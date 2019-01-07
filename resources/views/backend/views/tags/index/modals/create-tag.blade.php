@@ -36,12 +36,12 @@
             </div>
 
             <div class="modal-footer">
-                <button type="submit" class="btn btn-success btn-submit">
-                    Create
+                <button type="button" class="btn btn-danger btn-close" data-dismiss="modal">
+                    Cancel
                 </button>
 
-                <button type="button" class="btn btn-secondary btn-close" data-dismiss="modal">
-                    Cancel
+                <button type="submit" class="btn btn-primary btn-submit">
+                    Save
                 </button>
             </div>
         </form>

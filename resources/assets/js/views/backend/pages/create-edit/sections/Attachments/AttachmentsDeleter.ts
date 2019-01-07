@@ -15,16 +15,12 @@ export class AttachmentsDeleter {
 
     async delete(attachment: Attachment): Promise<void> {
         const result = await swal({
-            title: 'Are you sure?',
+            title: 'Deleting attachment',
             text: `Do you want to delete attachment [${attachment.name}]?`,
             icon: 'warning',
             dangerMode: true,
-
             buttons: {
-                cancel: {
-                    text: 'Cancel',
-                },
-
+                cancel: true,
                 confirm: {
                     text: 'Delete',
                     closeModal: false,
@@ -36,7 +32,7 @@ export class AttachmentsDeleter {
 
         if (result) {
             this.table.remove(attachment.id);
-            this.bus.emit('form::changed');
+            this.bus.emit('form::invalidate');
 
             // noinspection JSIgnoredPromiseFromCall
             swal({

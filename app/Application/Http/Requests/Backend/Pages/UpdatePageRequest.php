@@ -21,13 +21,13 @@ class UpdatePageRequest extends FormRequest {
             'lead' => ['nullable', 'string'],
             'content' => ['nullable', 'string'],
             'notes' => ['nullable', 'string'],
+            'url' => ['nullable', 'string', 'regex:/^[a-zA-Z0-9\-\/]*$/'],
 
             'type' => 'required',
             'status' => 'required',
 
-            'url' => ['nullable', 'string', 'regex:/^[a-zA-Z0-9\-\/]*$/'],
-            'tag_ids' => ['nullable', 'array'],
-            'attachment_ids' => ['nullable', 'array'],
+            'tagIds' => ['nullable', 'array'],
+            'attachmentIds' => ['nullable', 'array'],
         ];
     }
 }

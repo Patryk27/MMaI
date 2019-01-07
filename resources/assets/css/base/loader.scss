@@ -11,7 +11,7 @@
     }
 
     .loader-overlay {
-      background: rgba(0, 0, 0, 0.9);
+      background: rgba(darken($dark, 10%), 0.9);
     }
   }
 
@@ -19,7 +19,7 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    z-index: 100000;
+    z-index: 100001;
 
     display: none;
     transform: translate(-50%, -50%);
@@ -27,15 +27,12 @@
 
   .loader-overlay {
     position: absolute;
-    top: 0;
-    left: 0;
+    top: -10px;
+    left: -10px;
+    width: calc(100% + 20px);
+    height: calc(100% + 20px);
     z-index: 100000;
-
-    width: 100%;
-    height: 100%;
-
     transition: 0.2s background;
-
     pointer-events: none;
   }
 }

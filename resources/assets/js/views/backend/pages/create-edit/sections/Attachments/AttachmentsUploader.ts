@@ -48,7 +48,7 @@ export class AttachmentsUploader {
             this.table.remove(attachment.id);
             this.table.add(uploadedAttachment);
 
-            this.bus.emit('form::changed');
+            this.bus.emit('form::invalidate');
         });
 
         uploader.onFailure((error) => {

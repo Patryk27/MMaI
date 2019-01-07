@@ -1,9 +1,9 @@
 import { app } from '../../../Application';
 import { EventBus } from '../../../utils/EventBus';
+import { Tippy } from '../../../utils/Tippy';
 import { TagsCreator } from './index/TagsCreator';
 import { TagsDeleter } from './index/TagsDeleter';
 import { TagsEditor } from './index/TagsEditor';
-import { TagsFilters } from './index/TagsFilters';
 import { TagsTable } from './index/TagsTable';
 
 app.addViewInitializer('backend.tags.index', () => {
@@ -11,42 +11,42 @@ app.addViewInitializer('backend.tags.index', () => {
 
     const
         tagsCreator = new TagsCreator(bus, $('#create-tag-modal')),
-        tagsDeleter = new TagsDeleter(bus),
         tagsEditor = new TagsEditor(bus, $('#edit-tag-modal')),
-        tagsFilters = new TagsFilters(bus, $('#tags-filters')),
-        tagsTable = new TagsTable(bus, $('#tags-loader'), $('#tags-table'));
+        tagsDeleter = new TagsDeleter(bus),
+        tagsTable = new TagsTable(bus, $('#tags-filters'), $('#tags-loader'), $('#tags-table'));
 
     $('#create-tag-button').on('click', () => {
-        tagsCreator.run();
+        tagsCreator.create();
     });
 
-    // Bind handlers for the "edit tag" & "delete tag" buttons
-    $('#tags-table').on('click', '[data-action]', function () {
-        bus.emit('tag::' + $(this).data('action'), {
-            tag: $(this).data('tag'),
+    $('#tags-table').on('click', '[data-action="edit"]', function () {
+        tagsEditor.edit($(this).data('tag'));
+    });
+
+    $('#tags-table').on('click', '[data-action="delete"]', function () {
+        const tooltip = $('<div>');
+
+        $('<a>')
+            .addClass('btn btn-sm btn-danger')
+            .text('Delete')
+            .on('click', () => {
+                // noinspection JSIgnoredPromiseFromCall
+                tagsDeleter.delete($(this).data('tag'));
+            })
+            .appendTo(tooltip);
+
+        Tippy.once($(this), {
+            animation: 'shift-away',
+            arrow: true,
+            content: tooltip.get(0),
+            interactive: true,
+            placement: 'bottom',
         });
     });
 
-    bus.on('tag::delete', ({ tag }) => {
-        // noinspection JSIgnoredPromiseFromCall
-        tagsDeleter.run(tag);
-    });
-
-    bus.on('tag::edit', ({ tag }) => {
-        tagsEditor.run(tag);
-    });
-
     bus.on(['tag::created', 'tag::updated', 'tag::deleted'], () => {
-        tagsFilters.submit();
+        tagsTable.refresh();
     });
 
-    bus.on('filters::submitted', (filters) => {
-        if (filters.websiteId.value.length === 1) {
-            tagsCreator.setWebsiteId(filters.websiteId.value[0]);
-        }
-
-        tagsTable.refresh(filters);
-    });
-
-    tagsFilters.submit();
+    tagsTable.refresh();
 });

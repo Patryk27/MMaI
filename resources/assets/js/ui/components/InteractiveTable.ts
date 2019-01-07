@@ -1,13 +1,13 @@
 import $ from 'jquery';
 import swal from 'sweetalert';
-import { ApiClient } from '../api/ApiClient';
+import { ApiClient } from '../../api/ApiClient';
 import { Loader } from './Loader';
 
 interface InteractiveTableConfiguration {
-    tableSelector: string | JQuery;
+    autofocus?: boolean;
     loaderSelector?: string | JQuery;
     source: string;
-    autofocus?: boolean;
+    tableSelector: string | JQuery;
 
     onPrepareRequest?: (request: any) => any;
 }
@@ -17,10 +17,7 @@ export class InteractiveTable {
     private readonly config: InteractiveTableConfiguration;
     private readonly dataTable: any;
     private readonly loader?: Loader;
-
-    private dom: {
-        table: JQuery,
-    };
+    private readonly table: JQuery;
 
     constructor(config: InteractiveTableConfiguration) {
         this.config = config;
@@ -50,30 +47,33 @@ export class InteractiveTable {
 
         // Since the DataTable plugin destroys original container, we cannot
         // re-utilize $table here - we need to fetch the actual new container:
-        this.dom = {
-            table: $(this.dataTable.table().container()),
-        };
+        this.table = $(this.dataTable.table().container());
     }
 
     /**
-     * Binds an event handler to the table.
-     *
-     * Example:
-     *   on('click', () => { ... })
-     */
-    public on(eventName: string, eventHandler: () => void): void {
-        this.dom.table.on(eventName, eventHandler);
-    }
-
-    /**
-     * Binds an event handler for given column.
+     * Binds an event handler to the table itself.
      *
      * # Example
      *
+     * ```javascript
+     * table.on('click', () => { ... })
+     * ```
+     */
+    public on(eventName: string, eventHandler: () => void): void {
+        this.table.on(eventName, eventHandler);
+    }
+
+    /**
+     * Binds an event handler to given table's column.
+     *
+     * # Example
+     *
+     * ```javascript
      * table.onColumn('some-column', 'click', () => { ... })
+     * ```
      */
     public onColumn(columnName: string, eventName: string, eventHandler: () => void): void {
-        this.dom.table.on(eventName, `[data-column="${columnName}"]`, eventHandler);
+        this.table.on(eventName, `[data-column="${columnName}"]`, eventHandler);
     }
 
     public refresh(): void {
@@ -111,6 +111,7 @@ export class InteractiveTable {
                 url: this.config.source,
                 params: {
                     query: JSON.stringify(this.buildRequest(dtRequest)),
+                    render: 1,
                 },
             });
 
@@ -145,9 +146,9 @@ export class InteractiveTable {
     private dtInitComplete(): void {
         if (this.config.autofocus) {
             // The DataTable's finished loading, but we do not have access to
-            // the "this.dom.table" yet - we must wait a tick before doing so.
+            // the "this.table" yet - we must wait a tick before doing so.
             setTimeout(() => {
-                this.dom.table.find('.dataTables_filter input').focus();
+                this.table.find('.dataTables_filter input').focus();
             });
         }
     }

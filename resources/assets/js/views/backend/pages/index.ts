@@ -1,5 +1,5 @@
 import { app } from '../../../Application';
-import { InteractiveTable } from '../../../components/InteractiveTable';
+import { InteractiveTable } from '../../../ui/components';
 
 function getFilters(): any {
     const filters = $('#pages-filters');
@@ -28,7 +28,7 @@ function getFilters(): any {
 }
 
 app.addViewInitializer('backend.pages.index', () => {
-    const dataTable = new InteractiveTable({
+    const table = new InteractiveTable({
         autofocus: true,
         loaderSelector: '#pages-loader',
         source: '/api/pages',
@@ -42,8 +42,8 @@ app.addViewInitializer('backend.pages.index', () => {
     });
 
     $('#pages-filters').on('change', () => {
-        dataTable.refresh();
+        table.refresh();
     });
 
-    dataTable.refresh();
+    table.refresh();
 });

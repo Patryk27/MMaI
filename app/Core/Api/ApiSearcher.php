@@ -120,10 +120,11 @@ final class ApiSearcher {
 
         $allCount = $this->querier->countAllItems();
         $matchingCount = $this->querier->countMatchingItems($query);
+        $items = $this->querier->searchItems($query);
 
-        $items = $this->querier
-            ->searchItems($query)
-            ->map([$this->renderer, 'render']);
+        if ($request->get('render', false)) {
+            $items = $items->map([$this->renderer, 'render']);
+        }
 
         return new ApiSearcherResponse([
             'allCount' => $allCount,

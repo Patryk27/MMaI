@@ -1,16 +1,13 @@
-import { InteractiveTable } from '../../../../components/InteractiveTable';
+import { Form, InteractiveTable, Select } from '../../../../ui/components';
 import { EventBus } from '../../../../utils/EventBus';
 
 export class TagsTable {
 
-    private dataTable: InteractiveTable;
+    private table: InteractiveTable;
+    private filters: Form;
 
-    private state: {
-        filters: any,
-    };
-
-    constructor(bus: EventBus, loader: JQuery, table: JQuery) {
-        this.dataTable = new InteractiveTable({
+    constructor(bus: EventBus, filters: JQuery, loader: JQuery, table: JQuery) {
+        this.table = new InteractiveTable({
             autofocus: true,
             loaderSelector: loader,
             source: '/api/tags',
@@ -18,25 +15,41 @@ export class TagsTable {
 
             onPrepareRequest: (request) => {
                 return Object.assign(request, {
-                    filters: this.state.filters,
+                    filters: this.getFilters(),
                 });
             },
         });
 
-        this.dataTable.onColumn('name', 'dblclick', function () {
+        this.table.onColumn('name', 'click', function () {
             bus.emit('tag::edit', {
                 tag: $(this).data('tag'),
             });
         });
 
-        this.state = {
-            filters: {},
-        };
+        this.filters = new Form({
+            form: filters,
+
+            fields: {
+                websiteIds: new Select(filters.find('[name="website_ids[]"]')),
+            },
+        });
+
+        this.filters.on('change', () => {
+            this.refresh();
+        });
     }
 
-    public refresh(filters: any): void {
-        this.state.filters = filters;
-        this.dataTable.refresh();
+    public refresh(): void {
+        this.table.refresh();
+    }
+
+    private getFilters(): any {
+        return {
+            websiteId: {
+                operator: 'in',
+                value: this.filters.find('websiteIds').getValue(),
+            },
+        };
     }
 
 }

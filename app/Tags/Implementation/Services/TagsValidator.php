@@ -53,7 +53,9 @@ class TagsValidator {
      * @throws TagException
      */
     private function assertIsUnique(Tag $tag): void {
-        $duplicatedTag = $this->tagsRepository->getByWebsiteIdAndName($tag->website_id, $tag->name);
+        $duplicatedTag = $this->tagsRepository->getByWebsiteIdAndName(
+            $tag->website_id, $tag->name
+        );
 
         if (isset($duplicatedTag) && $duplicatedTag->id !== $tag->id) {
             throw new TagException('Tag with such name already exists.');

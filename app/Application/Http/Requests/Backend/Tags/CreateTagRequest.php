@@ -17,7 +17,7 @@ class CreateTagRequest extends FormRequest {
      */
     public function rules(): array {
         return [
-            'website_id' => 'required',
+            'websiteId' => 'required',
             'name' => 'required',
         ];
     }

@@ -6,7 +6,7 @@
   width: 40px;
   height: 40px;
 
-  background-color: #888888;
+  background-color: lighten($dark, 10%);
   opacity: 0.4;
 
   animation: loader-tile 1s infinite ease-in-out;

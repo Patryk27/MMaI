@@ -48,11 +48,15 @@ class TagsController extends Controller {
         ]);
 
         $this->apiSearcher->setCounter(function (array $query): int {
-            return $this->tagsFacade->queryCount(new SearchTagsQuery($query));
+            return $this->tagsFacade->queryCount(
+                new SearchTagsQuery($query)
+            );
         });
 
         $this->apiSearcher->setFetcher(function (array $query): Collection {
-            return $this->tagsFacade->queryMany(new SearchTagsQuery($query));
+            return $this->tagsFacade->queryMany(
+                new SearchTagsQuery($query)
+            );
         });
 
         return $this->apiSearcher->search($request);

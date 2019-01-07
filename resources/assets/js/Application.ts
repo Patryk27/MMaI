@@ -1,7 +1,7 @@
 import axios from 'axios';
 import flatpickr from 'flatpickr';
 import $ from 'jquery';
-import { InteractiveTable } from './components/InteractiveTable';
+import { InteractiveTable } from './ui/components';
 
 interface ViewInitializers {
     [name: string]: () => void;
@@ -24,8 +24,7 @@ class Application {
             const config = $(this).data('datatable');
             config.tableSelector = $(this);
 
-            const dataTable = new InteractiveTable(config);
-            dataTable.refresh();
+            (new InteractiveTable(config)).refresh();
         });
 
         // Initialize all the flatpickrs

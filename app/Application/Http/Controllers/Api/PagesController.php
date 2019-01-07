@@ -49,11 +49,15 @@ class PagesController extends Controller {
         ]);
 
         $this->apiSearcher->setCounter(function (array $query): int {
-            return $this->pagesFacade->queryCount(new SearchPages($query));
+            return $this->pagesFacade->queryCount(
+                new SearchPages($query)
+            );
         });
 
         $this->apiSearcher->setFetcher(function (array $query): Collection {
-            return $this->pagesFacade->queryMany(new SearchPages($query));
+            return $this->pagesFacade->queryMany(
+                new SearchPages($query)
+            );
         });
 
         return $this->apiSearcher->search($request);

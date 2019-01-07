@@ -2,22 +2,18 @@ import { EventBus } from '../../../../../utils/EventBus';
 
 export class NotesSection {
 
-    private readonly dom: {
-        notes: JQuery,
-    };
+    private notes: JQuery;
 
     constructor(bus: EventBus, container: JQuery) {
-        this.dom = {
-            notes: container.find('[name="notes"]'),
-        };
+        this.notes = container.find('[name="notes"]');
 
-        this.dom.notes.on('change', () => {
-            bus.emit('form::changed');
+        this.notes.on('change', () => {
+            bus.emit('form::invalidate');
         });
 
         bus.on('tabs::changed', ({ currentSection }) => {
             if (currentSection === 'page-notes') {
-                this.dom.notes.focus();
+                this.notes.focus();
             }
         });
     }

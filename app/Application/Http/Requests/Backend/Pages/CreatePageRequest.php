@@ -17,21 +17,19 @@ class CreatePageRequest extends FormRequest {
      */
     public function rules(): array {
         return [
-            'website_id' => 'numeric',
+            'websiteId' => 'numeric',
 
             'title' => 'string',
             'lead' => ['nullable', 'string'],
             'content' => ['nullable', 'string'],
             'notes' => ['nullable', 'string'],
-
+            'url' => ['nullable', 'string', 'regex:/^[a-zA-Z0-9\-\/]*$/'],
+            
             'type' => 'required',
             'status' => 'required',
 
-            'url' => ['nullable', 'string', 'regex:/^[a-zA-Z0-9\-\/]*$/'],
-            'tag_ids' => ['nullable', 'array'],
-
-            // @todo rename to just "attachments"? if so, rename also the "tag_ids"
-            'attachment_ids' => ['nullable', 'array'],
+            'tagIds' => ['nullable', 'array'],
+            'attachmentIds' => ['nullable', 'array'],
         ];
     }
 }

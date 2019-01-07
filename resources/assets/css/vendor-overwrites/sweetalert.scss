@@ -1,35 +1,40 @@
+.swal-overlay {
+  // Must be rendered above all the overlays & modals
+  z-index: 1000002;
+}
+
 .swal-modal {
   border-radius: 0;
+}
 
-  .swal-title {
-    color: $modal-header-color;
-    font-size: 1.25rem;
-  }
+.swal-title {
+  color: $modal-header-color;
+  font-size: 1.1rem;
+}
 
-  .swal-text {
-    color: $modal-body-color;
-    text-align: center;
-  }
+.swal-text {
+  color: $modal-body-color;
+  text-align: center;
+}
 
-  .swal-footer {
-    .swal-button {
-      @extend .btn;
-      @extend .btn-primary;
+.swal-footer {
+  .swal-button {
+    @extend .btn;
+    @extend .btn-primary;
 
-      transition: all 0.2s;
+    transition: all 0.2s;
 
-      &.swal-button--cancel {
-        @extend .btn-secondary;
-      }
+    &.swal-button--cancel {
+      @extend .btn-secondary;
+    }
 
-      &.swal-button--danger {
-        @extend .btn-danger;
-      }
+    &.swal-button--danger {
+      @extend .btn-danger;
+    }
 
-      &.swal-button--loading {
-        opacity: 0.5;
-        pointer-events: none;
-      }
+    &.swal-button--loading {
+      opacity: 0.5;
+      pointer-events: none;
     }
   }
 }

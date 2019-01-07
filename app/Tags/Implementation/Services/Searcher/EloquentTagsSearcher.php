@@ -44,8 +44,8 @@ class EloquentTagsSearcher extends AbstractEloquentSearcher implements TagsSearc
 
         // Join number of pages per each tag
         $this->builder
-            ->selectRaw('pages_count.assigned_pages_count')
-            ->joinSub(function (QueryBuilder $builder): void {
+            ->selectRaw('coalesce(pages_count.assigned_pages_count, 0) AS assigned_pages_count')
+            ->leftJoinSub(function (QueryBuilder $builder): void {
                 $builder
                     ->selectRaw('page_tag.tag_id AS tag_id')
                     ->selectRaw('count(page_tag.tag_id) AS assigned_pages_count')

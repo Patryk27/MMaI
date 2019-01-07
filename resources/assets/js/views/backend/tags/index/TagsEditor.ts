@@ -1,149 +1,92 @@
 import swal from 'sweetalert';
 import { Tag } from '../../../../api/tags/Tag';
 import { TagsFacade } from '../../../../api/tags/TagsFacade';
-import { Button } from '../../../../components/Button';
-import { Input } from '../../../../components/Input';
+import { Button, Form, Input, Modal } from '../../../../ui/components';
 import { EventBus } from '../../../../utils/EventBus';
 
 export class TagsEditor {
 
     private readonly bus: EventBus;
+    private readonly modal: Modal;
+    private readonly form: Form;
+    private readonly closeButton: Button;
+    private readonly submitButton: Button;
 
-    private readonly dom: {
-        modal: JQuery,
-        form: JQuery,
-    };
-
-    private readonly form: {
-        name: Input,
-    };
-
-    private readonly formMapping: any;
-
-    private readonly buttons: {
-        close: Button,
-        submit: Button,
-    };
-
-    private readonly state: {
-        tag?: Tag,
-    };
+    private tag?: Tag;
 
     constructor(bus: EventBus, modal: JQuery) {
         this.bus = bus;
 
-        this.dom = {
-            modal,
-            form: modal.find('form'),
-        };
+        this.modal = new Modal(modal);
 
-        this.form = {
-            name: new Input(modal.find('[name="name"]')),
-        };
-
-        // @todo rename this field + reduce DRY in these modals
-        this.formMapping = {
-            name: 'name',
-        };
-
-        this.buttons = {
-            close: new Button(modal.find('.btn-close')),
-            submit: new Button(modal.find('.btn-submit')),
-        };
-
-        this.state = {
-            tag: undefined,
-        };
-
-        this.dom.modal.on('shown.bs.modal', () => {
-            this.form.name.focus();
+        this.modal.onShown(() => {
+            this.form.find('name').focus();
         });
 
-        this.dom.form.on('submit', () => {
+        this.form = new Form({
+            ajax: true,
+            form: modal.find('form'),
+
+            fields: {
+                name: new Input(modal.find('[name="name"]')),
+            },
+        });
+
+        this.form.on('submit', () => {
             // noinspection JSIgnoredPromiseFromCall
             this.submit();
-            return false;
         });
+
+        this.closeButton = new Button(modal.find('.btn-close'));
+        this.submitButton = new Button(modal.find('.btn-submit'));
     }
 
-    public run(tag: Tag): void {
-        this.state.tag = tag;
-        this.form.name.setValue(tag.name);
-
-        // @ts-ignore
-        this.dom.modal.modal();
-    }
-
-    private close(): void {
-        // @ts-ignore
-        this.dom.modal.modal('hide');
-    }
-
-    private changeState(state: string): void {
-        const buttons = this.buttons;
-
-        switch (state) {
-            case 'submitting':
-                buttons.close.disable();
-
-                buttons.submit.disable();
-                buttons.submit.showSpinner();
-
-                break;
-
-            case 'ready':
-                buttons.close.enable();
-
-                buttons.submit.enable();
-                buttons.submit.hideSpinner();
-
-                break;
-        }
+    public edit(tag: Tag): void {
+        this.tag = tag;
+        this.form.find('name').setValue(tag.name);
+        this.modal.show();
     }
 
     private async submit(): Promise<void> {
         this.changeState('submitting');
-
-        const form = this.form;
+        this.form.clearErrors();
 
         try {
-            for (const [, component] of Object.entries(form)) {
-                component.removeFeedback();
-            }
-
-            await TagsFacade.update(this.state.tag.id, {
-                name: form.name.getValue(),
-            });
+            await TagsFacade.update(this.tag.id, this.form.serialize());
 
             this.bus.emit('tag::updated');
+            this.modal.hide();
 
             await swal({
                 title: 'Success',
                 text: 'Tag has been updated.',
                 icon: 'success',
             });
-
-            this.close();
         } catch (error) {
-            if (error.getType && error.getType() === 'invalid-input') {
-                // for (const [fieldName, [fieldError]] of Object.entries(error.getPayload())) {
-                //     const formFieldName = this.formMapping[fieldName];
-                //     const component = this.$form[formFieldName];
-                //
-                //     component.setFeedback('invalid', fieldError);
-                // }
-            } else {
-                swal({
-                    title: 'Cannot create tag',
-                    text: error.toString(),
-                    icon: 'error',
-                }).then(() => {
-                    form.name.focus();
-                });
-            }
+            this.form.processErrors(error);
         }
 
         this.changeState('ready');
+    }
+
+    private changeState(state: string): void {
+        switch (state) {
+            case 'submitting':
+                this.closeButton.disable();
+
+                this.submitButton.disable();
+                this.submitButton.showSpinner();
+
+                break;
+
+            case 'ready':
+                this.closeButton.enable();
+
+                this.submitButton.enable();
+                this.submitButton.hideSpinner();
+
+                break;
+        }
     }
 
 }

@@ -1,7 +1,6 @@
 import swal from 'sweetalert';
 import { app } from '../../../Application';
-import { Button } from '../../../components/Button';
-import { Overlay } from '../../../components/Overlay';
+import { Button, Overlay } from '../../../ui/components';
 import { EventBus } from '../../../utils/EventBus';
 import { Form } from './create-edit/Form';
 import { AttachmentsSection } from './create-edit/sections/AttachmentsSection';
@@ -14,22 +13,19 @@ class View {
 
     private readonly dom: {
         form: JQuery,
-        submitButton: JQuery,
+        submit: JQuery,
         sectionTabs: JQuery,
         sectionContents: JQuery,
     };
 
-    private state: {
-        sections: {
-            attachments: AttachmentsSection,
-            notes: NotesSection,
-            page: PageSection,
-        },
-    };
-
     private overlay: Overlay;
-    private submitButton: Button;
+
+    private attachmentsSection: AttachmentsSection;
+    private notesSection: NotesSection;
+    private pageSection: PageSection;
+
     private form: Form;
+    private submit: Button;
 
     constructor() {
         this.bus = new EventBus();
@@ -37,13 +33,13 @@ class View {
 
         this.dom = {
             form: $('#page-form'),
-            submitButton: $('#page-form-submit-button'),
-
+            submit: $('#page-form-submit-button'),
             sectionTabs: $('#page-section-tabs'),
             sectionContents: $('#page-section-contents'),
         };
 
-        this.initializeSection();
+        this.initializeSections();
+        this.initializeSubmit();
         this.initializeForm();
         this.registerOnBeforeUnloadHandler();
         this.registerSaveShortcut();
@@ -52,13 +48,7 @@ class View {
         this.dom.sectionTabs.find('.nav-link').eq(0).click();
     }
 
-    private initializeSection(): void {
-        const sections: {
-            attachments?: AttachmentsSection,
-            notes?: NotesSection,
-            page?: PageSection
-        } = {};
-
+    private initializeSections(): void {
         this.dom.sectionTabs.on('click', '.nav-link', (evt) => {
             setTimeout(() => {
                 this.bus.emit('tabs::changed', {
@@ -72,60 +62,73 @@ class View {
 
             switch (tab.data('section-type')) {
                 case 'attachments':
-                    sections.attachments = new AttachmentsSection(this.bus, tab);
+                    this.attachmentsSection = new AttachmentsSection(this.bus, tab);
                     break;
 
                 case 'notes':
-                    sections.notes = new NotesSection(this.bus, tab);
+                    this.notesSection = new NotesSection(this.bus, tab);
                     break;
 
                 case 'page':
-                    sections.page = new PageSection(this.bus, tab);
+                    this.pageSection = new PageSection(this.bus, tab);
                     break;
 
                 default:
-                    throw 'Unknown section [' + tab.data('section-type') + '].';
+                    throw 'Unknown section: ' + tab.data('section-type');
             }
         });
+    }
 
-        if (!sections.attachments || !sections.notes || !sections.page) {
-            throw 'Failed to initialize the page.';
-        }
-
-        this.state = {
-            // @ts-ignore
-            sections,
-        };
+    private initializeSubmit(): void {
+        this.submit = new Button(this.dom.submit);
+        this.submit.disable();
+        this.submit.on('click', () => this.form.submit());
     }
 
     private initializeForm(): void {
-        this.submitButton = new Button(this.dom.submitButton);
-        this.submitButton.disable();
-        this.submitButton.on('click', () => this.form.submit());
+        this.form = new Form(
+            this.dom.form,
+            this.attachmentsSection,
+            this.notesSection,
+            this.pageSection,
+        );
 
-        this.form = new Form(this.bus, this.dom.form, this.state.sections);
+        this.form.onSubmitting(() => {
 
-        this.bus.on('form::changed', () => {
-            if (!document.title.includes('* ')) {
+        });
+
+        this.form.onSubmitted(() => {
+
+        });
+
+        this.form.onError(() => {
+
+        });
+
+        this.bus.on('form::invalidate', () => {
+            if (!this.form.isInvalidated()) {
                 document.title = '* ' + document.title;
             }
 
-            this.form.makeDirty();
-            this.submitButton.enable();
+            this.form.invalidate();
+            this.submit.enable();
         });
 
-        this.bus.on('form::submit', () => this.form.submit());
+        this.bus.on('form::submit', () => {
+            // noinspection JSIgnoredPromiseFromCall
+            this.form.submit();
+        });
 
         this.bus.on('form::submitting', () => {
             this.overlay.show();
-            this.submitButton.disable();
-            this.submitButton.showSpinner();
+            this.submit.disable();
+            this.submit.showSpinner();
         });
 
         this.bus.on('form::submitted', ({ response }) => {
             this.overlay.hide();
-            this.submitButton.enable();
-            this.submitButton.hideSpinner();
+            this.submit.enable();
+            this.submit.hideSpinner();
 
             if (response) {
                 swal({
@@ -168,7 +171,7 @@ class View {
      */
     private registerOnBeforeUnloadHandler(): void {
         window.onbeforeunload = (event) => {
-            if (this.form.isDirty()) {
+            if (this.form.isInvalidated()) {
                 event.preventDefault();
                 event.returnValue = '';
             }
