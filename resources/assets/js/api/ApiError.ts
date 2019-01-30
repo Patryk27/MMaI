@@ -1,13 +1,10 @@
 export class ApiError {
 
-    private readonly type: string;
-    private readonly message: string;
-    private readonly payload: any;
-
-    constructor(type: string, message: string, payload?: any) {
-        this.type = type;
-        this.message = message;
-        this.payload = payload;
+    constructor(
+        private readonly type: string,
+        private readonly message: string,
+        private readonly payload?: any,
+    ) {
     }
 
     public getType(): string {

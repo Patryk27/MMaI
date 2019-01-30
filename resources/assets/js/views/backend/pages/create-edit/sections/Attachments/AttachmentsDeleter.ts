@@ -5,12 +5,10 @@ import { AttachmentsTable } from './AttachmentsTable';
 
 export class AttachmentsDeleter {
 
-    private readonly bus: EventBus;
-    private readonly table: AttachmentsTable;
-
-    constructor(bus: EventBus, attachmentsTable: AttachmentsTable) {
-        this.bus = bus;
-        this.table = attachmentsTable;
+    constructor(
+        private readonly bus: EventBus,
+        private readonly table: AttachmentsTable,
+    ) {
     }
 
     async delete(attachment: Attachment): Promise<void> {

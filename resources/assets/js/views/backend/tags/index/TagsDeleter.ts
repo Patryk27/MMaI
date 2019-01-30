@@ -5,10 +5,7 @@ import { EventBus } from '../../../../utils/EventBus';
 
 export class TagsDeleter {
 
-    private readonly bus: EventBus;
-
-    constructor(bus: EventBus) {
-        this.bus = bus;
+    constructor(private readonly bus: EventBus) {
     }
 
     public async delete(tag: Tag): Promise<void> {

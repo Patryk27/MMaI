@@ -9,12 +9,6 @@ type ErrorEventHandler = () => void;
 
 export class Form {
 
-    private readonly form: JQuery;
-
-    private readonly attachmentsSection: AttachmentsSection;
-    private readonly notesSection: NotesSection;
-    private readonly pageSection: PageSection;
-
     private eventHandlers: {
         submitting?: SubmittingEventHandler,
         submitted?: SubmittedEventHandler,
@@ -24,16 +18,11 @@ export class Form {
     private invalidated: boolean = false;
 
     constructor(
-        form: JQuery,
-        attachmentsSection: AttachmentsSection,
-        notesSection: NotesSection,
-        pageSection: PageSection,
+        private readonly form: JQuery,
+        private readonly attachmentsSection: AttachmentsSection,
+        private readonly notesSection: NotesSection,
+        private readonly pageSection: PageSection,
     ) {
-        this.form = form;
-
-        this.attachmentsSection = attachmentsSection;
-        this.notesSection = notesSection;
-        this.pageSection = pageSection;
     }
 
     public onSubmitting(fn: SubmittingEventHandler): void {

@@ -4,12 +4,10 @@ import { AttachmentsTable } from './AttachmentsTable';
 
 export class AttachmentsUploader {
 
-    private readonly bus: EventBus;
-    private readonly table: AttachmentsTable;
-
-    constructor(bus: EventBus, table: AttachmentsTable) {
-        this.bus = bus;
-        this.table = table;
+    constructor(
+        private readonly bus: EventBus,
+        private readonly table: AttachmentsTable,
+    ) {
     }
 
     public async pickAndUpload(): Promise<void> {

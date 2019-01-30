@@ -6,7 +6,6 @@ import { EventBus } from '../../../../utils/EventBus';
 
 export class TagsEditor {
 
-    private readonly bus: EventBus;
     private readonly modal: Modal;
     private readonly form: Form;
     private readonly closeButton: Button;
@@ -14,9 +13,7 @@ export class TagsEditor {
 
     private tag?: Tag;
 
-    constructor(bus: EventBus, modal: JQuery) {
-        this.bus = bus;
-
+    constructor(private readonly bus: EventBus, modal: JQuery) {
         this.modal = new Modal(modal);
 
         this.modal.onShown(() => {

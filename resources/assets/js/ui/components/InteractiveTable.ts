@@ -14,14 +14,11 @@ interface InteractiveTableConfiguration {
 
 export class InteractiveTable {
 
-    private readonly config: InteractiveTableConfiguration;
     private readonly dataTable: any;
     private readonly loader?: Loader;
     private readonly table: JQuery;
 
-    constructor(config: InteractiveTableConfiguration) {
-        this.config = config;
-
+    constructor(private readonly config: InteractiveTableConfiguration) {
         if (config.loaderSelector) {
             this.loader = new Loader(config.loaderSelector);
         }
@@ -153,8 +150,8 @@ export class InteractiveTable {
         }
     }
 
-    private static buildColumns(table: JQuery): Array<{ name: String, orderable: boolean }> {
-        const columns: Array<{ name: String, orderable: boolean }> = [];
+    private static buildColumns(table: JQuery): Array<{ name: string, orderable: boolean }> {
+        const columns: Array<{ name: string, orderable: boolean }> = [];
 
         table.find('thead th').each(function () {
             let column = $(this).data('datatable-column');

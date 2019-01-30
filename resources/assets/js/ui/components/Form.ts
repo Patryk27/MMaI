@@ -34,21 +34,10 @@ interface SerializedForm {
  */
 export class Form {
 
-    // Handler to the form's container.
-    private readonly form: JQuery;
-
-    // Handlers to the form's components, keyed by the component's name.
-    private readonly fields: {
-        [name: string]: Component & Feedbackable & Valuable,
-    };
-
-    constructor(config: FormConfiguration) {
-        this.form = config.form;
-        this.fields = config.fields;
-
+    constructor(private readonly config: FormConfiguration) {
         // If the "ajax mode" is enabled, disable manual form's submission
         if (config.ajax) {
-            this.form.on('submit', () => false);
+            this.config.form.on('submit', () => false);
         }
     }
 
@@ -57,7 +46,7 @@ export class Form {
      * Should be called before the form is submitted, so that it does not show old (previous) error messages.
      */
     public clearErrors(): void {
-        for (const [, field] of Object.entries(this.fields)) {
+        for (const [, field] of Object.entries(this.config.fields)) {
             field.removeFeedback();
         }
     }
@@ -102,7 +91,7 @@ export class Form {
     public serialize(): SerializedForm {
         let result: SerializedForm = {};
 
-        for (const [name, component] of Object.entries(this.fields)) {
+        for (const [name, component] of Object.entries(this.config.fields)) {
             result[name] = component.getValue();
         }
 
@@ -121,7 +110,7 @@ export class Form {
      * ```
      */
     public on(event: string, handler: (...args: any) => void): void {
-        this.form.on(event, handler);
+        this.config.form.on(event, handler);
     }
 
     /**
@@ -152,11 +141,11 @@ export class Form {
      * ```
      */
     public find<T extends Component & Feedbackable & Valuable>(name: string): T {
-        if (!this.fields.hasOwnProperty(name)) {
+        if (!this.config.fields.hasOwnProperty(name)) {
             throw `Component [${name}] is not known.`;
         }
 
-        return <T>this.fields[name];
+        return <T>this.config.fields[name];
     }
 
 }
