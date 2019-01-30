@@ -39,6 +39,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method PagePresenter getPresenter()
  */
 class Page extends Model implements Morphable, Presentable {
+
     use HasPresenter;
 
     public const
@@ -167,4 +168,5 @@ class Page extends Model implements Morphable, Presentable {
     public static function getPresenterClass(): string {
         return PagePresenter::class;
     }
+
 }

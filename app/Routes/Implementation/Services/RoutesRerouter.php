@@ -7,6 +7,7 @@ use App\Routes\Implementation\Repositories\RoutesRepository;
 use App\Routes\Models\Route;
 
 class RoutesRerouter {
+
     /** @var RoutesRepository */
     private $routesRepository;
 
@@ -36,4 +37,5 @@ class RoutesRerouter {
                 $this->reroute($route, $newRoute);
             });
     }
+
 }

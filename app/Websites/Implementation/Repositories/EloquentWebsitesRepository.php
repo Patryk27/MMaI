@@ -7,6 +7,7 @@ use App\Websites\Models\Website;
 use Illuminate\Support\Collection;
 
 class EloquentWebsitesRepository implements WebsitesRepository {
+
     /** @var EloquentRepository */
     private $repository;
 
@@ -34,4 +35,5 @@ class EloquentWebsitesRepository implements WebsitesRepository {
     public function getAll(): Collection {
         return $this->repository->getAll();
     }
+
 }

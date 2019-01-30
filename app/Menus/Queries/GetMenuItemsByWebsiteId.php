@@ -2,7 +2,8 @@
 
 namespace App\Menus\Queries;
 
-final class GetMenuItemsByWebsiteIdQuery implements MenuItemsQuery {
+final class GetMenuItemsByWebsiteId implements MenuItemsQuery {
+
     /** @var int */
     private $websiteId;
 
@@ -16,4 +17,5 @@ final class GetMenuItemsByWebsiteIdQuery implements MenuItemsQuery {
     public function getWebsiteId(): int {
         return $this->websiteId;
     }
+
 }

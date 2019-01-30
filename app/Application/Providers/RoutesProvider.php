@@ -6,6 +6,7 @@ use Illuminate\Foundation\Support\Providers\RouteServiceProvider as BaseRouteSer
 use Illuminate\Support\Facades\Route;
 
 final class RoutesProvider extends BaseRouteServiceProvider {
+
     /**
      * @return void
      */
@@ -22,4 +23,5 @@ final class RoutesProvider extends BaseRouteServiceProvider {
             base_path('routes/frontend.php')
         );
     }
+
 }

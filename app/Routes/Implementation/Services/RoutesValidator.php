@@ -6,6 +6,7 @@ use App\Routes\Exceptions\RouteException;
 use App\Routes\Models\Route;
 
 class RoutesValidator {
+
     /**
      * @param Route $route
      * @return void
@@ -20,4 +21,5 @@ class RoutesValidator {
             throw new RouteException('Route must point at a model.');
         }
     }
+
 }

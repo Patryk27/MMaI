@@ -6,6 +6,7 @@ use App\Pages\Exceptions\PageException;
 use App\Pages\Models\Page;
 
 class PagesValidator {
+
     /**
      * @param Page $page
      * @return void

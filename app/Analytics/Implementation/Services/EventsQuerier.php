@@ -9,6 +9,7 @@ use App\Analytics\Queries\SearchRequestEventsQuery;
 use Illuminate\Support\Collection;
 
 class EventsQuerier {
+
     /** @var RequestEventsSearcher */
     private $requestEventsSearcher;
 
@@ -49,4 +50,5 @@ class EventsQuerier {
                 return $this->query($query)->count();
         }
     }
+
 }

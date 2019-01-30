@@ -5,6 +5,7 @@ namespace App\Core\Searcher\Eloquent\Operators;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 
 interface OperatorHandler {
+
     /**
      * @param string $operatorName
      * @return bool
@@ -24,4 +25,5 @@ interface OperatorHandler {
         string $operatorName,
         $operatorValue
     ): void;
+
 }

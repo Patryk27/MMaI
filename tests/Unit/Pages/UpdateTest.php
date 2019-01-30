@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Collection;
 
 class UpdateTest extends TestCase {
+
     /** @var Page */
     private $page;
 
@@ -265,4 +266,5 @@ class UpdateTest extends TestCase {
         $this->assertCount(1, $this->page->attachments);
         $this->assertEquals($attachmentB, $this->page->attachments[0]);
     }
+
 }

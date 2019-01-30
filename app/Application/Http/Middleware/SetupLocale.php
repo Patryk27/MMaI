@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Translation\Translator;
 
 final class SetupLocale {
+
     /** @var Translator */
     private $translator;
 
@@ -35,4 +36,5 @@ final class SetupLocale {
 
         return $next($request);
     }
+
 }

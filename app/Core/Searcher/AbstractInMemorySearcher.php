@@ -14,6 +14,7 @@ use Illuminate\Support\Collection;
  * @see \App\Pages\PagesFacade for instance.
  */
 abstract class AbstractInMemorySearcher implements Searcher {
+
     /**
      * @inheritDoc
      */
@@ -55,4 +56,5 @@ abstract class AbstractInMemorySearcher implements Searcher {
     public function count(): int {
         unimplemented();
     }
+
 }

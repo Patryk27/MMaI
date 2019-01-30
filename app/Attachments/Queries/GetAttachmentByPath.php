@@ -2,7 +2,8 @@
 
 namespace App\Attachments\Queries;
 
-final class GetAttachmentByPathQuery implements AttachmentsQuery {
+final class GetAttachmentByPath implements AttachmentsQuery {
+
     /** @var string */
     private $path;
 
@@ -16,4 +17,5 @@ final class GetAttachmentByPathQuery implements AttachmentsQuery {
     public function getPath(): string {
         return $this->path;
     }
+
 }

@@ -7,13 +7,14 @@ use App\Core\Websites\WebsiteDetector;
 use App\Menus\Exceptions\MenuException;
 use App\Menus\MenusFacade;
 use App\Menus\Models\MenuItem;
-use App\Menus\Queries\GetMenuItemsByWebsiteIdQuery;
+use App\Menus\Queries\GetMenuItemsByWebsiteId;
 use App\Websites\Models\Website;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
-class NavigationComposer {
+final class NavigationComposer {
+
     /** @var Request */
     private $request;
 
@@ -54,7 +55,8 @@ class NavigationComposer {
      */
     private function getMenuItems(Website $website): Collection {
         return $this->menusFacade->queryMany(
-            new GetMenuItemsByWebsiteIdQuery($website->id)
+            new GetMenuItemsByWebsiteId($website->id)
         );
     }
+
 }

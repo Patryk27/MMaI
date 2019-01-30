@@ -7,10 +7,12 @@ namespace App\Core\Models;
  * its own presenter.
  */
 interface Presentable {
+
     /**
      * Returns name of the presenter's class.
      *
      * @return string
      */
     public static function getPresenterClass(): string;
+
 }

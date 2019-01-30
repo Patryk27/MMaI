@@ -6,6 +6,7 @@ use App\Pages\Models\Page;
 use Illuminate\Support\Collection;
 
 interface PagesRepository {
+
     /**
      * Returns page with given id or `null` if no such page exists.
      *
@@ -37,4 +38,5 @@ interface PagesRepository {
      * @return void
      */
     public function persist(Page $page): void;
+
 }

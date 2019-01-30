@@ -7,6 +7,7 @@ use App\Tags\Implementation\Repositories\TagsRepository;
 use App\Tags\Models\Tag;
 
 class TagsValidator {
+
     /** @var TagsRepository */
     private $tagsRepository;
 
@@ -61,4 +62,5 @@ class TagsValidator {
             throw new TagException('Tag with such name already exists.');
         }
     }
+
 }

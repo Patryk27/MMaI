@@ -6,6 +6,7 @@ use App\Websites\Models\Website;
 use Illuminate\Support\Collection;
 
 interface WebsitesRepository {
+
     /**
      * Returns website with specified id.
      *
@@ -28,4 +29,5 @@ interface WebsitesRepository {
      * @return Collection|Website[]
      */
     public function getAll(): Collection;
+
 }

@@ -8,6 +8,7 @@ use Schema;
 use View;
 
 final class ApplicationProvider extends ServiceProvider {
+
     /**
      * @return void
      */
@@ -37,4 +38,5 @@ final class ApplicationProvider extends ServiceProvider {
             \App\Application\ViewComposers\Frontend\Layout\NavigationComposer::class => 'frontend.components.layout.navigation',
         ]);
     }
+
 }

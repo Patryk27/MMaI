@@ -8,6 +8,7 @@ use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Contracts\Filesystem\Filesystem;
 
 class AttachmentsStreamer {
+
     /** @var Filesystem */
     private $attachmentsFs;
 
@@ -37,4 +38,5 @@ class AttachmentsStreamer {
 
         return $stream;
     }
+
 }

@@ -2,7 +2,8 @@
 
 namespace App\Websites\Queries;
 
-final class GetWebsiteBySlugQuery implements WebsitesQuery {
+final class GetWebsiteBySlug implements WebsitesQuery {
+
     /** @var string */
     private $slug;
 
@@ -16,4 +17,5 @@ final class GetWebsiteBySlugQuery implements WebsitesQuery {
     public function getSlug(): string {
         return $this->slug;
     }
+
 }

@@ -5,14 +5,15 @@ namespace App\SearchEngine\Implementation\Services;
 use App\Pages\Exceptions\PageException;
 use App\Pages\Models\Page;
 use App\Pages\PagesFacade;
-use App\Pages\Queries\GetPagesByIdsQuery;
-use App\SearchEngine\Events\QuerySearched;
-use App\SearchEngine\Queries\SearchQuery;
+use App\Pages\Queries\GetPagesByIds;
+use App\SearchEngine\Events\QueryPerformed;
+use App\SearchEngine\Queries\Search;
 use Elasticsearch\Client as ElasticsearchClient;
 use Illuminate\Contracts\Events\Dispatcher as EventsDispatcher;
 use Illuminate\Support\Collection;
 
 class PagesSearcher {
+
     /** @var EventsDispatcher */
     private $eventsDispatcher;
 
@@ -33,29 +34,29 @@ class PagesSearcher {
     }
 
     /**
-     * @param SearchQuery $query
+     * @param Search $query
      * @return Collection|Page[]
      * @throws PageException
      */
-    public function search(SearchQuery $query): Collection {
+    public function search(Search $query): Collection {
         $pageIds = $this->getMatchingPageIds($query);
 
         $this->eventsDispatcher->dispatch(
-            new QuerySearched($query, $pageIds->all())
+            new QueryPerformed($query, $pageIds->all())
         );
 
         return $this->pagesFacade->queryMany(
-            new GetPagesByIdsQuery(
+            new GetPagesByIds(
                 $pageIds->all()
             )
         );
     }
 
     /**
-     * @param SearchQuery $query
+     * @param Search $query
      * @return Collection|int[]
      */
-    private function getMatchingPageIds(SearchQuery $query): Collection {
+    private function getMatchingPageIds(Search $query): Collection {
         $filters = [];
 
         if ($query->hasType()) {
@@ -99,4 +100,5 @@ class PagesSearcher {
 
         return $hits->pluck('_id');
     }
+
 }

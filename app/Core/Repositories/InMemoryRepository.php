@@ -14,6 +14,7 @@ use LogicException;
  * E.g. @see \App\Routes\Implementation\Repositories\InMemoryRoutesRepository.
  */
 final class InMemoryRepository {
+
     /**
      * List of all the items present in this repository.
      * @var Collection|Model[]
@@ -167,4 +168,5 @@ final class InMemoryRepository {
         // Persist the model
         $this->items[$id] = clone $model;
     }
+
 }

@@ -6,10 +6,9 @@ use Illuminate\Support\Collection;
 
 // @todo describe + provide examples
 interface Searcher {
+
     /**
      * Applies a text filter.
-     *
-     * @see filter()
      *
      * @param string $query
      * @return void
@@ -18,8 +17,6 @@ interface Searcher {
 
     /**
      * Applies a per-field search filter.
-     *
-     * @see search()
      *
      * @param array $filters
      * @return void
@@ -57,4 +54,5 @@ interface Searcher {
      * @return int
      */
     public function count(): int;
+
 }

@@ -12,6 +12,7 @@ use Illuminate\Support\Testing\Fakes\EventFake;
 use Tests\Unit\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase {
+
     /** @var InMemoryTagsRepository */
     protected $tagsRepository;
 
@@ -40,4 +41,5 @@ abstract class TestCase extends BaseTestCase {
             $tagsSearcher
         );
     }
+
 }

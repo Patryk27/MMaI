@@ -5,12 +5,13 @@ namespace App\Routes\Implementation\Services;
 use App\Routes\Exceptions\RouteException;
 use App\Routes\Implementation\Repositories\RoutesRepository;
 use App\Routes\Models\Route;
-use App\Routes\Queries\GetRouteBySubdomainAndUrlQuery;
-use App\Routes\Queries\GetRoutesLikeUrlQuery;
+use App\Routes\Queries\GetRouteBySubdomainAndUrl;
+use App\Routes\Queries\GetRoutesLikeUrl;
 use App\Routes\Queries\RoutesQuery;
 use Illuminate\Support\Collection;
 
 class RoutesQuerier {
+
     /** @var RoutesRepository */
     private $routesRepository;
 
@@ -25,7 +26,7 @@ class RoutesQuerier {
      */
     public function query(RoutesQuery $query): Collection {
         switch (true) {
-            case $query instanceof GetRouteBySubdomainAndUrlQuery:
+            case $query instanceof GetRouteBySubdomainAndUrl:
                 return collect_one(
                     $this->routesRepository->getBySubdomainAndUrl(
                         $query->getSubdomain(),
@@ -33,7 +34,7 @@ class RoutesQuerier {
                     )
                 );
 
-            case $query instanceof GetRoutesLikeUrlQuery:
+            case $query instanceof GetRoutesLikeUrl:
                 return $this->routesRepository->getLikeUrl(
                     $query->getUrl()
                 );
@@ -44,4 +45,5 @@ class RoutesQuerier {
                 ));
         }
     }
+
 }

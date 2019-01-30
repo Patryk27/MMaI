@@ -6,6 +6,7 @@ use App\Analytics\Models\Event;
 use App\Application\Events\LoginAttempted;
 
 final class LoginAttemptedListener extends Listener {
+
     /**
      * @param LoginAttempted $event
      * @return void
@@ -16,4 +17,5 @@ final class LoginAttemptedListener extends Listener {
             'successful' => $event->isSuccessful(),
         ]);
     }
+
 }

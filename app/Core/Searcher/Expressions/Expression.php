@@ -3,6 +3,7 @@
 namespace App\Core\Searcher\Expressions;
 
 final class Expression {
+
     /**
      * Function's name, e.g.: "between".
      * @var string
@@ -48,4 +49,5 @@ final class Expression {
 
         return $this->arguments[$idx];
     }
+
 }

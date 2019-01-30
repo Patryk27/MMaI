@@ -13,6 +13,7 @@ use Illuminate\Database\Query\Expression as QueryExpression;
 use LogicException;
 
 class ExpressionOperatorHandler extends AbstractOperatorHandler implements OperatorHandler {
+
     /**
      * @inheritDoc
      */
@@ -110,4 +111,5 @@ class ExpressionOperatorHandler extends AbstractOperatorHandler implements Opera
                 ));
         }
     }
+
 }

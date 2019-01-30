@@ -3,14 +3,15 @@
 namespace App\Analytics\Implementation\Listeners;
 
 use App\Analytics\Models\Event;
-use App\SearchEngine\Events\QuerySearched;
+use App\SearchEngine\Events\QueryPerformed;
 
 final class QuerySearchedListener extends Listener {
+
     /**
-     * @param QuerySearched $event
+     * @param QueryPerformed $event
      * @return void
      */
-    public function handle(QuerySearched $event): void {
+    public function handle(QueryPerformed $event): void {
         $query = $event->getQuery();
 
         $this->analyticsFacade->create(Event::TYPE_QUERY_SEARCHED, [
@@ -23,4 +24,5 @@ final class QuerySearchedListener extends Listener {
             'numberOfMatchedIds' => count($event->getMatchedIds()),
         ]);
     }
+
 }

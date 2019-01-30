@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read Model|Morphable $model
  */
 class Route extends Model implements Morphable {
+
     /** @var string[] */
     protected $fillable = [
         'subdomain',
@@ -85,4 +86,5 @@ class Route extends Model implements Morphable {
     public static function getMorphableType(): string {
         return 'route';
     }
+
 }

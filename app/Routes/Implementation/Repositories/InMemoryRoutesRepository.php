@@ -9,6 +9,7 @@ use App\Routes\Models\Route as Routes;
 use Illuminate\Support\Collection;
 
 class InMemoryRoutesRepository implements RoutesRepository {
+
     /** @var InMemoryRepository */
     private $repository;
 
@@ -58,4 +59,5 @@ class InMemoryRoutesRepository implements RoutesRepository {
     public function delete(Routes $route): void {
         $this->repository->delete($route);
     }
+
 }

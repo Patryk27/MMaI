@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Application\Http\Requests\Backend\Auth;
+namespace App\Application\Http\Requests\Backend\Attachments;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SignInRequest extends FormRequest {
+final class CreateAttachment extends FormRequest {
+
     /**
      * @return bool
      */
@@ -17,8 +18,8 @@ class SignInRequest extends FormRequest {
      */
     public function rules(): array {
         return [
-            'login' => 'required',
-            'password' => 'required',
+            'attachment' => 'file',
         ];
     }
+
 }

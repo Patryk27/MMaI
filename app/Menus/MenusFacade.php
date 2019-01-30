@@ -10,6 +10,7 @@ use App\Menus\Queries\MenuItemsQuery;
 use Illuminate\Support\Collection;
 
 final class MenusFacade {
+
     /** @var MenuItemsQuerier */
     private $menuItemsQuerier;
 
@@ -46,4 +47,5 @@ final class MenusFacade {
     public function queryMany(MenuItemsQuery $query): Collection {
         return $this->menuItemsQuerier->query($query);
     }
+
 }

@@ -4,7 +4,8 @@ namespace App\SearchEngine\Queries;
 
 use App\Websites\Models\Website;
 
-final class SearchQuery {
+final class Search {
+
     /**
      * Text query which will be used to find pages, e.g.: "arduino".
      * @var string
@@ -63,4 +64,5 @@ final class SearchQuery {
     public function getType(): ?string {
         return $this->type;
     }
+
 }

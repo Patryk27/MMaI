@@ -2,7 +2,8 @@
 
 namespace App\Pages\Queries;
 
-final class GetPagesByIdsQuery implements PagesQuery {
+final class GetPagesByIds implements PagesQuery {
+
     /** @var int[] */
     private $ids;
 
@@ -19,4 +20,5 @@ final class GetPagesByIdsQuery implements PagesQuery {
     public function getIds(): array {
         return $this->ids;
     }
+
 }

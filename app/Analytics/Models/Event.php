@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read Carbon $updated_at
  */
 class Event extends Model {
+
     public const
         TYPE_LOGIN_ATTEMPTED = 'login-attempted',
         TYPE_QUERY_SEARCHED = 'query-searched',
@@ -34,4 +35,5 @@ class Event extends Model {
         'created_at',
         'updated_at',
     ];
+
 }

@@ -28,6 +28,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method AttachmentPresenter getPresenter()
  */
 class Attachment extends Model implements Presentable {
+
     use HasPresenter;
 
     /** @var string[] */
@@ -81,4 +82,5 @@ class Attachment extends Model implements Presentable {
     public static function getPresenterClass(): string {
         return AttachmentPresenter::class;
     }
+
 }

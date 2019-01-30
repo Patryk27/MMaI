@@ -5,6 +5,7 @@ namespace App\Application\Events;
 use App\Core\ValueObjects\HasInitializationConstructor;
 
 final class RequestServed {
+
     use HasInitializationConstructor;
 
     /** @var string */
@@ -36,4 +37,5 @@ final class RequestServed {
     public function getResponseStatusCode(): int {
         return $this->responseStatusCode;
     }
+
 }

@@ -7,6 +7,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller {
+
     /**
      * @param Request $request
      * @return View
@@ -16,4 +17,5 @@ class DashboardController extends Controller {
             'user' => $request->user(),
         ]);
     }
+
 }

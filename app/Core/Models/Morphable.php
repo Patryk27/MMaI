@@ -7,6 +7,7 @@ namespace App\Core\Models;
  * polymorphic relationships.
  */
 interface Morphable {
+
     /**
      * Returns id (primary key) of this morphable, e.g. `5`.
      *
@@ -20,4 +21,5 @@ interface Morphable {
      * @return string
      */
     public static function getMorphableType(): string;
+
 }

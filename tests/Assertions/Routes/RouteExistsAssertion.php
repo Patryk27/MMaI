@@ -4,11 +4,12 @@ namespace Tests\Assertions\Routes;
 
 use App\Routes\Exceptions\RouteException;
 use App\Routes\Exceptions\RouteNotFoundException;
-use App\Routes\Queries\GetRouteBySubdomainAndUrlQuery;
+use App\Routes\Queries\GetRouteBySubdomainAndUrl;
 use PHPUnit\Framework\ExpectationFailedException;
 use SebastianBergmann\Comparator\ComparisonFailure;
 
-class RouteExistsAssertion extends Constraint {
+final class RouteExistsAssertion extends Constraint {
+
     /**
      * @inheritdoc
      * @param array $other
@@ -18,7 +19,7 @@ class RouteExistsAssertion extends Constraint {
     public function matches($other): bool {
         try {
             $this->routesFacade->queryOne(
-                new GetRouteBySubdomainAndUrlQuery($other['subdomain'], $other['url'])
+                new GetRouteBySubdomainAndUrl($other['subdomain'], $other['url'])
             );
 
             return true;
@@ -35,4 +36,5 @@ class RouteExistsAssertion extends Constraint {
             'Failed asserting that route [subdomain=%s, url=%s] exists.', $other['subdomain'], $other['url']
         ));
     }
+
 }

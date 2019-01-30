@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 final class LogRequest {
+
     /** @var EventsDispatcher */
     private $eventsDispatcher;
 
@@ -38,4 +39,5 @@ final class LogRequest {
             ])
         );
     }
+
 }

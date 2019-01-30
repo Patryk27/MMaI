@@ -6,32 +6,33 @@ use App\Core\Searcher\AbstractEloquentSearcher;
 use App\Core\Searcher\Eloquent\EloquentMapper;
 use App\Tags\Implementation\Services\TagsSearcher;
 use App\Tags\Models\Tag;
-use App\Tags\Queries\SearchTagsQuery;
+use App\Tags\Queries\SearchTags;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 
 class EloquentTagsSearcher extends AbstractEloquentSearcher implements TagsSearcher {
+
     private const FIELDS = [
-        SearchTagsQuery::FIELD_ID => [
+        SearchTags::FIELD_ID => [
             'column' => 'tags.id',
             'type' => EloquentMapper::FIELD_TYPE_NUMBER,
         ],
 
-        SearchTagsQuery::FIELD_NAME => [
+        SearchTags::FIELD_NAME => [
             'column' => 'tags.name',
             'type' => EloquentMapper::FIELD_TYPE_STRING,
         ],
 
-        SearchTagsQuery::FIELD_CREATED_AT => [
+        SearchTags::FIELD_CREATED_AT => [
             'column' => 'tags.created_at',
             'type' => EloquentMapper::FIELD_TYPE_DATETIME,
         ],
 
-        SearchTagsQuery::FIELD_WEBSITE_ID => [
+        SearchTags::FIELD_WEBSITE_ID => [
             'column' => 'tags.website_id',
             'type' => EloquentMapper::FIELD_TYPE_NUMBER,
         ],
 
-        SearchTagsQuery::FIELD_ASSIGNED_PAGES_COUNT => [
+        SearchTags::FIELD_ASSIGNED_PAGES_COUNT => [
             'column' => 'assigned_pages_count',
             'type' => EloquentMapper::FIELD_TYPE_NUMBER,
         ],
@@ -60,4 +61,5 @@ class EloquentTagsSearcher extends AbstractEloquentSearcher implements TagsSearc
     public function count(): int {
         return $this->get()->count(); // @todo provide a better implementation
     }
+
 }

@@ -10,6 +10,7 @@ use App\Languages\Queries\LanguagesQuery;
 use Illuminate\Support\Collection;
 
 final class LanguagesFacade {
+
     /** @var LanguagesQuerier */
     private $languagesQuerier;
 
@@ -46,4 +47,5 @@ final class LanguagesFacade {
     public function queryMany(LanguagesQuery $query): Collection {
         return $this->languagesQuerier->query($query);
     }
+
 }

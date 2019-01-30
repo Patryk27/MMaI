@@ -7,6 +7,7 @@ use App\Menus\Models\MenuItem;
 use Illuminate\Support\Collection;
 
 class EloquentMenuItemsRepository implements MenuItemsRepository {
+
     /** @var EloquentRepository */
     private $repository;
 
@@ -20,4 +21,5 @@ class EloquentMenuItemsRepository implements MenuItemsRepository {
     public function getByWebsiteId(int $websiteId): Collection {
         return $this->repository->getByMany('website_id', $websiteId);
     }
+
 }

@@ -14,6 +14,7 @@ use App\Routes\Queries\RoutesQuery;
 use Illuminate\Support\Collection;
 
 final class RoutesFacade {
+
     /** @var RoutesRepository */
     private $routesRepository;
 
@@ -97,4 +98,5 @@ final class RoutesFacade {
     public function queryMany(RoutesQuery $query): Collection {
         return $this->routesQuerier->query($query);
     }
+
 }

@@ -3,8 +3,8 @@
 namespace App\Application\Http\Controllers\Api;
 
 use App\Application\Http\Controllers\Controller;
-use App\Application\Http\Requests\Backend\Pages\CreatePageRequest;
-use App\Application\Http\Requests\Backend\Pages\UpdatePageRequest;
+use App\Application\Http\Requests\Backend\Pages\CreatePage;
+use App\Application\Http\Requests\Backend\Pages\UpdatePage;
 use App\Core\Api\ApiSearcher;
 use App\Core\Api\Searcher\ApiSearcherResponse;
 use App\Core\Exceptions\Exception as CoreException;
@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
 class PagesController extends Controller {
+
     /** @var ApiSearcher */
     private $apiSearcher;
 
@@ -64,10 +65,10 @@ class PagesController extends Controller {
     }
 
     /**
-     * @param CreatePageRequest $request
+     * @param CreatePage $request
      * @return array
      */
-    public function store(CreatePageRequest $request): array {
+    public function store(CreatePage $request): array {
         $page = $this->pagesFacade->create(
             $request->all()
         );
@@ -78,11 +79,11 @@ class PagesController extends Controller {
     }
 
     /**
-     * @param UpdatePageRequest $request
+     * @param UpdatePage $request
      * @param Page $page
      * @return array
      */
-    public function update(UpdatePageRequest $request, Page $page): array {
+    public function update(UpdatePage $request, Page $page): array {
         $this->pagesFacade->update(
             $page,
             $request->all()
@@ -92,4 +93,5 @@ class PagesController extends Controller {
             'redirectTo' => $page->getEditUrl(),
         ];
     }
+
 }

@@ -9,6 +9,7 @@ use App\Tags\Models\Tag;
 use Illuminate\Contracts\Events\Dispatcher as EventsDispatcher;
 
 class TagsUpdater {
+
     /** @var EventsDispatcher */
     private $eventsDispatcher;
 
@@ -46,4 +47,5 @@ class TagsUpdater {
             new TagUpdated($tag)
         );
     }
+
 }

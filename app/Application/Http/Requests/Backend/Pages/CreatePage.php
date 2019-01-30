@@ -4,7 +4,8 @@ namespace App\Application\Http\Requests\Backend\Pages;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdatePageRequest extends FormRequest {
+final class CreatePage extends FormRequest {
+
     /**
      * @return bool
      */
@@ -17,6 +18,8 @@ class UpdatePageRequest extends FormRequest {
      */
     public function rules(): array {
         return [
+            'websiteId' => 'numeric',
+
             'title' => 'string',
             'lead' => ['nullable', 'string'],
             'content' => ['nullable', 'string'],
@@ -30,4 +33,5 @@ class UpdatePageRequest extends FormRequest {
             'attachmentIds' => ['nullable', 'array'],
         ];
     }
+
 }

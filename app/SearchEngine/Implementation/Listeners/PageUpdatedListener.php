@@ -7,6 +7,7 @@ use App\SearchEngine\Implementation\Services\PagesIndexer;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 final class PageUpdatedListener implements ShouldQueue {
+
     /** @var PagesIndexer */
     private $pagesIndexer;
 
@@ -23,4 +24,5 @@ final class PageUpdatedListener implements ShouldQueue {
             $event->getPage()
         );
     }
+
 }

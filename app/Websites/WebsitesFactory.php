@@ -6,12 +6,7 @@ use App\Websites\Implementation\Repositories\WebsitesRepository;
 use App\Websites\Implementation\Services\WebsitesQuerier;
 
 final class WebsitesFactory {
-    /**
-     * Builds an instance of @see WebsitesFacade.
-     *
-     * @param WebsitesRepository $websitesRepository
-     * @return WebsitesFacade
-     */
+
     public static function build(
         WebsitesRepository $websitesRepository
     ): WebsitesFacade {
@@ -21,4 +16,5 @@ final class WebsitesFactory {
             $websitesQuerier
         );
     }
+
 }

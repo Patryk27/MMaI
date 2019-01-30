@@ -9,6 +9,7 @@ use App\Tags\Models\Tag;
 use Illuminate\Contracts\Events\Dispatcher as EventsDispatcher;
 
 class TagsCreator {
+
     /** @var EventsDispatcher */
     private $eventsDispatcher;
 
@@ -48,4 +49,5 @@ class TagsCreator {
 
         return $tag;
     }
+
 }

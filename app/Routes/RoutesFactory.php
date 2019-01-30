@@ -9,12 +9,7 @@ use App\Routes\Implementation\Services\RoutesRerouter;
 use App\Routes\Implementation\Services\RoutesValidator;
 
 final class RoutesFactory {
-    /**
-     * Builds an instance of @see RoutesFacade.
-     *
-     * @param RoutesRepository $routesRepository
-     * @return RoutesFacade
-     */
+
     public static function build(
         RoutesRepository $routesRepository
     ): RoutesFacade {
@@ -31,4 +26,5 @@ final class RoutesFactory {
             $routesQuerier
         );
     }
+
 }

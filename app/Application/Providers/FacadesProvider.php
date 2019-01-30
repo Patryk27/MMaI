@@ -37,6 +37,7 @@ use Illuminate\Events\Dispatcher as EventsDispatcher;
 use Illuminate\Support\ServiceProvider;
 
 final class FacadesProvider extends ServiceProvider {
+
     private const FACADES = [
         AnalyticsFacade::class,
         AttachmentsFacade::class,
@@ -151,4 +152,5 @@ final class FacadesProvider extends ServiceProvider {
             }
         }
     }
+
 }

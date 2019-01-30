@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Application\Http\Requests\Frontend;
+namespace App\Application\Http\Requests\Backend\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SearchRequest extends FormRequest {
+final class SignIn extends FormRequest {
+
     /**
      * @return bool
      */
@@ -17,7 +18,9 @@ class SearchRequest extends FormRequest {
      */
     public function rules(): array {
         return [
-            'query' => 'required',
+            'login' => 'required',
+            'password' => 'required',
         ];
     }
+
 }

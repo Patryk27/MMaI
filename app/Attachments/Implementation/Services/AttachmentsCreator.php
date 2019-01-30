@@ -9,6 +9,7 @@ use Illuminate\Http\UploadedFile;
 use Throwable;
 
 class AttachmentsCreator {
+
     /** @var Filesystem */
     private $attachmentsFs;
 
@@ -45,10 +46,10 @@ class AttachmentsCreator {
             $this->attachmentsRepository->persist($attachment);
         } catch (Throwable $ex) {
             $this->attachmentsFs->delete($attachment->path);
-
             throw $ex;
         }
 
         return $attachment;
     }
+
 }

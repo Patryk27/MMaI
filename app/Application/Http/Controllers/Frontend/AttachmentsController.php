@@ -5,10 +5,11 @@ namespace App\Application\Http\Controllers\Frontend;
 use App\Application\Http\Controllers\Controller;
 use App\Attachments\AttachmentsFacade;
 use App\Attachments\Exceptions\AttachmentException;
-use App\Attachments\Queries\GetAttachmentByPathQuery;
+use App\Attachments\Queries\GetAttachmentByPath;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class AttachmentsController extends Controller {
+
     /** @var AttachmentsFacade */
     private $attachmentsFacade;
 
@@ -23,7 +24,7 @@ class AttachmentsController extends Controller {
     public function attachment(string $path) {
         try {
             $attachment = $this->attachmentsFacade->queryOne(
-                new GetAttachmentByPathQuery($path)
+                new GetAttachmentByPath($path)
             );
         } catch (AttachmentException $ex) {
             throw new NotFoundHttpException('This attachment could not have been found.');
@@ -39,4 +40,5 @@ class AttachmentsController extends Controller {
             'Content-Type' => $attachment->mime,
         ]);
     }
+
 }

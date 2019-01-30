@@ -6,11 +6,12 @@ use App\Core\Exceptions\Exception as CoreException;
 use App\Websites\Exceptions\WebsiteException;
 use App\Websites\Exceptions\WebsiteNotFoundException;
 use App\Websites\Models\Website;
-use App\Websites\Queries\GetWebsiteBySlugQuery;
+use App\Websites\Queries\GetWebsiteBySlug;
 use App\Websites\WebsitesFacade;
 use Illuminate\Http\Request;
 
 class WebsiteDetector {
+
     /** @var WebsitesFacade */
     private $websitesFacade;
 
@@ -28,7 +29,7 @@ class WebsiteDetector {
             $subdomain = $request->route('subdomain');
 
             return $this->websitesFacade->queryOne(
-                new GetWebsiteBySlugQuery($subdomain)
+                new GetWebsiteBySlug($subdomain)
             );
         } catch (WebsiteNotFoundException $ex) {
             return null;
@@ -52,4 +53,5 @@ class WebsiteDetector {
 
         return $website;
     }
+
 }

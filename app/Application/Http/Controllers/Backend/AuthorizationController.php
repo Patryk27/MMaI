@@ -4,13 +4,14 @@ namespace App\Application\Http\Controllers\Backend;
 
 use App\Application\Events\LoginAttempted;
 use App\Application\Http\Controllers\Controller;
-use App\Application\Http\Requests\Backend\Auth\SignInRequest;
+use App\Application\Http\Requests\Backend\Auth\SignIn;
 use App\Core\Layout\Flasher;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Contracts\Events\Dispatcher as EventsDispatcher;
 
 class AuthorizationController extends Controller {
+
     private const AFTER_SIGN_IN_ROUTE = 'backend.dashboard.index';
 
     /** @var EventsDispatcher */
@@ -44,10 +45,10 @@ class AuthorizationController extends Controller {
     }
 
     /**
-     * @param SignInRequest $request
+     * @param SignIn $request
      * @return mixed
      */
-    public function doIn(SignInRequest $request) {
+    public function doIn(SignIn $request) {
         // If user is already signed in, redirect him / her to appropriate route
         if ($this->authGuard->check()) {
             return redirect()->route(self::AFTER_SIGN_IN_ROUTE);
@@ -86,4 +87,5 @@ class AuthorizationController extends Controller {
 
         return redirect('/');
     }
+
 }

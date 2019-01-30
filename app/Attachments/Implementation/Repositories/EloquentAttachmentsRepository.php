@@ -8,6 +8,7 @@ use Illuminate\Support\Collection;
 use Throwable;
 
 class EloquentAttachmentsRepository implements AttachmentsRepository {
+
     /** @var EloquentRepository */
     private $repository;
 
@@ -40,7 +41,7 @@ class EloquentAttachmentsRepository implements AttachmentsRepository {
      * @inheritDoc
      */
     public function getDetached(): Collection {
-        return $this->repository->getByMany('post_id', null);
+        return $this->repository->getByMany('attachable_id', null);
     }
 
     /**
@@ -58,4 +59,5 @@ class EloquentAttachmentsRepository implements AttachmentsRepository {
     public function delete(Attachment $attachment): void {
         $this->repository->delete($attachment);
     }
+
 }

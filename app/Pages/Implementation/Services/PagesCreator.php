@@ -10,6 +10,7 @@ use Illuminate\Contracts\Events\Dispatcher as EventsDispatcher;
 use Throwable;
 
 class PagesCreator {
+
     /** @var EventsDispatcher */
     private $eventsDispatcher;
 
@@ -66,4 +67,5 @@ class PagesCreator {
         return $page;
         // @todo attachments & tags
     }
+
 }

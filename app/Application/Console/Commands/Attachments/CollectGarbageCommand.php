@@ -6,6 +6,7 @@ use App\Attachments\AttachmentsFacade;
 use Illuminate\Console\Command;
 
 final class CollectGarbageCommand extends Command {
+
     /** @var string */
     protected $signature = 'app:attachments:gc {--aggressive}';
 
@@ -32,7 +33,10 @@ final class CollectGarbageCommand extends Command {
         );
 
         $this->output->writeln(sprintf(
-            'Scanned <info>%d</info> attachments, removed <info>%d</info>.', $result->getScannedAttachmentsCount(), $result->getRemovedAttachmentsCount()
+            'Scanned <info>%d</info> attachments, <info>%d</info> got removed.',
+            $result->getScannedAttachmentsCount(),
+            $result->getRemovedAttachmentsCount()
         ));
     }
+
 }

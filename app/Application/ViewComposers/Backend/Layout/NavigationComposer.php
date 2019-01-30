@@ -6,7 +6,8 @@ use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Contracts\View\View;
 use Illuminate\Routing\Route;
 
-class NavigationComposer {
+final class NavigationComposer {
+
     private const ITEMS = [
         'backend.dashboard' => [
             'icon' => 'fa fa-tachometer-alt',
@@ -84,4 +85,5 @@ class NavigationComposer {
     private function isRouteActive(string $route): bool {
         return starts_with($this->route->getName(), $route);
     }
+
 }

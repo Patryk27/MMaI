@@ -7,6 +7,7 @@ use App\Pages\ValueObjects\RenderedPage;
 use League\CommonMark\CommonMarkConverter;
 
 class PagesRenderer {
+
     /** @var CommonMarkConverter */
     private $commonMarkConverter;
 
@@ -25,4 +26,5 @@ class PagesRenderer {
             'content' => $this->commonMarkConverter->convertToHtml($page->content ?? ''),
         ]);
     }
+
 }

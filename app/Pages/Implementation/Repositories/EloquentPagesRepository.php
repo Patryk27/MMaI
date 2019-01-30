@@ -9,6 +9,7 @@ use Illuminate\Database\Connection as DatabaseConnection;
 use Illuminate\Support\Collection;
 
 class EloquentPagesRepository implements PagesRepository {
+
     /** @var DatabaseConnection */
     private $db;
 
@@ -55,4 +56,5 @@ class EloquentPagesRepository implements PagesRepository {
     public function persist(Page $page): void {
         unimplemented();
     }
+
 }

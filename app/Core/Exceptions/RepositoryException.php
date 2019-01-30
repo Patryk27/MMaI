@@ -3,6 +3,7 @@
 namespace App\Core\Exceptions;
 
 class RepositoryException extends Exception {
+
     /**
      * @param string $reason
      * @return self
@@ -12,4 +13,5 @@ class RepositoryException extends Exception {
             'Given model is not not supported by this repository: %s', $reason
         ));
     }
+
 }

@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Application\Http\Requests\Backend\Attachments;
+namespace App\Application\Http\Requests\Frontend;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateAttachmentRequest extends FormRequest {
+final class Search extends FormRequest {
+
     /**
      * @return bool
      */
@@ -17,7 +18,8 @@ class CreateAttachmentRequest extends FormRequest {
      */
     public function rules(): array {
         return [
-            'attachment' => 'file',
+            'query' => 'required',
         ];
     }
+
 }

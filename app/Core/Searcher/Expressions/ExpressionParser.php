@@ -3,6 +3,7 @@
 namespace App\Core\Searcher\Expressions;
 
 class ExpressionParser {
+
     /**
      * @param string $expression
      * @return Expression
@@ -38,4 +39,5 @@ class ExpressionParser {
 
         return new Expression($function, $arguments);
     }
+
 }

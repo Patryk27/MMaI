@@ -6,6 +6,7 @@ use App\Pages\Models\Page;
 use Illuminate\Queue\SerializesModels;
 
 final class PageCreated {
+
     use SerializesModels;
 
     /** @var Page */
@@ -21,4 +22,5 @@ final class PageCreated {
     public function getPage(): Page {
         return $this->page;
     }
+
 }

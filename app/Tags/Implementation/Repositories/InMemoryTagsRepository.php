@@ -7,6 +7,7 @@ use App\Tags\Models\Tag;
 use Illuminate\Support\Collection;
 
 class InMemoryTagsRepository implements TagsRepository {
+
     /** @var InMemoryRepository */
     private $repository;
 
@@ -52,4 +53,5 @@ class InMemoryTagsRepository implements TagsRepository {
     public function delete(Tag $tag): void {
         $this->repository->delete($tag);
     }
+
 }

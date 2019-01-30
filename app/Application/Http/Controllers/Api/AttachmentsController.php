@@ -3,11 +3,12 @@
 namespace App\Application\Http\Controllers\Api;
 
 use App\Application\Http\Controllers\Controller;
-use App\Application\Http\Requests\Backend\Attachments\CreateAttachmentRequest;
+use App\Application\Http\Requests\Backend\Attachments\CreateAttachment;
 use App\Attachments\AttachmentsFacade;
 use Throwable;
 
 class AttachmentsController extends Controller {
+
     /** @var AttachmentsFacade */
     private $attachmentsFacade;
 
@@ -16,11 +17,11 @@ class AttachmentsController extends Controller {
     }
 
     /**
-     * @param CreateAttachmentRequest $request
+     * @param CreateAttachment $request
      * @return array
      * @throws Throwable
      */
-    public function store(CreateAttachmentRequest $request): array {
+    public function store(CreateAttachment $request): array {
         $attachment = $this->attachmentsFacade->createFromFile(
             $request->file('attachment')
         );
@@ -35,4 +36,5 @@ class AttachmentsController extends Controller {
             'url' => $attachmentPresenter->getUrl(),
         ];
     }
+
 }

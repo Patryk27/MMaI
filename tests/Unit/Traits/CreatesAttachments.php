@@ -7,6 +7,7 @@ use App\Attachments\Models\Attachment;
 use Illuminate\Filesystem\FilesystemAdapter;
 
 trait CreatesAttachments {
+
     /** @var FilesystemAdapter */
     protected $attachmentsFs;
 
@@ -33,4 +34,5 @@ trait CreatesAttachments {
 
         return $attachment;
     }
+
 }

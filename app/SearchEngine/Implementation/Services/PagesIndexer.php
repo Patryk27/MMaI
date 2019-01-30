@@ -5,6 +5,7 @@ namespace App\SearchEngine\Implementation\Services;
 use App\Pages\Models\Page;
 
 class PagesIndexer {
+
     /**
      * @param Page $page
      * @return void
@@ -12,4 +13,5 @@ class PagesIndexer {
     public function index(Page $page): void {
 //        unimplemented();
     }
+
 }

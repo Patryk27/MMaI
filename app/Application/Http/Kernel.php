@@ -20,6 +20,7 @@ use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 final class Kernel extends HttpKernel {
+
     /** @var string[] */
     protected $middleware = [
         CheckForMaintenanceMode::class,
@@ -61,4 +62,5 @@ final class Kernel extends HttpKernel {
         'bindings' => SubstituteBindings::class,
         'can' => Authorize::class,
     ];
+
 }

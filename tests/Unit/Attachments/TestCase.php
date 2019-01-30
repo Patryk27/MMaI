@@ -13,6 +13,7 @@ use Tests\Unit\TestCase as BaseTestCase;
 use Tests\Unit\Traits\CreatesAttachments;
 
 abstract class TestCase extends BaseTestCase {
+
     use CreatesAttachments;
 
     /** @var FilesystemAdapter */
@@ -45,4 +46,5 @@ abstract class TestCase extends BaseTestCase {
             $this->attachmentsRepository
         );
     }
+
 }

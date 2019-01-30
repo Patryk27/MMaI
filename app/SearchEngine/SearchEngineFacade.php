@@ -12,12 +12,13 @@ use App\SearchEngine\Implementation\Listeners\TagUpdatedListener;
 use App\SearchEngine\Implementation\Services\ElasticsearchMigrator;
 use App\SearchEngine\Implementation\Services\PagesIndexer;
 use App\SearchEngine\Implementation\Services\PagesSearcher;
-use App\SearchEngine\Queries\SearchQuery;
+use App\SearchEngine\Queries\Search;
 use App\Tags\Events\TagUpdated;
 use Event;
 use Illuminate\Support\Collection;
 
 final class SearchEngineFacade {
+
     /** @var ElasticsearchMigrator */
     private $elasticsearchMigrator;
 
@@ -56,13 +57,14 @@ final class SearchEngineFacade {
     }
 
     /**
-     * @param SearchQuery $query
+     * @param Search $query
      * @return Collection|Page[]
      * @throws PageException
      */
-    public function search(SearchQuery $query): Collection {
+    public function search(Search $query): Collection {
         $this->elasticsearchMigrator->migrate();
 
         return $this->pagesSearcher->search($query);
     }
+
 }

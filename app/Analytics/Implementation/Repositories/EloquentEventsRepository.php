@@ -7,6 +7,7 @@ use App\Core\Repositories\EloquentRepository;
 use Throwable;
 
 class EloquentEventsRepository implements EventsRepository {
+
     /** @var EloquentRepository */
     private $repository;
 
@@ -23,4 +24,5 @@ class EloquentEventsRepository implements EventsRepository {
     public function persist(Event $event): void {
         $this->repository->persist($event);
     }
+
 }

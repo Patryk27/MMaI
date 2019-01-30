@@ -2,7 +2,8 @@
 
 namespace App\Pages\Queries;
 
-final class GetPagesByTagIdQuery implements PagesQuery {
+final class GetPagesByTagId implements PagesQuery {
+
     /** @var int */
     private $tagId;
 
@@ -16,4 +17,5 @@ final class GetPagesByTagIdQuery implements PagesQuery {
     public function getTagId(): int {
         return $this->tagId;
     }
+
 }

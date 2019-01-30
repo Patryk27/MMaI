@@ -8,6 +8,7 @@ use App\Core\Searcher\Expressions\ExpressionParser;
 use Tests\Unit\TestCase;
 
 class ExpressionParserTest extends TestCase {
+
     /** @var ExpressionParser */
     private $parser;
 
@@ -106,4 +107,5 @@ class ExpressionParserTest extends TestCase {
             ],
         ];
     }
+
 }

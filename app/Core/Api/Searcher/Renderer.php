@@ -7,6 +7,7 @@ use Illuminate\Contracts\View\View;
 use LogicException;
 
 final class Renderer {
+
     /** @var ViewFactory */
     private $viewFactory;
 
@@ -47,4 +48,5 @@ final class Renderer {
 
         return $result;
     }
+
 }

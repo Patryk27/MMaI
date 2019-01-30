@@ -6,6 +6,7 @@ use App\Core\Exceptions\Exception as AppException;
 use App\Tags\Models\Tag;
 
 class CreateTest extends TestCase {
+
     /**
      * This test makes sure that the create() method saves tag in the database.
      *
@@ -61,4 +62,5 @@ class CreateTest extends TestCase {
             'name' => 'foo',
         ]);
     }
+
 }

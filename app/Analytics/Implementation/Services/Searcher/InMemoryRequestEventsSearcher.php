@@ -6,4 +6,5 @@ use App\Analytics\Implementation\Services\RequestEventsSearcher;
 use App\Core\Searcher\AbstractInMemorySearcher;
 
 class InMemoryRequestEventsSearcher extends AbstractInMemorySearcher implements RequestEventsSearcher {
+
 }

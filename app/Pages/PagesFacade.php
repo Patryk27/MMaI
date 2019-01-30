@@ -17,6 +17,7 @@ use Gate;
 use Illuminate\Support\Collection;
 
 final class PagesFacade {
+
     /** @var PagesCreator */
     private $pagesCreator;
 
@@ -54,7 +55,7 @@ final class PagesFacade {
      * @param array $pageData
      * @return Page
      *
-     * @see \App\Application\Http\Requests\Backend\Pages\CreatePageRequest
+     * @see \App\Application\Http\Requests\Backend\Pages\CreatePage
      */
     public function create(array $pageData): Page {
         return $this->pagesCreator->create($pageData);
@@ -67,7 +68,7 @@ final class PagesFacade {
      * @param array $pageData
      * @return void
      *
-     * @see \App\Application\Http\Requests\Backend\Pages\UpdatePageRequest
+     * @see \App\Application\Http\Requests\Backend\Pages\UpdatePage
      */
     public function update(Page $page, array $pageData): void {
         $this->pagesUpdater->update($page, $pageData);
@@ -124,4 +125,5 @@ final class PagesFacade {
     public function queryCount(PagesQuery $query): int {
         return $this->pagesQuerier->count($query);
     }
+
 }

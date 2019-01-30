@@ -3,6 +3,7 @@
 namespace App\Core\Searcher\Expressions;
 
 class ExpressionScanner {
+
     /** @var string */
     private $expression;
 
@@ -217,4 +218,5 @@ class ExpressionScanner {
 
         return $result;
     }
+
 }

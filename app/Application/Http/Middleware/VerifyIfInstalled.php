@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 final class VerifyIfInstalled {
+
     /** @var DatabaseConnection */
     private $db;
 
@@ -48,4 +49,5 @@ final class VerifyIfInstalled {
             view('frontend.views.application-not-installed', $viewData)
         );
     }
+
 }

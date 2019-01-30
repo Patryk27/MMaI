@@ -5,11 +5,12 @@ namespace App\Application\Http\Controllers\Backend;
 use App\Application\Http\Controllers\Controller;
 use App\Pages\Models\Page;
 use App\Websites\Exceptions\WebsiteException;
-use App\Websites\Queries\GetAllWebsitesQuery;
+use App\Websites\Queries\GetAllWebsites;
 use App\Websites\WebsitesFacade;
 use Illuminate\Contracts\View\View;
 
 class PagesController extends Controller {
+
     /** @var WebsitesFacade */
     private $websitesFacade;
 
@@ -23,7 +24,7 @@ class PagesController extends Controller {
      */
     public function index(): View {
         $websites = $this->websitesFacade->queryMany(
-            new GetAllWebsitesQuery()
+            new GetAllWebsites()
         );
 
         $websites = $websites
@@ -64,4 +65,5 @@ class PagesController extends Controller {
             'page' => $page,
         ]);
     }
+
 }

@@ -16,6 +16,7 @@ use Illuminate\Support\Collection;
 use Throwable;
 
 final class AttachmentsFacade {
+
     /** @var AttachmentsCreator */
     private $attachmentsCreator;
 
@@ -109,4 +110,5 @@ final class AttachmentsFacade {
     public function queryMany(AttachmentsQuery $query): Collection {
         return $this->attachmentsQuerier->query($query);
     }
+
 }

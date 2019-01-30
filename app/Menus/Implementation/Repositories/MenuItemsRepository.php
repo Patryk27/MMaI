@@ -6,6 +6,7 @@ use App\Menus\Models\MenuItem;
 use Illuminate\Support\Collection;
 
 interface MenuItemsRepository {
+
     /**
      * Returns all the menu items that belong to specified website.
      *
@@ -13,4 +14,5 @@ interface MenuItemsRepository {
      * @return Collection|MenuItem[]
      */
     public function getByWebsiteId(int $websiteId): Collection;
+
 }

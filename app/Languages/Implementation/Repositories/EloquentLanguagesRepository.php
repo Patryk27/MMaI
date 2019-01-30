@@ -7,6 +7,7 @@ use App\Languages\Models\Language;
 use Illuminate\Support\Collection;
 
 class EloquentLanguagesRepository implements LanguagesRepository {
+
     /** @var EloquentRepository */
     private $repository;
 
@@ -34,4 +35,5 @@ class EloquentLanguagesRepository implements LanguagesRepository {
     public function getAll(): Collection {
         return $this->repository->getAll();
     }
+
 }

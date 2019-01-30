@@ -10,6 +10,7 @@ use App\Pages\Queries\SearchPages;
 use Illuminate\Database\Query\JoinClause;
 
 class EloquentPagesSearcher extends AbstractEloquentSearcher implements PagesSearcher {
+
     private const FIELDS = [
         SearchPages::FIELD_ID => [
             'column' => 'pages.id',
@@ -83,4 +84,5 @@ class EloquentPagesSearcher extends AbstractEloquentSearcher implements PagesSea
     public function count(): int {
         return $this->builder->count('pages.id');
     }
+
 }

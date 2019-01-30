@@ -6,6 +6,7 @@ use App\Core\Presenters\Presenter;
 use App\Pages\Models\Page;
 
 final class PagePresenter extends Presenter {
+
     /** @var Page */
     protected $model;
 
@@ -26,4 +27,5 @@ final class PagePresenter extends Presenter {
             Page::STATUS_DELETED => 'badge-danger',
         ], $this->model->status, '');
     }
+
 }

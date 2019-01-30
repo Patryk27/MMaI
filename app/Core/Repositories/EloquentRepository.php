@@ -15,6 +15,7 @@ use Throwable;
  * E.g. @see \App\Routes\Implementation\Repositories\EloquentRoutesRepository.
  */
 final class EloquentRepository {
+
     /** @var Model */
     private $model;
 
@@ -68,13 +69,12 @@ final class EloquentRepository {
      * Returns a single model with specified attribute's value.
      * Returns `null` if no such model exists.
      *
-     * @see getByMany()
-     *
      * @param string $attributeName
      * @param mixed $attributeValue
      * @return mixed|null
      */
     public function getBy(string $attributeName, $attributeValue) {
+        /** @noinspection PhpUndefinedMethodInspection */
         return $this->model->where($attributeName, $attributeValue)->first();
     }
 
@@ -86,6 +86,7 @@ final class EloquentRepository {
      * @return Collection|Model[]
      */
     public function getByMany(string $attributeName, $attributeValue): Collection {
+        /** @noinspection PhpUndefinedMethodInspection */
         return $this->model->where($attributeName, $attributeValue)->get();
     }
 
@@ -113,4 +114,5 @@ final class EloquentRepository {
             ));
         }
     }
+
 }

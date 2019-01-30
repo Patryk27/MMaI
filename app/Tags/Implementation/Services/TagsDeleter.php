@@ -8,6 +8,7 @@ use App\Tags\Models\Tag;
 use Illuminate\Contracts\Events\Dispatcher as EventsDispatcher;
 
 class TagsDeleter {
+
     /** @var EventsDispatcher */
     private $eventsDispatcher;
 
@@ -33,4 +34,5 @@ class TagsDeleter {
             new TagDeleted($tag)
         );
     }
+
 }

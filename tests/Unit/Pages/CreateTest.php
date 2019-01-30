@@ -8,6 +8,7 @@ use App\Tags\Models\Tag;
 use Illuminate\Support\Collection;
 
 class CreateTest extends TestCase {
+
     /**
      * @return void
      * @throws AppException
@@ -143,4 +144,5 @@ class CreateTest extends TestCase {
             ],
         ]);
     }
+
 }

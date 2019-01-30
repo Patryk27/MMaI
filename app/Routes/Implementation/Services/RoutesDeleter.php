@@ -6,6 +6,7 @@ use App\Routes\Implementation\Repositories\RoutesRepository;
 use App\Routes\Models\Route;
 
 class RoutesDeleter {
+
     /** @var RoutesRepository */
     private $routesRepository;
 
@@ -29,4 +30,5 @@ class RoutesDeleter {
 
         $this->routesRepository->delete($route);
     }
+
 }

@@ -4,12 +4,13 @@ namespace App\Application\Console\Commands\Routes;
 
 use App\Routes\Exceptions\RouteException;
 use App\Routes\Models\Route;
-use App\Routes\Queries\GetRoutesLikeUrlQuery;
+use App\Routes\Queries\GetRoutesLikeUrl;
 use App\Routes\RoutesFacade;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
 
 final class SearchCommand extends Command {
+
     /** @var string */
     protected $signature = 'app:routes:search {query?}';
 
@@ -52,7 +53,7 @@ final class SearchCommand extends Command {
 
         return $this->routesFacade
             ->queryMany(
-                new GetRoutesLikeUrlQuery($query)
+                new GetRoutesLikeUrl($query)
             )
             ->sort(function (Route $routeA, Route $routeB): int {
                 if ($routeA->subdomain === $routeB->subdomain) {
@@ -86,4 +87,5 @@ final class SearchCommand extends Command {
 
         $this->table($tableHeaders, $tableRows);
     }
+
 }

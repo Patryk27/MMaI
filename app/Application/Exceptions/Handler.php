@@ -7,6 +7,7 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Request;
 
 class Handler extends ExceptionHandler {
+
     /** @var string[] */
     protected $dontFlash = [
         'password',
@@ -25,4 +26,5 @@ class Handler extends ExceptionHandler {
             return redirect()->guest('/');
         }
     }
+
 }

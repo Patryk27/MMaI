@@ -17,6 +17,7 @@ use Illuminate\Http\Request;
  *   - @see \App\Application\Http\Controllers\Api\TagsController
  */
 final class ApiSearcher {
+
     /** @var Querier */
     private $querier;
 
@@ -38,8 +39,6 @@ final class ApiSearcher {
     }
 
     /**
-     * @see addColumn()
-     *
      * @param array $columns
      * @return void
      */
@@ -94,8 +93,6 @@ final class ApiSearcher {
     }
 
     /**
-     * Performs the actual searching, returning @see ApiSearcherResponse.
-     *
      * # Example
      *
      * ```php
@@ -151,4 +148,5 @@ final class ApiSearcher {
 
         return $query;
     }
+
 }

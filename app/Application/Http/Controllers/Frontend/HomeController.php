@@ -15,6 +15,7 @@ use Illuminate\Contracts\View\Factory as ViewFactory;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller {
+
     private const NUMBER_OF_ITEMS_PER_PAGE = 10;
 
     /** @var ViewFactory */
@@ -101,4 +102,5 @@ class HomeController extends Controller {
             'renderedPages' => $renderedPages,
         ]);
     }
+
 }

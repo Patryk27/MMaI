@@ -6,6 +6,7 @@ use App\Pages\Models\Page;
 use App\Users\Models\User;
 
 final class PagePolicy {
+
     /**
      * @param User|null $user
      * @param Page $page
@@ -22,4 +23,5 @@ final class PagePolicy {
     public function edit(?User $user): bool {
         return isset($user);
     }
+
 }

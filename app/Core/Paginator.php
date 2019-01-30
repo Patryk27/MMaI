@@ -7,6 +7,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 
 final class Paginator {
+
     /** @var Request */
     private $request;
 
@@ -46,4 +47,5 @@ final class Paginator {
     public function getCurrentPageNumber(): int {
         return $this->request->get('page') ?? 1;
     }
+
 }

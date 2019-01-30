@@ -21,6 +21,7 @@ use App\Routes\Models\Route;
  *   third-route   => [second page]
  */
 class RerouteTest extends TestCase {
+
     /** @var Page[] */
     private $pages;
 
@@ -89,4 +90,5 @@ class RerouteTest extends TestCase {
         $this->assertRoutePointsAt('test', 'second-route', $this->routes['third']);
         $this->assertRoutePointsAt('test', 'third-route', $this->pages['second']);
     }
+
 }

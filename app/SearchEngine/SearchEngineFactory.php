@@ -11,14 +11,7 @@ use Elasticsearch\Client as ElasticsearchClient;
 use Illuminate\Contracts\Events\Dispatcher as EventsDispatcher;
 
 final class SearchEngineFactory {
-    /**
-     * Builds an instance of @see SearchEngineFacade.
-     *
-     * @param EventsDispatcher $eventsDispatcher
-     * @param ElasticsearchClient $elasticsearch
-     * @param PagesFacade $pagesFacade
-     * @return SearchEngineFacade
-     */
+
     public static function build(
         EventsDispatcher $eventsDispatcher,
         ElasticsearchClient $elasticsearch,
@@ -37,4 +30,5 @@ final class SearchEngineFactory {
             $pagesSearcher
         );
     }
+
 }

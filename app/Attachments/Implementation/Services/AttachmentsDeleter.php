@@ -7,6 +7,7 @@ use App\Attachments\Models\Attachment;
 use Illuminate\Contracts\Filesystem\Filesystem as Filesystem;
 
 class AttachmentsDeleter {
+
     /** @var Filesystem */
     private $attachmentsFs;
 
@@ -29,4 +30,5 @@ class AttachmentsDeleter {
         $this->attachmentsFs->delete($attachment->path);
         $this->attachmentsRepository->delete($attachment);
     }
+
 }

@@ -9,6 +9,7 @@ use Carbon\Carbon;
  * @see \App\Attachments\Implementation\Services\AttachmentsGarbageCollector
  */
 class CollectGarbageTest extends TestCase {
+
     /** @var Attachment[] */
     private $attachments;
 
@@ -63,7 +64,6 @@ class CollectGarbageTest extends TestCase {
      * @return void
      */
     public function testAggressive(): void {
-        // Execute the garbage collector
         $this->attachmentsFacade->collectGarbage(true);
 
         // Make sure we're left with the "bound" attachment only
@@ -72,4 +72,5 @@ class CollectGarbageTest extends TestCase {
         $this->assertCount(1, $attachments);
         $this->assertEquals($this->attachments['bound'], $attachments[$this->attachments['bound']->id]);
     }
+
 }

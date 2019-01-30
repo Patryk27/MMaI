@@ -2,7 +2,8 @@
 
 namespace App\Languages\Queries;
 
-final class GetLanguageByIdQuery implements LanguagesQuery {
+final class GetLanguageById implements LanguagesQuery {
+
     /** @var int */
     private $id;
 
@@ -16,4 +17,5 @@ final class GetLanguageByIdQuery implements LanguagesQuery {
     public function getId(): int {
         return $this->id;
     }
+
 }

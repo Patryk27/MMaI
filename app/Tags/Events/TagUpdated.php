@@ -6,6 +6,7 @@ use App\Tags\Models\Tag;
 use Illuminate\Queue\SerializesModels;
 
 final class TagUpdated {
+
     use SerializesModels;
 
     /** @var Tag */
@@ -21,4 +22,5 @@ final class TagUpdated {
     public function getTag(): Tag {
         return $this->tag;
     }
+
 }

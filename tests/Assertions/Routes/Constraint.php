@@ -6,6 +6,7 @@ use App\Routes\RoutesFacade;
 use PHPUnit\Framework\Constraint\Constraint as PHPUnitConstraint;
 
 abstract class Constraint extends PHPUnitConstraint {
+
     /** @var RoutesFacade */
     protected $routesFacade;
 
@@ -21,4 +22,5 @@ abstract class Constraint extends PHPUnitConstraint {
     public function toString(): string {
         return '';
     }
+
 }

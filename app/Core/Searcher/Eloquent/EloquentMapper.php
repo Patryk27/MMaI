@@ -6,6 +6,7 @@ use App\Core\Exceptions\Exception as CoreException;
 use Illuminate\Database\Query\Expression as QueryExpression;
 
 class EloquentMapper {
+
     public const
         FIELD_TYPE_DATE = 'date',
         FIELD_TYPE_DATETIME = 'datetime',
@@ -16,11 +17,8 @@ class EloquentMapper {
     /** @var array */
     private $fields;
 
-    public function __construct(
-        array $fields
-    ) {
+    public function __construct(array $fields) {
         // @todo validate structure
-
         $this->fields = $fields;
     }
 
@@ -58,4 +56,5 @@ class EloquentMapper {
             'Field [%s] has not been mapped. Did you make a typo?', $fieldName
         ));
     }
+
 }

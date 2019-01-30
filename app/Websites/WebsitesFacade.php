@@ -10,6 +10,7 @@ use App\Websites\Queries\WebsitesQuery;
 use Illuminate\Support\Collection;
 
 final class WebsitesFacade {
+
     /** @var WebsitesQuerier */
     private $websitesQuerier;
 
@@ -41,4 +42,5 @@ final class WebsitesFacade {
     public function queryMany(WebsitesQuery $query): Collection {
         return $this->websitesQuerier->query($query);
     }
+
 }

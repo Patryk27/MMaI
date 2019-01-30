@@ -5,11 +5,12 @@ namespace Tests\Assertions\Routes;
 use App\Core\Models\Morphable;
 use App\Routes\Exceptions\RouteException;
 use App\Routes\Exceptions\RouteNotFoundException;
-use App\Routes\Queries\GetRouteBySubdomainAndUrlQuery;
+use App\Routes\Queries\GetRouteBySubdomainAndUrl;
 use PHPUnit\Framework\ExpectationFailedException;
 use SebastianBergmann\Comparator\ComparisonFailure;
 
-class RoutePointsAtAssertion extends Constraint {
+final class RoutePointsAtAssertion extends Constraint {
+
     /**
      * @inheritdoc
      * @param Morphable $other
@@ -28,7 +29,7 @@ class RoutePointsAtAssertion extends Constraint {
             $morphable = $other['morphable'];
 
             $route = $this->routesFacade->queryOne(
-                new GetRouteBySubdomainAndUrlQuery($subdomain, $url)
+                new GetRouteBySubdomainAndUrl($subdomain, $url)
             );
 
             return $route->model_id === $morphable->getMorphableId()
@@ -61,4 +62,5 @@ class RoutePointsAtAssertion extends Constraint {
             )
         );
     }
+
 }

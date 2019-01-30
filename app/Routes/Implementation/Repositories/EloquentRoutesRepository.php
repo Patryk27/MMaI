@@ -9,6 +9,7 @@ use Illuminate\Support\Collection;
 use Throwable;
 
 class EloquentRoutesRepository implements RoutesRepository {
+
     /** @var EloquentRepository */
     private $repository;
 
@@ -67,4 +68,5 @@ class EloquentRoutesRepository implements RoutesRepository {
     public function delete(Route $route): void {
         $this->repository->delete($route);
     }
+
 }

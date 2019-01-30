@@ -5,18 +5,13 @@ namespace App\Application\Events;
 use App\Core\ValueObjects\HasInitializationConstructor;
 
 final class LoginAttempted {
+
     use HasInitializationConstructor;
 
-    /**
-     * Contains the login using which someone was trying to sign in / signed in.
-     * @var string
-     */
+    /** @var string */
     private $login;
 
-    /**
-     * Determines whether the signing-in was successful or not.
-     * @var bool
-     */
+    /** @var bool */
     private $successful;
 
     /**
@@ -32,4 +27,5 @@ final class LoginAttempted {
     public function isSuccessful(): bool {
         return $this->successful;
     }
+
 }

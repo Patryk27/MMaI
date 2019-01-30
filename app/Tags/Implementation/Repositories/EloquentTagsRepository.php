@@ -8,6 +8,7 @@ use Illuminate\Support\Collection;
 use Throwable;
 
 class EloquentTagsRepository implements TagsRepository {
+
     /** @var EloquentRepository */
     private $repository;
 
@@ -58,4 +59,5 @@ class EloquentTagsRepository implements TagsRepository {
     public function delete(Tag $tag): void {
         $this->repository->delete($tag);
     }
+
 }

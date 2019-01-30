@@ -8,7 +8,8 @@ namespace App\Routes\Queries;
  *
  * @todo include subdomain
  */
-final class GetRoutesLikeUrlQuery implements RoutesQuery {
+final class GetRoutesLikeUrl implements RoutesQuery {
+
     /** @var string */
     private $url;
 
@@ -22,4 +23,5 @@ final class GetRoutesLikeUrlQuery implements RoutesQuery {
     public function getUrl(): string {
         return $this->url;
     }
+
 }

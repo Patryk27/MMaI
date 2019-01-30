@@ -5,6 +5,7 @@ namespace App\Pages\Queries;
 use App\Core\Queries\AbstractSearchQuery;
 
 final class SearchPages extends AbstractSearchQuery implements PagesQuery {
+
     public const
         FIELD_ID = 'id',
         FIELD_TITLE = 'title',
@@ -16,4 +17,5 @@ final class SearchPages extends AbstractSearchQuery implements PagesQuery {
         FIELD_WEBSITE_NAME = 'websiteName',
 
         FIELD_ROUTE_URL = 'routeUrl';
+
 }

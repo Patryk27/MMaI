@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property-read Language $language
  */
 class Website extends Model {
+
     /** @var string[] */
     protected $fillable = [
         'language_id',
@@ -41,4 +42,5 @@ class Website extends Model {
     public function language() {
         return $this->belongsTo(Language::class);
     }
+
 }

@@ -9,6 +9,7 @@ use PHPUnit\Framework\AssertionFailedError;
 use Tests\Unit\TestCase;
 
 class ExpressionScannerTest extends TestCase {
+
     /**
      * @dataProvider provideCorrectCases
      *
@@ -100,4 +101,5 @@ class ExpressionScannerTest extends TestCase {
             ],
         ];
     }
+
 }

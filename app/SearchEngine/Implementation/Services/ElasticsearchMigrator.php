@@ -5,6 +5,7 @@ namespace App\SearchEngine\Implementation\Services;
 use Elasticsearch\Client as ElasticsearchClient;
 
 class ElasticsearchMigrator {
+
     /** @var ElasticsearchClient */
     private $elasticsearch;
 
@@ -112,4 +113,5 @@ class ElasticsearchMigrator {
             ],
         ]);
     }
+
 }

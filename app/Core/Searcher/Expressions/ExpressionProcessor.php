@@ -3,6 +3,7 @@
 namespace App\Core\Searcher\Expressions;
 
 class ExpressionProcessor {
+
     /** @var ExpressionParser */
     private $parser;
 
@@ -45,4 +46,5 @@ class ExpressionProcessor {
                 ));
         }
     }
+
 }

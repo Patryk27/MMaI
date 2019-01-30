@@ -6,6 +6,7 @@ use App\Languages\Models\Language;
 use Illuminate\Support\Collection;
 
 interface LanguagesRepository {
+
     /**
      * Returns language with specified id.
      *
@@ -28,4 +29,5 @@ interface LanguagesRepository {
      * @return Collection|Language[]
      */
     public function getAll(): Collection;
+
 }

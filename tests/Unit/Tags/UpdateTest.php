@@ -5,6 +5,7 @@ namespace Tests\Unit\Tags;
 use App\Tags\Exceptions\TagException;
 
 class UpdateTest extends TestCase {
+
     /**
      * This test checks basic functionality of the "update()" method.
      *
@@ -82,4 +83,5 @@ class UpdateTest extends TestCase {
             'name' => 'tag A',
         ]);
     }
+
 }

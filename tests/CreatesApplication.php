@@ -7,9 +7,8 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Hash;
 
 trait CreatesApplication {
+
     /**
-     * Creates the application.
-     *
      * @return Application
      */
     public function createApplication(): Application {
@@ -20,4 +19,5 @@ trait CreatesApplication {
 
         return $app;
     }
+
 }

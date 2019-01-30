@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Attachments\Queries;
+namespace App\Tags\Queries;
 
-final class GetAttachmentByIdQuery implements AttachmentsQuery {
+final class GetTagById implements TagsQuery {
+
     /** @var int */
     private $id;
 
@@ -16,4 +17,5 @@ final class GetAttachmentByIdQuery implements AttachmentsQuery {
     public function getId(): int {
         return $this->id;
     }
+
 }

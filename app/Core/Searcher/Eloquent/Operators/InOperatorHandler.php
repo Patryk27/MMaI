@@ -6,6 +6,7 @@ use App\Core\Exceptions\Exception as CoreException;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 
 class InOperatorHandler extends AbstractOperatorHandler implements OperatorHandler {
+
     /**
      * @inheritDoc
      */
@@ -34,4 +35,5 @@ class InOperatorHandler extends AbstractOperatorHandler implements OperatorHandl
             );
         }
     }
+
 }

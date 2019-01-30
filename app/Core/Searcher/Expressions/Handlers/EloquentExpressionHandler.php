@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Query\Expression as QueryExpression;
 
 class EloquentExpressionHandler implements ExpressionHandler {
+
     /** @var EloquentBuilder */
     private $builder;
 
@@ -48,4 +49,5 @@ class EloquentExpressionHandler implements ExpressionHandler {
             [$regex]
         );
     }
+
 }

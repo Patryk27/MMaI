@@ -4,7 +4,8 @@ namespace App\Application\Http\Requests\Backend\Tags;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateTagRequest extends FormRequest {
+final class CreateTag extends FormRequest {
+
     /**
      * @return bool
      */
@@ -21,4 +22,5 @@ class CreateTagRequest extends FormRequest {
             'name' => 'required',
         ];
     }
+
 }

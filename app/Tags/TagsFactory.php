@@ -12,14 +12,7 @@ use App\Tags\Implementation\Services\TagsValidator;
 use Illuminate\Contracts\Events\Dispatcher as EventsDispatcher;
 
 final class TagsFactory {
-    /**
-     * Builds an instance of @see TagsFacade.
-     *
-     * @param EventsDispatcher $eventsDispatcher
-     * @param TagsRepository $tagsRepository
-     * @param TagsSearcher $tagsSearcher
-     * @return TagsFacade
-     */
+
     public static function build(
         EventsDispatcher $eventsDispatcher,
         TagsRepository $tagsRepository,
@@ -39,4 +32,5 @@ final class TagsFactory {
             $tagsQuerier
         );
     }
+
 }

@@ -11,6 +11,7 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
 
 final class ReindexAllCommand extends Command {
+
     /** @var string */
     protected $signature = 'app:search-engine:reindex-all';
 
@@ -79,4 +80,5 @@ final class ReindexAllCommand extends Command {
         $progressBar->finish();
         $this->output->writeln('');
     }
+
 }

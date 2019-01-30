@@ -5,11 +5,12 @@ namespace App\Menus\Implementation\Services;
 use App\Menus\Exceptions\MenuException;
 use App\Menus\Implementation\Repositories\MenuItemsRepository;
 use App\Menus\Models\MenuItem;
-use App\Menus\Queries\GetMenuItemsByWebsiteIdQuery;
+use App\Menus\Queries\GetMenuItemsByWebsiteId;
 use App\Menus\Queries\MenuItemsQuery;
 use Illuminate\Support\Collection;
 
 class MenuItemsQuerier {
+
     /** @var MenuItemsRepository */
     private $menuItemsRepository;
 
@@ -24,7 +25,7 @@ class MenuItemsQuerier {
      */
     public function query(MenuItemsQuery $query): Collection {
         switch (true) {
-            case $query instanceof GetMenuItemsByWebsiteIdQuery:
+            case $query instanceof GetMenuItemsByWebsiteId:
                 return $this->menuItemsRepository->getByWebsiteId(
                     $query->getWebsiteId()
                 );
@@ -35,4 +36,5 @@ class MenuItemsQuerier {
                 ));
         }
     }
+
 }

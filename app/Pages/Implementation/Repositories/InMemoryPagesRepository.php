@@ -7,6 +7,7 @@ use App\Pages\Models\Page;
 use Illuminate\Support\Collection;
 
 class InMemoryPagesRepository implements PagesRepository {
+
     /** @var InMemoryRepository */
     private $repository;
 
@@ -41,4 +42,5 @@ class InMemoryPagesRepository implements PagesRepository {
     public function persist(Page $page): void {
         unimplemented();
     }
+
 }

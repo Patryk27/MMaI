@@ -7,6 +7,7 @@ use App\Users\Models\User;
 use Tests\Unit\TestCase;
 
 class InMemoryRepositoryTest extends TestCase {
+
     /**
      * This test checks basic functionality of the "getBy()" method.
      *
@@ -172,4 +173,5 @@ class InMemoryRepositoryTest extends TestCase {
             $repository->getBy('name', 'Second')
         );
     }
+
 }

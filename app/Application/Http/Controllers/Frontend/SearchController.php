@@ -3,18 +3,19 @@
 namespace App\Application\Http\Controllers\Frontend;
 
 use App\Application\Http\Controllers\Controller;
-use App\Application\Http\Requests\Frontend\SearchRequest;
 use App\Core\Exceptions\Exception as CoreException;
 use App\Core\Websites\WebsiteDetector;
 use App\Pages\Exceptions\PageException;
 use App\Pages\Models\Page;
 use App\Pages\PagesFacade;
 use App\Pages\ValueObjects\RenderedPage;
-use App\SearchEngine\Queries\SearchQuery;
+use App\SearchEngine\Queries\Search;
+use App\Application\Http\Requests\Frontend\Search as SearchRequest;
 use App\SearchEngine\SearchEngineFacade;
 use Illuminate\Support\Collection;
 
 class SearchController extends Controller {
+
     /** @var WebsiteDetector */
     private $websiteDetector;
 
@@ -52,7 +53,7 @@ class SearchController extends Controller {
 
         /** @var Collection|Page[] $pages */
         $pages = $this->searchEngineFacade->search(
-            new SearchQuery([
+            new Search([
                 'query' => $request->get('query'),
                 'type' => Page::TYPE_POST,
                 'website' => $website,
@@ -67,4 +68,5 @@ class SearchController extends Controller {
             'renderedPages' => $renderedPages,
         ]);
     }
+
 }

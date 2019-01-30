@@ -26,6 +26,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read Website $website
  */
 class MenuItem extends Model {
+
     /** @var string[] */
     protected $fillable = [
         'website_id',
@@ -46,4 +47,5 @@ class MenuItem extends Model {
     public function website() {
         return $this->belongsTo(Website::class);
     }
+
 }

@@ -31,6 +31,7 @@ use App\Routes\Models\Route;
  * one.
  */
 class DeleteTest extends TestCase {
+
     /** @var Page[] */
     private $pages;
 
@@ -132,4 +133,5 @@ class DeleteTest extends TestCase {
 
         $this->assertRoutePointsAt('test', 'fourth-route', $this->pages['second']);
     }
+
 }

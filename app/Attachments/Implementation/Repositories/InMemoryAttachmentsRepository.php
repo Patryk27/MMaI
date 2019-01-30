@@ -7,6 +7,7 @@ use App\Core\Repositories\InMemoryRepository;
 use Illuminate\Support\Collection;
 
 class InMemoryAttachmentsRepository implements AttachmentsRepository {
+
     /** @var InMemoryRepository */
     private $repository;
 
@@ -39,7 +40,7 @@ class InMemoryAttachmentsRepository implements AttachmentsRepository {
      * @inheritDoc
      */
     public function getDetached(): Collection {
-        return $this->repository->getByMany('post_id', null);
+        return $this->repository->getByMany('attachable_id', null);
     }
 
     /**
@@ -55,4 +56,5 @@ class InMemoryAttachmentsRepository implements AttachmentsRepository {
     public function delete(Attachment $attachment): void {
         $this->repository->delete($attachment);
     }
+
 }

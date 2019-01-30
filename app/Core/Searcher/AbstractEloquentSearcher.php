@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
 class AbstractEloquentSearcher implements Searcher {
+
     /** @var EloquentBuilder */
     protected $builder;
 
@@ -76,4 +77,5 @@ class AbstractEloquentSearcher implements Searcher {
     public function count(): int {
         return $this->builder->count();
     }
+
 }

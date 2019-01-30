@@ -4,12 +4,13 @@ namespace App\Websites\Implementation\Services;
 
 use App\Websites\Exceptions\WebsiteException;
 use App\Websites\Implementation\Repositories\WebsitesRepository;
-use App\Websites\Queries\GetAllWebsitesQuery;
-use App\Websites\Queries\GetWebsiteBySlugQuery;
+use App\Websites\Queries\GetAllWebsites;
+use App\Websites\Queries\GetWebsiteBySlug;
 use App\Websites\Queries\WebsitesQuery;
 use Illuminate\Support\Collection;
 
 class WebsitesQuerier {
+
     /** @var WebsitesRepository */
     private $websitesRepository;
 
@@ -24,10 +25,10 @@ class WebsitesQuerier {
      */
     public function query(WebsitesQuery $query): Collection {
         switch (true) {
-            case $query instanceof GetAllWebsitesQuery:
+            case $query instanceof GetAllWebsites:
                 return $this->websitesRepository->getAll();
 
-            case $query instanceof GetWebsiteBySlugQuery:
+            case $query instanceof GetWebsiteBySlug:
                 return collect_one(
                     $this->websitesRepository->getBySlug(
                         $query->getSlug()
@@ -40,4 +41,5 @@ class WebsitesQuerier {
                 ));
         }
     }
+
 }

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
 final class Querier {
+
     /** @var callable */
     private $counter;
 
@@ -62,4 +63,5 @@ final class Querier {
     public function searchItems(array $query): Collection {
         return ($this->fetcher)($query);
     }
+
 }

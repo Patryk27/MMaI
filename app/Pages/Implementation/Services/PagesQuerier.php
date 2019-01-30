@@ -5,13 +5,14 @@ namespace App\Pages\Implementation\Services;
 use App\Pages\Exceptions\PageException;
 use App\Pages\Implementation\Repositories\PagesRepository;
 use App\Pages\Models\Page;
-use App\Pages\Queries\GetPagesByIdsQuery;
-use App\Pages\Queries\GetPagesByTagIdQuery;
+use App\Pages\Queries\GetPagesByIds;
+use App\Pages\Queries\GetPagesByTagId;
 use App\Pages\Queries\PagesQuery;
 use App\Pages\Queries\SearchPages;
 use Illuminate\Support\Collection;
 
 class PagesQuerier {
+
     /** @var PagesRepository */
     private $pagesRepository;
 
@@ -33,12 +34,12 @@ class PagesQuerier {
      */
     public function query(PagesQuery $query): Collection {
         switch (true) {
-            case $query instanceof GetPagesByIdsQuery:
+            case $query instanceof GetPagesByIds:
                 return $this->pagesRepository->getByIds(
                     $query->getIds()
                 );
 
-            case $query instanceof GetPagesByTagIdQuery:
+            case $query instanceof GetPagesByTagId:
                 return $this->pagesRepository->getByTagId(
                     $query->getTagId()
                 );
@@ -69,4 +70,5 @@ class PagesQuerier {
                 return $this->query($query)->count();
         }
     }
+
 }

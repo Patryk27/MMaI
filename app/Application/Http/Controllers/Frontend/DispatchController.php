@@ -7,7 +7,7 @@ use App\Pages\Models\Page;
 use App\Pages\PagesFacade;
 use App\Routes\Exceptions\RouteNotFoundException;
 use App\Routes\Models\Route;
-use App\Routes\Queries\GetRouteBySubdomainAndUrlQuery;
+use App\Routes\Queries\GetRouteBySubdomainAndUrl;
 use App\Routes\RoutesFacade;
 use Exception;
 use Illuminate\Contracts\Auth\Access\Gate;
@@ -19,6 +19,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
 class DispatchController extends Controller {
+
     /** @var Gate */
     private $gate;
 
@@ -46,7 +47,7 @@ class DispatchController extends Controller {
     public function dispatch(Request $request) {
         try {
             $route = $this->routesFacade->queryOne(
-                GetRouteBySubdomainAndUrlQuery::buildFromRequest($request)
+                GetRouteBySubdomainAndUrl::buildFromRequest($request)
             );
         } catch (RouteNotFoundException $ex) {
             throw new NotFoundHttpException();

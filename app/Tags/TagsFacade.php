@@ -13,6 +13,7 @@ use App\Tags\Queries\TagsQuery;
 use Illuminate\Support\Collection;
 
 final class TagsFacade {
+
     /** @var TagsCreator */
     private $tagsCreator;
 
@@ -110,4 +111,5 @@ final class TagsFacade {
     public function queryCount(TagsQuery $query): int {
         return $this->tagsQuerier->count($query);
     }
+
 }

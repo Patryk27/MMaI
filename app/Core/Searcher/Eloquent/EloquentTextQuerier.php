@@ -3,6 +3,7 @@
 namespace App\Core\Searcher\Eloquent;
 
 class EloquentTextQuerier {
+
     /** @var EloquentMapper */
     private $mapper;
 

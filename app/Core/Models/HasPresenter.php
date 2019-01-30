@@ -5,6 +5,7 @@ namespace App\Core\Models;
 use App\Core\Presenters\Presenter;
 
 trait HasPresenter {
+
     /** @var Presenter|null */
     private $presenterInstance;
 
@@ -23,4 +24,5 @@ trait HasPresenter {
 
         return $this->presenterInstance;
     }
+
 }

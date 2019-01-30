@@ -5,6 +5,7 @@ namespace App\Core\Layout;
 use Illuminate\Session\Store as SessionStore;
 
 class Flasher {
+
     private const
         TYPE_SUCCESS = 'success',
         TYPE_INFORMATION = 'info',
@@ -73,4 +74,5 @@ class Flasher {
 
         $this->session->flash('messages', $messages);
     }
+
 }

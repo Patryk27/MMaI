@@ -4,12 +4,13 @@ namespace App\Application\Console\Commands\SearchEngine;
 
 use App\Pages\Exceptions\PageException;
 use App\Pages\Models\Page;
-use App\SearchEngine\Queries\SearchQuery;
+use App\SearchEngine\Queries\Search;
 use App\SearchEngine\SearchEngineFacade;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
 
 final class SearchCommand extends Command {
+
     public const NAME = 'app:search-engine:search';
 
     /** @var string */
@@ -33,7 +34,7 @@ final class SearchCommand extends Command {
      */
     public function handle(): void {
         $pages = $this->searchEngineFacade->search(
-            new SearchQuery([
+            new Search([
                 'query' => $this->input->getArgument('query'),
             ])
         );
@@ -76,4 +77,5 @@ final class SearchCommand extends Command {
 
         $this->table($tableHeaders, $tableRows);
     }
+
 }

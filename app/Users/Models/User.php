@@ -22,6 +22,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property-read Carbon $updated_at
  */
 class User extends Authenticatable {
+
     /** @var string[] */
     protected $fillable = [
         'login',
@@ -29,4 +30,5 @@ class User extends Authenticatable {
         'password',
         'remember_token',
     ];
+
 }

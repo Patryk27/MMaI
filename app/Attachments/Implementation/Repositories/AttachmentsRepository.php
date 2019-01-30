@@ -6,6 +6,7 @@ use App\Attachments\Models\Attachment;
 use Illuminate\Support\Collection;
 
 interface AttachmentsRepository {
+
     /**
      * Returns attachment with given id or `null` if no such attachment exists.
      *
@@ -52,4 +53,5 @@ interface AttachmentsRepository {
      * @return void
      */
     public function delete(Attachment $attachment): void;
+
 }

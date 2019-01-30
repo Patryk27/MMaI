@@ -3,6 +3,7 @@
 namespace App\Core\Searcher\Expressions;
 
 interface ExpressionHandler {
+
     /**
      * Handles the "between" function.
      *
@@ -25,4 +26,5 @@ interface ExpressionHandler {
      * @return void
      */
     public function regex($regex): void;
+
 }

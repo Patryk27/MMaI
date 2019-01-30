@@ -4,11 +4,8 @@ namespace App\Routes\Queries;
 
 use Illuminate\Http\Request;
 
-/**
- * This class defines a query which will return a single route with matching
- * subdomain and URL.
- */
-final class GetRouteBySubdomainAndUrlQuery implements RoutesQuery {
+final class GetRouteBySubdomainAndUrl implements RoutesQuery {
+
     /** @var string */
     private $subdomain;
 
@@ -22,7 +19,7 @@ final class GetRouteBySubdomainAndUrlQuery implements RoutesQuery {
 
     /**
      * @param Request $request
-     * @return GetRouteBySubdomainAndUrlQuery
+     * @return GetRouteBySubdomainAndUrl
      */
     public static function buildFromRequest(Request $request): self {
         return new self(
@@ -44,4 +41,5 @@ final class GetRouteBySubdomainAndUrlQuery implements RoutesQuery {
     public function getUrl(): string {
         return $this->url;
     }
+
 }

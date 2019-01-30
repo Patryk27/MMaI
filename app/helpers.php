@@ -20,7 +20,7 @@ function unimplemented(): void {
 /**
  * Creates a collection which includes given value only if it's not null.
  *
- * It works similarly to @see collect(), with one corner-case handled differently:
+ * It works similarly to `collect()`, with one corner-case handled differently:
  *   collect(['a', 'b'])      ->  new Collection(['a', 'b'])      (i.e. collection with two items)
  *   collect_one(['a', 'b'])  ->  new Collection([ ['a', 'b'] ])  (i.e. collection with one item)
  *

@@ -5,6 +5,7 @@ namespace App\Core\Queries;
 use App\Core\Searcher\Searcher;
 
 abstract class AbstractSearchQuery {
+
     /**
      * @see Searcher::search()
      * @var string
@@ -99,4 +100,5 @@ abstract class AbstractSearchQuery {
     public function getPagination(): array {
         return $this->pagination;
     }
+
 }

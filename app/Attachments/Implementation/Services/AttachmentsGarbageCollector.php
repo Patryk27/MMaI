@@ -7,6 +7,7 @@ use App\Attachments\ValueObjects\AttachmentsGarbageCollectorResult;
 use Illuminate\Contracts\Filesystem\Filesystem;
 
 class AttachmentsGarbageCollector {
+
     /** @var Filesystem */
     private $attachmentsFs;
 
@@ -49,4 +50,5 @@ class AttachmentsGarbageCollector {
             'removedAttachmentsCount' => $removedAttachmentsCount,
         ]);
     }
+
 }

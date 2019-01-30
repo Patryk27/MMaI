@@ -7,6 +7,7 @@ use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Http\JsonResponse;
 
 final class ApiSearcherResponse implements Responsable {
+
     use HasInitializationConstructor;
 
     /** @var int */
@@ -56,4 +57,5 @@ final class ApiSearcherResponse implements Responsable {
             'items' => $this->items,
         ]);
     }
+
 }

@@ -12,11 +12,12 @@ use App\Analytics\Models\Event;
 use App\Analytics\Queries\EventsQuery;
 use App\Application\Events\LoginAttempted;
 use App\Application\Events\RequestServed;
-use App\SearchEngine\Events\QuerySearched;
+use App\SearchEngine\Events\QueryPerformed;
 use Event as EventFacade;
 use Illuminate\Support\Collection;
 
 final class AnalyticsFacade {
+
     /** @var EventsRepository */
     private $eventsRepository;
 
@@ -36,7 +37,7 @@ final class AnalyticsFacade {
      */
     public function boot(): void {
         EventFacade::listen(LoginAttempted::class, LoginAttemptedListener::class);
-        EventFacade::listen(QuerySearched::class, QuerySearchedListener::class);
+        EventFacade::listen(QueryPerformed::class, QuerySearchedListener::class);
         EventFacade::listen(RequestServed::class, RequestServedListener::class);
     }
 
@@ -90,4 +91,5 @@ final class AnalyticsFacade {
     public function queryCount(EventsQuery $query): int {
         return $this->eventsQuerier->count($query);
     }
+
 }

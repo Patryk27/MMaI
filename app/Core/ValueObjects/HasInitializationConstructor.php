@@ -5,6 +5,7 @@ namespace App\Core\ValueObjects;
 use LogicException;
 
 trait HasInitializationConstructor {
+
     /**
      * @param array $properties
      * @throws LogicException
@@ -26,4 +27,5 @@ trait HasInitializationConstructor {
             $this->validate();
         }
     }
+
 }

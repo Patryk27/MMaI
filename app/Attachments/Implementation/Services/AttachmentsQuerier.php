@@ -6,11 +6,12 @@ use App\Attachments\Exceptions\AttachmentException;
 use App\Attachments\Implementation\Repositories\AttachmentsRepository;
 use App\Attachments\Models\Attachment;
 use App\Attachments\Queries\AttachmentsQuery;
-use App\Attachments\Queries\GetAttachmentByIdQuery;
-use App\Attachments\Queries\GetAttachmentByPathQuery;
+use App\Attachments\Queries\GetAttachmentById;
+use App\Attachments\Queries\GetAttachmentByPath;
 use Illuminate\Support\Collection;
 
 class AttachmentsQuerier {
+
     /** @var AttachmentsRepository */
     private $attachmentsRepository;
 
@@ -25,14 +26,14 @@ class AttachmentsQuerier {
      */
     public function query(AttachmentsQuery $query): Collection {
         switch (true) {
-            case $query instanceof GetAttachmentByIdQuery:
+            case $query instanceof GetAttachmentById:
                 return collect_one(
                     $this->attachmentsRepository->getById(
                         $query->getId()
                     )
                 );
 
-            case $query instanceof GetAttachmentByPathQuery:
+            case $query instanceof GetAttachmentByPath:
                 return collect_one(
                     $this->attachmentsRepository->getByPath(
                         $query->getPath()
@@ -45,4 +46,5 @@ class AttachmentsQuerier {
                 ));
         }
     }
+
 }

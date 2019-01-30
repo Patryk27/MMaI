@@ -9,6 +9,7 @@ use App\Core\Searcher\Eloquent\Operators\OperatorHandler;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 
 class EloquentFilterer {
+
     /** @var OperatorHandler[] */
     private $operatorHandlers;
 
@@ -65,4 +66,5 @@ class EloquentFilterer {
             'Unknown operator: [%s].', $operatorName
         ));
     }
+
 }

@@ -14,16 +14,7 @@ use App\Tags\TagsFacade;
 use Illuminate\Contracts\Events\Dispatcher as EventsDispatcher;
 
 final class PagesFactory {
-    /**
-     * Builds an instance of @see PagesFacade.
-     *
-     * @param EventsDispatcher $eventsDispatcher
-     * @param PagesRepository $pagesRepository
-     * @param PagesSearcher $pagesSearcher
-     * @param AttachmentsFacade $attachmentsFacade
-     * @param TagsFacade $tagsFacade
-     * @return PagesFacade
-     */
+
     public static function build(
         EventsDispatcher $eventsDispatcher,
         PagesRepository $pagesRepository,
@@ -45,4 +36,5 @@ final class PagesFactory {
             $pagesQuerier
         );
     }
+
 }

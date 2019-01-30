@@ -25,6 +25,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read Website $website
  */
 class Tag extends Model {
+
     /** @var string[] */
     protected $fillable = [
         'website_id',
@@ -44,4 +45,5 @@ class Tag extends Model {
     public function website() {
         return $this->belongsTo(Website::class);
     }
+
 }

@@ -5,6 +5,7 @@ namespace App\Attachments\ValueObjects;
 use App\Core\ValueObjects\HasInitializationConstructor;
 
 final class AttachmentsGarbageCollectorResult {
+
     use HasInitializationConstructor;
 
     /** @var int */
@@ -26,4 +27,5 @@ final class AttachmentsGarbageCollectorResult {
     public function getRemovedAttachmentsCount(): int {
         return $this->removedAttachmentsCount;
     }
+
 }

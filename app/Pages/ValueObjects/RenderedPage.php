@@ -6,6 +6,7 @@ use App\Core\ValueObjects\HasInitializationConstructor;
 use App\Pages\Models\Page;
 
 final class RenderedPage {
+
     use HasInitializationConstructor;
 
     /** @var Page */
@@ -37,4 +38,5 @@ final class RenderedPage {
     public function getContent(): string {
         return $this->content;
     }
+
 }
