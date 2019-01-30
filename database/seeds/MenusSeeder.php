@@ -3,6 +3,7 @@
 use App\Menus\Models\MenuItem;
 
 final class MenusSeeder extends Seeder {
+
     /**
      * @return void
      */
@@ -31,4 +32,5 @@ final class MenusSeeder extends Seeder {
             'title' => $title,
         ]);
     }
+
 }

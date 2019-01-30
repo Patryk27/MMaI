@@ -12,6 +12,7 @@ use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Collection;
 
 final class RandomPostsSeeder extends Seeder {
+
     private const POST_PER_LANGUAGE = 50;
 
     /** @var FakerGenerator[] */
@@ -148,12 +149,11 @@ final class RandomPostsSeeder extends Seeder {
      * @throws Throwable
      */
     private function assignRoute(Page $page): void {
-        $route = Route::build(
-            $page->website->slug,
-            sprintf('%04d/%02d/%s', $page->published_at->year, $page->published_at->month, kebab_case($page->title)),
-            $page
-        );
+        $pageSubdomain = $page->website->slug;
+        $pageUrl = kebab_case($page->title);
 
+        $route = Route::build($pageSubdomain, $pageUrl, $page);
         $route->saveOrFail();
     }
+
 }

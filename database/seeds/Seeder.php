@@ -4,6 +4,7 @@ use App\Websites\Models\Website;
 use Illuminate\Database\Seeder as BaseSeeder;
 
 abstract class Seeder extends BaseSeeder {
+
     /**
      * @return void
      */
@@ -30,4 +31,5 @@ abstract class Seeder extends BaseSeeder {
     protected function getWebsite(string $slug): Website {
         return Website::where('slug', $slug)->firstOrFail();
     }
+
 }

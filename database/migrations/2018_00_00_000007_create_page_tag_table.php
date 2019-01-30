@@ -5,6 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 class CreatePageTagTable extends Migration {
+
     /**
      * @return void
      */

@@ -5,6 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 class CreateLanguagesTable extends Migration {
+
     /**
      * @return void
      */

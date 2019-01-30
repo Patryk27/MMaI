@@ -6,6 +6,7 @@ use App\Tags\Models\Tag;
 use Carbon\Carbon;
 
 final class PagesSeeder extends Seeder {
+
     /*** @var Carbon */
     private $now;
 
@@ -57,14 +58,12 @@ final class PagesSeeder extends Seeder {
      * @throws Throwable
      */
     private function createExamplePosts(): void {
-        $date = sprintf('%04d/%02d', $this->now->year, $this->now->month);
-
         $this->createPage([
             'type' => Page::TYPE_POST,
             'status' => Page::STATUS_PUBLISHED,
 
             'website' => 'en',
-            'url' => sprintf('%s/%s', $date, 'welcome'),
+            'url' => 'my-first-post',
 
             'title' => 'My first post',
             'lead' => 'Hi!',
@@ -83,7 +82,7 @@ final class PagesSeeder extends Seeder {
             'status' => Page::STATUS_PUBLISHED,
 
             'website' => 'pl',
-            'url' => sprintf('%s/%s', $date, 'witaj'),
+            'url' => 'mój-pierwszy-post',
 
             'title' => 'Mój pierwszy post',
             'lead' => 'Hejo!',
@@ -131,4 +130,5 @@ final class PagesSeeder extends Seeder {
             $page->tags()->attach($tag->id);
         }
     }
+
 }

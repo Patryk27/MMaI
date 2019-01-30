@@ -4,6 +4,7 @@ use App\Languages\Models\Language;
 use App\Websites\Models\Website;
 
 final class WebsitesSeeder extends Seeder {
+
     /**
      * @inheritDoc
      */
@@ -34,4 +35,5 @@ final class WebsitesSeeder extends Seeder {
             'description' => $description,
         ]);
     }
+
 }

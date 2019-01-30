@@ -3,6 +3,7 @@
 use App\Languages\Models\Language;
 
 final class LanguagesSeeder extends Seeder {
+
     /**
      * @return void
      * @throws Throwable
@@ -32,4 +33,5 @@ final class LanguagesSeeder extends Seeder {
             'native_name' => $nativeName,
         ]);
     }
+
 }

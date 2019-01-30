@@ -3,6 +3,7 @@
 use App\Tags\Models\Tag;
 
 final class TagsSeeder extends Seeder {
+
     /**
      * @return void
      * @throws Throwable
@@ -30,4 +31,5 @@ final class TagsSeeder extends Seeder {
             'name' => $name,
         ]);
     }
+
 }

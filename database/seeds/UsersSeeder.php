@@ -3,6 +3,7 @@
 use App\Users\Models\User;
 
 final class UsersSeeder extends Seeder {
+
     /**
      * @return void
      * @throws Throwable

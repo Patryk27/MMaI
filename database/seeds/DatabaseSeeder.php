@@ -1,6 +1,7 @@
 <?php
 
 final class DatabaseSeeder extends Seeder {
+
     /**
      * @return void
      */
@@ -31,4 +32,5 @@ final class DatabaseSeeder extends Seeder {
         $this->command->info('');
         $this->command->info('MMaI\'s database has been initialized.');
     }
+
 }
