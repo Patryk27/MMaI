@@ -11,8 +11,8 @@ class CreateRoutesTable extends Migration {
     public function up() {
         Schema::create('routes', function (Blueprint $table) {
             $table->increments('id');
-            $table->char('subdomain', 16);
-            $table->char('url', 128);
+            $table->string('subdomain', 16);
+            $table->string('url', 128);
             $table->morphs('model');
             $table->timestamps();
 
