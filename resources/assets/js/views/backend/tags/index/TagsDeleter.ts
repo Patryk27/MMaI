@@ -9,24 +9,6 @@ export class TagsDeleter {
     }
 
     public async delete(tag: Tag): Promise<void> {
-        // const result = await swal({
-        //     title: 'Deleting tag',
-        //     text: `Do you want to delete tag [${tag.name}]?`,
-        //     icon: 'warning',
-        //     dangerMode: true,
-        //     buttons: {
-        //         cancel: true,
-        //         confirm: {
-        //             text: 'Delete',
-        //             closeModal: false,
-        //         },
-        //     },
-        // });
-        //
-        // if (!result) {
-        //     return;
-        // }
-
         try {
             await TagsFacade.delete(tag.id);
 
@@ -39,7 +21,7 @@ export class TagsDeleter {
             });
         } catch (error) {
             await swal({
-                title: 'An error occurred',
+                title: 'Failed to delete tag',
                 text: error.toString(),
                 icon: 'error',
             });

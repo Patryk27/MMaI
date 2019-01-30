@@ -1,6 +1,6 @@
 import { app } from '../../../Application';
+import { ContextMenu } from '../../../ui/components/ContextMenu';
 import { EventBus } from '../../../utils/EventBus';
-import { Tippy } from '../../../utils/Tippy';
 import { TagsCreator } from './index/TagsCreator';
 import { TagsDeleter } from './index/TagsDeleter';
 import { TagsEditor } from './index/TagsEditor';
@@ -23,25 +23,22 @@ app.addViewInitializer('backend.tags.index', () => {
         tagsEditor.edit($(this).data('tag'));
     });
 
-    $('#tags-table').on('click', '[data-action="delete"]', function () {
-        const tooltip = $('<div>');
+    $('#tags-table').on('click', '[data-action="delete"]', async function () {
+        const menu = new ContextMenu({
+            actions: {
+                delete: {
+                    title: 'Delete',
+                    cssClass: 'btn-danger',
 
-        $('<a>')
-            .addClass('btn btn-sm btn-danger')
-            .text('Delete')
-            .on('click', () => {
-                // noinspection JSIgnoredPromiseFromCall
-                tagsDeleter.delete($(this).data('tag'));
-            })
-            .appendTo(tooltip);
-
-        Tippy.once($(this), {
-            animation: 'shift-away',
-            arrow: true,
-            content: tooltip.get(0),
-            interactive: true,
-            placement: 'bottom',
+                    handle: () => {
+                        // noinspection JSIgnoredPromiseFromCall
+                        tagsDeleter.delete($(this).data('tag'));
+                    },
+                },
+            },
         });
+
+        menu.run($(this));
     });
 
     bus.on(['tag::created', 'tag::updated', 'tag::deleted'], () => {
