@@ -4,11 +4,7 @@
      */
 @endphp
 
-<div class="nav-section nav-menu">
-    <div class="nav-section-name">
-        {{ __('frontend/layout/navigation.menu') }}
-    </div>
-
+<div id="nav-menu" class="nav-section">
     <div class="nav-menu-items">
         @foreach($menuItems as $menuItem)
             <a class="nav-menu-item" href="{{ $menuItem->url }}">

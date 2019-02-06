@@ -1,11 +1,9 @@
-import { Enablable } from './concerns/Enablable';
-import { Eventable } from './concerns/Eventable';
-import { Focusable } from './concerns/Focusable';
-import { Valuable } from './concerns/Valuable';
+import { Componentable } from './concerns/Componentable';
+import { Feedbackable } from './concerns/Feedbackable';
+import { Serializable } from './concerns/Serializable';
 
 export {
-    Enablable,
-    Eventable,
-    Focusable,
-    Valuable,
+    Componentable,
+    Feedbackable,
+    Serializable,
 };

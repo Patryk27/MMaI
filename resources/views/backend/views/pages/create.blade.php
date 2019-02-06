@@ -24,7 +24,7 @@
         </h1>
     </div>
 
-    <div id="page-form" data-action="create">
+    <div id="form" data-action="create">
         @include('backend.views.pages.create-edit.form')
     </div>
 @endsection

@@ -2,10 +2,10 @@
 
 namespace App\Menus\Models;
 
+use App\Core\Models\Model;
 use App\Routes\Models\Route;
 use App\Websites\Models\Website;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
 
 /**
  * This model describes a single main menu's item.

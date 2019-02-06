@@ -5,9 +5,9 @@ namespace App\Pages\Implementation\Services;
 use App\Attachments\AttachmentsFacade;
 use App\Pages\Implementation\Repositories\PagesRepository;
 use App\Pages\Models\Page;
+use App\Pages\Requests\CreatePage;
 use App\Routes\Models\Route;
 use Illuminate\Contracts\Events\Dispatcher as EventsDispatcher;
-use Throwable;
 
 class PagesCreator {
 
@@ -36,36 +36,37 @@ class PagesCreator {
     }
 
     /**
-     * @param array $pageData
+     * @param CreatePage $request
      * @return Page
-     * @throws Throwable
      */
-    public function create(array $pageData): Page {
+    public function create(CreatePage $request): Page {
+        // @todo attachments & tags
+        // @todo dispatch appropriate event
+
         $page = new Page([
-            'website_id' => array_get($pageData, 'website_id'),
+            'website_id' => $request->get('websiteId'),
 
-            'title' => array_get($pageData, 'title'),
-            'lead' => array_get($pageData, 'lead'),
-            'content' => array_get($pageData, 'content'),
-            'notes' => array_get($pageData, 'notes'),
+            'title' => $request->get('title'),
+            'lead' => $request->get('lead'),
+            'content' => $request->get('content'),
+            'notes' => $request->get('notes'),
 
-            'type' => array_get($pageData, 'type'),
-            'status' => array_get($pageData, 'status'),
+            'type' => $request->get('type'),
+            'status' => $request->get('status'),
         ]);
 
-        if (strlen($pageData['url']) > 0) {
+        if (strlen($request->get('url')) > 0) {
             $route = new Route([
                 'subdomain' => $page->website->slug ?? '',
-                'url' => $pageData['url'],
+                'url' => $request->get('url'),
             ]);
 
             $page->setRelation('route', $route);
         }
 
-        $page->saveOrFail();
+        $this->pagesRepository->persist($page);
 
         return $page;
-        // @todo attachments & tags
     }
 
 }

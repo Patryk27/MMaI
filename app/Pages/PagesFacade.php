@@ -11,6 +11,8 @@ use App\Pages\Implementation\Services\PagesUpdater;
 use App\Pages\Models\Page;
 use App\Pages\Policies\PagePolicy;
 use App\Pages\Queries\PagesQuery;
+use App\Pages\Requests\CreatePage;
+use App\Pages\Requests\UpdatePage;
 use App\Pages\ValueObjects\RenderedPage;
 use Exception;
 use Gate;
@@ -52,26 +54,22 @@ final class PagesFacade {
     /**
      * Creates a brand-new page from given data.
      *
-     * @param array $pageData
+     * @param CreatePage $request
      * @return Page
-     *
-     * @see \App\Application\Http\Requests\Backend\Pages\CreatePage
      */
-    public function create(array $pageData): Page {
-        return $this->pagesCreator->create($pageData);
+    public function create(CreatePage $request): Page {
+        return $this->pagesCreator->create($request);
     }
 
     /**
      * Updates an already existing page.
      *
      * @param Page $page
-     * @param array $pageData
+     * @param UpdatePage $request
      * @return void
-     *
-     * @see \App\Application\Http\Requests\Backend\Pages\UpdatePage
      */
-    public function update(Page $page, array $pageData): void {
-        $this->pagesUpdater->update($page, $pageData);
+    public function update(Page $page, UpdatePage $request): void {
+        $this->pagesUpdater->update($page, $request);
     }
 
     /**

@@ -15,10 +15,10 @@
 
 @section('layout-content')
     <div class="site-container">
-        <div class="content">
+        @include('frontend.components.layout.navigation')
+
+        <div class="site-content">
             @yield('content')
         </div>
-
-        @include('frontend.components.layout.navigation')
     </div>
 @endsection

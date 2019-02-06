@@ -1,6 +1,6 @@
-import { app } from '../../../Application';
-import { ContextMenu } from '../../../ui/components/ContextMenu';
-import { EventBus } from '../../../utils/EventBus';
+import { app } from '@/Application';
+import { ContextMenu } from '@/ui/components';
+import { EventBus } from '@/utils/EventBus';
 import { TagsCreator } from './index/TagsCreator';
 import { TagsDeleter } from './index/TagsDeleter';
 import { TagsEditor } from './index/TagsEditor';

@@ -3,8 +3,8 @@
 namespace App\Core\Repositories;
 
 use App\Core\Exceptions\RepositoryException;
+use App\Core\Models\Model;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Throwable;
 
@@ -50,7 +50,7 @@ final class EloquentRepository {
      */
     public function persist(Model $model): void {
         $this->assertModelHasCorrectType($model);
-        $model->saveOrFail();
+        $model->saveOrThrow();
     }
 
     /**

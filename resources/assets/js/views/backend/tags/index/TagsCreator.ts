@@ -1,7 +1,7 @@
+import { TagsFacade } from '@/api/tags/TagsFacade';
+import { Button, Field, Form, Input, Modal } from '@/ui/components';
+import { EventBus } from '@/utils/EventBus';
 import swal from 'sweetalert';
-import { TagsFacade } from '../../../../api/tags/TagsFacade';
-import { Button, Form, Input, Modal } from '../../../../ui/components';
-import { EventBus } from '../../../../utils/EventBus';
 
 export class TagsCreator {
 
@@ -14,20 +14,19 @@ export class TagsCreator {
         this.modal = new Modal(modal);
 
         this.modal.onShown(() => {
-            const name = this.form.find('name');
+            const name = this.form.find('name').as<Input>();
 
             name.setValue('');
             name.focus();
         });
 
         this.form = new Form({
-            ajax: true,
             form: modal,
 
-            fields: {
-                name: new Input(modal.find('[name="name"]')),
-                websiteId: new Input(modal.find('[name="website_id"]')),
-            },
+            fields: [
+                Field.input('name', modal),
+                Field.input('websiteId', modal),
+            ],
         });
 
         this.form.on('submit', () => {

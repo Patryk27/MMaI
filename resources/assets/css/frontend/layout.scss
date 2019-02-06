@@ -1,8 +1,5 @@
 body[data-layout="frontend"] {
   .site-container {
-    height: 100%;
-    margin-right: $frontend-navbar-width;
-
     @import 'layout/content';
     @import 'layout/navigation';
     @import 'layout/pagination';

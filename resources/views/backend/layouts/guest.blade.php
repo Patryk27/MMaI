@@ -21,7 +21,7 @@
 
         @include('base.components.layout.messages')
 
-        <div class="content">
+        <div class="site-content">
             @yield('content')
         </div>
     </div>

@@ -4,6 +4,7 @@ namespace App\Pages\Models;
 
 use App\Attachments\Models\Attachment;
 use App\Core\Models\HasPresenter;
+use App\Core\Models\Model;
 use App\Core\Models\Morphable;
 use App\Core\Models\Presentable;
 use App\Pages\Presenters\PagePresenter;
@@ -12,7 +13,6 @@ use App\Tags\Models\Tag;
 use App\Websites\Models\Website;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
-use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property-read int $id

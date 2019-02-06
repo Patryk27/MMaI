@@ -1,12 +1,10 @@
-.content {
-  margin-left: $backend-navbar-width;
-  padding: 30px;
+.site-content {
+  padding: $content-padding-y $content-padding-x;
 
   .content-header {
     display: flex;
-    padding-bottom: 1em;
     margin-bottom: 2em;
-
+    padding-bottom: 0.4em;
     border-bottom: 1px solid $border-color;
 
     .title {

@@ -2,9 +2,9 @@
 
 namespace App\Websites\Models;
 
+use App\Core\Models\Model;
 use App\Languages\Models\Language;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**

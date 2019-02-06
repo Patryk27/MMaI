@@ -4,13 +4,11 @@
 @import 'base/button';
 @import 'base/form';
 @import 'base/loader';
+@import 'base/modal';
 @import 'base/nav';
 @import 'base/overlay';
 @import 'base/tab';
 @import 'base/table';
-
-// We're keeping modal at the end, since it overwrites some other rules (e.g. concerning inputs' background colors)
-@import 'base/modal';
 
 html {
   height: 100%;

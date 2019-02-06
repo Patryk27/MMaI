@@ -12,14 +12,15 @@ $white: #ffffff;
 $gray: #111111;
 $black: #000000;
 
-$blue: #007bff;
+$red: #da2c38;
+$blue: #23678F;
 $yellow: #ffce00;
 
 // ========== //
 // == Base == //
 // ========== //
 
-$dark: #1a2631;
+$dark: #232c33;
 $light: adjust-hue(lighten($dark, 20%), -10deg);
 
 $border-color: lighten($dark, 5%);
@@ -32,6 +33,13 @@ $selection-color: lighten($blue, 5%);
 $body-bg: adjust-hue(darken($dark, 5%), 10deg);
 $body-color: $white;
 
+// ============= //
+// == Content == //
+// ============= //
+
+$content-padding-x: 40px;
+$content-padding-y: 40px;
+
 // ========== //
 // == Link == //
 // ========== //
@@ -43,12 +51,6 @@ $link-active-color: $yellow;
 // ================ //
 // == Navigation == //
 // ================ //
-
-$frontend-navbar-width: 300px;
-$backend-navbar-width: 150px;
-
-$frontend-navbar-padding: 30px;
-$backend-navbar-padding: 15px;
 
 $navbar-bg: $dark;
 
@@ -130,11 +132,19 @@ $badge-pill-border-radius: 8px;
 // == Modal == //
 // =========== //
 
-$modal-backdrop-opacity: 0.8;
+$modal-backdrop-opacity: 0.7;
+$modal-body-color: $body-color;
 
-$modal-header-color: #333333;
-$modal-body-color: #333333;
+$modal-header-color: $body-color;
+$modal-header-border-color: $border-color;
 
-$modal-input-bg: $white;
-$modal-input-color: $black;
-$modal-input-border-color: #bbbbbb;
+$modal-content-bg: $body-bg;
+$modal-content-border-color: $modal-content-bg;
+
+$modal-footer-border-color: $border-color;
+
+// =================== //
+// == Miscellaneous == //
+// =================== //
+
+$close-color: lighten($body-color, 5%);

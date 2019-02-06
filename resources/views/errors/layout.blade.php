@@ -9,7 +9,7 @@
 
 @section('layout-content')
     <div class="site-container">
-        <div class="content">
+        <div class="site-content">
             <main>
                 @yield('content')
             </main>

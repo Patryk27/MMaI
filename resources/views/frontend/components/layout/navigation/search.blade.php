@@ -1,4 +1,4 @@
-<div class="nav-section nav-search">
+<div id="nav-search" class="nav-section">
     <form method="get" action="/!search">
         <div class="input-group">
             {{ Form::search('query', '', [
@@ -10,6 +10,7 @@
             <div class="input-group-append">
                 <button type="submit" class="btn btn-light btn-icon-only">
                     <i class="fa fa-search"></i>
+
                     <span class="sr-only">
                         {{ __('frontend/layout/navigation.search') }}
                     </span>

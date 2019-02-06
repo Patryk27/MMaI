@@ -2,7 +2,7 @@
 
 namespace App\Languages\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Core\Models\Model;
 use Illuminate\Support\Carbon;
 
 /**

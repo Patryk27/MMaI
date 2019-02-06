@@ -3,14 +3,14 @@
 namespace App\Application\Http\Controllers\Api;
 
 use App\Application\Http\Controllers\Controller;
-use App\Application\Http\Requests\Backend\Pages\CreatePage;
-use App\Application\Http\Requests\Backend\Pages\UpdatePage;
 use App\Core\Api\ApiSearcher;
 use App\Core\Api\Searcher\ApiSearcherResponse;
 use App\Core\Exceptions\Exception as CoreException;
 use App\Pages\Models\Page;
 use App\Pages\PagesFacade;
 use App\Pages\Queries\SearchPages;
+use App\Pages\Requests\CreatePage;
+use App\Pages\Requests\UpdatePage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
@@ -69,9 +69,7 @@ class PagesController extends Controller {
      * @return array
      */
     public function store(CreatePage $request): array {
-        $page = $this->pagesFacade->create(
-            $request->all()
-        );
+        $page = $this->pagesFacade->create($request);
 
         return [
             'redirectTo' => $page->getEditUrl(),
@@ -79,15 +77,12 @@ class PagesController extends Controller {
     }
 
     /**
-     * @param UpdatePage $request
      * @param Page $page
+     * @param UpdatePage $request
      * @return array
      */
-    public function update(UpdatePage $request, Page $page): array {
-        $this->pagesFacade->update(
-            $page,
-            $request->all()
-        );
+    public function update(Page $page, UpdatePage $request): array {
+        $this->pagesFacade->update($page, $request);
 
         return [
             'redirectTo' => $page->getEditUrl(),

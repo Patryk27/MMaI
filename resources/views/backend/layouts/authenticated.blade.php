@@ -10,14 +10,14 @@
 ])
 
 @section('layout-title')
-    {{ config('app.name') }} - @yield('title')
+    @yield('title') - {{ config('app.name') }}
 @endsection
 
 @section('layout-content')
     <div class="site-container">
         @include('backend.layouts.authenticated.navigation')
 
-        <div class="content">
+        <div class="site-content">
             @include('base.components.layout.messages')
             @yield('content')
         </div>

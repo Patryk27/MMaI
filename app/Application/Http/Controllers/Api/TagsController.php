@@ -3,14 +3,14 @@
 namespace App\Application\Http\Controllers\Api;
 
 use App\Application\Http\Controllers\Controller;
-use App\Application\Http\Requests\Backend\Tags\CreateTag;
-use App\Application\Http\Requests\Backend\Tags\UpdateTag;
 use App\Core\Api\ApiSearcher;
 use App\Core\Api\Searcher\ApiSearcherResponse;
 use App\Core\Exceptions\Exception as CoreException;
 use App\Tags\Exceptions\TagException;
 use App\Tags\Models\Tag;
 use App\Tags\Queries\SearchTags;
+use App\Tags\Requests\CreateTag;
+use App\Tags\Requests\UpdateTag;
 use App\Tags\TagsFacade;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -69,22 +69,16 @@ class TagsController extends Controller {
      * @throws TagException
      */
     public function store(CreateTag $request): void {
-        $this->tagsFacade->create(
-            $request->all()
-        );
+        $this->tagsFacade->create($request);
     }
 
     /**
-     * @param UpdateTag $request
      * @param Tag $tag
-     * @return void
+     * @param UpdateTag $request
      * @throws TagException
      */
-    public function update(UpdateTag $request, Tag $tag): void {
-        $this->tagsFacade->update(
-            $tag,
-            $request->all()
-        );
+    public function update(Tag $tag, UpdateTag $request): void {
+        $this->tagsFacade->update($tag, $request);
     }
 
     /**

@@ -1,13 +1,13 @@
-import { Form, InteractiveTable, Select } from '../../../../ui/components';
-import { EventBus } from '../../../../utils/EventBus';
+import { Field, Form, Select, Table } from '@/ui/components';
+import { EventBus } from '@/utils/EventBus';
 
 export class TagsTable {
 
-    private table: InteractiveTable;
+    private table: Table;
     private filters: Form;
 
     constructor(bus: EventBus, filters: JQuery, loader: JQuery, table: JQuery) {
-        this.table = new InteractiveTable({
+        this.table = new Table({
             autofocus: true,
             loaderSelector: loader,
             source: '/api/tags',
@@ -29,9 +29,9 @@ export class TagsTable {
         this.filters = new Form({
             form: filters,
 
-            fields: {
-                websiteIds: new Select(filters.find('[name="website_ids[]"]')),
-            },
+            fields: [
+                Field.select('websiteIds', filters),
+            ],
         });
 
         this.filters.on('change', () => {
@@ -47,7 +47,7 @@ export class TagsTable {
         return {
             websiteId: {
                 operator: 'in',
-                value: this.filters.find('websiteIds').getValue(),
+                value: this.filters.find('websiteIds').as<Select>().serialize(),
             },
         };
     }

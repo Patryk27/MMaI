@@ -1,4 +1,4 @@
-import { Tippy } from '../../utils/Tippy';
+import { Tippy } from '@/utils/Tippy';
 
 interface Action {
     title: string,
@@ -32,7 +32,7 @@ export class ContextMenu {
             arrow: true,
             content: menu.get(0),
             interactive: true,
-            placement: 'bottom',
+            placement: 'top',
         });
     }
 

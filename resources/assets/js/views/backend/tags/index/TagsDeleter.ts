@@ -1,7 +1,7 @@
+import { Tag } from '@/api/tags/Tag';
+import { TagsFacade } from '@/api/tags/TagsFacade';
+import { EventBus } from '@/utils/EventBus';
 import swal from 'sweetalert';
-import { Tag } from '../../../../api/tags/Tag';
-import { TagsFacade } from '../../../../api/tags/TagsFacade';
-import { EventBus } from '../../../../utils/EventBus';
 
 export class TagsDeleter {
 

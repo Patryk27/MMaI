@@ -1,21 +1,25 @@
 import { Feedbackable } from '../concerns/Feedbackable';
-import { Valuable } from '../concerns/Valuable';
+import { Serializable } from '../concerns/Serializable';
 import { Component } from './Component';
 
-export class Input extends Component implements Feedbackable, Valuable {
+export class Input extends Component implements Feedbackable, Serializable {
 
     private feedback?: JQuery;
 
-    public addFeedback(type: string, message: string): void {
-        if (this.feedback) {
-            this.removeFeedback();
-        }
+    public constructor(selector: any) {
+        super(selector);
+
+        this.on('change, keypress', () => {
+            this.clearFeedback();
+        });
+    }
+
+    public setFeedback(type: string, message: string): void {
+        this.clearFeedback();
 
         const isValid = type === 'valid';
 
-        this.handle
-            .removeClass('is-invalid is-valid')
-            .addClass(isValid ? 'is-valid' : 'is-invalid');
+        this.handle.addClass(isValid ? 'is-valid' : 'is-invalid');
 
         this.feedback =
             $('<div>')
@@ -24,19 +28,21 @@ export class Input extends Component implements Feedbackable, Valuable {
                 .appendTo(this.handle.parent());
     }
 
-    public removeFeedback(): void {
+    public clearFeedback(): void {
         if (this.feedback) {
+            this.handle.removeClass('is-invalid is-valid');
+
             this.feedback.remove();
             this.feedback = null;
         }
     }
 
-    public getValue(): any {
-        return this.handle.val();
-    }
-
     public setValue(value: any): void {
         this.handle.val(value);
+    }
+
+    public serialize(): any {
+        return this.handle.val();
     }
 
 }

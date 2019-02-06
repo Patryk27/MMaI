@@ -19,7 +19,7 @@
         </h1>
     </div>
 
-    <div id="page-form" data-action="update" data-id="{{ $page->id }}">
+    <div id="form" data-id="{{ $page->id }}" data-action="update">
         @include('backend.views.pages.create-edit.form')
     </div>
 @endsection

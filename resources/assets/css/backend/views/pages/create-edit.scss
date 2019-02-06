@@ -1,42 +1,38 @@
 body[data-view="backend.pages.create"], body[data-view="backend.pages.edit"] {
-  .is-enabled-checkbox {
-    margin-bottom: 1em;
-  }
-
-  form {
+  #page-form {
     [name="lead"] {
       height: 8em;
     }
   }
 
-  #add-attachment-wrapper {
-    text-align: right;
-
-    #add-attachment-button {
-      margin-bottom: 1em;
+  #attachments-form {
+    #upload-attachment-wrapper {
+      text-align: right;
     }
-  }
 
-  #attachments-table {
-    tbody {
-      tr {
-        td {
-          &[data-column="name"] {
-            .progress {
-              margin-top: 0.5em;
+    #attachments-table {
+      margin-top: 1em;
+
+      tbody {
+        tr {
+          td {
+            &[data-column="name"] {
+              .progress {
+                margin-top: 0.5em;
+              }
             }
-          }
 
-          &[data-column="actions"] {
-            padding-right: 0;
-            text-align: right;
+            &[data-column="actions"] {
+              padding-right: 0;
+              text-align: right;
+            }
           }
         }
       }
     }
   }
 
-  #page-form-footer {
+  #form-footer {
     text-align: center;
   }
 }

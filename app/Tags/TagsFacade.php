@@ -10,6 +10,8 @@ use App\Tags\Implementation\Services\TagsQuerier;
 use App\Tags\Implementation\Services\TagsUpdater;
 use App\Tags\Models\Tag;
 use App\Tags\Queries\TagsQuery;
+use App\Tags\Requests\CreateTag;
+use App\Tags\Requests\UpdateTag;
 use Illuminate\Support\Collection;
 
 final class TagsFacade {
@@ -41,23 +43,23 @@ final class TagsFacade {
     /**
      * Creates a new brand-new tag from given data.
      *
-     * @param array $tagData
+     * @param CreateTag $request
      * @return Tag
      * @throws TagException
      */
-    public function create(array $tagData): Tag {
-        return $this->tagsCreator->create($tagData);
+    public function create(CreateTag $request): Tag {
+        return $this->tagsCreator->create($request);
     }
 
     /**
      * Updates an already existing tag.
      *
      * @param Tag $tag
-     * @param array $tagData
+     * @param UpdateTag $request
      * @throws TagException
      */
-    public function update(Tag $tag, array $tagData): void {
-        $this->tagsUpdater->update($tag, $tagData);
+    public function update(Tag $tag, UpdateTag $request): void {
+        $this->tagsUpdater->update($tag, $request);
     }
 
     /**

@@ -2,9 +2,9 @@
 
 namespace App\Routes\Models;
 
+use App\Core\Models\Model;
 use App\Core\Models\Morphable;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property-read int $id

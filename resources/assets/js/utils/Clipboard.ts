@@ -6,11 +6,12 @@ export class Clipboard {
     static async writeText(text: string): Promise<void> {
         try {
             await clipboard.writeText(text);
-        } catch (_) {
-            // noinspection JSIgnoredPromiseFromCall
-            swal({
-                title: 'Failed to copy URL', // @todo error message should be customizable
-                text: 'Sorry - it seems your browser does not support copying text.',
+        } catch (error) {
+            console.error('Clipboard operation failed:', error);
+
+            await swal({
+                title: 'Failed access clipboard',
+                text: 'Sorry - it seems your browser does not support clipboard operations.',
                 icon: 'error',
             });
         }

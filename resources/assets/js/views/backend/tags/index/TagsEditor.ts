@@ -1,8 +1,8 @@
+import { Tag } from '@/api/tags/Tag';
+import { TagsFacade } from '@/api/tags/TagsFacade';
+import { Button, Field, Form, Input, Modal } from '@/ui/components';
+import { EventBus } from '@/utils/EventBus';
 import swal from 'sweetalert';
-import { Tag } from '../../../../api/tags/Tag';
-import { TagsFacade } from '../../../../api/tags/TagsFacade';
-import { Button, Form, Input, Modal } from '../../../../ui/components';
-import { EventBus } from '../../../../utils/EventBus';
 
 export class TagsEditor {
 
@@ -21,12 +21,11 @@ export class TagsEditor {
         });
 
         this.form = new Form({
-            ajax: true,
             form: modal.find('form'),
 
-            fields: {
-                name: new Input(modal.find('[name="name"]')),
-            },
+            fields: [
+                Field.input('name', modal),
+            ],
         });
 
         this.form.on('submit', () => {
@@ -40,7 +39,7 @@ export class TagsEditor {
 
     public edit(tag: Tag): void {
         this.tag = tag;
-        this.form.find('name').setValue(tag.name);
+        this.form.find('name').as<Input>().setValue(tag.name);
         this.modal.show();
     }
 

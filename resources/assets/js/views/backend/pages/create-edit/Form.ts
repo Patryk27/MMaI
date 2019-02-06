@@ -1,55 +1,36 @@
-import { PagesFacade } from '../../../../api/pages/PagesFacade';
-import { AttachmentsSection } from './sections/AttachmentsSection';
-import { NotesSection } from './sections/NotesSection';
-import { PageSection } from './sections/PageSection';
-
-type SubmittingEventHandler = () => void;
-type SubmittedEventHandler = () => void;
-type ErrorEventHandler = () => void;
+import { PagesFacade } from '@/api/pages/PagesFacade';
+import { EventBus } from '@/utils/EventBus';
+import { AttachmentsSection } from './AttachmentsSection';
+import { NotesSection } from './NotesSection';
+import { PageSection } from './PageSection';
 
 export class Form {
 
-    private eventHandlers: {
-        submitting?: SubmittingEventHandler,
-        submitted?: SubmittedEventHandler,
-        error?: ErrorEventHandler,
-    } = {};
+    private readonly form: JQuery;
 
-    private invalidated: boolean = false;
+    private readonly sections: {
+        attachments: AttachmentsSection,
+        notes: NotesSection,
+        page: PageSection,
+    };
 
-    constructor(
-        private readonly form: JQuery,
-        private readonly attachmentsSection: AttachmentsSection,
-        private readonly notesSection: NotesSection,
-        private readonly pageSection: PageSection,
-    ) {
-    }
+    constructor() {
+        const bus = new EventBus();
 
-    public onSubmitting(fn: SubmittingEventHandler): void {
-        this.eventHandlers.submitting = fn;
-    }
+        this.form = $('#form');
 
-    public onSubmitted(fn: SubmittedEventHandler): void {
-        this.eventHandlers.submitted = fn;
-    }
-
-    public onError(fn: ErrorEventHandler): void {
-        this.eventHandlers.error = fn;
-    }
-
-    public invalidate(): void {
-        this.invalidated = true;
-    }
-
-    public isInvalidated(): boolean {
-        return this.invalidated;
+        this.sections = {
+            attachments: new AttachmentsSection(bus),
+            notes: new NotesSection(bus),
+            page: new PageSection(bus),
+        };
     }
 
     public async submit(): Promise<void> {
         try {
-            const request = Object.assign(this.pageSection.serialize(), {
-                attachmentIds: this.attachmentsSection.serialize(),
-                notes: this.notesSection.serialize(),
+            const request = Object.assign(this.sections.page.serialize(), {
+                attachmentIds: this.sections.attachments.serialize(),
+                notes: this.sections.notes.serialize(),
             });
 
             let response;
@@ -61,21 +42,8 @@ export class Form {
             }
 
             console.log(response);
-
-            this.invalidated = false;
         } catch (error) {
-            // if (error.getType && error.getType() === 'invalid-input') {
-            //     this.bus.emit('form::invalid-input', error.getPayload()); // @todo implement handler for this event
-            // } else {
-            //     // noinspection JSIgnoredPromiseFromCall
-            //     swal({
-            //         title: 'Cannot save page',
-            //         text: error.toString(),
-            //         icon: 'error',
-            //     });
-            // }
-        } finally {
-            // this.bus.emit('form::submitted', { response });
+            console.log(error);
         }
     }
 

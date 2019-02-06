@@ -2,8 +2,8 @@
 
 namespace App\Analytics\Models;
 
+use App\Core\Models\Model;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property-read int $id

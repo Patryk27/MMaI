@@ -17,7 +17,8 @@
         @yield('layout-title')
     </title>
 
-    <link rel="stylesheet" type="text/css" href="/assets/app.css"/>
+    <link rel="stylesheet" type="text/css" href="{{ mix('assets/app.css') }}"/>
+    <script type="application/javascript" src="{{ mix('assets/app.js') }}"></script>
 </head>
 
 <body data-layout="{{ $layout }}" data-view="{{ $view }}">
@@ -27,6 +28,4 @@
 
     @yield('layout-content')
 </body>
-
-<script type="application/javascript" src="/assets/app.js"></script>
 </html>

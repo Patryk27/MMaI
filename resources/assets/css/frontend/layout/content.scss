@@ -1,6 +1,7 @@
-.content {
-  flex-grow: 1;
-  padding: 80px;
+.site-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: $content-padding-y $content-padding-x;
 }
 
 .content-footer {

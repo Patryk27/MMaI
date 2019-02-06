@@ -1,5 +1,5 @@
-import { app } from '../../../Application';
-import { InteractiveTable } from '../../../ui/components';
+import { app } from '@/Application';
+import { Table } from '@/ui/components';
 
 function getFilters(): any {
     const filters = $('#requests-filters');
@@ -34,7 +34,7 @@ function getFilters(): any {
 }
 
 app.addViewInitializer('backend.analytics.requests', () => {
-    const table = new InteractiveTable({
+    const table = new Table({
         autofocus: true,
         loaderSelector: '#requests-loader',
         source: '/api/analytics/requests',

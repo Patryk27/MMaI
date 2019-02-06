@@ -2,11 +2,11 @@
 
 namespace App\Tags\Models;
 
+use App\Core\Models\Model;
 use App\Pages\Models\Page;
 use App\Websites\Models\Website;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
-use Illuminate\Database\Eloquent\Model;
 
 /**
  * This model describes a single tag.

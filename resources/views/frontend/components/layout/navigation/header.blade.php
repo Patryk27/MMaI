@@ -4,8 +4,8 @@
      */
 @endphp
 
-<div class="nav-section nav-header">
-    <div class="nav-title">
+<div id="nav-header" class="nav-section">
+    <div {{-- wrapper required for Flexbox --}}>
         <a class="title" href="/">
             {{ config('app.name') }}
         </a>

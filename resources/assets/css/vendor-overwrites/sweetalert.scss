@@ -4,6 +4,7 @@
 }
 
 .swal-modal {
+  background: $modal-content-bg;
   border-radius: 0;
 }
 
@@ -35,6 +36,16 @@
     &.swal-button--loading {
       opacity: 0.5;
       pointer-events: none;
+    }
+  }
+}
+
+.swal-icon {
+  &--success {
+    &::before,
+    &::after,
+    &__hide-corners {
+      background: $modal-content-bg;
     }
   }
 }

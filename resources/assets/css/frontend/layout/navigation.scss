@@ -1,41 +1,42 @@
 .site-navigation {
-  position: fixed;
-  top: 0;
-  right: 0;
-
-  width: $frontend-navbar-width;
-  height: 100%;
-
-  padding: $frontend-navbar-padding;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: auto;
+  padding: 15px $content-padding-x;
 
   text-align: center;
   background: $navbar-bg;
 
   .nav-section {
-    margin-bottom: 3em;
-
-    .nav-section-name {
-      margin-bottom: 0.2em;
-      font-size: 1.2em;
-    }
-  }
-
-  .nav-header {
-    .title {
-      @extend h1;
-
-      font-size: 1.5em;
+    &:not(:last-child) {
+      margin-right: 30px;
     }
 
-    .description {
-      margin-top: 1em;
-      opacity: 0.5;
-    }
-  }
+    &#nav-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
 
-  .nav-menu {
-    .nav-menu-item {
-      display: block;
+      .title {
+        @extend h1;
+
+        margin: 0;
+        font-size: 1.5em;
+      }
+
+      .description {
+        margin: 0;
+        opacity: 0.5;
+      }
+    }
+
+    &#nav-menu {
+      flex-grow: 1;
+
+      .nav-menu-item {
+        display: block;
+      }
     }
   }
 }

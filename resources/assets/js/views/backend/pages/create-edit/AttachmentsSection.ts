@@ -1,0 +1,56 @@
+import { FilePicker } from '@/ui/components/FilePicker';
+import { Clipboard } from '@/utils/Clipboard';
+import { EventBus } from '@/utils/EventBus';
+import { Tippy } from '@/utils/Tippy';
+import { AttachmentsDeleter } from './Attachments/AttachmentsDeleter';
+import { AttachmentsTable } from './Attachments/AttachmentsTable';
+import { AttachmentsUploader } from './Attachments/AttachmentsUploader';
+
+export class AttachmentsSection {
+
+    private readonly table: AttachmentsTable;
+    private readonly deleter: AttachmentsDeleter;
+    private readonly uploader: AttachmentsUploader;
+
+    constructor(bus: EventBus) {
+        this.table = new AttachmentsTable($('#attachments-table'));
+
+        this.table.onRowAction('copy-url', async ({ attachment, target }) => {
+            await Clipboard.writeText(attachment.url);
+
+            Tippy.once(target, {
+                animation: 'shift-away',
+                content: 'Attachment\'s URL has been copied.',
+                placement: 'bottom',
+            });
+        });
+
+        this.table.onRowAction('delete', async ({ attachment }) => {
+            await this.deleter.delete(attachment);
+        });
+
+        this.deleter = new AttachmentsDeleter(bus, this.table);
+        this.uploader = new AttachmentsUploader(bus, this.table);
+
+        $('#upload-attachment-button').on('click', async () => {
+            const filePicker = new FilePicker();
+
+            await this.uploader.upload(
+                await filePicker.run(),
+            );
+        });
+    }
+
+    public serialize(): Array<number> {
+        let attachmentsIds: Array<number> = [];
+
+        this.table.getAll().each((_, row) => {
+            attachmentsIds.push(
+                $(row).data('attachment').id,
+            );
+        });
+
+        return attachmentsIds;
+    }
+
+}

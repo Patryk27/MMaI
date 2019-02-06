@@ -1,80 +1,52 @@
+import { ApiError } from '@/api/ApiError';
 import swal from 'sweetalert';
-import { Feedbackable } from '../concerns/Feedbackable';
-import { Valuable } from '../concerns/Valuable';
-import { Component } from './Component';
+import { Field } from './Field';
 
 interface FormConfiguration {
-    ajax?: boolean,
     form: JQuery,
-    fields: {
-        [name: string]: Component & Feedbackable & Valuable,
-    },
+    fields: Array<Field>,
 }
 
-interface SerializedForm {
-    [name: string]: string,
-}
-
-/**
- * This class facilitates building simple forms - it makes it easy to group related components together and then handle
- * serialization, validation errors and so on.
- *
- * # Example
- *
- * ```javascript
- * const form = new Form({
- *   form: $('#my-form'),
- *
- *   components: {
- *     name: new Input($('#my-name')),
- *     gender: new Select($('#my-gender')),
- *   },
- * });
- * ```
- */
 export class Form {
 
-    constructor(private readonly config: FormConfiguration) {
-        // If the "ajax mode" is enabled, disable manual form's submission
-        if (config.ajax) {
-            this.config.form.on('submit', () => false);
-        }
+    private readonly form: JQuery;
+    private readonly fields: Array<Field>;
+
+    constructor(config: FormConfiguration) {
+        this.form = config.form;
+        this.form.on('submit', () => false);
+
+        this.fields = config.fields;
     }
 
-    /**
-     * Clears errors (feedbacks) from all the fields.
-     * Should be called before the form is submitted, so that it does not show old (previous) error messages.
-     */
     public clearErrors(): void {
-        for (const [, field] of Object.entries(this.config.fields)) {
-            field.removeFeedback();
+        this.fields.forEach((field) => {
+            field.clearFeedback();
+        });
+    }
+
+    public markErrors(error: ApiError) {
+        let focused = false;
+
+        for (const [fieldName, fieldErrors] of Object.entries(error.getPayload())) {
+            const field = this.findMaybe(fieldName);
+
+            if (!field) {
+                continue;
+            }
+
+            field.setFeedback('invalid', (<Array<string>>fieldErrors).join(', '));
+
+            if (!focused) {
+                field.focus();
+                focused = true;
+            }
         }
     }
 
-    /**
-     * Handles given error.
-     *
-     * If it's an error from the API, marks appropriate fields as invalid and adds appropriate feedback (e.g. "The name
-     * is too short.")
-     *
-     * If it's not an API-error, a SweetAlert message is raised.
-     */
     public processErrors(error: any) {
         if (error && error.getPayload && error.getPayload()) {
-            let focused = false;
-
-            for (const [fieldName, fieldErrors] of Object.entries(error.getPayload())) {
-                const field = this.find(fieldName);
-
-                // Add error message to the field
-                field.addFeedback('invalid', (<Array<string>>fieldErrors).join(', '));
-
-                // Focus on the first invalid field
-                if (!focused) {
-                    field.focus();
-                    focused = true;
-                }
-            }
+            this.markErrors(error);
         } else {
             // noinspection JSIgnoredPromiseFromCall
             swal({
@@ -85,15 +57,12 @@ export class Form {
         }
     }
 
-    /**
-     * Serializes each form's component.
-     */
-    public serialize(): SerializedForm {
-        let result: SerializedForm = {};
+    public serialize(): object {
+        let result = {};
 
-        for (const [name, component] of Object.entries(this.config.fields)) {
-            result[name] = component.getValue();
-        }
+        this.fields.forEach((field) => {
+            Object.assign(result, field.serialize());
+        });
 
         return result;
     }
@@ -110,7 +79,7 @@ export class Form {
      * ```
      */
     public on(event: string, handler: (...args: any) => void): void {
-        this.config.form.on(event, handler);
+        this.form.on(event, handler);
     }
 
     /**
@@ -129,23 +98,30 @@ export class Form {
     }
 
     /**
+     * Returns given field or `null` if no such one exists.
+     */
+    public findMaybe(name: string): Field | null {
+        for (const field of this.fields) {
+            if (field.getName() === name) {
+                return field;
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * Returns given field.
      * Throws an exception if no such field exists.
-     *
-     * # Example
-     *
-     * ```javascript
-     * alert(
-     *   (<Input>form.getField('name')).getValue()
-     * );
-     * ```
      */
-    public find<T extends Component & Feedbackable & Valuable>(name: string): T {
-        if (!this.config.fields.hasOwnProperty(name)) {
+    public find(name: string): Field {
+        const field = this.findMaybe(name);
+
+        if (!field) {
             throw `Component [${name}] is not known.`;
         }
 
-        return <T>this.config.fields[name];
+        return field;
     }
 
 }

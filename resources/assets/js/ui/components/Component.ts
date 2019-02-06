@@ -1,8 +1,6 @@
-import { Enablable } from '../concerns/Enablable';
-import { Eventable } from '../concerns/Eventable';
-import { Focusable } from '../concerns/Focusable';
+import { Componentable } from '../concerns/Componentable';
 
-export abstract class Component implements Enablable, Eventable, Focusable {
+export abstract class Component implements Componentable {
 
     protected handle: JQuery;
 
@@ -10,20 +8,12 @@ export abstract class Component implements Enablable, Eventable, Focusable {
         this.handle = $(selector);
     }
 
-    public enable(): void {
-        this.handle.prop('disabled', false);
+    public enable(enabled: boolean = true): void {
+        this.handle.prop('disabled', !enabled);
     }
 
-    public disable(): void {
-        this.handle.prop('disabled', true);
-    }
-
-    public setIsEnabled(isEnabled: boolean): void {
-        if (isEnabled) {
-            this.enable();
-        } else {
-            this.disable();
-        }
+    public disable(disabled: boolean = true): void {
+        this.handle.prop('disabled', disabled);
     }
 
     public on(event: string, handler: (...args: any) => void): void {

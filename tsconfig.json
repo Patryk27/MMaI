@@ -8,6 +8,10 @@
     ],
     "moduleResolution": "node",
     "noImplicitAny": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*" :["./resources/assets/js/*"]
+    },
     "removeComments": true,
     "skipLibCheck": true,
 //    "strictNullChecks": true, @todo enable at some point

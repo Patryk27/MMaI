@@ -19,28 +19,28 @@ class InMemoryPagesRepository implements PagesRepository {
      * @inheritDoc
      */
     public function getById(int $id): ?Page {
-        unimplemented();
+        return $this->repository->getBy('id', $id);
     }
 
     /**
      * @inheritDoc
      */
     public function getByIds(array $ids): Collection {
-        unimplemented();
+        return $this->repository->getByMany('id', $ids);
     }
 
     /**
      * @inheritDoc
      */
     public function getByTagId(int $tagId): Collection {
-        unimplemented();
+        return $this->repository->getBy('tag_id', $tagId);
     }
 
     /**
      * @inheritDoc
      */
     public function persist(Page $page): void {
-        unimplemented();
+        $this->repository->persist($page);
     }
 
 }

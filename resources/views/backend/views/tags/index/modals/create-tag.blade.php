@@ -4,7 +4,7 @@
      */
 @endphp
 
-<div id="create-tag-modal" class="modal" role="dialog">
+<div id="create-tag-modal" class="modal fade" role="dialog">
     <div class="modal-dialog" role="document">
         <form class="modal-content">
             <div class="modal-header">
@@ -28,8 +28,8 @@
                 </div>
 
                 <div class="form-group">
-                    {{ Form::label('website_id', 'Website') }}
-                    {{ Form::select('website_id', $websites, null, [
+                    {{ Form::label('websiteId', 'Website') }}
+                    {{ Form::select('websiteId', $websites, null, [
                         'class' => 'custom-select',
                     ]) }}
                 </div>

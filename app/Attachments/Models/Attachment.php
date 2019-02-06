@@ -4,10 +4,10 @@ namespace App\Attachments\Models;
 
 use App\Attachments\Presenters\AttachmentPresenter;
 use App\Core\Models\HasPresenter;
+use App\Core\Models\Model;
 use App\Core\Models\Presentable;
 use App\Pages\Models\Page;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property-read int $id

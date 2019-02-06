@@ -6,6 +6,7 @@ use App\Tags\Events\TagUpdated;
 use App\Tags\Exceptions\TagException;
 use App\Tags\Implementation\Repositories\TagsRepository;
 use App\Tags\Models\Tag;
+use App\Tags\Requests\UpdateTag;
 use Illuminate\Contracts\Events\Dispatcher as EventsDispatcher;
 
 class TagsUpdater {
@@ -31,21 +32,16 @@ class TagsUpdater {
 
     /**
      * @param Tag $tag
-     * @param array $tagData
+     * @param UpdateTag $request
      * @return void
      * @throws TagException
      */
-    public function update(Tag $tag, array $tagData): void {
-        if (array_has($tagData, 'name')) {
-            $tag->name = $tagData['name'];
-        }
+    public function update(Tag $tag, UpdateTag $request): void {
+        $tag->name = $request->get('name');
 
         $this->tagsValidator->validate($tag);
         $this->tagsRepository->persist($tag);
-
-        $this->eventsDispatcher->dispatch(
-            new TagUpdated($tag)
-        );
+        $this->eventsDispatcher->dispatch(new TagUpdated($tag));
     }
 
 }

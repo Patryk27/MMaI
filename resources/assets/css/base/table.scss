@@ -1,4 +1,8 @@
-table {
+table.table {
+  td, th {
+    padding: 0.45rem;
+  }
+
   tr {
     td {
       &[data-column="actions"], [data-column="actions"] {

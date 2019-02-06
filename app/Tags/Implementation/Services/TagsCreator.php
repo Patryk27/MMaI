@@ -6,6 +6,7 @@ use App\Tags\Events\TagCreated;
 use App\Tags\Exceptions\TagException;
 use App\Tags\Implementation\Repositories\TagsRepository;
 use App\Tags\Models\Tag;
+use App\Tags\Requests\CreateTag;
 use Illuminate\Contracts\Events\Dispatcher as EventsDispatcher;
 
 class TagsCreator {
@@ -30,22 +31,19 @@ class TagsCreator {
     }
 
     /**
-     * @param array $tagData
+     * @param CreateTag $request
      * @return Tag
      * @throws TagException
      */
-    public function create(array $tagData): Tag {
+    public function create(CreateTag $request): Tag {
         $tag = new Tag([
-            'website_id' => array_get($tagData, 'websiteId'),
-            'name' => array_get($tagData, 'name'),
+            'website_id' => $request->get('websiteId'),
+            'name' => $request->get('name'),
         ]);
 
         $this->tagsValidator->validate($tag);
         $this->tagsRepository->persist($tag);
-
-        $this->eventsDispatcher->dispatch(
-            new TagCreated($tag)
-        );
+        $this->eventsDispatcher->dispatch(new TagCreated($tag));
 
         return $tag;
     }

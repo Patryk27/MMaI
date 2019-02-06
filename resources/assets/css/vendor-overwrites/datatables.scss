@@ -1,6 +1,5 @@
 .dataTables_wrapper {
   padding: 0;
-
   transition: opacity 0.2s, filter 0.2s;
 
   table {
@@ -11,6 +10,10 @@
 
         &.sorting, &.sorting_asc, &.sorting_desc {
           padding-left: 1.5em;
+
+          &::before, &::after {
+            bottom: 8px;
+          }
 
           &::before {
             left: 0;

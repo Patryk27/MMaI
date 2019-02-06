@@ -1,5 +1,5 @@
-import { app } from '../../../Application';
-import { InteractiveTable } from '../../../ui/components';
+import { app } from '@/Application';
+import { Table } from '@/ui/components';
 
 function getFilters(): any {
     const filters = $('#pages-filters');
@@ -17,7 +17,7 @@ function getFilters(): any {
 
         websiteId: {
             operator: 'in',
-            value: filters.find('[name="website_ids[]"]').val(),
+            value: filters.find('[name="websiteIds[]"]').val(),
         },
 
         status: {
@@ -28,7 +28,7 @@ function getFilters(): any {
 }
 
 app.addViewInitializer('backend.pages.index', () => {
-    const table = new InteractiveTable({
+    const table = new Table({
         autofocus: true,
         loaderSelector: '#pages-loader',
         source: '/api/pages',
