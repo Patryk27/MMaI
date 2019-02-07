@@ -29,15 +29,14 @@ export class TagsEditor {
         });
 
         this.form.on('submit', () => {
-            // noinspection JSIgnoredPromiseFromCall
-            this.submit();
+            this.submit().catch(window.onerror);
         });
 
         this.closeButton = new Button(modal.find('.btn-close'));
         this.submitButton = new Button(modal.find('.btn-submit'));
     }
 
-    public edit(tag: Tag): void {
+    public run(tag: Tag): void {
         this.tag = tag;
         this.form.find('name').as<Input>().setValue(tag.name);
         this.modal.show();

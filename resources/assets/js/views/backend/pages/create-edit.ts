@@ -13,8 +13,7 @@ class View {
 
         this.submitBtn = new Button($('#form-submit'));
         this.submitBtn.on('click', () => {
-            // noinspection JSIgnoredPromiseFromCall
-            this.submit();
+            this.submit().catch(window.onerror);
         });
 
         this.overlay = new Overlay();

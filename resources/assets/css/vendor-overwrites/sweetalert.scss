@@ -1,6 +1,8 @@
 .swal-overlay {
   // Must be rendered above all the overlays & modals
   z-index: 1000002;
+
+  background: rgba(0, 0, 0, 0.6);
 }
 
 .swal-modal {

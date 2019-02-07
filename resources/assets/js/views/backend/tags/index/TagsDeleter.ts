@@ -8,7 +8,7 @@ export class TagsDeleter {
     constructor(private readonly bus: EventBus) {
     }
 
-    public async delete(tag: Tag): Promise<void> {
+    public async run(tag: Tag): Promise<void> {
         try {
             await TagsFacade.delete(tag.id);
 

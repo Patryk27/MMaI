@@ -40,8 +40,7 @@ export class PageSection {
         });
 
         this.form.onField('websiteId', 'change', () => {
-            // noinspection JSIgnoredPromiseFromCall
-            this.refreshTags();
+            this.refreshTags().catch(window.onerror);
         });
 
         this.simpleMde = new SimpleMDE({
@@ -52,9 +51,7 @@ export class PageSection {
         });
 
         this.focus();
-
-        // noinspection JSIgnoredPromiseFromCall
-        this.refreshTags();
+        this.refreshTags().catch(window.onerror);
     }
 
     public serialize(): object {

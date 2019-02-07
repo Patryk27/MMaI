@@ -120,7 +120,7 @@ export class Table {
         } catch (error) {
             // noinspection JSIgnoredPromiseFromCall
             swal({
-                title: 'Failed to load table',
+                title: 'Failed to refresh table',
                 text: error.toString(),
                 icon: 'error',
             });

@@ -25,20 +25,19 @@ export class TagsCreator {
 
             fields: [
                 Field.input('name', modal),
-                Field.input('websiteId', modal),
+                Field.input('website_id', modal),
             ],
         });
 
         this.form.on('submit', () => {
-            // noinspection JSIgnoredPromiseFromCall
-            this.submit();
+            this.submit().catch(window.onerror);
         });
 
         this.closeButton = new Button(modal.find('.btn-close'));
         this.submitButton = new Button(modal.find('.btn-submit'));
     }
 
-    public create(): void {
+    public run(): void {
         this.modal.show();
     }
 

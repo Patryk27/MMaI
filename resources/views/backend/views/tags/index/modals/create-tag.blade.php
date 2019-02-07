@@ -28,8 +28,8 @@
                 </div>
 
                 <div class="form-group">
-                    {{ Form::label('websiteId', 'Website') }}
-                    {{ Form::select('websiteId', $websites, null, [
+                    {{ Form::label('website_id', 'Website') }}
+                    {{ Form::select('website_id', $websites, null, [
                         'class' => 'custom-select',
                     ]) }}
                 </div>

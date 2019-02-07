@@ -29,11 +29,7 @@ export class Form {
         let focused = false;
 
         for (const [fieldName, fieldErrors] of Object.entries(error.getPayload())) {
-            const field = this.findMaybe(fieldName);
-
-            if (!field) {
-                continue;
-            }
+            const field = this.find(fieldName);
 
             field.setFeedback('invalid', (<Array<string>>fieldErrors).join(', '));
 
@@ -118,7 +114,7 @@ export class Form {
         const field = this.findMaybe(name);
 
         if (!field) {
-            throw `Component [${name}] is not known.`;
+            throw `Field [${name}] was not found.`;
         }
 
         return field;

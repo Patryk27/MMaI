@@ -1,5 +1,6 @@
 import { AttachmentsFacade } from '@/api/attachments/AttachmentsFacade';
 import { EventBus } from '@/utils/EventBus';
+import swal from 'sweetalert';
 import { AttachmentsTable } from './AttachmentsTable';
 
 export class AttachmentsUploader {

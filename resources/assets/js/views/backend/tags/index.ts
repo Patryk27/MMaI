@@ -16,11 +16,11 @@ app.addViewInitializer('backend.tags.index', () => {
         tagsTable = new TagsTable(bus, $('#tags-filters'), $('#tags-loader'), $('#tags-table'));
 
     $('#create-tag-button').on('click', () => {
-        tagsCreator.create();
+        tagsCreator.run();
     });
 
     $('#tags-table').on('click', '[data-action="edit"]', function () {
-        tagsEditor.edit($(this).data('tag'));
+        tagsEditor.run($(this).data('tag'));
     });
 
     $('#tags-table').on('click', '[data-action="delete"]', async function () {
@@ -31,8 +31,7 @@ app.addViewInitializer('backend.tags.index', () => {
                     cssClass: 'btn-danger',
 
                     handle: () => {
-                        // noinspection JSIgnoredPromiseFromCall
-                        tagsDeleter.delete($(this).data('tag'));
+                        tagsDeleter.run($(this).data('tag')).catch(window.onerror);
                     },
                 },
             },

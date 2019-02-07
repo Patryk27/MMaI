@@ -37,7 +37,7 @@ class TagsCreator {
      */
     public function create(CreateTag $request): Tag {
         $tag = new Tag([
-            'website_id' => $request->get('websiteId'),
+            'website_id' => $request->get('website_id'),
             'name' => $request->get('name'),
         ]);
 

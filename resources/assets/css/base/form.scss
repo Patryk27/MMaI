@@ -35,6 +35,10 @@
   border-top: 1px solid $border-color;
 }
 
+select {
+  height: 38px !important;
+}
+
 [disabled] {
   cursor: not-allowed;
 }
