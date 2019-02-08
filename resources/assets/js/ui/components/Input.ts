@@ -1,8 +1,6 @@
-import { Feedbackable } from '../concerns/Feedbackable';
-import { Serializable } from '../concerns/Serializable';
 import { Component } from './Component';
 
-export class Input extends Component implements Feedbackable, Serializable {
+export class Input extends Component {
 
     private feedback?: JQuery;
 
@@ -37,12 +35,16 @@ export class Input extends Component implements Feedbackable, Serializable {
         }
     }
 
-    public setValue(value: any): void {
+    get value(): any {
+        return this.handle.val();
+    }
+
+    set value(value: any) {
         this.handle.val(value);
     }
 
-    public serialize(): any {
-        return this.handle.val();
+    public static fromContainer(container: any, name: string): Input {
+        return new Input($(container).find(`[name='${name}']`));
     }
 
 }

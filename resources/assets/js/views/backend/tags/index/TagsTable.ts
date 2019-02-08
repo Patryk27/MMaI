@@ -1,4 +1,6 @@
-import { Field, Form, Select, Table } from '@/ui/components';
+import { Select, Table } from '@/ui/components';
+import { Form } from '@/ui/form';
+import { FormInput } from '@/ui/form/FormInput';
 import { EventBus } from '@/utils/EventBus';
 
 export class TagsTable {
@@ -15,7 +17,7 @@ export class TagsTable {
 
             onPrepareRequest: (request) => {
                 return Object.assign(request, {
-                    filters: this.getFilters(),
+                    filters: this.buildFilters(),
                 });
             },
         });
@@ -27,14 +29,12 @@ export class TagsTable {
         });
 
         this.filters = new Form({
-            form: filters,
-
-            fields: [
-                Field.select('websiteIds', filters),
+            controls: [
+                new FormInput('website_ids', Select.fromContainer(filters, 'website_ids[]')),
             ],
         });
 
-        this.filters.on('change', () => {
+        filters.on('change', () => {
             this.refresh();
         });
     }
@@ -43,11 +43,13 @@ export class TagsTable {
         this.table.refresh();
     }
 
-    private getFilters(): any {
+    private buildFilters(): any {
+        const filters = this.filters.serialize();
+
         return {
             websiteId: {
                 operator: 'in',
-                value: this.filters.find('websiteIds').as<Select>().serialize(),
+                value: filters.website_ids,
             },
         };
     }

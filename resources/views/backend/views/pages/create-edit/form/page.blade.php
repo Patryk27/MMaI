@@ -3,10 +3,11 @@
      * @var \Illuminate\Support\Collection|\App\Websites\Models\Website[] $websites
      * @var \App\Pages\Models\Page $page
      */
+
+    Form::setModel($page);
 @endphp
 
 <div id="page-form" class="tab-pane active" role="tabpanel">
-    {{ Form::model($page) }}
     {{ Form::hidden('id') }}
     {{ Form::hidden('type') }}
 
@@ -58,8 +59,8 @@
 
         {{-- Tags --}}
         <div class="col-xs-12 col-md-6 form-group">
-            {{ Form::label('tag_ids', 'Tags') }}
-            {{ Form::select('tag_ids', [], $page->tags->pluck('id'), [
+            {{ Form::label('tag_ids[]', 'Tags') }}
+            {{ Form::select('tag_ids[]', [], $page->tags->pluck('id'), [
                 'class' => 'custom-select select2',
                 'multiple' => 'multiple',
             ]) }}
@@ -83,6 +84,4 @@
             ]) }}
         </div>
     </div>
-
-    {{ Form::close() }}
 </div>

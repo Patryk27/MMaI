@@ -37,7 +37,7 @@ export class Modal {
     /**
      * Registers a callback that will be fired each time the modal is shown.
      */
-    public onShown(fn: ShownEventHandler): void {
+    public onShow(fn: ShownEventHandler): void {
         this.eventHandlers.shown = fn;
     }
 

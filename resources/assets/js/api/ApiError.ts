@@ -1,26 +1,40 @@
+import { FormError } from '@/ui/form/FormError';
+
 export class ApiError {
 
     constructor(
-        private readonly type: string,
-        private readonly message: string,
-        private readonly payload?: any,
+        private readonly _type: string,
+        private readonly _message: string,
+        private readonly _payload?: any,
     ) {
     }
 
-    public getType(): string {
-        return this.type;
+    get type(): string {
+        return this._type;
     }
 
-    public getMessage(): string {
-        return this.message;
+    get message(): string {
+        return this._message;
     }
 
-    public getPayload(): any {
-        return this.payload;
+    get payload(): any {
+        return this._payload;
+    }
+
+    get formErrors(): Array<FormError> {
+        const errors: Array<FormError> = [];
+
+        for (const [fieldName, fieldErrors] of Object.entries(this._payload)) {
+            (<Array<string>><undefined>fieldErrors).forEach((fieldError) => {
+                errors.push(new FormError(fieldName, fieldError));
+            });
+        }
+
+        return errors;
     }
 
     public toString(): string {
-        return this.message;
+        return this._message;
     }
 
 }

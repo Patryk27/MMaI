@@ -1,15 +1,29 @@
+import { PagesFacade } from '@/api/pages/PagesFacade';
 import { app } from '@/Application';
 import { Button, Overlay } from '@/ui/components';
-import { Form } from '@/views/backend/pages/create-edit/Form';
+import { Form } from '@/ui/form';
+import { EventBus } from '@/utils/EventBus';
+import { AttachmentsSection } from '@/views/backend/pages/create-edit/AttachmentsSection';
+import { NotesSection } from '@/views/backend/pages/create-edit/NotesSection';
+import { PageSection } from '@/views/backend/pages/create-edit/PageSection';
 
 class View {
 
+    private readonly bus: EventBus;
     private readonly form: Form;
     private readonly submitBtn: Button;
     private readonly overlay: Overlay;
 
     constructor() {
-        this.form = new Form();
+        this.bus = new EventBus();
+
+        this.form = new Form({
+            controls: [
+                new AttachmentsSection(this.bus),
+                new NotesSection(),
+                new PageSection(),
+            ],
+        });
 
         this.submitBtn = new Button($('#form-submit'));
         this.submitBtn.on('click', () => {
@@ -17,6 +31,10 @@ class View {
         });
 
         this.overlay = new Overlay();
+
+        // $('#form').on('change', () => {
+        //     this.dirty = true;
+        // });
     }
 
     private async submit() {
@@ -24,19 +42,32 @@ class View {
         this.submitBtn.disable();
         this.submitBtn.showSpinner();
 
-        this.form.submit().then(() => {
+        try {
+            let request = this.form.serialize();
+            let response;
+
+            if (request.id) {
+                response = await PagesFacade.update(request.id, request);
+            } else {
+                response = await PagesFacade.create(request);
+            }
+
+            window.location.href = response.redirectTo;
+        } catch (error) {
             this.overlay.hide();
             this.submitBtn.enable();
             this.submitBtn.hideSpinner();
-        });
+
+            this.bus.emit('error', error);
+        }
     }
 
 }
 
-app.addViewInitializer('backend.pages.create', () => {
+app.onViewReady('backend.pages.create', () => {
     new View();
 });
 
-app.addViewInitializer('backend.pages.edit', () => {
+app.onViewReady('backend.pages.edit', () => {
     new View();
 });

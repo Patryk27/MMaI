@@ -1,8 +1,8 @@
 import { Tag } from '@/api/tags/Tag';
 import { TagsFacade } from '@/api/tags/TagsFacade';
-import { Button, Field, Form, Input, Modal } from '@/ui/components';
+import { Button, Input, Modal } from '@/ui/components';
+import { Form, FormInput } from '@/ui/form';
 import { EventBus } from '@/utils/EventBus';
-import swal from 'sweetalert';
 
 export class TagsEditor {
 
@@ -15,30 +15,29 @@ export class TagsEditor {
 
     constructor(private readonly bus: EventBus, modal: JQuery) {
         this.modal = new Modal(modal);
-
-        this.modal.onShown(() => {
+        this.modal.onShow(() => {
             this.form.find('name').focus();
         });
 
         this.form = new Form({
-            form: modal.find('form'),
-
-            fields: [
-                Field.input('name', modal),
+            controls: [
+                new FormInput('name', Input.fromContainer(modal, 'name')),
             ],
-        });
-
-        this.form.on('submit', () => {
-            this.submit().catch(window.onerror);
         });
 
         this.closeButton = new Button(modal.find('.btn-close'));
         this.submitButton = new Button(modal.find('.btn-submit'));
+
+        modal.on('submit', () => {
+            this.submit().catch(window.onerror);
+            return false;
+        });
     }
 
     public run(tag: Tag): void {
+        this.form.find<FormInput>('name').input.value = tag.name;
+
         this.tag = tag;
-        this.form.find('name').as<Input>().setValue(tag.name);
         this.modal.show();
     }
 
@@ -58,10 +57,14 @@ export class TagsEditor {
                 icon: 'success',
             });
         } catch (error) {
-            this.form.processErrors(error);
+            if (error.formErrors) {
+                this.form.addErrors(error.formErrors);
+            } else {
+                throw error;
+            }
+        } finally {
+            this.changeState('ready');
         }
-
-        this.changeState('ready');
     }
 
     private changeState(state: string): void {

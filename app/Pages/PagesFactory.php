@@ -25,7 +25,7 @@ final class PagesFactory {
         $pagesValidator = new PagesValidator();
 
         $pagesCreator = new PagesCreator($eventsDispatcher, $pagesRepository, $pagesValidator, $attachmentsFacade);
-        $pagesUpdater = new PagesUpdater();
+        $pagesUpdater = new PagesUpdater($eventsDispatcher, $pagesRepository, $pagesValidator);
         $pagesRenderer = new PagesRenderer();
         $pagesQuerier = new PagesQuerier($pagesRepository, $pagesSearcher);
 

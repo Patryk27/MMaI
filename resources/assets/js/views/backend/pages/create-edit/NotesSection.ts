@@ -1,25 +1,33 @@
-import { EventBus } from '@/utils/EventBus';
+import { Input } from '@/ui/components';
+import { FormControl, FormError, FormInput } from '@/ui/form';
 
-export class NotesSection {
+export class NotesSection implements FormControl {
 
-    private notes: JQuery;
+    public readonly id: string = 'notes';
 
-    constructor(bus: EventBus) {
-        this.notes = $('#notes [name="notes"]');
+    private readonly notes: FormInput;
 
-        this.notes.on('change', () => {
-            bus.emit('form::invalidate');
-        });
-
-        bus.on('tabs::changed', ({ currentSection }) => {
-            if (currentSection === 'page-notes') {
-                this.notes.focus();
-            }
-        });
+    constructor() {
+        this.notes = new FormInput(
+            'notes',
+            Input.fromContainer($('#notes-form'), 'notes'),
+        );
     }
 
-    serialize(): string {
-        return <string>this.notes.val();
+    public addError(error: FormError): void {
+        this.notes.addError(error);
+    }
+
+    public clearErrors(): void {
+        this.notes.clearErrors();
+    }
+
+    public focus(): void {
+        this.notes.focus();
+    }
+
+    public serialize() {
+        return this.notes.serialize();
     }
 
 }

@@ -3,7 +3,7 @@ import { ApiClient } from '../ApiClient';
 // @todo create "Page" model
 export class PagesFacade {
 
-    public static create(page: object): Promise<void> {
+    public static create(page: object): Promise<{ redirectTo: string }> {
         return ApiClient.request({
             method: 'post',
             url: '/api/pages',
@@ -11,7 +11,7 @@ export class PagesFacade {
         });
     }
 
-    public static update(id: number, page: object): Promise<void> {
+    public static update(id: number, page: object): Promise<{ redirectTo: string }> {
         return ApiClient.request({
             method: 'put',
             url: '/api/pages/' + id,

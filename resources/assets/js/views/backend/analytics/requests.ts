@@ -33,7 +33,7 @@ function getFilters(): any {
     };
 }
 
-app.addViewInitializer('backend.analytics.requests', () => {
+app.onViewReady('backend.analytics.requests', () => {
     const table = new Table({
         autofocus: true,
         loaderSelector: '#requests-loader',

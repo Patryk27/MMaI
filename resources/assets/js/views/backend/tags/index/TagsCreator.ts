@@ -1,7 +1,8 @@
 import { TagsFacade } from '@/api/tags/TagsFacade';
-import { Button, Field, Form, Input, Modal } from '@/ui/components';
+import { Button, Input, Modal, Select } from '@/ui/components';
+import { Form } from '@/ui/form';
+import { FormInput } from '@/ui/form/FormInput';
 import { EventBus } from '@/utils/EventBus';
-import swal from 'sweetalert';
 
 export class TagsCreator {
 
@@ -12,29 +13,27 @@ export class TagsCreator {
 
     constructor(private readonly bus: EventBus, modal: JQuery) {
         this.modal = new Modal(modal);
+        this.modal.onShow(() => {
+            const name = this.form.find<FormInput>('name');
 
-        this.modal.onShown(() => {
-            const name = this.form.find('name').as<Input>();
-
-            name.setValue('');
-            name.focus();
+            name.input.value = '';
+            name.input.focus();
         });
 
         this.form = new Form({
-            form: modal,
-
-            fields: [
-                Field.input('name', modal),
-                Field.input('website_id', modal),
+            controls: [
+                new FormInput('name', Input.fromContainer(modal, 'name')),
+                new FormInput('website_id', Select.fromContainer(modal, 'website_id')),
             ],
-        });
-
-        this.form.on('submit', () => {
-            this.submit().catch(window.onerror);
         });
 
         this.closeButton = new Button(modal.find('.btn-close'));
         this.submitButton = new Button(modal.find('.btn-submit'));
+
+        modal.on('submit', () => {
+            this.submit().catch(window.onerror);
+            return false;
+        });
     }
 
     public run(): void {
@@ -46,9 +45,7 @@ export class TagsCreator {
         this.form.clearErrors();
 
         try {
-            await TagsFacade.create(
-                <any>this.form.serialize(),
-            );
+            await TagsFacade.create(this.form.serialize());
 
             this.bus.emit('tag::created');
             this.modal.hide();
@@ -59,10 +56,14 @@ export class TagsCreator {
                 icon: 'success',
             });
         } catch (error) {
-            this.form.processErrors(error);
+            if (error.formErrors) {
+                this.form.addErrors(error.formErrors);
+            } else {
+                throw error;
+            }
+        } finally {
+            this.changeState('ready');
         }
-
-        this.changeState('ready');
     }
 
     private changeState(state: string): void {

@@ -17,7 +17,7 @@ function getFilters(): any {
 
         websiteId: {
             operator: 'in',
-            value: filters.find('[name="websiteIds[]"]').val(),
+            value: filters.find('[name="website_ids[]"]').val(),
         },
 
         status: {
@@ -27,7 +27,7 @@ function getFilters(): any {
     };
 }
 
-app.addViewInitializer('backend.pages.index', () => {
+app.onViewReady('backend.pages.index', () => {
     const table = new Table({
         autofocus: true,
         loaderSelector: '#pages-loader',

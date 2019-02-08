@@ -27,4 +27,11 @@ final class CreatePage extends FormRequest {
         ];
     }
 
+    /**
+     * @return bool
+     */
+    public function hasUrl(): bool {
+        return strlen($this->get('url')) > 0;
+    }
+
 }

@@ -55,7 +55,7 @@ class PagesCreator {
             'status' => $request->get('status'),
         ]);
 
-        if (strlen($request->get('url')) > 0) {
+        if ($request->hasUrl()) {
             $route = new Route([
                 'subdomain' => $page->website->slug ?? '',
                 'url' => $request->get('url'),

@@ -2,8 +2,7 @@ import { Button } from './components/Button';
 import { Checkbox } from './components/Checkbox';
 import { Component } from './components/Component';
 import { ContextMenu } from './components/ContextMenu';
-import { Field } from './components/Field';
-import { Form } from './components/Form';
+import { FilePicker } from './components/FilePicker';
 import { Input } from './components/Input';
 import { Loader } from './components/Loader';
 import { Modal } from './components/Modal';
@@ -16,8 +15,7 @@ export {
     Checkbox,
     Component,
     ContextMenu,
-    Field,
-    Form,
+    FilePicker,
     Input,
     Loader,
     Modal,

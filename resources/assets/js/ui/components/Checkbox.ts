@@ -2,7 +2,7 @@ import { Component } from './Component';
 
 export class Checkbox extends Component {
 
-    public isChecked(): boolean {
+    public get checked(): boolean {
         return this.handle.is(':checked');
     }
 

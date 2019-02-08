@@ -1,51 +1,41 @@
 import { TagsFacade } from '@/api/tags/TagsFacade';
-import { Field, Form, Input, Select } from '@/ui/components';
-import { EventBus } from '@/utils/EventBus';
+import { Input, Select } from '@/ui/components';
+import { Form, FormControl, FormError, FormInput, FormSelect } from '@/ui/form';
 import SimpleMDE from 'simplemde';
 
-export class PageSection {
+export class PageSection implements FormControl {
+
+    public readonly id: string = 'page';
 
     private readonly form: Form;
     private readonly simpleMde: SimpleMDE;
 
-    constructor(bus: EventBus) {
-        const container = $('#page');
+    constructor() {
+        const container = $('#page-form');
 
         this.form = new Form({
-            form: container.find('form'),
+            controls: [
+                new FormInput('id', Input.fromContainer(container, 'id')),
+                new FormInput('type', Input.fromContainer(container, 'type')),
 
-            fields: [
-                Field.input('id', container),
-                Field.input('type', container),
+                new FormInput('url', Input.fromContainer(container, 'url')),
+                new FormInput('title', Input.fromContainer(container, 'title')),
+                new FormInput('lead', Input.fromContainer(container, 'lead')),
+                new FormInput('content', Input.fromContainer(container, 'content')),
 
-                Field.input('url', container),
-                Field.input('title', container),
-                Field.input('lead', container),
-                Field.input('content', container),
-
-                Field.select('status', container),
-                Field.select('tagIds', container),
-                Field.select('websiteId', container),
+                new FormSelect('status', Select.fromContainer(container, 'status')),
+                new FormSelect('tag_ids', Select.fromContainer(container, 'tag_ids[]')),
+                new FormSelect('website_id', Select.fromContainer(container, 'website_id')),
             ],
         });
 
-        this.form.on('change', () => {
-            bus.emit('invalidated');
-        });
-
-        this.form.on('keypress', (evt: JQuery.KeyboardEventBase) => {
-            if (evt.originalEvent.code === 'Enter') {
-                bus.emit('submit');
-            }
-        });
-
-        this.form.onField('websiteId', 'change', () => {
-            this.refreshTags().catch(window.onerror);
-        });
+        // this.form.onField('websiteId', 'change', () => {
+        //     this.refreshTags().catch(window.onerror);
+        // });
 
         this.simpleMde = new SimpleMDE({
             autoDownloadFontAwesome: false,
-            element: this.form.find('content').as<Input>().getHandle().get(0),
+            element: container.find('[name=content]')[0],
             forceSync: true,
             spellChecker: false,
         });
@@ -54,26 +44,33 @@ export class PageSection {
         this.refreshTags().catch(window.onerror);
     }
 
-    public serialize(): object {
-        return this.form.serialize();
+    public addError(error: FormError): void {
+        this.form.addError(error);
+    }
+
+    public clearErrors(): void {
+        this.form.clearErrors();
     }
 
     public focus(): void {
-        // this.$form.title.focus();
-        // this.$simpleMde.codemirror.refresh();
+        this.form.find('title').focus();
+    }
+
+    public serialize(): any {
+        return this.form.serialize();
     }
 
     private async refreshTags(): Promise<void> {
-        const tagsSelect: Select = this.form.find('tagIds').as();
-        const websiteSelect: Select = this.form.find('websiteId').as();
+        const tagsSelect = this.form.find<FormSelect>('tag_ids');
+        const websiteSelect = this.form.find<FormSelect>('website_id');
 
-        tagsSelect.disable();
-        websiteSelect.disable();
+        tagsSelect.select.disable();
+        websiteSelect.select.disable();
 
         try {
             const tags = await TagsFacade.search({
                 filters: {
-                    websiteId: websiteSelect.serialize(),
+                    websiteId: websiteSelect.select.value,
                 },
 
                 orderBy: {
@@ -81,12 +78,12 @@ export class PageSection {
                 },
             });
 
-            tagsSelect.setOptions(tags.map((tag) => {
+            tagsSelect.select.options = tags.map((tag) => {
                 return { id: tag.id, label: tag.name };
-            }));
+            });
         } finally {
-            tagsSelect.enable();
-            websiteSelect.enable();
+            tagsSelect.select.enable();
+            websiteSelect.select.enable();
         }
     }
 

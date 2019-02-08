@@ -1,6 +1,4 @@
-import { Componentable } from '../concerns/Componentable';
-
-export abstract class Component implements Componentable {
+export abstract class Component {
 
     protected handle: JQuery;
 
@@ -22,10 +20,6 @@ export abstract class Component implements Componentable {
 
     public focus(): void {
         this.handle.focus();
-    }
-
-    public getHandle(): JQuery {
-        return this.handle;
     }
 
 }

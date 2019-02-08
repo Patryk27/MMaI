@@ -11,7 +11,7 @@ class Application {
 
     private viewInitializers: ViewInitializers = {};
 
-    public addViewInitializer(viewName: string, viewInitializer: () => void): void {
+    public onViewReady(viewName: string, viewInitializer: () => void): void {
         this.viewInitializers[viewName] = viewInitializer;
     }
 

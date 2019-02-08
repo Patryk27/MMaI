@@ -54,7 +54,7 @@ export class AttachmentsUploader {
             // noinspection JSIgnoredPromiseFromCall
             swal({
                 title: 'Failed to upload file',
-                text: error.getMessage(),
+                text: error.message,
                 icon: 'error',
             });
         });

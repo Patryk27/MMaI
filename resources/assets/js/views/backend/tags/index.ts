@@ -6,7 +6,7 @@ import { TagsDeleter } from './index/TagsDeleter';
 import { TagsEditor } from './index/TagsEditor';
 import { TagsTable } from './index/TagsTable';
 
-app.addViewInitializer('backend.tags.index', () => {
+app.onViewReady('backend.tags.index', () => {
     const bus = new EventBus();
 
     const

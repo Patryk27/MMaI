@@ -1,4 +1,5 @@
-import { FilePicker } from '@/ui/components/FilePicker';
+import { FilePicker } from '@/ui/components';
+import { FormControl, FormError } from '@/ui/form';
 import { Clipboard } from '@/utils/Clipboard';
 import { EventBus } from '@/utils/EventBus';
 import { Tippy } from '@/utils/Tippy';
@@ -6,7 +7,9 @@ import { AttachmentsDeleter } from './Attachments/AttachmentsDeleter';
 import { AttachmentsTable } from './Attachments/AttachmentsTable';
 import { AttachmentsUploader } from './Attachments/AttachmentsUploader';
 
-export class AttachmentsSection {
+export class AttachmentsSection implements FormControl {
+
+    public readonly id: string = 'attachments';
 
     private readonly table: AttachmentsTable;
     private readonly deleter: AttachmentsDeleter;
@@ -14,6 +17,8 @@ export class AttachmentsSection {
 
     constructor(bus: EventBus) {
         this.table = new AttachmentsTable($('#attachments-table'));
+        this.deleter = new AttachmentsDeleter(bus, this.table);
+        this.uploader = new AttachmentsUploader(bus, this.table);
 
         this.table.onRowAction('copy-url', async ({ attachment, target }) => {
             await Clipboard.writeText(attachment.url);
@@ -25,12 +30,9 @@ export class AttachmentsSection {
             });
         });
 
-        this.table.onRowAction('delete', async ({ attachment }) => {
-            await this.deleter.delete(attachment);
+        this.table.onRowAction('delete', ({ attachment }) => {
+            this.deleter.delete(attachment).catch(window.onerror);
         });
-
-        this.deleter = new AttachmentsDeleter(bus, this.table);
-        this.uploader = new AttachmentsUploader(bus, this.table);
 
         $('#upload-attachment-button').on('click', async () => {
             const filePicker = new FilePicker();
@@ -41,7 +43,7 @@ export class AttachmentsSection {
         });
     }
 
-    public serialize(): Array<number> {
+    public serialize(): any {
         let attachmentsIds: Array<number> = [];
 
         this.table.getAll().each((_, row) => {
@@ -50,7 +52,19 @@ export class AttachmentsSection {
             );
         });
 
-        return attachmentsIds;
+        return { attachmentsIds };
+    }
+
+    public focus(): void {
+        // Nottin' here
+    }
+
+    public addError(error: FormError): void {
+        // Nottin' here
+    }
+
+    public clearErrors(): void {
+        // Nottin' here
     }
 
 }
