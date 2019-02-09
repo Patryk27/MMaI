@@ -38,6 +38,8 @@ class View {
     }
 
     private async submit() {
+        this.form.clearErrors();
+
         this.overlay.show();
         this.submitBtn.disable();
         this.submitBtn.showSpinner();
@@ -54,11 +56,17 @@ class View {
 
             window.location.href = response.redirectTo;
         } catch (error) {
+            if (error.type === 'exception') {
+                error.display('Failed to save the page');
+            }
+
+            if (error.formErrors) {
+                this.form.addErrors(error.formErrors);
+            }
+
             this.overlay.hide();
             this.submitBtn.enable();
             this.submitBtn.hideSpinner();
-
-            this.bus.emit('error', error);
         }
     }
 

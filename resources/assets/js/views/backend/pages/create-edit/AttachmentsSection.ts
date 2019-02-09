@@ -44,15 +44,15 @@ export class AttachmentsSection implements FormControl {
     }
 
     public serialize(): any {
-        let attachmentsIds: Array<number> = [];
+        let attachmentIds: Array<number> = [];
 
         this.table.getAll().each((_, row) => {
-            attachmentsIds.push(
+            attachmentIds.push(
                 $(row).data('attachment').id,
             );
         });
 
-        return { attachmentsIds };
+        return { attachment_ids: attachmentIds };
     }
 
     public focus(): void {

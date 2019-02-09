@@ -41,7 +41,7 @@ class EloquentAttachmentsRepository implements AttachmentsRepository {
      * @inheritDoc
      */
     public function getDetached(): Collection {
-        return $this->repository->getByMany('attachable_id', null);
+        return $this->repository->getByMany('page_id', null);
     }
 
     /**

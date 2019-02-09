@@ -9,12 +9,13 @@ export class AttachmentsDeleter {
         private readonly bus: EventBus,
         private readonly table: AttachmentsTable,
     ) {
+
     }
 
     async delete(attachment: Attachment): Promise<void> {
         const result = await swal({
-            title: 'Deleting attachment',
-            text: `Do you want to delete attachment [${attachment.name}]?`,
+            title: 'Removing attachment',
+            text: `Do you want to remove attachment [${attachment.name}]?`,
             icon: 'warning',
             dangerMode: true,
             buttons: {
@@ -35,7 +36,7 @@ export class AttachmentsDeleter {
             // noinspection JSIgnoredPromiseFromCall
             swal({
                 title: 'Success',
-                text: 'Attachment has been deleted.',
+                text: 'Attachment has been removed.',
                 icon: 'success',
             });
         }

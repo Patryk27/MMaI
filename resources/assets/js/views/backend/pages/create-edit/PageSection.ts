@@ -29,9 +29,9 @@ export class PageSection implements FormControl {
             ],
         });
 
-        // this.form.onField('websiteId', 'change', () => {
-        //     this.refreshTags().catch(window.onerror);
-        // });
+        this.form.find<FormSelect>('website_id').select.on('change', () => {
+            this.refreshTags().catch(window.onerror);
+        });
 
         this.simpleMde = new SimpleMDE({
             autoDownloadFontAwesome: false,

@@ -3,6 +3,7 @@
 namespace App\Application\ViewComposers\Backend\Views\Pages\CreateEdit;
 
 use App\Core\Exceptions\Exception;
+use App\Tags\Queries\GetAllTags;
 use App\Tags\TagsFacade;
 use App\Websites\Queries\GetAllWebsites;
 use App\Websites\WebsitesFacade;
@@ -31,6 +32,10 @@ final class FormComposer {
      */
     public function compose(View $view): void {
         $view->with([
+            'tags' => $this->tagsFacade->queryMany(
+                new GetAllTags()
+            ),
+
             'websites' => $this->websitesFacade->queryMany(
                 new GetAllWebsites()
             ),

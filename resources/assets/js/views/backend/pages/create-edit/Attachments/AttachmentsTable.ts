@@ -2,20 +2,14 @@ import { Attachment } from '@/api/attachments/Attachment';
 
 export class AttachmentsTable {
 
-    private readonly dom: {
-        table: JQuery,
-        rowTemplate: JQuery,
-    };
+    private readonly rowTemplate: JQuery;
 
-    constructor(table: JQuery) {
-        this.dom = {
-            table,
-            rowTemplate: table.find('.template'),
-        };
+    constructor(private readonly table: JQuery) {
+        this.rowTemplate = table.find('.template');
     }
 
     public onRowAction(actionName: string, actionHandler: (payload: any) => void): void {
-        this.dom.table.on('click', `[data-action=${actionName}]`, (evt) => {
+        this.table.on('click', `[data-action=${actionName}]`, (evt) => {
             const row = $(evt.target).closest('tr');
 
             const
@@ -37,20 +31,18 @@ export class AttachmentsTable {
     }
 
     public add(attachment: Attachment): Attachment {
-        const $row = this.dom.rowTemplate.clone();
+        const row = this.rowTemplate.clone();
 
-        $row.removeClass('template');
-        $row.data('attachment', attachment);
-
-        $row.appendTo(
-            this.dom.table.find('tbody'),
-        );
+        row
+            .data('attachment', attachment)
+            .removeClass('template')
+            .appendTo(this.table.find('tbody'));
 
         return this.update(attachment);
     }
 
     public update(attachment: Attachment): Attachment {
-        const row = this.findRowForAttachment(attachment.id);
+        const row = this.findRow(attachment.id);
 
         row.data('attachment', attachment);
 
@@ -80,26 +72,26 @@ export class AttachmentsTable {
     }
 
     public remove(attachmentId: number): void {
-        this.findRowForAttachment(attachmentId).remove();
+        this.findRow(attachmentId).remove();
     }
 
     public getAll(): JQuery {
-        return this.dom.table.find('tbody tr');
+        return this.table.find('tbody tr');
     }
 
-    private findRowForAttachment(id: number): JQuery {
+    private findRow(attachmentId: number): JQuery {
         let row = null;
 
-        this.dom.table.find('tbody tr').each((_, el) => {
+        this.table.find('tbody tr').each((_, el) => {
             const rowCandidate = $(el);
 
-            if (rowCandidate.data('attachment').id === id) {
+            if (rowCandidate.data('attachment').id === attachmentId) {
                 row = rowCandidate;
             }
         });
 
         if (row === null) {
-            throw `Could not find attachment [id=${id}] in the table.`;
+            throw `Could not find attachment [id=${attachmentId}] in the table.`;
         }
 
         return row;

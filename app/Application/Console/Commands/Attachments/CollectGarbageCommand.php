@@ -8,7 +8,7 @@ use Illuminate\Console\Command;
 final class CollectGarbageCommand extends Command {
 
     /** @var string */
-    protected $signature = 'app:attachments:gc {--aggressive}';
+    protected $signature = 'app:attachments:collect-garbage {--aggressive}';
 
     /** @var string */
     protected $description = 'Removes all the detached attachments from the filesystem.';

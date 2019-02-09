@@ -4,10 +4,9 @@ namespace App\Pages;
 
 use App\Pages\Exceptions\PageException;
 use App\Pages\Exceptions\PageNotFoundException;
-use App\Pages\Implementation\Services\PagesCreator;
+use App\Pages\Implementation\Services\PagesModifier;
 use App\Pages\Implementation\Services\PagesQuerier;
 use App\Pages\Implementation\Services\PagesRenderer;
-use App\Pages\Implementation\Services\PagesUpdater;
 use App\Pages\Models\Page;
 use App\Pages\Policies\PagePolicy;
 use App\Pages\Queries\PagesQuery;
@@ -20,11 +19,8 @@ use Illuminate\Support\Collection;
 
 final class PagesFacade {
 
-    /** @var PagesCreator */
-    private $pagesCreator;
-
-    /** @var PagesUpdater */
-    private $pagesUpdater;
+    /** @var PagesModifier */
+    private $pagesModifier;
 
     /** @var PagesRenderer */
     private $pagesRenderer;
@@ -33,13 +29,11 @@ final class PagesFacade {
     private $pagesQuerier;
 
     public function __construct(
-        PagesCreator $pagesCreator,
-        PagesUpdater $pagesUpdater,
+        PagesModifier $pagesModifier,
         PagesRenderer $pagesRenderer,
         PagesQuerier $pagesQuerier
     ) {
-        $this->pagesCreator = $pagesCreator;
-        $this->pagesUpdater = $pagesUpdater;
+        $this->pagesModifier = $pagesModifier;
         $this->pagesRenderer = $pagesRenderer;
         $this->pagesQuerier = $pagesQuerier;
     }
@@ -58,7 +52,7 @@ final class PagesFacade {
      * @return Page
      */
     public function create(CreatePage $request): Page {
-        return $this->pagesCreator->create($request);
+        return $this->pagesModifier->create($request);
     }
 
     /**
@@ -69,7 +63,7 @@ final class PagesFacade {
      * @return void
      */
     public function update(Page $page, UpdatePage $request): void {
-        $this->pagesUpdater->update($page, $request);
+        $this->pagesModifier->update($page, $request);
     }
 
     /**

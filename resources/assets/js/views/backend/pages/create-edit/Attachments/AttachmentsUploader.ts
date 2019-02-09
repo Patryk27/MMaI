@@ -13,8 +13,8 @@ export class AttachmentsUploader {
 
     public async upload(file: File): Promise<void> {
         const attachment = this.table.add({
-            // We must have a way to identify this temporary attachment until it gets a proper id from the backend.
-            // A pseudo-random number will do just fine
+            // We must have a way to identify this temporary attachment until it gets a proper id from the backend; a
+            // pseudo-random number will do just fine
             id: Math.random(),
 
             // For the name, mime and size let's just take values out of the given {@see File} structure
@@ -53,7 +53,7 @@ export class AttachmentsUploader {
 
             // noinspection JSIgnoredPromiseFromCall
             swal({
-                title: 'Failed to upload file',
+                title: 'Failed to upload the attachment',
                 text: error.message,
                 icon: 'error',
             });

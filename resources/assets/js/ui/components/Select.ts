@@ -2,7 +2,9 @@ import { Input } from './Input';
 
 export class Select extends Input {
 
-    set options(options: Array<{ id: number | string, label: string }>) {
+    public set options(options: Array<{ id: number | string, label: string }>) {
+        const value = this.value;
+
         this.handle
             .find('option')
             .remove();
@@ -13,6 +15,8 @@ export class Select extends Input {
                 .text(option.label)
                 .appendTo(this.handle);
         });
+
+        this.value = value;
     }
 
     public static fromContainer(container: any, name: string): Select {

@@ -43,9 +43,9 @@ export class ApiClient {
             });
         };
 
-        ApiClient.request(request)
-            .then((response: AxiosResponse<T>) => {
-                trackedResponse.fireSuccess(response.data);
+        ApiClient.request<T>(request)
+            .then((data) => {
+                trackedResponse.fireSuccess(data);
             })
             .catch((error) => {
                 trackedResponse.fireFailure(error);
@@ -55,25 +55,15 @@ export class ApiClient {
     }
 
     private static handleHttp413(): void {
-        throw new ApiError(
-            'invalid-input',
-            'Supplied file was too big - please try uploading a smaller one.',
-        );
+        throw new ApiError('invalid-input', 'Supplied file was too big - please try a smaller one.');
     }
 
     private static handleHttp422({ data }: AxiosResponse): void {
-        throw new ApiError(
-            'invalid-input',
-            data.message || 'There has been an error trying to process your request - please refresh the page and try again.',
-            data.errors,
-        );
+        throw new ApiError('invalid-input', data.message, data.errors);
     }
 
     private static handleHttp500({ data }: AxiosResponse): void {
-        throw new ApiError(
-            'exception',
-            data.message || 'There has been an error trying to process your request - please refresh the page and try again.',
-        );
+        throw new ApiError('exception', data.message);
     }
 
 }

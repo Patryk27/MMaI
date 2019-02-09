@@ -3,8 +3,8 @@
 namespace App\Application\Http\Controllers\Api;
 
 use App\Application\Http\Controllers\Controller;
-use App\Application\Http\Requests\Backend\Attachments\CreateAttachment;
 use App\Attachments\AttachmentsFacade;
+use App\Attachments\Requests\CreateAttachment;
 use Throwable;
 
 class AttachmentsController extends Controller {

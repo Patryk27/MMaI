@@ -24,7 +24,7 @@ class RoutesCreator {
             'subdomain' => $request->get('subdomain'),
             'url' => $request->get('url'),
             'model_type' => $request->get('model_type'),
-            'model_id' => $request->get('model_type'),
+            'model_id' => $request->get('model_id'),
         ]);
 
         $this->routesRepository->persist($route);

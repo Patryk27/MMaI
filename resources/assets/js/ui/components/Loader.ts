@@ -6,13 +6,11 @@ export class Loader {
         this.container = $(selector);
         this.container.addClass('loader');
 
-        // Create loader
         $('<div>')
             .addClass('loader')
             .addClass('loader-' + this.container.data('loader-type'))
             .appendTo(this.container);
 
-        // Create loader's overlay
         $('<div>')
             .addClass('loader-overlay')
             .appendTo(this.container);

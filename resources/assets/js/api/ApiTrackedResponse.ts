@@ -13,11 +13,11 @@ type SuccessEventPayload<T> = T;
 type FailureEventHandler = (payload: FailureEventPayload) => void;
 type FailureEventPayload = ApiError;
 
-export class ApiTrackedResponse<Response> {
+export class ApiTrackedResponse<T> {
 
     private readonly eventHandlers: {
         progress?: ProgressEventHandler,
-        success?: SuccessEventHandler<Response>,
+        success?: SuccessEventHandler<T>,
         failure?: FailureEventHandler,
     } = {};
 
@@ -31,11 +31,11 @@ export class ApiTrackedResponse<Response> {
         }
     }
 
-    public onSuccess(fn: SuccessEventHandler<Response>): void {
+    public onSuccess(fn: SuccessEventHandler<T>): void {
         this.eventHandlers.success = fn;
     }
 
-    public fireSuccess(payload: SuccessEventPayload<Response>): void {
+    public fireSuccess(payload: SuccessEventPayload<T>): void {
         if (this.eventHandlers.success) {
             this.eventHandlers.success(payload);
         }

@@ -1,5 +1,6 @@
 @php
     /**
+     * @var \Illuminate\Support\Collection|\App\Tags\Models\Tag[] $tags
      * @var \Illuminate\Support\Collection|\App\Websites\Models\Website[] $websites
      * @var \App\Pages\Models\Page $page
      */
@@ -60,7 +61,7 @@
         {{-- Tags --}}
         <div class="col-xs-12 col-md-6 form-group">
             {{ Form::label('tag_ids[]', 'Tags') }}
-            {{ Form::select('tag_ids[]', [], $page->tags->pluck('id'), [
+            {{ Form::select('tag_ids[]', $tags->pluck('name', 'id'), $page->tags->pluck('id'), [
                 'class' => 'custom-select select2',
                 'multiple' => 'multiple',
             ]) }}
