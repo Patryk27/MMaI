@@ -6,8 +6,4 @@ export class Attachment {
     public size: number | string;
     public url: string;
 
-    // These two fields only exist in the UI:
-    public status: string;
-    public statusPayload: any;
-
 }

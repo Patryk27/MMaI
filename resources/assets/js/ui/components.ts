@@ -7,6 +7,7 @@ import { Input } from './components/Input';
 import { Loader } from './components/Loader';
 import { Modal } from './components/Modal';
 import { Overlay } from './components/Overlay';
+import { ProgressBar } from './components/ProgressBar';
 import { Select } from './components/Select';
 import { Table } from './components/Table';
 
@@ -20,6 +21,7 @@ export {
     Loader,
     Modal,
     Overlay,
+    ProgressBar,
     Select,
     Table,
 };

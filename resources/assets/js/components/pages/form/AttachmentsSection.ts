@@ -1,8 +1,7 @@
 import { AttachmentsTable } from '@/components/attachments/AttachmentsTable';
-import { DeleteAttachmentModal } from '@/components/attachments/DeleteAttachmentModal';
 import { EditAttachmentModal } from '@/components/attachments/EditAttachmentModal';
-import { UploadAttachmentForm } from '@/components/attachments/UploadAttachmentForm';
-import { FilePicker } from '@/ui/components';
+import { RemoveAttachmentModal } from '@/components/attachments/RemoveAttachmentModal';
+import { UploadAttachmentModal } from '@/components/attachments/UploadAttachmentModal';
 import { FormControl, FormError } from '@/ui/form';
 import { EventBus } from '@/utils/EventBus';
 
@@ -11,15 +10,15 @@ export class AttachmentsSection implements FormControl {
     public readonly id: string = 'attachments';
 
     private readonly table: AttachmentsTable;
-    private readonly deleteModal: DeleteAttachmentModal;
+    private readonly uploadModal: UploadAttachmentModal;
     private readonly editModal: EditAttachmentModal;
-    private readonly uploadForm: UploadAttachmentForm;
+    private readonly removeModal: RemoveAttachmentModal;
 
     constructor(bus: EventBus) {
         this.table = new AttachmentsTable($('#attachments-table'));
-        this.deleteModal = new DeleteAttachmentModal(bus, this.table);
-        this.editModal = new EditAttachmentModal($('#edit-attachments-modal'));
-        this.uploadForm = new UploadAttachmentForm(bus, this.table);
+        this.uploadModal = new UploadAttachmentModal($('#upload-attachment-modal'));
+        this.editModal = new EditAttachmentModal($('#edit-attachment-modal'));
+        this.removeModal = new RemoveAttachmentModal();
 
         this.table.onAttachment('download', ({ attachment }) => {
             alert('download: ' + attachment.url);
@@ -27,17 +26,36 @@ export class AttachmentsSection implements FormControl {
 
         this.table.onAttachment('edit', ({ attachment }) => {
             alert('edit: ' + attachment.url);
-            // this.editModal.show(attachment);
         });
 
-        this.table.onAttachment('delete', ({ attachment }) => {
-            this.deleteModal.delete(attachment).catch(window.onerror);
+        this.table.onAttachment('remove', ({ attachment }) => {
+            this.removeModal
+                .remove(attachment)
+                .then((deleted) => {
+                    if (deleted) {
+                        bus.emit('attachment::removed', attachment);
+                    }
+                })
+                .catch(window.onerror);
         });
 
-        $('#upload-attachment-button').on('click', async () => {
-            const file = await new FilePicker().run();
+        bus.on('attachment::uploaded', (attachment) => {
+            this.table.add(attachment);
+        });
 
-            await this.uploadForm.upload(file);
+        bus.on('attachment::removed', (attachment) => {
+            this.table.remove(attachment);
+        });
+
+        $('#upload-attachment-button').on('click', () => {
+            this.uploadModal
+                .show()
+                .then((attachment) => {
+                    if (attachment) {
+                        bus.emit('attachment::uploaded', attachment);
+                    }
+                })
+                .catch(window.onerror);
         });
     }
 

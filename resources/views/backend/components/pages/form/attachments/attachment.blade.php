@@ -1,9 +1,5 @@
 @php
-    /**
-     * @var \App\Attachments\Models\Attachment $attachment
-     */
-
-    $attachmentPresenter = $attachment->getPresenter();
+    /** @var \App\Attachments\Models\Attachment $attachment */
 @endphp
 
 <td data-column="id">
@@ -14,12 +10,6 @@
     <a class="name">
         {{ $attachment->name }}
     </a>
-
-    @if(!$attachment->exists)
-        <div class="progress">
-            <div class="progress-bar"></div>
-        </div>
-    @endif
 </td>
 
 <td data-column="mime">
@@ -39,7 +29,7 @@
         <i class="fa fa-edit"></i>
     </button>
 
-    <button type="button" class="btn btn-sm btn-danger btn-icon-only" data-action="delete">
+    <button type="button" class="btn btn-sm btn-danger btn-icon-only" data-action="remove">
         <i class="fa fa-trash"></i>
     </button>
 </td>

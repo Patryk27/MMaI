@@ -1,7 +1,5 @@
 @php
-    /**
-     * @var \App\Pages\Models\Page $page
-     */
+    /** @var \App\Pages\Models\Page $page */
 @endphp
 
 <div id="attachments-form" class="tab-pane">
@@ -26,7 +24,7 @@
         <tbody>
         @foreach ($page->attachments->sortBy('name') as $attachment)
             @php
-                /** @var \App\Attachments\Presenters\AttachmentPresenter $attachmentPresenter */
+                /** @var \App\Attachments\Models\Attachment $attachment */
                 $attachmentPresenter = $attachment->getPresenter();
             @endphp
 

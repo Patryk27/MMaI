@@ -21,5 +21,7 @@
 
     <div id="form">
         @include('backend.components.pages.form')
+        @include('backend.components.attachments.form.edit-modal')
+        @include('backend.components.attachments.form.upload-modal')
     </div>
 @endsection

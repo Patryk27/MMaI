@@ -1,9 +1,8 @@
 @php
-    /**
-     * @var \Illuminate\Support\Collection|\App\Tags\Models\Tag[] $tags
-     * @var \Illuminate\Support\Collection|\App\Websites\Models\Website[] $websites
-     * @var \App\Pages\Models\Page $page
-     */
+    /** @var \App\Pages\Models\Page $page */
+
+    $tags = app(\App\Tags\TagsFacade::class)->queryMany(new \App\Tags\Queries\GetAllTags());
+    $websites = app(\App\Websites\WebsitesFacade::class)->queryMany(new \App\Websites\Queries\GetAllWebsites());
 
     Form::setModel($page);
 @endphp

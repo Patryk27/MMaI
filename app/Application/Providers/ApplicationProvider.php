@@ -2,6 +2,11 @@
 
 namespace App\Application\Providers;
 
+use App\Application\ViewComposers\Backend\Layout\NavigationComposer as BackendLayoutNavigationComposer;
+use App\Application\ViewComposers\Frontend\Layout\NavigationComposer as FrontendLayoutNavigationComposer;
+use App\Pages\Models\Page;
+use App\Routes\Models\Route;
+use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
 use Schema;
@@ -14,7 +19,7 @@ final class ApplicationProvider extends ServiceProvider {
      */
     public function register(): void {
         if ($this->app->environment() !== 'production') {
-            $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
+            $this->app->register(IdeHelperServiceProvider::class);
         }
     }
 
@@ -25,17 +30,13 @@ final class ApplicationProvider extends ServiceProvider {
         Schema::defaultStringLength(191);
 
         Relation::morphMap([
-            \App\Pages\Models\Page::getMorphableType() => \App\Pages\Models\Page::class,
-            \App\Routes\Models\Route::getMorphableType() => \App\Routes\Models\Route::class,
+            Page::getMorphableType() => Page::class,
+            Route::getMorphableType() => Route::class,
         ]);
 
         View::composers([
-            // Backend-related composers
-            \App\Application\ViewComposers\Backend\Layout\NavigationComposer::class => 'backend.layouts.authenticated.navigation',
-            \App\Application\ViewComposers\Backend\Views\Pages\CreateEdit\FormComposer::class => 'backend.views.pages.create-edit.form',
-
-            // Frontend-related composers
-            \App\Application\ViewComposers\Frontend\Layout\NavigationComposer::class => 'frontend.components.layout.navigation',
+            BackendLayoutNavigationComposer::class => 'backend.layouts.authenticated.navigation',
+            FrontendLayoutNavigationComposer::class => 'frontend.components.layout.navigation',
         ]);
     }
 

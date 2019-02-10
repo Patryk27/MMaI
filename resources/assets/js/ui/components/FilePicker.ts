@@ -1,7 +1,7 @@
 export class FilePicker {
 
-    public run(): Promise<File> {
-        return new Promise((resolve, reject) => {
+    public run(): Promise<File | null> {
+        return new Promise((resolve) => {
             const form = $('<form>');
 
             $('<input>')
@@ -14,7 +14,7 @@ export class FilePicker {
                 const files = fileInput.prop('files');
 
                 if (files.length === 0) {
-                    reject();
+                    resolve(null);
                 } else {
                     resolve(files[0]);
                 }

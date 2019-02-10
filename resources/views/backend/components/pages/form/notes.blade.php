@@ -1,7 +1,5 @@
 @php
-    /**
-     * @var \App\Pages\Models\Page $page
-     */
+    /** @var \App\Pages\Models\Page $page */
 @endphp
 
 <div id="notes-form" class="tab-pane" role="tabpanel">
