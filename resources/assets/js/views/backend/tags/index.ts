@@ -1,48 +1,74 @@
+import { TagsFacade } from '@/api/tags/TagsFacade';
 import { app } from '@/Application';
+import { CreateTagModal } from '@/components/tags/CreateTagModal';
+import { EditTagModal } from '@/components/tags/EditTagModal';
+import { TagsFilters } from '@/components/tags/TagsFilters';
+import { TagsTable } from '@/components/tags/TagsTable';
 import { ContextMenu } from '@/ui/components';
 import { EventBus } from '@/utils/EventBus';
-import { TagsCreator } from './index/TagsCreator';
-import { TagsDeleter } from './index/TagsDeleter';
-import { TagsEditor } from './index/TagsEditor';
-import { TagsTable } from './index/TagsTable';
 
 app.onViewReady('backend.tags.index', () => {
     const bus = new EventBus();
 
-    const
-        tagsCreator = new TagsCreator(bus, $('#create-tag-modal')),
-        tagsEditor = new TagsEditor(bus, $('#edit-tag-modal')),
-        tagsDeleter = new TagsDeleter(bus),
-        tagsTable = new TagsTable(bus, $('#tags-filters'), $('#tags-loader'), $('#tags-table'));
+    const createTagModal = new CreateTagModal($('#create-tag-modal'));
+    const editTagModal = new EditTagModal($('#edit-tag-modal'));
+
+    const tagsFilters = new TagsFilters({
+        dom: {
+            container: $('#tags-filters'),
+        },
+
+        events: {
+            onChange() {
+                tagsTable.refresh(tagsFilters.get);
+            },
+        },
+    });
+
+    const tagsTable = new TagsTable({
+        dom: {
+            loader: $('#tags-loader'),
+            table: $('#tags-table'),
+        },
+
+        events: {
+            onEdit(tag) {
+                editTagModal
+                    .show(tag)
+                    .then(() => bus.emit('tag::updated'))
+                    .catch(window.onerror);
+            },
+
+            onDelete(el, tag) {
+                const menu = new ContextMenu({
+                    actions: {
+                        delete: {
+                            title: 'Delete',
+                            class: 'btn-danger',
+
+                            async handle() {
+                                await TagsFacade.delete(tag.id);
+                                bus.emit('tag::deleted');
+                            },
+                        },
+                    },
+                });
+
+                menu.show(el);
+            },
+        },
+    });
 
     $('#create-tag-button').on('click', () => {
-        tagsCreator.run();
-    });
-
-    $('#tags-table').on('click', '[data-action="edit"]', function () {
-        tagsEditor.run($(this).data('tag'));
-    });
-
-    $('#tags-table').on('click', '[data-action="delete"]', async function () {
-        const menu = new ContextMenu({
-            actions: {
-                delete: {
-                    title: 'Delete',
-                    cssClass: 'btn-danger',
-
-                    handle: () => {
-                        tagsDeleter.run($(this).data('tag')).catch(window.onerror);
-                    },
-                },
-            },
-        });
-
-        menu.run($(this));
+        createTagModal
+            .show()
+            .then(() => bus.emit('tag::created'))
+            .catch(window.onerror);
     });
 
     bus.on(['tag::created', 'tag::updated', 'tag::deleted'], () => {
-        tagsTable.refresh();
+        tagsTable.refresh(tagsFilters.get);
     });
 
-    tagsTable.refresh();
+    tagsTable.refresh(tagsFilters.get);
 });

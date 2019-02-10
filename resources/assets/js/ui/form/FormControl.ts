@@ -1,4 +1,4 @@
-import { FormError } from '@/ui/form/FormError';
+import { FormError } from '@/ui/form';
 
 export interface FormControl {
 

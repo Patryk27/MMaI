@@ -37,8 +37,8 @@ class TagsController extends Controller {
      * @throws CoreException
      */
     public function index(Request $request): ApiSearcherResponse {
-        $baseView = 'backend.components.table.';
-        $tagsView = 'backend.components.tags.table.';
+        $baseView = 'backend.components.table.columns.';
+        $tagsView = 'backend.components.tags.table.columns.';
 
         $this->apiSearcher->addColumns([
             'id' => $baseView . 'id',
@@ -65,20 +65,22 @@ class TagsController extends Controller {
 
     /**
      * @param CreateTag $request
-     * @return void
+     * @return Tag
      * @throws TagException
      */
-    public function store(CreateTag $request): void {
-        $this->tagsFacade->create($request);
+    public function store(CreateTag $request): Tag {
+        return $this->tagsFacade->create($request);
     }
 
     /**
      * @param Tag $tag
      * @param UpdateTag $request
+     * @return Tag
      * @throws TagException
      */
-    public function update(Tag $tag, UpdateTag $request): void {
+    public function update(Tag $tag, UpdateTag $request): Tag {
         $this->tagsFacade->update($tag, $request);
+        return $tag;
     }
 
     /**

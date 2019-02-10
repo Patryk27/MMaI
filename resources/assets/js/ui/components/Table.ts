@@ -3,7 +3,7 @@ import $ from 'jquery';
 import swal from 'sweetalert';
 import { Loader } from './Loader';
 
-interface InteractiveTableConfiguration {
+interface Configuration {
     autofocus?: boolean;
     loaderSelector?: string | JQuery;
     source: string;
@@ -18,7 +18,7 @@ export class Table {
     private readonly loader?: Loader;
     private readonly table: JQuery;
 
-    constructor(private readonly config: InteractiveTableConfiguration) {
+    constructor(private readonly config: Configuration) {
         if (config.loaderSelector) {
             this.loader = new Loader(config.loaderSelector);
         }
@@ -47,30 +47,12 @@ export class Table {
         this.table = $(this.dataTable.table().container());
     }
 
-    /**
-     * Binds an event handler to the table itself.
-     *
-     * # Example
-     *
-     * ```javascript
-     * table.on('click', () => { ... })
-     * ```
-     */
     public on(eventName: string, eventHandler: () => void): void {
         this.table.on(eventName, eventHandler);
     }
 
-    /**
-     * Binds an event handler to given table's column.
-     *
-     * # Example
-     *
-     * ```javascript
-     * table.onColumn('some-column', 'click', () => { ... })
-     * ```
-     */
-    public onColumn(columnName: string, eventName: string, eventHandler: () => void): void {
-        this.table.on(eventName, `[data-column="${columnName}"]`, eventHandler);
+    public onRowAction(eventName: string, actionName: string, actionHandler: () => void): void {
+        this.table.on(eventName, `[data-action="${actionName}"]`, actionHandler);
     }
 
     public refresh(): void {

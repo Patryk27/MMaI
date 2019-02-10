@@ -1,49 +1,26 @@
 import { app } from '@/Application';
-import { Table } from '@/ui/components';
-
-function getFilters(): any {
-    const filters = $('#pages-filters');
-
-    return {
-        type: {
-            operator: 'in',
-            value: filters.find('[name="types[]"]').val(),
-        },
-
-        routeUrl: {
-            operator: 'expression',
-            value: filters.find('[name="url"]').val(),
-        },
-
-        websiteId: {
-            operator: 'in',
-            value: filters.find('[name="website_ids[]"]').val(),
-        },
-
-        status: {
-            operator: 'in',
-            value: filters.find('[name="statuses[]"]').val(),
-        },
-    };
-}
+import { PagesFilters } from '@/components/pages/PagesFilters';
+import { PagesTable } from '@/components/pages/PagesTable';
 
 app.onViewReady('backend.pages.index', () => {
-    const table = new Table({
-        autofocus: true,
-        loaderSelector: '#pages-loader',
-        source: '/api/pages',
-        tableSelector: '#pages-table',
+    const pagesFilters = new PagesFilters({
+        dom: {
+            container: $('#pages-filters'),
+        },
 
-        onPrepareRequest(request) {
-            return Object.assign(request, {
-                filters: getFilters(),
-            });
+        events: {
+            onChange() {
+                pagesTable.refresh(pagesFilters.get);
+            },
         },
     });
 
-    $('#pages-filters').on('change', () => {
-        table.refresh();
+    const pagesTable = new PagesTable({
+        dom: {
+            loader: $('#pages-loader'),
+            table: $('#pages-table'),
+        },
     });
 
-    table.refresh();
+    pagesTable.refresh(pagesFilters.get);
 });

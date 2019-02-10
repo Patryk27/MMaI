@@ -36,8 +36,8 @@ class PagesController extends Controller {
      * @throws CoreException
      */
     public function index(Request $request): ApiSearcherResponse {
-        $baseView = 'backend.components.table.';
-        $pagesView = 'backend.components.pages.table.';
+        $baseView = 'backend.components.table.columns.';
+        $pagesView = 'backend.components.pages.table.columns.';
 
         $this->apiSearcher->addColumns([
             'id' => $baseView . 'id',

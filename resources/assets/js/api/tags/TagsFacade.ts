@@ -19,7 +19,7 @@ export class TagsFacade {
         });
     }
 
-    public static create(tag: Tag): Promise<void> {
+    public static create(tag: Tag): Promise<Tag> {
         return ApiClient.request({
             method: 'post',
             url: '/api/tags',
@@ -27,10 +27,10 @@ export class TagsFacade {
         });
     }
 
-    public static update(id: number, tag: any): Promise<void> {
+    public static update(tag: Tag): Promise<Tag> {
         return ApiClient.request({
             method: 'put',
-            url: `/api/tags/${id}`,
+            url: `/api/tags/${tag.id}`,
             data: tag,
         });
     }

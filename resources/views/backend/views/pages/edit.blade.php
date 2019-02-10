@@ -20,6 +20,6 @@
     </div>
 
     <div id="form">
-        @include('backend.views.pages.create-edit.form')
+        @include('backend.components.pages.form')
     </div>
 @endsection

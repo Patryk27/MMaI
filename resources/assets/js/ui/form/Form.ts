@@ -1,5 +1,4 @@
-import { FormError } from '@/ui/form/FormError';
-import { FormControl } from './FormControl';
+import { FormControl, FormError } from '@/ui/form';
 
 interface FormConfiguration {
     controls: Array<FormControl>,

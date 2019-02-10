@@ -2,9 +2,9 @@ import { Tippy } from '@/utils/Tippy';
 
 interface Action {
     title: string,
-    cssClass: string,
+    class: string,
 
-    handle(): void;
+    handle(): Promise<any> | void;
 }
 
 interface Configuration {
@@ -16,14 +16,20 @@ export class ContextMenu {
     constructor(private readonly config: Configuration) {
     }
 
-    public run(anchor: JQuery): void {
+    public show(anchor: JQuery): void {
         const menu = $('<div>');
 
         for (const [, action] of Object.entries(this.config.actions)) {
             $('<a>')
-                .addClass('btn btn-sm ' + action.cssClass)
+                .addClass('btn btn-sm ' + action.class)
                 .text(action.title)
-                .on('click', action.handle)
+                .on('click', () => {
+                    const result = action.handle();
+
+                    if (result instanceof Promise) {
+                        result.catch(window.onerror);
+                    }
+                })
                 .appendTo(menu);
         }
 

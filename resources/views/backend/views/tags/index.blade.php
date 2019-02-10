@@ -5,12 +5,23 @@
 @section('title', 'Tags')
 
 @section('content')
-    @include('backend.views.tags.index.modals.create-tag')
-    @include('backend.views.tags.index.modals.edit-tag')
-    @include('backend.views.tags.index.header')
+    <div class="content-header">
+        <h1 class="title">
+            Tags
+        </h1>
+
+        <div class="toolbar">
+            <a id="create-tag-button" class="btn btn-primary">
+                Create new tag
+            </a>
+        </div>
+    </div>
 
     <div id="tags-loader" data-loader-type="tile">
-        @include('backend.views.tags.index.filters')
-        @include('backend.views.tags.index.table')
+        @include('backend.components.tags.table.filters')
+        @include('backend.components.tags.table')
     </div>
+
+    @include('backend.components.tags.form.create-modal')
+    @include('backend.components.tags.form.edit-modal')
 @endsection

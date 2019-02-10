@@ -2,6 +2,7 @@
 
 namespace App\Pages\Implementation\Repositories;
 
+use App\Core\Exceptions\Exception;
 use App\Core\Repositories\EloquentRepository;
 use App\Pages\Models\Page;
 use App\Routes\Exceptions\RouteException;
@@ -65,6 +66,7 @@ class EloquentPagesRepository implements PagesRepository {
             $this->repository->persist($page);
 
             $this->persistRoute($page, isset($oldPage) ? $oldPage->route : null, $page->route);
+            $this->persistAttachments($page);
             $this->persistTags($page);
         });
     }
@@ -103,6 +105,18 @@ class EloquentPagesRepository implements PagesRepository {
                     'model_id' => $page->id,
                 ]));
             }
+        }
+    }
+
+    /**
+     * @param Page $page
+     * @return void
+     * @throws Exception
+     */
+    private function persistAttachments(Page $page): void {
+        foreach ($page->attachments as $attachment) {
+            $attachment->page_id = $page->id;
+            $attachment->saveOrThrow();
         }
     }
 
