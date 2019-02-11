@@ -1,4 +1,4 @@
-import { Attachment } from '@/api/attachments/Attachment';
+import { Attachment } from '@/modules/attachments/Attachment';
 
 export class AttachmentsTable {
 

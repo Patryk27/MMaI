@@ -1,6 +1,6 @@
-import { Attachment } from '@/api/attachments/Attachment';
-import { EditAttachmentForm } from '@/components/attachments/EditAttachmentForm';
-import { GenericModalForm } from '@/components/core/GenericModalForm';
+import { Attachment } from '@/modules/attachments/Attachment';
+import { EditAttachmentForm } from '@/modules/attachments/EditAttachmentForm';
+import { GenericModalForm } from '@/modules/core/GenericModalForm';
 
 export class EditAttachmentModal {
 

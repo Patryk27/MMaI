@@ -1,9 +1,9 @@
-import { TagsFacade } from '@/api/tags/TagsFacade';
 import { app } from '@/Application';
-import { CreateTagModal } from '@/components/tags/CreateTagModal';
-import { EditTagModal } from '@/components/tags/EditTagModal';
-import { TagsFilters } from '@/components/tags/TagsFilters';
-import { TagsTable } from '@/components/tags/TagsTable';
+import { CreateTagModal } from '@/modules/tags/CreateTagModal';
+import { EditTagModal } from '@/modules/tags/EditTagModal';
+import { TagsFacade } from '@/modules/tags/TagsFacade';
+import { TagsFilters } from '@/modules/tags/TagsFilters';
+import { TagsTable } from '@/modules/tags/TagsTable';
 import { ContextMenu } from '@/ui/components';
 import { EventBus } from '@/utils/EventBus';
 

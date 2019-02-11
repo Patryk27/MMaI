@@ -1,7 +1,7 @@
-import { AttachmentsTable } from '@/components/attachments/AttachmentsTable';
-import { EditAttachmentModal } from '@/components/attachments/EditAttachmentModal';
-import { RemoveAttachmentModal } from '@/components/attachments/RemoveAttachmentModal';
-import { UploadAttachmentModal } from '@/components/attachments/UploadAttachmentModal';
+import { AttachmentsTable } from '@/modules/attachments/AttachmentsTable';
+import { EditAttachmentModal } from '@/modules/attachments/EditAttachmentModal';
+import { RemoveAttachmentModal } from '@/modules/attachments/RemoveAttachmentModal';
+import { UploadAttachmentModal } from '@/modules/attachments/UploadAttachmentModal';
 import { FormControl, FormError } from '@/ui/form';
 import { EventBus } from '@/utils/EventBus';
 

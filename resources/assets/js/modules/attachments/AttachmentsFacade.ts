@@ -1,6 +1,6 @@
-import { ApiClient } from '../ApiClient';
-import { ApiTrackedResponse } from '../ApiTrackedResponse';
-import { Attachment } from './Attachment';
+import { Attachment } from '@/modules/attachments/Attachment';
+import { ApiConnector } from '@/modules/core/ApiConnector';
+import { ApiTrackedResponse } from '@/modules/core/ApiTrackedResponse';
 
 export class AttachmentsFacade {
 
@@ -8,7 +8,7 @@ export class AttachmentsFacade {
         const data = new FormData();
         data.append('attachment', file);
 
-        return ApiClient.trackedRequest({
+        return ApiConnector.trackedRequest({
             method: 'post',
             url: '/api/attachments',
             data,

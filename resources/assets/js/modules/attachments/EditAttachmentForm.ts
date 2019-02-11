@@ -1,5 +1,5 @@
-import { Attachment } from '@/api/attachments/Attachment';
-import { GenericForm } from '@/components/core/GenericForm';
+import { Attachment } from '@/modules/attachments/Attachment';
+import { GenericForm } from '@/modules/core/GenericForm';
 import { Input } from '@/ui/components/Input';
 import { Form } from '@/ui/form/Form';
 import { FormInputControl } from '@/ui/form/FormInputControl';

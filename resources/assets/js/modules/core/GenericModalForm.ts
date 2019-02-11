@@ -1,4 +1,4 @@
-import { GenericForm } from '@/components/core/GenericForm';
+import { GenericForm } from '@/modules/core/GenericForm';
 import { Button, Modal } from '@/ui/components';
 
 export class GenericModalForm<Entity, Form extends GenericForm<Entity>> {

@@ -1,6 +1,6 @@
-import { Tag } from '@/api/tags/Tag';
-import { GenericModalForm } from '@/components/core/GenericModalForm';
-import { CreateTagForm } from '@/components/tags/CreateTagForm';
+import { GenericModalForm } from '@/modules/core/GenericModalForm';
+import { CreateTagForm } from '@/modules/tags/CreateTagForm';
+import { Tag } from '@/modules/tags/Tag';
 
 export class CreateTagModal {
 

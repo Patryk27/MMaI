@@ -1,6 +1,6 @@
 import { app } from '@/Application';
-import { PagesFilters } from '@/components/pages/PagesFilters';
-import { PagesTable } from '@/components/pages/PagesTable';
+import { PagesFilters } from '@/modules/pages/PagesFilters';
+import { PagesTable } from '@/modules/pages/PagesTable';
 
 app.onViewReady('backend.pages.index', () => {
     const pagesFilters = new PagesFilters({

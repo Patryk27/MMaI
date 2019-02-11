@@ -1,6 +1,6 @@
-import { Tag } from '@/api/tags/Tag';
-import { TagsFacade } from '@/api/tags/TagsFacade';
-import { GenericForm } from '@/components/core/GenericForm';
+import { GenericForm } from '@/modules/core/GenericForm';
+import { Tag } from '@/modules/tags/Tag';
+import { TagsFacade } from '@/modules/tags/TagsFacade';
 import { Input } from '@/ui/components/Input';
 import { Select } from '@/ui/components/Select';
 import { Form, FormInputControl } from '@/ui/form';

@@ -1,4 +1,4 @@
-import { TagsFacade } from '@/api/tags/TagsFacade';
+import { TagsFacade } from '@/modules/tags/TagsFacade';
 import { Input, Select } from '@/ui/components';
 import { Form, FormControl, FormError, FormInputControl, FormSelectControl } from '@/ui/form';
 import SimpleMDE from 'simplemde';

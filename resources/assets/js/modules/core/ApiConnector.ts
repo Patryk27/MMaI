@@ -2,7 +2,7 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { ApiError } from './ApiError';
 import { ApiTrackedResponse } from './ApiTrackedResponse';
 
-export class ApiClient {
+export class ApiConnector {
 
     public static async request<T>(request: AxiosRequestConfig): Promise<T> {
         try {
@@ -15,15 +15,15 @@ export class ApiClient {
 
                 switch (response.status) {
                     case 413:
-                        ApiClient.handleHttp413();
+                        ApiConnector.handleHttp413();
                         return;
 
                     case 422:
-                        ApiClient.handleHttp422(response);
+                        ApiConnector.handleHttp422(response);
                         return;
 
                     case 500:
-                        ApiClient.handleHttp500(response);
+                        ApiConnector.handleHttp500(response);
                         return;
                 }
             }
@@ -43,7 +43,7 @@ export class ApiClient {
             });
         };
 
-        ApiClient.request<T>(request)
+        ApiConnector.request<T>(request)
             .then((data) => {
                 trackedResponse.fireSuccess(data);
             })

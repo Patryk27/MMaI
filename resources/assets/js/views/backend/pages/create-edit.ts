@@ -1,5 +1,5 @@
 import { app } from '@/Application';
-import { PageForm } from '@/components/pages/PageForm';
+import { PageForm } from '@/modules/pages/PageForm';
 import { Button, Overlay } from '@/ui/components';
 
 function run() {

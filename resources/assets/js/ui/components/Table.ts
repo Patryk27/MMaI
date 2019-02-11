@@ -1,4 +1,4 @@
-import { ApiClient } from '@/api/ApiClient';
+import { ApiConnector } from '@/modules/core/ApiConnector';
 import $ from 'jquery';
 import swal from 'sweetalert';
 import { Loader } from './Loader';
@@ -85,7 +85,7 @@ export class Table {
         }
 
         try {
-            const response: any = await ApiClient.request({
+            const response: any = await ApiConnector.request({
                 method: 'get',
                 url: this.config.source,
                 params: {

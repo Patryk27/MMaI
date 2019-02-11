@@ -1,10 +1,9 @@
-import { ApiClient } from '../ApiClient';
+import { ApiConnector } from '@/modules/core/ApiConnector';
 
-// @todo create "Page" model
 export class PagesFacade {
 
     public static create(page: object): Promise<{ redirectTo: string }> {
-        return ApiClient.request({
+        return ApiConnector.request({
             method: 'post',
             url: '/api/pages',
             data: page,
@@ -12,7 +11,7 @@ export class PagesFacade {
     }
 
     public static update(id: number, page: object): Promise<{ redirectTo: string }> {
-        return ApiClient.request({
+        return ApiConnector.request({
             method: 'put',
             url: '/api/pages/' + id,
             data: page,

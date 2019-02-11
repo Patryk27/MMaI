@@ -1,6 +1,6 @@
-import { AttachmentsSection } from '@/components/pages/form/AttachmentsSection';
-import { NotesSection } from '@/components/pages/form/NotesSection';
-import { PageSection } from '@/components/pages/form/PageSection';
+import { AttachmentsSection } from '@/modules/pages/form/AttachmentsSection';
+import { NotesSection } from '@/modules/pages/form/NotesSection';
+import { PageSection } from '@/modules/pages/form/PageSection';
 import { Form } from '@/ui/form';
 import { EventBus } from '@/utils/EventBus';
 

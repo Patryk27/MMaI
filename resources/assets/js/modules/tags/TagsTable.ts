@@ -1,4 +1,4 @@
-import { Tag } from '@/api/tags/Tag';
+import { Tag } from '@/modules/tags/Tag';
 import { Table } from '@/ui/components';
 
 interface Configuration {

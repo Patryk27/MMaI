@@ -1,5 +1,5 @@
-import { Attachment } from '@/api/attachments/Attachment';
-import { AttachmentsFacade } from '@/api/attachments/AttachmentsFacade';
+import { Attachment } from '@/modules/attachments/Attachment';
+import { AttachmentsFacade } from '@/modules/attachments/AttachmentsFacade';
 import { FilePicker, ProgressBar } from '@/ui/components';
 import { Modal } from '@/ui/components/Modal';
 
