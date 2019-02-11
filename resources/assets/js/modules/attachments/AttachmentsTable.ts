@@ -8,29 +8,36 @@ export class AttachmentsTable {
         this.rowTemplate = table.find('.template');
     }
 
-    public onAttachment(actionName: string, actionHandler: (payload: any) => void): void {
+    public onAttachment(actionName: string, actionHandler: (attachment: Attachment) => void): void {
         this.table.on('click', `[data-action=${actionName}]`, (evt) => {
             const row = $(evt.target).closest('tr');
 
-            actionHandler({
-                attachment: row.data('attachment'),
-            });
+            actionHandler(
+                row.data('attachment'),
+            );
 
             evt.stopPropagation();
         });
     }
 
     public add(attachment: Attachment): void {
-        const row = this.rowTemplate.clone();
+        this.rowTemplate
+            .clone()
+            .removeClass('template')
+            .data('attachment', attachment)
+            .appendTo(this.table.find('tbody'));
+
+        this.update(attachment);
+    }
+
+    public update(attachment: Attachment): void {
+        const row = this.findRow(attachment.id);
 
         row.data('attachment', attachment);
         row.find('[data-column="id"]').text(attachment.id);
         row.find('[data-column="name"] .name').text(attachment.name);
         row.find('[data-column="mime"]').text(attachment.mime);
         row.find('[data-column="size"]').text(attachment.size);
-
-        row.removeClass('template');
-        row.appendTo(this.table.find('tbody'));
     }
 
     public remove(attachment: Attachment): void {

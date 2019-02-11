@@ -14,7 +14,13 @@ function run() {
 
         pageForm.submit()
             .then((result) => {
-                console.log(result);
+                if (result && result.redirectTo) {
+                    window.location.href = result.redirectTo;
+                } else {
+                    overlay.hide();
+                    submitButton.enable();
+                    submitButton.hideSpinner();
+                }
             })
             .catch(window.onerror);
     });

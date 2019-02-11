@@ -20,15 +20,22 @@ export class AttachmentsSection implements FormControl {
         this.editModal = new EditAttachmentModal($('#edit-attachment-modal'));
         this.removeModal = new RemoveAttachmentModal();
 
-        this.table.onAttachment('download', ({ attachment }) => {
-            alert('download: ' + attachment.url);
+        this.table.onAttachment('download', (attachment) => {
+            window.open(attachment.url);
         });
 
-        this.table.onAttachment('edit', ({ attachment }) => {
-            alert('edit: ' + attachment.url);
+        this.table.onAttachment('edit', (attachment) => {
+            this.editModal
+                .show(attachment)
+                .then((attachment) => {
+                    if (attachment) {
+                        bus.emit('attachment::edited', attachment);
+                    }
+                })
+                .catch(window.onerror);
         });
 
-        this.table.onAttachment('remove', ({ attachment }) => {
+        this.table.onAttachment('remove', (attachment) => {
             this.removeModal
                 .remove(attachment)
                 .then((deleted) => {
@@ -41,6 +48,10 @@ export class AttachmentsSection implements FormControl {
 
         bus.on('attachment::uploaded', (attachment) => {
             this.table.add(attachment);
+        });
+
+        bus.on('attachment::edited', (attachment) => {
+            this.table.update(attachment);
         });
 
         bus.on('attachment::removed', (attachment) => {

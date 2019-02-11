@@ -1,6 +1,7 @@
 import { AttachmentsSection } from '@/modules/pages/form/AttachmentsSection';
 import { NotesSection } from '@/modules/pages/form/NotesSection';
 import { PageSection } from '@/modules/pages/form/PageSection';
+import { PagesFacade } from '@/modules/pages/PagesFacade';
 import { Form } from '@/ui/form';
 import { EventBus } from '@/utils/EventBus';
 
@@ -19,14 +20,19 @@ export class PageForm {
                 new PageSection(),
             ],
         });
-
     }
 
-    public async submit(): Promise<object | null> {
+    public async submit(): Promise<{ redirectTo: string } | null> {
         this.form.clearErrors();
 
         try {
-            console.log('@todo');
+            const page = this.form.serialize();
+
+            if (page.id) {
+                return await PagesFacade.update(page.id, page);
+            } else {
+                return await PagesFacade.create(page);
+            }
         } catch (error) {
             if (error.formErrors) {
                 this.form.addErrors(error.formErrors);

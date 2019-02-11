@@ -28,6 +28,7 @@ export class EditAttachmentForm implements GenericForm<Attachment> {
         try {
             Object.assign(this.attachment, this.form.serialize());
 
+            return this.attachment;
             // return await AttachmentsFacade.update(this.attachment); @todo
         } catch (error) {
             if (error.formErrors) {

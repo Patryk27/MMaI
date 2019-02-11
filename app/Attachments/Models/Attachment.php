@@ -77,6 +77,15 @@ class Attachment extends Model implements Presentable {
     }
 
     /**
+     * @return array
+     */
+    public function toArray(): array {
+        return array_merge(parent::toArray(), [
+            'url' => $this->getPresenter()->getUrl(),
+        ]);
+    }
+
+    /**
      * @inheritDoc
      */
     public static function getPresenterClass(): string {
