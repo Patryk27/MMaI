@@ -12,7 +12,7 @@ class Flasher {
         TYPE_WARNING = 'warning',
         TYPE_ERROR = 'danger';
 
-    /*** @var SessionStore */
+    /** @var SessionStore */
     private $session;
 
     public function __construct(SessionStore $session) {

@@ -3,11 +3,11 @@
 namespace App\Tags\Implementation\Services;
 
 use App\Tags\Events\TagUpdated;
-use App\Tags\Exceptions\TagException;
 use App\Tags\Implementation\Repositories\TagsRepository;
 use App\Tags\Models\Tag;
 use App\Tags\Requests\UpdateTag;
 use Illuminate\Contracts\Events\Dispatcher as EventsDispatcher;
+use Illuminate\Validation\ValidationException;
 
 class TagsUpdater {
 
@@ -34,7 +34,7 @@ class TagsUpdater {
      * @param Tag $tag
      * @param UpdateTag $request
      * @return void
-     * @throws TagException
+     * @throws ValidationException
      */
     public function update(Tag $tag, UpdateTag $request): void {
         $tag->name = $request->get('name');

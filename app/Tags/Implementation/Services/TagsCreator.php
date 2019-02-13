@@ -3,11 +3,11 @@
 namespace App\Tags\Implementation\Services;
 
 use App\Tags\Events\TagCreated;
-use App\Tags\Exceptions\TagException;
 use App\Tags\Implementation\Repositories\TagsRepository;
 use App\Tags\Models\Tag;
 use App\Tags\Requests\CreateTag;
 use Illuminate\Contracts\Events\Dispatcher as EventsDispatcher;
+use Illuminate\Validation\ValidationException;
 
 class TagsCreator {
 
@@ -33,7 +33,7 @@ class TagsCreator {
     /**
      * @param CreateTag $request
      * @return Tag
-     * @throws TagException
+     * @throws ValidationException
      */
     public function create(CreateTag $request): Tag {
         $tag = new Tag([

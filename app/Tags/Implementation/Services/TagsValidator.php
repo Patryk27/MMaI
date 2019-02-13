@@ -2,9 +2,10 @@
 
 namespace App\Tags\Implementation\Services;
 
-use App\Tags\Exceptions\TagException;
 use App\Tags\Implementation\Repositories\TagsRepository;
 use App\Tags\Models\Tag;
+use Illuminate\Validation\ValidationException;
+use Validator;
 
 class TagsValidator {
 
@@ -18,48 +19,38 @@ class TagsValidator {
     /**
      * @param Tag $tag
      * @return void
-     * @throws TagException
+     * @throws ValidationException
      */
     public function validate(Tag $tag): void {
-        $this->assertHasName($tag);
-        $this->assertHasWebsite($tag);
-        $this->assertIsUnique($tag);
+        $this->validateScalars($tag);
+        $this->validateUniqueness($tag);
     }
 
     /**
      * @param Tag $tag
      * @return void
-     * @throws TagException
+     * @throws ValidationException
      */
-    private function assertHasName(Tag $tag): void {
-        if (strlen($tag->name) === 0) {
-            throw new TagException('Tag must be assigned a name.');
-        }
+    private function validateScalars(Tag $tag): void {
+        Validator::validate($tag->toArray(), [
+            'name' => ['string', 'regex:/^[a-zA-Z\-]+$/'],
+            'website_id' => 'integer',
+        ]);
     }
 
     /**
      * @param Tag $tag
      * @return void
-     * @throws TagException
      */
-    private function assertHasWebsite(Tag $tag): void {
-        if (is_null($tag->website_id)) {
-            throw new TagException('Tag must be assigned a website.');
-        }
-    }
-
-    /**
-     * @param Tag $tag
-     * @return void
-     * @throws TagException
-     */
-    private function assertIsUnique(Tag $tag): void {
+    private function validateUniqueness(Tag $tag): void {
         $duplicatedTag = $this->tagsRepository->getByWebsiteIdAndName(
             $tag->website_id, $tag->name
         );
 
         if (isset($duplicatedTag) && $duplicatedTag->id !== $tag->id) {
-            throw new TagException('Tag with such name already exists.');
+            throw ValidationException::withMessages([
+                'name' => 'This name has been taken.',
+            ]);
         }
     }
 

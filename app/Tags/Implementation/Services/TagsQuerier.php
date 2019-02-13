@@ -2,7 +2,6 @@
 
 namespace App\Tags\Implementation\Services;
 
-use App\Tags\Exceptions\TagException;
 use App\Tags\Implementation\Repositories\TagsRepository;
 use App\Tags\Models\Tag;
 use App\Tags\Queries\GetAllTags;
@@ -10,6 +9,7 @@ use App\Tags\Queries\GetTagById;
 use App\Tags\Queries\SearchTags;
 use App\Tags\Queries\TagsQuery;
 use Illuminate\Support\Collection;
+use LogicException;
 
 class TagsQuerier {
 
@@ -30,7 +30,6 @@ class TagsQuerier {
     /**
      * @param TagsQuery $query
      * @return Collection|Tag[]
-     * @throws TagException
      */
     public function query(TagsQuery $query): Collection {
         switch (true) {
@@ -48,7 +47,7 @@ class TagsQuerier {
                 return $query->applyTo($this->tagsSearcher)->get();
 
             default:
-                throw new TagException(sprintf(
+                throw new LogicException(sprintf(
                     'Cannot handle query of class [%s].', get_class($query)
                 ));
         }
@@ -59,7 +58,6 @@ class TagsQuerier {
      *
      * @param TagsQuery $query
      * @return int
-     * @throws TagException
      */
     public function count(TagsQuery $query): int {
         switch (true) {

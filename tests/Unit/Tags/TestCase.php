@@ -13,6 +13,9 @@ use Tests\Unit\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase {
 
+    /** @var EventFake */
+    protected $eventsDispatcher;
+
     /** @var InMemoryTagsRepository */
     protected $tagsRepository;
 
@@ -25,7 +28,7 @@ abstract class TestCase extends BaseTestCase {
     public function setUp(): void {
         parent::setUp();
 
-        $eventsDispatcher = new EventFake(
+        $this->eventsDispatcher = new EventFake(
             $this->app->make(EventsDispatcher::class)
         );
 
@@ -36,7 +39,7 @@ abstract class TestCase extends BaseTestCase {
         $tagsSearcher = new InMemoryTagsSearcher();
 
         $this->tagsFacade = TagsFactory::build(
-            $eventsDispatcher,
+            $this->eventsDispatcher,
             $this->tagsRepository,
             $tagsSearcher
         );
