@@ -6,7 +6,6 @@ use App\Application\Http\Controllers\Controller;
 use App\Core\Api\ApiSearcher;
 use App\Core\Api\Searcher\ApiSearcherResponse;
 use App\Core\Exceptions\Exception as CoreException;
-use App\Tags\Exceptions\TagException;
 use App\Tags\Models\Tag;
 use App\Tags\Queries\SearchTags;
 use App\Tags\Requests\CreateTag;
@@ -14,6 +13,7 @@ use App\Tags\Requests\UpdateTag;
 use App\Tags\TagsFacade;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Illuminate\Validation\ValidationException;
 
 class TagsController extends Controller {
 
@@ -66,7 +66,7 @@ class TagsController extends Controller {
     /**
      * @param CreateTag $request
      * @return Tag
-     * @throws TagException
+     * @throws ValidationException
      */
     public function store(CreateTag $request): Tag {
         return $this->tagsFacade->create($request);
@@ -76,7 +76,7 @@ class TagsController extends Controller {
      * @param Tag $tag
      * @param UpdateTag $request
      * @return Tag
-     * @throws TagException
+     * @throws ValidationException
      */
     public function update(Tag $tag, UpdateTag $request): Tag {
         $this->tagsFacade->update($tag, $request);
