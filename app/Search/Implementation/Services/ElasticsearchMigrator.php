@@ -1,6 +1,6 @@
 <?php
 
-namespace App\SearchEngine\Implementation\Services;
+namespace App\Search\Implementation\Services;
 
 use Elasticsearch\Client as ElasticsearchClient;
 

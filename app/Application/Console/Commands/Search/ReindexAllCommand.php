@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Application\Console\Commands\SearchEngine;
+namespace App\Application\Console\Commands\Search;
 
 use App\Pages\Exceptions\PageException;
 use App\Pages\Models\Page;
 use App\Pages\PagesFacade;
 use App\Pages\Queries\SearchPages;
-use App\SearchEngine\SearchEngineFacade;
+use App\Search\SearchFacade;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
 
 final class ReindexAllCommand extends Command {
 
     /** @var string */
-    protected $signature = 'app:search-engine:reindex-all';
+    protected $signature = 'app:search:reindex';
 
     /** @var string */
     protected $description = 'Reindex all the pages.';
@@ -21,15 +21,15 @@ final class ReindexAllCommand extends Command {
     /** @var PagesFacade */
     private $pagesFacade;
 
-    /** @var SearchEngineFacade */
-    private $searchEngineFacade;
+    /** @var SearchFacade */
+    private $searchFacade;
 
     public function __construct(
         PagesFacade $pagesFacade,
-        SearchEngineFacade $searchEngineFacade
+        SearchFacade $searchFacade
     ) {
         $this->pagesFacade = $pagesFacade;
-        $this->searchEngineFacade = $searchEngineFacade;
+        $this->searchFacade = $searchFacade;
 
         parent::__construct();
     }
@@ -72,7 +72,7 @@ final class ReindexAllCommand extends Command {
 
         // Begin to re-index all the pages
         foreach ($pages as $page) {
-            $this->searchEngineFacade->index($page);
+            $this->searchFacade->index($page);
             $progressBar->advance();
         }
 

@@ -1,22 +1,22 @@
 <?php
 
-namespace App\SearchEngine;
+namespace App\Search;
 
 use App\Pages\PagesFacade;
-use App\SearchEngine\Implementation\Policies\PagesIndexerPolicy;
-use App\SearchEngine\Implementation\Services\ElasticsearchMigrator;
-use App\SearchEngine\Implementation\Services\PagesIndexer;
-use App\SearchEngine\Implementation\Services\PagesSearcher;
+use App\Search\Implementation\Policies\PagesIndexerPolicy;
+use App\Search\Implementation\Services\ElasticsearchMigrator;
+use App\Search\Implementation\Services\PagesIndexer;
+use App\Search\Implementation\Services\PagesSearcher;
 use Elasticsearch\Client as ElasticsearchClient;
 use Illuminate\Contracts\Events\Dispatcher as EventsDispatcher;
 
-final class SearchEngineFactory {
+final class SearchFactory {
 
     public static function build(
         EventsDispatcher $eventsDispatcher,
         ElasticsearchClient $elasticsearch,
         PagesFacade $pagesFacade
-    ): SearchEngineFacade {
+    ): SearchFacade {
         $elasticsearchMigrator = new ElasticsearchMigrator($elasticsearch);
 
         $pagesIndexerPolicy = new PagesIndexerPolicy();
@@ -24,7 +24,7 @@ final class SearchEngineFactory {
 
         $pagesSearcher = new PagesSearcher($eventsDispatcher, $elasticsearch, $pagesFacade);
 
-        return new SearchEngineFacade(
+        return new SearchFacade(
             $elasticsearchMigrator,
             $pagesIndexer,
             $pagesSearcher

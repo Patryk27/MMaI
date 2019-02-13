@@ -12,7 +12,7 @@ use App\Analytics\Models\Event;
 use App\Analytics\Queries\EventsQuery;
 use App\Application\Events\LoginAttempted;
 use App\Application\Events\RequestServed;
-use App\SearchEngine\Events\QueryPerformed;
+use App\Search\Events\QueryPerformed;
 use Event as EventFacade;
 use Illuminate\Support\Collection;
 

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\SearchEngine\Implementation\Listeners;
+namespace App\Search\Implementation\Listeners;
 
 use App\Pages\Exceptions\PageException;
 use App\Pages\PagesFacade;
 use App\Pages\Queries\GetPagesByTagId;
-use App\SearchEngine\SearchEngineFacade;
+use App\Search\SearchFacade;
 use App\Tags\Events\TagUpdated;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
@@ -14,15 +14,15 @@ final class TagUpdatedListener implements ShouldQueue {
     /** @var PagesFacade */
     private $pagesFacade;
 
-    /** @var SearchEngineFacade */
-    private $searchEngineFacade;
+    /** @var SearchFacade */
+    private $searchFacade;
 
     public function __construct(
         PagesFacade $pagesFacade,
-        SearchEngineFacade $searchEngineFacade
+        SearchFacade $searchFacade
     ) {
         $this->pagesFacade = $pagesFacade;
-        $this->searchEngineFacade = $searchEngineFacade;
+        $this->searchFacade = $searchFacade;
     }
 
     /**
@@ -38,7 +38,7 @@ final class TagUpdatedListener implements ShouldQueue {
         );
 
         foreach ($pages as $page) {
-            $this->searchEngineFacade->index($page);
+            $this->searchFacade->index($page);
         }
     }
 

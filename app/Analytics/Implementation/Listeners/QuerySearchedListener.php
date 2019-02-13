@@ -3,7 +3,7 @@
 namespace App\Analytics\Implementation\Listeners;
 
 use App\Analytics\Models\Event;
-use App\SearchEngine\Events\QueryPerformed;
+use App\Search\Events\QueryPerformed;
 
 final class QuerySearchedListener extends Listener {
 

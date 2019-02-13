@@ -1,9 +1,9 @@
 <?php
 
-namespace App\SearchEngine\Implementation\Listeners;
+namespace App\Search\Implementation\Listeners;
 
 use App\Pages\Events\PageCreated;
-use App\SearchEngine\Implementation\Services\PagesIndexer;
+use App\Search\Implementation\Services\PagesIndexer;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 final class PageCreatedListener implements ShouldQueue {

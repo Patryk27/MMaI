@@ -1,29 +1,29 @@
 <?php
 
-namespace App\Application\Console\Commands\SearchEngine;
+namespace App\Application\Console\Commands\Search;
 
 use App\Pages\Exceptions\PageException;
 use App\Pages\Models\Page;
-use App\SearchEngine\Queries\Search;
-use App\SearchEngine\SearchEngineFacade;
+use App\Search\Queries\Search;
+use App\Search\SearchFacade;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
 
 final class SearchCommand extends Command {
 
-    public const NAME = 'app:search-engine:search';
+    public const NAME = 'app:search:query';
 
     /** @var string */
-    protected $signature = 'app:search-engine:search {query}';
+    protected $signature = 'app:search:query {query}';
 
     /** @var string */
     protected $description = 'Search for posts and pages matching given query.';
 
-    /** @var SearchEngineFacade */
-    private $searchEngineFacade;
+    /** @var SearchFacade */
+    private $searchFacade;
 
-    public function __construct(SearchEngineFacade $searchEngineFacade) {
-        $this->searchEngineFacade = $searchEngineFacade;
+    public function __construct(SearchFacade $searchFacade) {
+        $this->searchFacade = $searchFacade;
 
         parent::__construct();
     }
@@ -33,7 +33,7 @@ final class SearchCommand extends Command {
      * @throws PageException
      */
     public function handle(): void {
-        $pages = $this->searchEngineFacade->search(
+        $pages = $this->searchFacade->search(
             new Search([
                 'query' => $this->input->getArgument('query'),
             ])

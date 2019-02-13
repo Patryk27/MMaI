@@ -1,8 +1,8 @@
 <?php
 
-namespace App\SearchEngine\Events;
+namespace App\Search\Events;
 
-use App\SearchEngine\Queries\Search;
+use App\Search\Queries\Search;
 use Illuminate\Queue\SerializesModels;
 
 final class QueryPerformed {

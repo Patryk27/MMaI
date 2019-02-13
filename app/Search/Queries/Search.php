@@ -1,6 +1,6 @@
 <?php
 
-namespace App\SearchEngine\Queries;
+namespace App\Search\Queries;
 
 use App\Websites\Models\Website;
 

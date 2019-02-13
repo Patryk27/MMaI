@@ -22,8 +22,8 @@ use App\Pages\PagesFactory;
 use App\Routes\Implementation\Repositories\EloquentRoutesRepository;
 use App\Routes\RoutesFacade;
 use App\Routes\RoutesFactory;
-use App\SearchEngine\SearchEngineFacade;
-use App\SearchEngine\SearchEngineFactory;
+use App\Search\SearchFacade;
+use App\Search\SearchFactory;
 use App\Tags\Implementation\Repositories\EloquentTagsRepository;
 use App\Tags\Implementation\Services\Searcher\EloquentTagsSearcher;
 use App\Tags\TagsFacade;
@@ -45,7 +45,7 @@ final class FacadesProvider extends ServiceProvider {
         MenusFacade::class,
         PagesFacade::class,
         RoutesFacade::class,
-        SearchEngineFacade::class,
+        SearchFacade::class,
         TagsFacade::class,
         WebsitesFacade::class,
     ];
@@ -109,8 +109,8 @@ final class FacadesProvider extends ServiceProvider {
         });
 
         // == Search engine == //
-        $this->app->singleton(SearchEngineFacade::class, function (): SearchEngineFacade {
-            return SearchEngineFactory::build(
+        $this->app->singleton(SearchFacade::class, function (): SearchFacade {
+            return SearchFactory::build(
                 $this->app->make(EventsDispatcher::class),
                 $this->app->make(ElasticsearchManager::class)->connection(),
                 $this->app->make(PagesFacade::class)

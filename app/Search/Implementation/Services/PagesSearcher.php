@@ -1,13 +1,13 @@
 <?php
 
-namespace App\SearchEngine\Implementation\Services;
+namespace App\Search\Implementation\Services;
 
 use App\Pages\Exceptions\PageException;
 use App\Pages\Models\Page;
 use App\Pages\PagesFacade;
 use App\Pages\Queries\GetPagesByIds;
-use App\SearchEngine\Events\QueryPerformed;
-use App\SearchEngine\Queries\Search;
+use App\Search\Events\QueryPerformed;
+use App\Search\Queries\Search;
 use Elasticsearch\Client as ElasticsearchClient;
 use Illuminate\Contracts\Events\Dispatcher as EventsDispatcher;
 use Illuminate\Support\Collection;

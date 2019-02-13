@@ -1,23 +1,23 @@
 <?php
 
-namespace App\SearchEngine;
+namespace App\Search;
 
 use App\Pages\Events\PageCreated;
 use App\Pages\Events\PageUpdated;
 use App\Pages\Exceptions\PageException;
 use App\Pages\Models\Page;
-use App\SearchEngine\Implementation\Listeners\PageCreatedListener;
-use App\SearchEngine\Implementation\Listeners\PageUpdatedListener;
-use App\SearchEngine\Implementation\Listeners\TagUpdatedListener;
-use App\SearchEngine\Implementation\Services\ElasticsearchMigrator;
-use App\SearchEngine\Implementation\Services\PagesIndexer;
-use App\SearchEngine\Implementation\Services\PagesSearcher;
-use App\SearchEngine\Queries\Search;
+use App\Search\Implementation\Listeners\PageCreatedListener;
+use App\Search\Implementation\Listeners\PageUpdatedListener;
+use App\Search\Implementation\Listeners\TagUpdatedListener;
+use App\Search\Implementation\Services\ElasticsearchMigrator;
+use App\Search\Implementation\Services\PagesIndexer;
+use App\Search\Implementation\Services\PagesSearcher;
+use App\Search\Queries\Search;
 use App\Tags\Events\TagUpdated;
 use Event;
 use Illuminate\Support\Collection;
 
-final class SearchEngineFacade {
+final class SearchFacade {
 
     /** @var ElasticsearchMigrator */
     private $elasticsearchMigrator;

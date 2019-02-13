@@ -1,6 +1,6 @@
 <?php
 
-namespace App\SearchEngine\Implementation\Policies;
+namespace App\Search\Implementation\Policies;
 
 use App\Pages\Models\Page;
 

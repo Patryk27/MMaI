@@ -9,9 +9,9 @@ use App\Pages\Exceptions\PageException;
 use App\Pages\Models\Page;
 use App\Pages\PagesFacade;
 use App\Pages\ValueObjects\RenderedPage;
-use App\SearchEngine\Queries\Search;
+use App\Search\Queries\Search;
 use App\Application\Http\Requests\Frontend\Search as SearchRequest;
-use App\SearchEngine\SearchEngineFacade;
+use App\Search\SearchFacade;
 use Illuminate\Support\Collection;
 
 class SearchController extends Controller {
@@ -19,19 +19,19 @@ class SearchController extends Controller {
     /** @var WebsiteDetector */
     private $websiteDetector;
 
-    /** @var SearchEngineFacade */
-    private $searchEngineFacade;
+    /** @var SearchFacade */
+    private $searchFacade;
 
     /** @var PagesFacade */
     private $pagesFacade;
 
     public function __construct(
         WebsiteDetector $websiteDetector,
-        SearchEngineFacade $searchEngineFacade,
+        SearchFacade $searchFacade,
         PagesFacade $pagesFacade
     ) {
         $this->websiteDetector = $websiteDetector;
-        $this->searchEngineFacade = $searchEngineFacade;
+        $this->searchFacade = $searchFacade;
         $this->pagesFacade = $pagesFacade;
     }
 
@@ -51,8 +51,7 @@ class SearchController extends Controller {
     public function search(SearchRequest $request) {
         $website = $this->websiteDetector->detectOrFail($request);
 
-        /** @var Collection|Page[] $pages */
-        $pages = $this->searchEngineFacade->search(
+        $pages = $this->searchFacade->search(
             new Search([
                 'query' => $request->get('query'),
                 'type' => Page::TYPE_POST,
