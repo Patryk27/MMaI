@@ -74,20 +74,14 @@ final class AttachmentsFacade {
     /**
      * Removes all the detached attachments from the filesystem.
      *
-     * Should be run e.g. each day to make sure there are no unused left-overs
-     * in the storage.
+     * @see AttachmentsGarbageCollector::BEHAVIOUR_PEACEFUL
+     * @see AttachmentsGarbageCollector::BEHAVIOUR_AGGRESSIVE
      *
-     * When $aggressive is set to `false`, only detached attachments older than
-     * 1 day are removed.
-     *
-     * When $aggressive is set to `true`, all the detached attachments are
-     * removed (ignoring timestamps).
-     *
-     * @param bool $aggressive
+     * @param string $behaviour
      * @return AttachmentsGarbageCollectorResult
      */
-    public function collectGarbage(bool $aggressive = false): AttachmentsGarbageCollectorResult {
-        return $this->attachmentsGarbageCollector->collectGarbage($aggressive);
+    public function collectGarbage(string $behaviour): AttachmentsGarbageCollectorResult {
+        return $this->attachmentsGarbageCollector->collectGarbage($behaviour);
     }
 
     /**

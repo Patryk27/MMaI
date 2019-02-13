@@ -2,12 +2,10 @@
 
 namespace Tests\Unit\Attachments;
 
+use App\Attachments\Implementation\Services\AttachmentsGarbageCollector;
 use App\Attachments\Models\Attachment;
 use Carbon\Carbon;
 
-/**
- * @see \App\Attachments\Implementation\Services\AttachmentsGarbageCollector
- */
 class CollectGarbageTest extends TestCase {
 
     /** @var Attachment[] */
@@ -19,54 +17,50 @@ class CollectGarbageTest extends TestCase {
     public function setUp(): void {
         parent::setUp();
 
+        // Create an attachment bound to a post; such attachment should never be
+        // picked up by the garbage collector
+        $boundAttachment = $this->createAttachment('bound');
+        $boundAttachment->page_id = 100;
+
+        // Create a fresh attachment, created just now, which should be picked
+        // up only by the aggressive collector
+        $unboundFreshAttachment = $this->createAttachment('unbound-fresh');
+
+        // Create a one-month-old attachment that should be picked up by both
+        // garbage collectors
+        $unboundOldAttachment = $this->createAttachment('unbound-old');
+        $unboundOldAttachment->created_at = Carbon::now()->subMonth();
+
         $this->attachments = [
-            'bound' => $this->createAttachment('bound'),
-            'unbound-new' => $this->createAttachment('unbound-new'),
-            'unbound-old' => $this->createAttachment('unbound-old'),
+            'bound' => $boundAttachment,
+            'unbound-fresh' => $unboundFreshAttachment,
+            'unbound-old' => $unboundOldAttachment,
         ];
 
-        // Attach the "bound" attachment to something
-        $this->attachments['bound']->attachable_type = 'something';
-        $this->attachments['bound']->attachable_id = 100;
-
-        // Change the "unbound-old" attachment so that it's actually old
-        $this->attachments['unbound-old']->created_at = Carbon::now()->subMonth();
-
-        // Re-save all the attachments, since we have just modified a few
         foreach ($this->attachments as $attachment) {
             $this->attachmentsRepository->persist($attachment);
         }
     }
 
     /**
-     * The "non-aggressive" garbage collector should delete only the
-     * "unbound-old" attachment - this test makes sure that happens.
-     *
      * @return void
      */
-    public function testNonAggressive(): void {
-        // Execute the garbage collector
-        $this->attachmentsFacade->collectGarbage(false);
+    public function testPeacefulCollector(): void {
+        $this->attachmentsFacade->collectGarbage(AttachmentsGarbageCollector::BEHAVIOUR_PEACEFUL);
 
-        // Make sure we're left with the "bound" and "unbound-new" attachments
-        // only
         $attachments = $this->attachmentsRepository->getAll();
 
         $this->assertCount(2, $attachments);
         $this->assertEquals($this->attachments['bound'], $attachments[$this->attachments['bound']->id]);
-        $this->assertEquals($this->attachments['unbound-new'], $attachments[$this->attachments['unbound-new']->id]);
+        $this->assertEquals($this->attachments['unbound-fresh'], $attachments[$this->attachments['unbound-fresh']->id]);
     }
 
     /**
-     * The "aggressive" garbage collector should delete both the unbound
-     * attachments - this test makes sure that happens.
-     *
      * @return void
      */
-    public function testAggressive(): void {
-        $this->attachmentsFacade->collectGarbage(true);
+    public function testAggressiveCollector(): void {
+        $this->attachmentsFacade->collectGarbage(AttachmentsGarbageCollector::BEHAVIOUR_AGGRESSIVE);
 
-        // Make sure we're left with the "bound" attachment only
         $attachments = $this->attachmentsRepository->getAll();
 
         $this->assertCount(1, $attachments);

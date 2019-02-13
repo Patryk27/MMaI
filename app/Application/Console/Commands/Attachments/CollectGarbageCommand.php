@@ -3,6 +3,7 @@
 namespace App\Application\Console\Commands\Attachments;
 
 use App\Attachments\AttachmentsFacade;
+use App\Attachments\Implementation\Services\AttachmentsGarbageCollector;
 use Illuminate\Console\Command;
 
 final class CollectGarbageCommand extends Command {
@@ -28,12 +29,16 @@ final class CollectGarbageCommand extends Command {
     public function handle(): void {
         $this->output->writeln('Removing detached attachments...');
 
-        $result = $this->attachmentsFacade->collectGarbage(
-            $this->option('aggressive') ?? false
-        );
+        if ($this->option('aggressive')) {
+            $behaviour = AttachmentsGarbageCollector::BEHAVIOUR_AGGRESSIVE;
+        } else {
+            $behaviour = AttachmentsGarbageCollector::BEHAVIOUR_PEACEFUL;
+        }
+
+        $result = $this->attachmentsFacade->collectGarbage($behaviour);
 
         $this->output->writeln(sprintf(
-            'Scanned <info>%d</info> attachments, <info>%d</info> got removed.',
+            'Found <info>%d</info> detached attachments, <info>%d</info> got removed.',
             $result->getScannedAttachmentsCount(),
             $result->getRemovedAttachmentsCount()
         ));
