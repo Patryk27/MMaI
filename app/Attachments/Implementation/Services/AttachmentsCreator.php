@@ -4,8 +4,8 @@ namespace App\Attachments\Implementation\Services;
 
 use App\Attachments\Implementation\Repositories\AttachmentsRepository;
 use App\Attachments\Models\Attachment;
+use App\Attachments\Requests\CreateAttachment;
 use Illuminate\Contracts\Filesystem\Filesystem;
-use Illuminate\Http\UploadedFile;
 use Throwable;
 
 class AttachmentsCreator {
@@ -25,19 +25,18 @@ class AttachmentsCreator {
     }
 
     /**
-     * @param UploadedFile $file
+     * @param CreateAttachment $request
      * @return Attachment
      * @throws Throwable
      */
-    public function createFromFile(UploadedFile $file): Attachment {
+    public function create(CreateAttachment $request): Attachment {
+        $file = $request->file('attachment');
+
         $attachment = new Attachment([
             'name' => $file->getClientOriginalName() ?? $file->getFilename(),
             'size' => $file->getSize(),
             'mime' => $file->getMimeType(),
-
-            'path' => bin2hex(
-                random_bytes(32)
-            ),
+            'path' => bin2hex(random_bytes(32)),
         ]);
 
         $this->attachmentsFs->put($attachment->path, $file->get());

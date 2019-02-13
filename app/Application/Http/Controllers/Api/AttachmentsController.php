@@ -4,7 +4,9 @@ namespace App\Application\Http\Controllers\Api;
 
 use App\Application\Http\Controllers\Controller;
 use App\Attachments\AttachmentsFacade;
+use App\Attachments\Models\Attachment;
 use App\Attachments\Requests\CreateAttachment;
+use App\Attachments\Requests\UpdateAttachment;
 use Throwable;
 
 class AttachmentsController extends Controller {
@@ -18,23 +20,22 @@ class AttachmentsController extends Controller {
 
     /**
      * @param CreateAttachment $request
-     * @return array
+     * @return Attachment
      * @throws Throwable
      */
-    public function store(CreateAttachment $request): array {
-        $attachment = $this->attachmentsFacade->createFromFile(
-            $request->file('attachment')
-        );
+    public function store(CreateAttachment $request): Attachment {
+        return $this->attachmentsFacade->create($request);
+    }
 
-        $attachmentPresenter = $attachment->getPresenter();
+    /**
+     * @param Attachment $attachment
+     * @param UpdateAttachment $request
+     * @return Attachment
+     */
+    public function update(Attachment $attachment, UpdateAttachment $request): Attachment {
+        $this->attachmentsFacade->update($attachment, $request);
 
-        return [
-            'id' => $attachment->id,
-            'name' => $attachment->name,
-            'mime' => $attachment->mime,
-            'size' => $attachment->getSizeForHumans(),
-            'url' => $attachmentPresenter->getUrl(),
-        ];
+        return $attachment;
     }
 
 }

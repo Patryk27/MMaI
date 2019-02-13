@@ -22,18 +22,20 @@ export class ApiError {
         return this._payload;
     }
 
-    public get formErrors(): Array<FormError> {
-        const errors: Array<FormError> = [];
+    public get formErrors(): Array<FormError> | null {
+        if (this.type === 'invalid-input' && this.payload) {
+            const errors: Array<FormError> = [];
 
-        if (this.payload) {
             for (const [fieldName, fieldErrors] of Object.entries(this.payload)) {
                 (<Array<string>><undefined>fieldErrors).forEach((fieldError) => {
                     errors.push(new FormError(fieldName, fieldError));
                 });
             }
-        }
 
-        return errors;
+            return errors;
+        } else {
+            return null;
+        }
     }
 
     public display(title: string): void {

@@ -8,8 +8,10 @@ Route::prefix('api')->group(function () {
     // /api/attachments
     Route::prefix('attachments')->group(function () {
         // POST /api/attachments
-        Route::post('/', AttachmentsController::class . '@store')
-            ->name('backend.attachments.store');
+        Route::post('/', AttachmentsController::class . '@store');
+
+        // PUT /api/attachments/:attachment
+        Route::put('/{attachment}', AttachmentsController::class . '@update');
     });
 
     // /api/pages

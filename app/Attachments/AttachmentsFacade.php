@@ -8,10 +8,12 @@ use App\Attachments\Implementation\Services\AttachmentsCreator;
 use App\Attachments\Implementation\Services\AttachmentsGarbageCollector;
 use App\Attachments\Implementation\Services\AttachmentsQuerier;
 use App\Attachments\Implementation\Services\AttachmentsStreamer;
+use App\Attachments\Implementation\Services\AttachmentsUpdater;
 use App\Attachments\Models\Attachment;
 use App\Attachments\Queries\AttachmentsQuery;
+use App\Attachments\Requests\CreateAttachment;
+use App\Attachments\Requests\UpdateAttachment;
 use App\Attachments\ValueObjects\AttachmentsGarbageCollectorResult;
-use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
 use Throwable;
 
@@ -19,6 +21,9 @@ final class AttachmentsFacade {
 
     /** @var AttachmentsCreator */
     private $attachmentsCreator;
+
+    /** @var AttachmentsUpdater */
+    private $attachmentsUpdater;
 
     /** @var AttachmentsGarbageCollector */
     private $attachmentsGarbageCollector;
@@ -31,25 +36,39 @@ final class AttachmentsFacade {
 
     public function __construct(
         AttachmentsCreator $attachmentsCreator,
+        AttachmentsUpdater $attachmentsUpdater,
         AttachmentsGarbageCollector $attachmentsGarbageCollector,
         AttachmentsStreamer $attachmentsStreamer,
         AttachmentsQuerier $attachmentsQuerier
     ) {
         $this->attachmentsCreator = $attachmentsCreator;
+        $this->attachmentsUpdater = $attachmentsUpdater;
         $this->attachmentsGarbageCollector = $attachmentsGarbageCollector;
         $this->attachmentsStreamer = $attachmentsStreamer;
         $this->attachmentsQuerier = $attachmentsQuerier;
     }
 
     /**
-     * Creates a detached attachment.
+     * Creates a detached attachment which should be manually linked to
+     * appropriate page later.
      *
-     * @param UploadedFile $file
+     * @param CreateAttachment $request
      * @return Attachment
      * @throws Throwable
      */
-    public function createFromFile(UploadedFile $file): Attachment {
-        return $this->attachmentsCreator->createFromFile($file);
+    public function create(CreateAttachment $request): Attachment {
+        return $this->attachmentsCreator->create($request);
+    }
+
+    /**
+     * Updates specified attachment in the database.
+     *
+     * @param Attachment $attachment
+     * @param UpdateAttachment $request
+     * @return void
+     */
+    public function update(Attachment $attachment, UpdateAttachment $request): void {
+        $this->attachmentsUpdater->update($attachment, $request);
     }
 
     /**

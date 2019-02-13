@@ -81,6 +81,7 @@ class Attachment extends Model implements Presentable {
      */
     public function toArray(): array {
         return array_merge(parent::toArray(), [
+            'size_for_humans' => $this->getSizeForHumans(),
             'url' => $this->getPresenter()->getUrl(),
         ]);
     }

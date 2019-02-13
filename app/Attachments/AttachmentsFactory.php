@@ -8,6 +8,7 @@ use App\Attachments\Implementation\Services\AttachmentsDeleter;
 use App\Attachments\Implementation\Services\AttachmentsGarbageCollector;
 use App\Attachments\Implementation\Services\AttachmentsQuerier;
 use App\Attachments\Implementation\Services\AttachmentsStreamer;
+use App\Attachments\Implementation\Services\AttachmentsUpdater;
 use Illuminate\Contracts\Filesystem\Filesystem as Filesystem;
 
 final class AttachmentsFactory {
@@ -17,6 +18,7 @@ final class AttachmentsFactory {
         AttachmentsRepository $attachmentsRepository
     ): AttachmentsFacade {
         $attachmentsCreator = new AttachmentsCreator($attachmentsFs, $attachmentsRepository);
+        $attachmentsUpdater = new AttachmentsUpdater($attachmentsRepository);
         $attachmentsDeleter = new AttachmentsDeleter($attachmentsFs, $attachmentsRepository);
         $attachmentsGarbageCollector = new AttachmentsGarbageCollector($attachmentsFs, $attachmentsRepository, $attachmentsDeleter);
         $attachmentsPathGenerator = new AttachmentsStreamer($attachmentsFs);
@@ -24,6 +26,7 @@ final class AttachmentsFactory {
 
         return new AttachmentsFacade(
             $attachmentsCreator,
+            $attachmentsUpdater,
             $attachmentsGarbageCollector,
             $attachmentsPathGenerator,
             $attachmentsQuerier

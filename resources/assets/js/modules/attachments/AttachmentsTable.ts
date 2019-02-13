@@ -34,10 +34,11 @@ export class AttachmentsTable {
         const row = this.findRow(attachment.id);
 
         row.data('attachment', attachment);
+
         row.find('[data-column="id"]').text(attachment.id);
         row.find('[data-column="name"] .name').text(attachment.name);
         row.find('[data-column="mime"]').text(attachment.mime);
-        row.find('[data-column="size"]').text(attachment.size);
+        row.find('[data-column="size"]').text(attachment.sizeForHumans);
     }
 
     public remove(attachment: Attachment): void {

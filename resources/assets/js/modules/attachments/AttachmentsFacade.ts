@@ -15,4 +15,12 @@ export class AttachmentsFacade {
         });
     }
 
+    public static async update(attachment: Attachment): Promise<Attachment> {
+        return new Attachment(await ApiConnector.request({
+            method: 'put',
+            url: '/api/attachments/' + attachment.id,
+            data: attachment,
+        }));
+    }
+
 }

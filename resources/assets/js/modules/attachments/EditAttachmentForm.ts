@@ -1,4 +1,5 @@
 import { Attachment } from '@/modules/attachments/Attachment';
+import { AttachmentsFacade } from '@/modules/attachments/AttachmentsFacade';
 import { GenericForm } from '@/modules/core/GenericForm';
 import { Input } from '@/ui/components/Input';
 import { Form } from '@/ui/form/Form';
@@ -28,8 +29,7 @@ export class EditAttachmentForm implements GenericForm<Attachment> {
         try {
             Object.assign(this.attachment, this.form.serialize());
 
-            return this.attachment;
-            // return await AttachmentsFacade.update(this.attachment); @todo
+            return await AttachmentsFacade.update(this.attachment);
         } catch (error) {
             if (error.formErrors) {
                 this.form.addErrors(error.formErrors);
