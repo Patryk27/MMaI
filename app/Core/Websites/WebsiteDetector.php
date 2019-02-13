@@ -26,7 +26,7 @@ class WebsiteDetector {
      */
     public function detect(Request $request): ?Website {
         try {
-            $subdomain = $request->route('subdomain');
+            $subdomain = $request->route('subdomain') ?? '';
 
             return $this->websitesFacade->queryOne(
                 new GetWebsiteBySlug($subdomain)
