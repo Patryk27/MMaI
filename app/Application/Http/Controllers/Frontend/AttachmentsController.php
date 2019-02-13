@@ -4,7 +4,7 @@ namespace App\Application\Http\Controllers\Frontend;
 
 use App\Application\Http\Controllers\Controller;
 use App\Attachments\AttachmentsFacade;
-use App\Attachments\Exceptions\AttachmentException;
+use App\Attachments\Exceptions\AttachmentNotFoundException;
 use App\Attachments\Queries\GetAttachmentByPath;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -26,7 +26,7 @@ class AttachmentsController extends Controller {
             $attachment = $this->attachmentsFacade->queryOne(
                 new GetAttachmentByPath($path)
             );
-        } catch (AttachmentException $ex) {
+        } catch (AttachmentNotFoundException $ex) {
             throw new NotFoundHttpException('This attachment could not have been found.');
         }
 

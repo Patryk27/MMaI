@@ -2,13 +2,13 @@
 
 namespace App\Attachments\Implementation\Services;
 
-use App\Attachments\Exceptions\AttachmentException;
 use App\Attachments\Implementation\Repositories\AttachmentsRepository;
 use App\Attachments\Models\Attachment;
 use App\Attachments\Queries\AttachmentsQuery;
 use App\Attachments\Queries\GetAttachmentById;
 use App\Attachments\Queries\GetAttachmentByPath;
 use Illuminate\Support\Collection;
+use LogicException;
 
 class AttachmentsQuerier {
 
@@ -22,7 +22,6 @@ class AttachmentsQuerier {
     /**
      * @param AttachmentsQuery $query
      * @return Collection|Attachment[]
-     * @throws AttachmentException
      */
     public function query(AttachmentsQuery $query): Collection {
         switch (true) {
@@ -41,7 +40,7 @@ class AttachmentsQuerier {
                 );
 
             default:
-                throw new AttachmentException(sprintf(
+                throw new LogicException(sprintf(
                     'Cannot handle query of class [%s].', get_class($query)
                 ));
         }

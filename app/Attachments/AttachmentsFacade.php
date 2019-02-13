@@ -101,7 +101,7 @@ final class AttachmentsFacade {
      *
      * @param AttachmentsQuery $query
      * @return Attachment
-     * @throws AttachmentException
+     * @throws AttachmentNotFoundException
      */
     public function queryOne(AttachmentsQuery $query): Attachment {
         $attachments = $this->queryMany($query);
@@ -118,7 +118,6 @@ final class AttachmentsFacade {
      *
      * @param AttachmentsQuery $query
      * @return Collection|Attachment[]
-     * @throws AttachmentException
      */
     public function queryMany(AttachmentsQuery $query): Collection {
         return $this->attachmentsQuerier->query($query);
