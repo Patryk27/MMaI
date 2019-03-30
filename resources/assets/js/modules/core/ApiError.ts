@@ -3,7 +3,7 @@ import swal from 'sweetalert';
 
 export class ApiError {
 
-    constructor(
+    public constructor(
         private readonly _type: string,
         private readonly _message: string,
         private readonly _payload?: any,

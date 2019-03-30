@@ -10,7 +10,7 @@ export class PageSection implements FormControl {
     private readonly form: Form;
     private readonly simpleMde: SimpleMDE;
 
-    constructor() {
+    public constructor() {
         const container = $('#page-form');
 
         this.form = new Form({

@@ -6,29 +6,22 @@ use App\Pages\Models\Page;
 use App\Routes\Models\Route;
 
 /**
- * This test checks the routes deleting functionality.
+ * This test covers all the functionality related to deleting routes.
  *
- * At the beginning we are setting up following routes:
+ * Basically - we're starting with following routes:
+ *   A => B => C => [first page]
+ *   D => [second page]
  *
- *   first-route   =>  second-route  =>  third-route  => [first page]
- *   fourth-route  =>  [second page]
+ * (that is: route A redirects to route B, which redirects to route C, which
+ * eventually redirects to the proper page)
  *
- * (that is: the first route points at the second one, which points at the third
- * one, while the fourth is entirely independent on them).
+ * We're then deleting the B route, which should leave us with following state:
+ *   A => C => [first page]
+ *   D => [second page]
  *
- * Then we are deleting the second route, which should leave us with following
- * structure:
- *
- *   first-route  =>  third-route  => [first page]
- *   fourth-route
- *
- * Then we delete the first route, which should leave us with:
- *
- *   third-route  => [first page]
- *   fourth-route
- *
- * Then we delete the third route and so we end up left with only the fourth
- * one.
+ * Then we're deleting the A route, which should leave us with:
+ *   C => [first page]
+ *   D => [second page]
  */
 class DeleteTest extends TestCase {
 
@@ -44,49 +37,57 @@ class DeleteTest extends TestCase {
     public function setUp(): void {
         parent::setUp();
 
-        $this->pages = [
-            'first' => new Page(),
-            'second' => new Page(),
-        ];
+        $firstPage = new Page();
+        $firstPage->setAttribute('id', 1);
 
-        $this->pages['first']->setAttribute('id', 100);
-        $this->pages['second']->setAttribute('id', 101);
+        $secondPage = new Page();
+        $secondPage->setAttribute('id', 2);
+
+        $routeA = new Route([
+            'subdomain' => 'test',
+            'url' => 'a',
+        ]);
+
+        $routeB = new Route([
+            'subdomain' => 'test',
+            'url' => 'b',
+        ]);
+
+        $routeC = new Route([
+            'subdomain' => 'test',
+            'url' => 'c',
+        ]);
+
+        $routeD = new Route([
+            'subdomain' => 'test',
+            'url' => 'd',
+        ]);
+
+        $this->pages = [
+            'first' => $firstPage,
+            'second' => $secondPage,
+        ];
 
         $this->routes = [
-            'first' => new Route([
-                'subdomain' => 'test',
-                'url' => 'first-route',
-            ]),
-
-            'second' => new Route([
-                'subdomain' => 'test',
-                'url' => 'second-route',
-            ]),
-
-            'third' => new Route([
-                'subdomain' => 'test',
-                'url' => 'third-route',
-            ]),
-
-            'fourth' => new Route([
-                'subdomain' => 'test',
-                'url' => 'fourth-route',
-            ]),
+            'a' => $routeA,
+            'b' => $routeB,
+            'c' => $routeC,
+            'd' => $routeD,
         ];
 
+        // We need to save all the routes before setting the relationships,
+        // because we need to have their ids
         foreach ($this->routes as $route) {
             $this->routesRepository->persist($route);
         }
 
-        // Set up routes' models; we cannot do it earlier (before the first
-        // persisting), since we need to have been assigned all routes their
-        // ids.
-        $this->routes['first']->setPointsAt($this->routes['second']);
-        $this->routes['second']->setPointsAt($this->routes['third']);
-        $this->routes['third']->setPointsAt($this->pages['first']);
-        $this->routes['fourth']->setPointsAt($this->pages['second']);
+        $routeA->setModel($routeB);
+        $routeB->setModel($routeC);
+        $routeC->setModel($firstPage);
+        $routeD->setModel($secondPage);
 
-        // Re-save routes - to persist the "set points at" changes
+        // Now we have to save them for the second time, since otherwise the
+        // just-modified versions would not be persisted
         foreach ($this->routes as $route) {
             $this->routesRepository->persist($route);
         }
@@ -96,42 +97,44 @@ class DeleteTest extends TestCase {
      * @return void
      */
     public function testDelete(): void {
-        $this->routesFacade->delete(
-            $this->routes['second']
-        );
+        // Let's delete the "B" route and see what happens
+        {
+            $this->routesFacade->delete($this->routes['b']);
 
-        $this->assertRouteExists('test', 'first-route');
-        $this->assertRouteDoesNotExist('test', 'second-route');
-        $this->assertRouteExists('test', 'third-route');
-        $this->assertRouteExists('test', 'fourth-route');
+            $this->assertRouteExists('test', 'a');
+            $this->assertRouteDoesNotExist('test', 'b');
+            $this->assertRouteExists('test', 'c');
+            $this->assertRouteExists('test', 'd');
 
-        $this->assertRoutePointsAt('test', 'first-route', $this->routes['third']);
-        $this->assertRoutePointsAt('test', 'third-route', $this->pages['first']);
-        $this->assertRoutePointsAt('test', 'fourth-route', $this->pages['second']);
+            $this->assertRoutePointsAt('test', 'a', $this->routes['c']);
+            $this->assertRoutePointsAt('test', 'c', $this->pages['first']);
+            $this->assertRoutePointsAt('test', 'd', $this->pages['second']);
+        }
 
-        // ----- //
+        // Let's delete the "A" route and see what happens
+        {
+            $this->routesFacade->delete($this->routes['a']);
 
-        $this->routesFacade->delete(
-            $this->routes['first']
-        );
+            $this->assertRouteDoesNotExist('test', 'a');
+            $this->assertRouteDoesNotExist('test', 'b');
+            $this->assertRouteExists('test', 'c');
+            $this->assertRouteExists('test', 'd');
 
-        $this->assertRouteDoesNotExist('test', 'first-route');
-        $this->assertRouteExists('test', 'third-route');
-        $this->assertRouteExists('test', 'fourth-route');
+            $this->assertRoutePointsAt('test', 'c', $this->pages['first']);
+            $this->assertRoutePointsAt('test', 'd', $this->pages['second']);
+        }
 
-        $this->assertRoutePointsAt('test', 'third-route', $this->pages['first']);
-        $this->assertRoutePointsAt('test', 'fourth-route', $this->pages['second']);
+        // Let's delete the "C" route and see what happens
+        {
+            $this->routesFacade->delete($this->routes['c']);
 
-        // ----- //
+            $this->assertRouteDoesNotExist('test', 'a');
+            $this->assertRouteDoesNotExist('test', 'b');
+            $this->assertRouteDoesNotExist('test', 'c');
+            $this->assertRouteExists('test', 'd');
 
-        $this->routesFacade->delete(
-            $this->routes['third']
-        );
-
-        $this->assertRouteDoesNotExist('test', 'third-route');
-        $this->assertRouteExists('test', 'fourth-route');
-
-        $this->assertRoutePointsAt('test', 'fourth-route', $this->pages['second']);
+            $this->assertRoutePointsAt('test', 'd', $this->pages['second']);
+        }
     }
 
 }

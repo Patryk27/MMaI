@@ -14,7 +14,7 @@ export class AttachmentsSection implements FormControl {
     private readonly editModal: EditAttachmentModal;
     private readonly removeModal: RemoveAttachmentModal;
 
-    constructor(bus: EventBus) {
+    public constructor(bus: EventBus) {
         this.table = new AttachmentsTable($('#attachments-table'));
         this.uploadModal = new UploadAttachmentModal($('#upload-attachment-modal'));
         this.editModal = new EditAttachmentModal($('#edit-attachment-modal'));

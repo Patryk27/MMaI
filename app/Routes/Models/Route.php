@@ -57,7 +57,7 @@ class Route extends Model implements Morphable {
      * @param Morphable $morphable
      * @return void
      */
-    public function setPointsAt(Morphable $morphable): void {
+    public function setModel(Morphable $morphable): void {
         $this->fill([
             'model_type' => $morphable->getMorphableType(),
             'model_id' => $morphable->getMorphableId(),

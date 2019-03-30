@@ -8,7 +8,7 @@ export class Form {
 
     private readonly controls: Array<FormControl>;
 
-    constructor(config: FormConfiguration) {
+    public constructor(config: FormConfiguration) {
         this.controls = config.controls;
     }
 

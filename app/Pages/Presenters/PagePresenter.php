@@ -17,15 +17,4 @@ final class PagePresenter extends Presenter {
         return __('base/models/page.enums.type.' . $this->model->type);
     }
 
-    /**
-     * @return string
-     */
-    public function getStatusBadge(): string {
-        return array_get([
-            Page::STATUS_DRAFT => 'badge-warning',
-            Page::STATUS_PUBLISHED => 'badge-success',
-            Page::STATUS_DELETED => 'badge-danger',
-        ], $this->model->status, '');
-    }
-
 }

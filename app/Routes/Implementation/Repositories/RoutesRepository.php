@@ -4,6 +4,7 @@ namespace App\Routes\Implementation\Repositories;
 
 use App\Core\Models\Morphable;
 use App\Routes\Models\Route;
+use Closure;
 use Illuminate\Support\Collection;
 
 interface RoutesRepository {
@@ -51,5 +52,13 @@ interface RoutesRepository {
      * @see \App\Routes\Implementation\Services\RoutesDeleter
      */
     public function delete(Route $route): void;
+
+    /**
+     * Executes specified action in a database transaction.
+     *
+     * @param Closure $fn
+     * @return void
+     */
+    public function transaction(Closure $fn): void;
 
 }

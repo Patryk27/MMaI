@@ -24,7 +24,7 @@ class RoutesDeleter {
         $parentRoutes = $this->routesRepository->getPointingAt($route);
 
         foreach ($parentRoutes as $parentRoute) {
-            $parentRoute->setPointsAt($route->model);
+            $parentRoute->setModel($route->model);
             $this->routesRepository->persist($parentRoute);
         }
 

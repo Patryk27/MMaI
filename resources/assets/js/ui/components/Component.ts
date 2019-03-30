@@ -2,7 +2,7 @@ export abstract class Component {
 
     protected handle: JQuery;
 
-    constructor(selector: any) {
+    public constructor(selector: any) {
         this.handle = $(selector);
     }
 
@@ -14,7 +14,7 @@ export abstract class Component {
         this.handle.prop('disabled', disabled);
     }
 
-    public on(event: string, handler: (...args: any) => void): void {
+    public on(event: string, handler: (...args: Array<any>) => void): void {
         this.handle.on(event, handler);
     }
 

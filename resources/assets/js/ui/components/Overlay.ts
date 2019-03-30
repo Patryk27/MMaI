@@ -2,7 +2,7 @@ export class Overlay {
 
     private overlay: JQuery;
 
-    constructor() {
+    public constructor() {
         this.overlay = $('#overlay');
     }
 

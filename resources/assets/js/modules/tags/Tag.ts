@@ -4,7 +4,7 @@ export class Tag {
     public websiteId: number;
     public name: string;
 
-    constructor(data: any) {
+    public constructor(data: any) {
         this.id = data.id;
         this.websiteId = data.website_id;
         this.name = data.name;

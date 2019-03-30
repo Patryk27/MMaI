@@ -4,7 +4,7 @@ export class AttachmentsTable {
 
     private readonly rowTemplate: JQuery;
 
-    constructor(private readonly table: JQuery) {
+    public constructor(private readonly table: JQuery) {
         this.rowTemplate = table.find('.template');
     }
 

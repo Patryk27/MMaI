@@ -3,7 +3,7 @@ export class Modal {
     private readonly modal: JQuery;
     private state: string;
 
-    constructor(selector: any) {
+    public constructor(selector: any) {
         this.modal = $(selector);
         this.state = 'hidden';
 
@@ -38,7 +38,7 @@ export class Modal {
         this.modal.modal('hide');
     }
 
-    public on(event: string, handler: (...args: any) => void): void {
+    public on(event: string, handler: (...args: Array<any>) => void): void {
         this.modal.on(event, handler);
     }
 

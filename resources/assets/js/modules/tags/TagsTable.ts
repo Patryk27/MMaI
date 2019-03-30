@@ -18,7 +18,7 @@ export class TagsTable {
     private readonly table: Table;
     private filters: object = {};
 
-    constructor(config: Configuration) {
+    public constructor(config: Configuration) {
         this.table = new Table({
             loaderSelector: config.dom.loader,
             tableSelector: config.dom.table,

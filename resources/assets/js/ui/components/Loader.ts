@@ -1,8 +1,8 @@
-export class Loader {
+export class Loader { // @todo LoaderComponent?
 
     private readonly container: JQuery;
 
-    constructor(selector: any) {
+    public constructor(selector: any) {
         this.container = $(selector);
         this.container.addClass('loader');
 

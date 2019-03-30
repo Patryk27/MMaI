@@ -1,43 +1,53 @@
 <?php
 
-use App\Application\Http\Controllers\Api\AttachmentsController;
-use App\Application\Http\Controllers\Api\PagesController;
-use App\Application\Http\Controllers\Api\TagsController;
+use App\Application\Interfaces\Http\Controllers\Api\AttachmentsController;
+use App\Application\Interfaces\Http\Controllers\Api\IndexController;
+use App\Application\Interfaces\Http\Controllers\Api\PagesController;
+use App\Application\Interfaces\Http\Controllers\Api\TagsController;
 
-Route::prefix('api')->group(function () {
-    // /api/attachments
+Route::domain('api.' . env('APP_DOMAIN'))->group(function () {
+    // GET /
+    Route::get('/', IndexController::class . '@index');
+
+    // /attachments
     Route::prefix('attachments')->group(function () {
-        // POST /api/attachments
+        // POST /attachments
         Route::post('/', AttachmentsController::class . '@store');
 
-        // PUT /api/attachments/:attachment
+        // PUT /attachments/:attachment
         Route::put('/{attachment}', AttachmentsController::class . '@update');
     });
 
-    // /api/pages
+    // /pages
     Route::prefix('pages')->group(function () {
-        // GET /api/pages
+        // GET /pages
         Route::get('/', PagesController::class . '@index');
 
-        // POST /api/pages
+        // GET /pages/grid
+        Route::get('grid', PagesController::class . '@grid');
+
+        // POST /pages
         Route::post('/', PagesController::class . '@store');
 
-        // PUT /api/pages/:page
+        // PUT /pages/:page
         Route::put('{page}', PagesController::class . '@update');
     });
 
-    // /api/tags
+    // /tags
     Route::prefix('tags')->group(function () {
-        // GET /api/tags
-        Route::get('/', TagsController::class . '@index');
+        // GET /tags/grid
+        Route::get('grid', TagsController::class . '@grid');
 
-        // POST /api/tags
+        // POST /tags/grid
+        Route::get('grid', TagsController::class . '@gridSearch');
+
+        // POST /tags
         Route::post('/', TagsController::class . '@store');
 
-        // PUT /api/tags/:tag
+        // PUT /tags/:tag
         Route::put('{tag}', TagsController::class . '@update');
 
-        // DELETE /api/tags/:tag
+        // DELETE /tags/:tag
         Route::delete('{tag}', TagsController::class . '@destroy');
     });
 });

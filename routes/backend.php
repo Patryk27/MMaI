@@ -1,11 +1,9 @@
 <?php
 
-use App\Application\Http\Controllers\Backend\Analytics\RequestsController as AnalyticsRequestsController;
-use App\Application\Http\Controllers\Backend\AnalyticsController;
-use App\Application\Http\Controllers\Backend\AuthorizationController;
-use App\Application\Http\Controllers\Backend\DashboardController;
-use App\Application\Http\Controllers\Backend\PagesController;
-use App\Application\Http\Controllers\Backend\TagsController;
+use App\Application\Interfaces\Http\Controllers\Backend\AuthorizationController;
+use App\Application\Interfaces\Http\Controllers\Backend\DashboardController;
+use App\Application\Interfaces\Http\Controllers\Backend\PagesController;
+use App\Application\Interfaces\Http\Controllers\Backend\TagsController;
 
 Route::domain('backend.' . env('APP_DOMAIN'))->group(function () {
     Route::redirect('/', 'auth');
@@ -31,17 +29,6 @@ Route::domain('backend.' . env('APP_DOMAIN'))->group(function () {
         Route::prefix('dashboard')->group(function () {
             Route::get('/', DashboardController::class . '@index')
                 ->name('backend.dashboard.index');
-        });
-
-        // /analytics
-        Route::prefix('analytics')->group(function () {
-            // GET /analytics
-            Route::get('/', AnalyticsController::class . '@index')
-                ->name('backend.analytics.index');
-
-            // GET /analytics/requests
-            Route::get('requests', AnalyticsRequestsController::class . '@index')
-                ->name('backend.analytics.requests');
         });
 
         // /pages

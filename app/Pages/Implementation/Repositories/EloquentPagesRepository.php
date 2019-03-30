@@ -5,7 +5,6 @@ namespace App\Pages\Implementation\Repositories;
 use App\Core\Exceptions\Exception;
 use App\Core\Repositories\EloquentRepository;
 use App\Pages\Models\Page;
-use App\Routes\Exceptions\RouteException;
 use App\Routes\Models\Route;
 use App\Routes\Requests\CreateRoute;
 use App\Routes\RoutesFacade;
@@ -76,7 +75,6 @@ class EloquentPagesRepository implements PagesRepository {
      * @param Route|null $previousRoute
      * @param Route|null $newRoute
      * @return void
-     * @throws RouteException
      */
     private function persistRoute(Page $page, ?Route $previousRoute, ?Route $newRoute): void {
         if (isset($previousRoute)) {

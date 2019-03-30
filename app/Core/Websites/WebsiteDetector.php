@@ -2,13 +2,13 @@
 
 namespace App\Core\Websites;
 
-use App\Core\Exceptions\Exception as CoreException;
 use App\Websites\Exceptions\WebsiteException;
 use App\Websites\Exceptions\WebsiteNotFoundException;
 use App\Websites\Models\Website;
 use App\Websites\Queries\GetWebsiteBySlug;
 use App\Websites\WebsitesFacade;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class WebsiteDetector {
 
@@ -39,15 +39,15 @@ class WebsiteDetector {
     /**
      * @param Request $request
      * @return Website
-     * @throws CoreException
      * @throws WebsiteException
+     * @throws NotFoundHttpException
      */
     public function detectOrFail(Request $request): Website {
         $website = $this->detect($request);
 
         if (is_null($website)) {
-            throw new CoreException(sprintf(
-                'Failed to detect website for URL [%s].', $request->url()
+            throw new NotFoundHttpException(sprintf(
+                'Website [%s] does not exist.', $request->url()
             ));
         }
 

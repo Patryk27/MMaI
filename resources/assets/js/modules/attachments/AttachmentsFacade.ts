@@ -1,5 +1,5 @@
 import { Attachment } from '@/modules/attachments/Attachment';
-import { ApiConnector } from '@/modules/core/ApiConnector';
+import { ApiClient } from '@/modules/core/ApiClient';
 import { ApiTrackedResponse } from '@/modules/core/ApiTrackedResponse';
 
 export class AttachmentsFacade {
@@ -8,7 +8,7 @@ export class AttachmentsFacade {
         const data = new FormData();
         data.append('attachment', file);
 
-        return ApiConnector.trackedRequest({
+        return ApiClient.trackedRequest({
             method: 'post',
             url: '/api/attachments',
             data,
@@ -16,7 +16,7 @@ export class AttachmentsFacade {
     }
 
     public static async update(attachment: Attachment): Promise<Attachment> {
-        return new Attachment(await ApiConnector.request({
+        return new Attachment(await ApiClient.request({
             method: 'put',
             url: '/api/attachments/' + attachment.id,
             data: attachment,

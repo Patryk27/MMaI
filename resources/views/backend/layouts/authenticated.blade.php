@@ -9,6 +9,14 @@
     'view' => $view,
 ])
 
+@section('layout-meta')
+    <script>
+        window.config = {
+            apiUrl: '//api.{{ env('APP_DOMAIN') }}',
+        };
+    </script>
+@endsection
+
 @section('layout-title')
     @yield('title') - {{ config('app.name') }}
 @endsection

@@ -7,7 +7,7 @@ export class NotesSection implements FormControl {
 
     private readonly notes: FormInputControl;
 
-    constructor() {
+    public constructor() {
         this.notes = new FormInputControl(
             'notes',
             Input.fromContainer($('#notes-form'), 'notes'),

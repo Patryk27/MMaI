@@ -2,8 +2,13 @@
 
 namespace App\Pages;
 
+use App\Grid\Query\GridQuery;
+use App\Grid\Response\GridResponse;
+use App\Grid\Schema\GridSchema;
 use App\Pages\Exceptions\PageException;
 use App\Pages\Exceptions\PageNotFoundException;
+use App\Pages\Implementation\Services\Grid\PagesGridQueryExecutor;
+use App\Pages\Implementation\Services\Grid\PagesGridSchemaProvider;
 use App\Pages\Implementation\Services\PagesModifier;
 use App\Pages\Implementation\Services\PagesQuerier;
 use App\Pages\Implementation\Services\PagesRenderer;
@@ -13,6 +18,7 @@ use App\Pages\Queries\PagesQuery;
 use App\Pages\Requests\CreatePage;
 use App\Pages\Requests\UpdatePage;
 use App\Pages\ValueObjects\RenderedPage;
+use App\Websites\Exceptions\WebsiteException;
 use Exception;
 use Gate;
 use Illuminate\Support\Collection;
@@ -28,14 +34,24 @@ final class PagesFacade {
     /** @var PagesQuerier */
     private $pagesQuerier;
 
+    /** @var PagesGridQueryExecutor */
+    private $pagesGridQueryExecutor;
+
+    /** @var PagesGridSchemaProvider */
+    private $pagesGridSchemaProvider;
+
     public function __construct(
         PagesModifier $pagesModifier,
         PagesRenderer $pagesRenderer,
-        PagesQuerier $pagesQuerier
+        PagesQuerier $pagesQuerier,
+        PagesGridQueryExecutor $pagesGridQueryExecutor,
+        PagesGridSchemaProvider $pagesGridSchemaProvider
     ) {
         $this->pagesModifier = $pagesModifier;
         $this->pagesRenderer = $pagesRenderer;
         $this->pagesQuerier = $pagesQuerier;
+        $this->pagesGridQueryExecutor = $pagesGridQueryExecutor;
+        $this->pagesGridSchemaProvider = $pagesGridSchemaProvider;
     }
 
     /**
@@ -67,7 +83,7 @@ final class PagesFacade {
     }
 
     /**
-     * Renders given page and returns the rendered VO.
+     * Renders given page and returns the rendered object.
      *
      * @param Page $page
      * @return RenderedPage
@@ -78,8 +94,8 @@ final class PagesFacade {
     }
 
     /**
-     * Returns the first page matching given query.
-     * Throws an exception if no such page exists.
+     * Returns the first page matching given query; throws an exception if no
+     * such page exists.
      *
      * @param PagesQuery $query
      * @return Page
@@ -108,14 +124,24 @@ final class PagesFacade {
     }
 
     /**
-     * Returns number of pages matching given query.
+     * Executes specified grid query, returning all the matching pages in
+     * response.
      *
-     * @param PagesQuery $query
-     * @return int
-     * @throws PageException
+     * @param GridQuery $query
+     * @return GridResponse
      */
-    public function queryCount(PagesQuery $query): int {
-        return $this->pagesQuerier->count($query);
+    public function executeGridQuery(GridQuery $query): GridResponse {
+        return $this->pagesGridQueryExecutor->executeQuery($query);
+    }
+
+    /**
+     * Returns schema for grid of pages.
+     *
+     * @return GridSchema
+     * @throws WebsiteException
+     */
+    public function prepareGridSchema(): GridSchema {
+        return $this->pagesGridSchemaProvider->prepareSchema();
     }
 
 }

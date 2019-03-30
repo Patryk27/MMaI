@@ -19,6 +19,9 @@ final class WebsitesFacade {
     }
 
     /**
+     * Returns the first website matching given query; throws an exception if no
+     * such website exists.
+     *
      * @param WebsitesQuery $query
      * @return Website
      * @throws WebsiteException
@@ -35,6 +38,8 @@ final class WebsitesFacade {
     }
 
     /**
+     * Returns all websites matching given query.
+     *
      * @param WebsitesQuery $query
      * @return Collection
      * @throws WebsiteException

@@ -101,14 +101,4 @@ final class TagsFacade {
         return $this->tagsQuerier->query($query);
     }
 
-    /**
-     * Returns number of tags matching given query.
-     *
-     * @param TagsQuery $query
-     * @return int
-     */
-    public function queryCount(TagsQuery $query): int {
-        return $this->tagsQuerier->count($query);
-    }
-
 }

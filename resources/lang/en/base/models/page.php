@@ -15,8 +15,6 @@ return [
         'updated_at' => 'Updated at',
         'published_at' => 'Published at',
 
-        // -- relationships -- //
-
         'route' => 'Route',
         'tags' => 'Tags',
         'website' => 'Website',

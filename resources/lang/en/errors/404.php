@@ -2,5 +2,5 @@
 
 return [
     'title' => 'Resource not found',
-    'description' => 'Sorry - the page or file you are looking for no longer exists.',
+    'description' => 'Sorry, the resource you are looking for does not exist.',
 ];

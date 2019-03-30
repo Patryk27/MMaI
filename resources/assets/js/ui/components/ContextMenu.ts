@@ -13,7 +13,7 @@ interface Configuration {
 
 export class ContextMenu {
 
-    constructor(private readonly config: Configuration) {
+    public constructor(private readonly config: Configuration) {
     }
 
     public show(anchor: JQuery): void {

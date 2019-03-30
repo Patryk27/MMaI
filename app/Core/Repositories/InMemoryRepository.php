@@ -3,9 +3,11 @@
 namespace App\Core\Repositories;
 
 use Carbon\Carbon;
+use Closure;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use LogicException;
+use Throwable;
 
 /**
  * This class provides a few basic implementations which can be used to
@@ -115,6 +117,24 @@ final class InMemoryRepository {
         }
 
         $this->items->forget($id);
+    }
+
+    /**
+     * Executes specified action in a database transaction.
+     *
+     * Since we do not support snapshotting the internal underlying collection,
+     * when an exception is thrown, the repository panics (i.e. it only
+     * supports the happy path that assumes no actual exception happens).
+     *
+     * @param Closure $fn
+     * @return void
+     */
+    public function transaction(Closure $fn): void {
+        try {
+            $fn();
+        } catch (Throwable $ex) {
+            throw new LogicException('In-memory repositories does not support rolling back transactions.', 0, $ex);
+        }
     }
 
     /**

@@ -8,6 +8,8 @@ use App\Routes\Models\Route;
 
 class RoutesRedirector {
 
+    private const MAX_DEPTH = 50; // chosen arbitrarily
+
     /** @var RoutesRepository */
     private $routesRepository;
 
@@ -19,23 +21,34 @@ class RoutesRedirector {
      * @param Route $from
      * @param Route $to
      * @return void
-     * @throws RouteException
-     *
-     * @todo utilize transactions / move to repository
      */
     public function redirect(Route $from, Route $to): void {
+        $this->routesRepository->transaction(function () use ($from, $to): void {
+            $this->redirectEx($from, $to, 0);
+        });
+    }
+
+    /**
+     * @param Route $from
+     * @param Route $to
+     * @param int $depth
+     * @return void
+     * @throws RouteException
+     */
+    private function redirectEx(Route $from, Route $to, int $depth): void {
         if (!$from->exists || !$to->exists) {
             throw new RouteException('Cannot re-route non-existing routes.');
         }
 
-        $from->setPointsAt($to);
+        if ($depth > self::MAX_DEPTH) {
+            throw new RouteException('Reached limit of redirections - it seems like you might have a cycle in your route graph.');
+        }
 
+        $from->setModel($to);
         $this->routesRepository->persist($from);
-        $this->routesRepository
-            ->getPointingAt($from)
-            ->each(function (Route $route) use ($to): void {
-                $this->redirect($route, $to);
-            });
-    }
 
+//        foreach ($this->routesRepository->getPointingAt($from) as $from) {
+//            $this->redirectEx($from, $to);
+//        }
+    }
 }

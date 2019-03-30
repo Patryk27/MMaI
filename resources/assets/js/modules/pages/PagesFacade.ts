@@ -1,19 +1,19 @@
-import { ApiConnector } from '@/modules/core/ApiConnector';
+import { ApiClient } from '@/modules/core/ApiClient';
 
 export class PagesFacade {
 
-    public static create(page: object): Promise<{ redirectTo: string }> {
-        return ApiConnector.request({
+    public static createPage(page: object): Promise<{ redirectTo: string }> {
+        return ApiClient.request({
             method: 'post',
-            url: '/api/pages',
+            url: 'pages',
             data: page,
         });
     }
 
-    public static update(id: number, page: object): Promise<{ redirectTo: string }> {
-        return ApiConnector.request({
+    public static updatePage(id: number, page: object): Promise<{ redirectTo: string }> {
+        return ApiClient.request({
             method: 'put',
-            url: '/api/pages/' + id,
+            url: 'pages/' + id,
             data: page,
         });
     }

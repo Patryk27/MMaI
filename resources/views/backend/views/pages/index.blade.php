@@ -30,7 +30,6 @@
     </div>
 
     <div id="pages-loader" data-loader-type="tile">
-        @include('backend.components.pages.table.filters')
-        @include('backend.components.pages.table')
+        <div id="pages-grid"></div>
     </div>
 @endsection

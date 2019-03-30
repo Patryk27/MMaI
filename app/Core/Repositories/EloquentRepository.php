@@ -4,6 +4,7 @@ namespace App\Core\Repositories;
 
 use App\Core\Exceptions\RepositoryException;
 use App\Core\Models\Model;
+use Closure;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Support\Collection;
 use Throwable;
@@ -113,6 +114,16 @@ final class EloquentRepository {
                 'model is not an instance of [%s].', get_class($this->model)
             ));
         }
+    }
+
+    /**
+     * Executes specified action in a database transaction.
+     *
+     * @param Closure $fn
+     * @throws Throwable
+     */
+    public function transaction(Closure $fn): void {
+        $this->model->getConnection()->transaction($fn);
     }
 
 }

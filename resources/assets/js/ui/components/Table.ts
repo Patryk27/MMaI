@@ -1,4 +1,4 @@
-import { ApiConnector } from '@/modules/core/ApiConnector';
+import { ApiClient } from '@/modules/core/ApiClient';
 import $ from 'jquery';
 import swal from 'sweetalert';
 import { Loader } from './Loader';
@@ -18,7 +18,7 @@ export class Table {
     private readonly loader?: Loader;
     private readonly table: JQuery;
 
-    constructor(private readonly config: Configuration) {
+    public constructor(private readonly config: Configuration) {
         if (config.loaderSelector) {
             this.loader = new Loader(config.loaderSelector);
         }
@@ -44,7 +44,7 @@ export class Table {
 
         // Since the DataTable plugin destroys original container, we cannot
         // re-utilize $table here - we need to fetch the actual new container:
-        this.table = $(this.dataTable.table().container());
+        this.table = $(this.dataTable.table().gridContainer());
     }
 
     public on(eventName: string, eventHandler: () => void): void {
@@ -85,7 +85,7 @@ export class Table {
         }
 
         try {
-            const response: any = await ApiConnector.request({
+            const response: any = await ApiClient.request({
                 method: 'get',
                 url: this.config.source,
                 params: {

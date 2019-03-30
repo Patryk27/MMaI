@@ -10,8 +10,6 @@
 
 @section('content')
     <h1 class="error-title">
-        <i class="fa fa-exclamation-triangle"></i>
-
         HTTP {{ $code }}: {{ __(sprintf('errors/%d.title', $code)) }}
     </h1>
 

@@ -1,5 +1,5 @@
 interface Handlers {
-    [eventName: string]: Array<(...args: any) => void>;
+    [eventName: string]: Array<(...args: Array<any>) => void>;
 }
 
 export class EventBus {
@@ -13,7 +13,7 @@ export class EventBus {
      *   bus.on('something', () => alert('Something happened!'))
      *   bus.emit('something')
      */
-    on(eventNames: string | Array<string>, eventHandler: (...args: any) => void) {
+    on(eventNames: string | Array<string>, eventHandler: (...args: Array<any>) => void) {
         if (!Array.isArray(eventNames)) {
             eventNames = [eventNames];
         }

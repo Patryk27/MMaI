@@ -5,7 +5,7 @@ namespace App\Routes\Implementation\Repositories;
 use App\Core\Models\Morphable;
 use App\Core\Repositories\InMemoryRepository;
 use App\Routes\Models\Route;
-use App\Routes\Models\Route as Routes;
+use Closure;
 use Illuminate\Support\Collection;
 
 class InMemoryRoutesRepository implements RoutesRepository {
@@ -20,7 +20,7 @@ class InMemoryRoutesRepository implements RoutesRepository {
     /**
      * @inheritDoc
      */
-    public function getBySubdomainAndUrl(string $subdomain, string $url): ?Routes {
+    public function getBySubdomainAndUrl(string $subdomain, string $url): ?Route {
         return $this->repository
             ->getByMany('subdomain', $subdomain)
             ->where('url', $url)
@@ -49,15 +49,22 @@ class InMemoryRoutesRepository implements RoutesRepository {
     /**
      * @inheritDoc
      */
-    public function persist(Routes $route): void {
+    public function persist(Route $route): void {
         $this->repository->persist($route);
     }
 
     /**
      * @inheritDoc
      */
-    public function delete(Routes $route): void {
+    public function delete(Route $route): void {
         $this->repository->delete($route);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function transaction(Closure $fn): void {
+        $this->repository->transaction($fn);
     }
 
 }

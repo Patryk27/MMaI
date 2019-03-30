@@ -1,10 +1,10 @@
-import { ApiConnector } from '@/modules/core/ApiConnector';
+import { ApiClient } from '@/modules/core/ApiClient';
 import { Tag } from '@/modules/tags/Tag';
 
 export class TagsFacade {
 
     public static async search(query: any): Promise<Array<Tag>> {
-        const response: any = await ApiConnector.request({
+        const response: any = await ApiClient.request({
             method: 'get',
             url: '/api/tags',
             params: {
@@ -18,7 +18,7 @@ export class TagsFacade {
     }
 
     public static create(tag: Tag): Promise<Tag> {
-        return ApiConnector.request({
+        return ApiClient.request({
             method: 'post',
             url: '/api/tags',
             data: tag,
@@ -26,7 +26,7 @@ export class TagsFacade {
     }
 
     public static update(tag: Tag): Promise<Tag> {
-        return ApiConnector.request({
+        return ApiClient.request({
             method: 'put',
             url: `/api/tags/${tag.id}`,
             data: tag,
@@ -34,7 +34,7 @@ export class TagsFacade {
     }
 
     public static delete(id: number): Promise<void> {
-        return ApiConnector.request({
+        return ApiClient.request({
             method: 'delete',
             url: `/api/tags/${id}`,
         });

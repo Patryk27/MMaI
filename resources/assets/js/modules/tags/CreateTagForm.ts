@@ -9,7 +9,7 @@ export class CreateTagForm implements GenericForm<Tag> {
 
     private readonly form: Form;
 
-    constructor(container: JQuery) {
+    public constructor(container: JQuery) {
         this.form = new Form({
             controls: [
                 new FormInputControl('name', Input.fromContainer(container, 'name')),

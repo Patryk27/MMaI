@@ -78,12 +78,11 @@ final class RoutesFacade {
     }
 
     /**
-     * Redirects given $from so that from now on it points onto $to.
+     * Redirects given $from so that from now on it'll point onto $to.
      *
      * @param Route $from
      * @param Route $to
      * @return void
-     * @throws RouteException
      */
     public function redirect(Route $from, Route $to): void {
         $this->routesRedirector->redirect($from, $to);

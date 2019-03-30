@@ -1,9 +1,9 @@
 <?php
 
-use App\Application\Http\Controllers\Frontend\AttachmentsController;
-use App\Application\Http\Controllers\Frontend\DispatchController;
-use App\Application\Http\Controllers\Frontend\HomeController;
-use App\Application\Http\Controllers\Frontend\SearchController;
+use App\Application\Interfaces\Http\Controllers\Frontend\AttachmentsController;
+use App\Application\Interfaces\Http\Controllers\Frontend\DispatchController;
+use App\Application\Interfaces\Http\Controllers\Frontend\HomeController;
+use App\Application\Interfaces\Http\Controllers\Frontend\SearchController;
 
 // Set-up per-website routing
 Route::domain('{subdomain}.' . env('APP_DOMAIN'))->group(function () {

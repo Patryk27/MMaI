@@ -1,6 +1,6 @@
 export class FormError {
 
-    constructor(
+    public constructor(
         private readonly _field: string,
         private readonly _message: string,
     ) {

@@ -29,9 +29,9 @@ export class PageForm {
             const page = this.form.serialize();
 
             if (page.id) {
-                return await PagesFacade.update(page.id, page);
+                return await PagesFacade.updatePage(page.id, page);
             } else {
-                return await PagesFacade.create(page);
+                return await PagesFacade.createPage(page);
             }
         } catch (error) {
             if (error.formErrors) {

@@ -4,7 +4,7 @@ use App\Core\Exceptions\UnimplementedException;
 use Illuminate\Support\Collection;
 
 /**
- * Throws a @see UnimplementedException pointing at the caller's frame.
+ * Throws the @see UnimplementedException pointing at the caller's frame.
  *
  * @return void
  */

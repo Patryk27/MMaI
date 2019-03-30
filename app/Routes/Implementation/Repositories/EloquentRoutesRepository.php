@@ -5,6 +5,7 @@ namespace App\Routes\Implementation\Repositories;
 use App\Core\Models\Morphable;
 use App\Core\Repositories\EloquentRepository;
 use App\Routes\Models\Route;
+use Closure;
 use Illuminate\Support\Collection;
 use Throwable;
 
@@ -67,6 +68,14 @@ class EloquentRoutesRepository implements RoutesRepository {
      */
     public function delete(Route $route): void {
         $this->repository->delete($route);
+    }
+
+    /**
+     * @inheritDoc
+     * @throws Throwable
+     */
+    public function transaction(Closure $fn): void {
+        $this->repository->transaction($fn);
     }
 
 }
