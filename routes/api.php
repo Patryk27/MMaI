@@ -20,11 +20,11 @@ Route::domain('api.' . env('APP_DOMAIN'))->group(function () {
 
     // /pages
     Route::prefix('pages')->group(function () {
-        // GET /pages
-        Route::get('/', PagesController::class . '@index');
-
         // GET /pages/grid
-        Route::get('grid', PagesController::class . '@grid');
+        Route::get('grid', PagesController::class . '@gridSchema');
+
+        // POST /pages/grid
+        Route::post('grid', PagesController::class . '@gridQuery');
 
         // POST /pages
         Route::post('/', PagesController::class . '@store');

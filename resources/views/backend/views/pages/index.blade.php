@@ -30,6 +30,6 @@
     </div>
 
     <div id="pages-loader" data-loader-type="tile">
-        <div id="pages-grid"></div>
+        <div id="pages-grid" class="grid"></div>
     </div>
 @endsection

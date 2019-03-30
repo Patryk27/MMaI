@@ -30,21 +30,21 @@ class PagesController extends Controller {
     }
 
     /**
-     * @param GridRequest $request
-     * @return GridResponse
-     */
-    public function index(GridRequest $request): GridResponse {
-        return $this->pagesFacade->executeGridQuery(
-            $this->gridFacade->prepareQuery($request)
-        );
-    }
-
-    /**
      * @return GridSchema
      * @throws WebsiteException
      */
-    public function grid(): GridSchema {
+    public function gridSchema(): GridSchema {
         return $this->pagesFacade->prepareGridSchema();
+    }
+
+    /**
+     * @param GridRequest $request
+     * @return GridResponse
+     */
+    public function gridQuery(GridRequest $request): GridResponse {
+        return $this->pagesFacade->executeGridQuery(
+            $this->gridFacade->prepareQuery($request)
+        );
     }
 
     /**

@@ -1,0 +1,35 @@
+.grid {
+  .grid-filters {
+    display: flex;
+    margin-bottom: 2em;
+
+    .grid-filter {
+      display: inline-block;
+      margin-right: 15px;
+      padding: 4px 6px;
+      background: $dark;
+
+      kbd {
+        font-size: 100%;
+
+        &:first-of-type {
+          margin-right: 6px;
+        }
+
+        &:last-of-type {
+          margin-left: 6px;
+        }
+      }
+
+      .grid-filter-delete {
+        padding: 0 2px;
+        margin-left: 3px;
+        vertical-align: baseline;
+      }
+    }
+
+    .grid-add-filter {
+      height: 34px;
+    }
+  }
+}

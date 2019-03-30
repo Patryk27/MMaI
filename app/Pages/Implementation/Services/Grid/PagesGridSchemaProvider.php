@@ -40,6 +40,8 @@ class PagesGridSchemaProvider {
                     'sortable' => true,
                 ]),
 
+                // @todo route
+
                 new GridSchemaField([
                     'id' => 'type',
                     'name' => 'Type',
@@ -65,6 +67,7 @@ class PagesGridSchemaProvider {
                     'id' => 'createdAt',
                     'name' => 'Created at',
                     'type' => GridSchemaFieldType::dateTime(),
+                    'sortable' => true,
                 ]),
             ],
         ]);

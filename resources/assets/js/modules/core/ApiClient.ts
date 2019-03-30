@@ -26,7 +26,7 @@ export class ApiClient {
         } catch (error) {
             console.error(`Request at [${request.method} ${request.url}] failed with following exception:`, error);
 
-            if (error.hasOwnProperty('response')) {
+            if (error.hasOwnProperty('response') && error.response) {
                 const response = error.response;
 
                 switch (response.status) {

@@ -14,8 +14,7 @@ export class PagesGrid {
             },
 
             http: {
-                itemsUrl: '/pages',
-                schemaUrl: '/pages/grid',
+                url: '/pages/grid',
             },
 
             fields: {

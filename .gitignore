@@ -1,8 +1,8 @@
 /.idea
 /node_modules
 
-!/public/assets/.gitkeep
 /public/assets
+!/public/assets/.gitkeep
 /public/mix-manifest.json
 /public/storage
 
