@@ -1,13 +1,13 @@
 import { Attachment } from '@/modules/attachments/Attachment';
 import { EditAttachmentForm } from '@/modules/attachments/EditAttachmentForm';
-import { GenericModalForm } from '@/modules/core/GenericModalForm';
+import { FormModal } from '@/modules/core/FormModal';
 
 export class EditAttachmentModal {
 
-    private modal: GenericModalForm<Attachment, EditAttachmentForm>;
+    private modal: FormModal<Attachment, EditAttachmentForm>;
 
     public constructor(modal: JQuery) {
-        this.modal = new GenericModalForm(modal, new EditAttachmentForm(modal));
+        this.modal = new FormModal(modal, new EditAttachmentForm(modal));
     }
 
     public show(attachment: Attachment): Promise<Attachment | null> {

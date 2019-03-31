@@ -1,16 +1,16 @@
 import { ApiClient } from '@/modules/core/ApiClient';
-import { GridResponse } from '@/modules/grid/model/GridResponse';
-import { GridSchema } from '@/modules/grid/model/GridSchema';
-import { GridConfiguration } from '@/modules/grid/ui/GridConfiguration';
-import { GridFilters } from '@/modules/grid/ui/GridFilters';
-import { GridTable } from '@/modules/grid/ui/GridTable';
+import { GridConfiguration } from '@/modules/grid/Grid.configuration';
+import { GridResponse } from '@/modules/grid/response/GridResponse';
+import { GridSchema } from '@/modules/grid/schema/GridSchema';
+import { GridFiltersComponent } from '@/modules/grid/ui/filters/GridFilters.component';
+import { GridTableComponent } from '@/modules/grid/ui/table/GridTable.component';
 import { Loader } from '@/ui/components/Loader';
 
-export class Grid<Item> {
+export class GridComponent<Item> {
     private readonly loader: Loader;
     private schema: GridSchema | null;
-    private filters: GridFilters<Item> | null;
-    private table: GridTable<Item> | null;
+    private filtersComponent: GridFiltersComponent<Item> | null;
+    private tableComponent: GridTableComponent<Item> | null;
 
     public constructor(private readonly config: GridConfiguration<Item>) {
         this.loader = new Loader(config.dom.loader);
@@ -26,13 +26,13 @@ export class Grid<Item> {
         });
 
         // Initialize filters
-        this.filters = new GridFilters<Item>({
+        this.filtersComponent = new GridFiltersComponent<Item>({
             gridSchema: this.schema,
             gridConfig: this.config,
         });
 
         // Initialize table
-        this.table = new GridTable<Item>({
+        this.tableComponent = new GridTableComponent<Item>({
             gridSchema: this.schema,
             gridConfig: this.config,
 
@@ -44,7 +44,7 @@ export class Grid<Item> {
                         url: this.config.http.url,
 
                         data: {
-                            filters: this.filters.get(),
+                            filters: this.filtersComponent.get(),
                             sorting,
                             pagination,
                         },

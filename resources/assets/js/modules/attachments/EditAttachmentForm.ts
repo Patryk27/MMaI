@@ -1,24 +1,27 @@
 import { Attachment } from '@/modules/attachments/Attachment';
 import { AttachmentsFacade } from '@/modules/attachments/AttachmentsFacade';
-import { GenericForm } from '@/modules/core/GenericForm';
+import { Form } from '@/modules/core/Form';
 import { Input } from '@/ui/components/Input';
-import { Form } from '@/ui/form/Form';
-import { FormInputControl } from '@/ui/form/FormInputControl';
+import { Form as FormComponent, FormInputControl } from '@/ui/form';
 
-export class EditAttachmentForm implements GenericForm<Attachment> {
+export class EditAttachmentForm implements Form<Attachment> {
 
-    private form: Form;
+    private readonly form: FormComponent;
     private attachment?: Attachment;
 
     public constructor(container: JQuery) {
-        this.form = new Form({
+        this.form = new FormComponent({
             controls: [
                 new FormInputControl('name', Input.fromContainer(container, 'name')),
             ],
         });
     }
 
-    public reset(attachment: Attachment): void {
+    public reset(attachment: Attachment | null): void {
+        if (!attachment) {
+            throw 'No attachment has been specified.';
+        }
+
         this.form.find<FormInputControl>('name').input.value = attachment.name;
         this.attachment = attachment;
     }

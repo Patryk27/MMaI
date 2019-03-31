@@ -1,4 +1,4 @@
-@component('backend.components.core.generic-modal-form', ['id' => 'edit-attachment-modal'])
+@component('backend.components.core.form-modal', ['id' => 'edit-attachment-modal'])
     @slot('title')
         Editing attachment
     @endslot

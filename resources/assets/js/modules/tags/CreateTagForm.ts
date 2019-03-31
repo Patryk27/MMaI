@@ -1,16 +1,16 @@
-import { GenericForm } from '@/modules/core/GenericForm';
+import { Form } from '@/modules/core/Form';
 import { Tag } from '@/modules/tags/Tag';
 import { TagsFacade } from '@/modules/tags/TagsFacade';
 import { Input } from '@/ui/components/Input';
 import { Select } from '@/ui/components/Select';
-import { Form, FormInputControl } from '@/ui/form';
+import { Form as FormComponent, FormInputControl } from '@/ui/form';
 
-export class CreateTagForm implements GenericForm<Tag> {
+export class CreateTagForm implements Form<Tag> {
 
-    private readonly form: Form;
+    private readonly form: FormComponent;
 
     public constructor(container: JQuery) {
-        this.form = new Form({
+        this.form = new FormComponent({
             controls: [
                 new FormInputControl('name', Input.fromContainer(container, 'name')),
                 new FormInputControl('website_id', Select.fromContainer(container, 'website_id')),

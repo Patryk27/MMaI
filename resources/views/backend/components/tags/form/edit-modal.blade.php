@@ -1,4 +1,4 @@
-@component('backend.components.core.generic-modal-form', ['id' => 'edit-tag-modal'])
+@component('backend.components.core.form-modal', ['id' => 'edit-tag-modal'])
     @slot('title')
         Editing tag
     @endslot

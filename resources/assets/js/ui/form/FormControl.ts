@@ -1,6 +1,6 @@
 import { FormError } from '@/ui/form';
 
-export interface FormControl {
+export interface FormControl { // @todo FormField?
 
     readonly id: string;
 

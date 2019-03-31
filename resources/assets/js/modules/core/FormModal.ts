@@ -1,18 +1,18 @@
-import { GenericForm } from '@/modules/core/GenericForm';
+import { Form } from '@/modules/core/Form';
 import { Button, Modal } from '@/ui/components';
 
-export class GenericModalForm<Entity, Form extends GenericForm<Entity>> {
+export class FormModal<E, F extends Form<E>> {
 
-    private readonly form: Form;
+    private readonly form: F;
     private readonly modal: Modal;
     private readonly buttons: { close: Button, submit: Button };
 
     private eventHandlers: {
-        resolve: (entity: Entity) => void,
+        resolve: (entity: E) => void,
         reject: () => void,
     };
 
-    public constructor(modal: JQuery, form: Form) {
+    public constructor(modal: JQuery, form: F) {
         this.form = form;
 
         this.modal = new Modal(modal);
@@ -27,7 +27,7 @@ export class GenericModalForm<Entity, Form extends GenericForm<Entity>> {
         };
     }
 
-    public show(entity?: Entity): Promise<Entity> {
+    public show(entity?: E): Promise<E> {
         this.form.reset(entity);
         this.modal.show();
 

@@ -1,13 +1,12 @@
-import { Grid } from '@/modules/grid/ui/Grid';
+import { GridComponent } from '@/modules/grid/Grid.component';
 import { Page } from '@/modules/pages/Page';
 import moment from 'moment';
 
 export class PagesGrid {
-
-    private grid: Grid<Page>;
+    private grid: GridComponent<Page>;
 
     public constructor(loader: JQuery, grid: JQuery) {
-        this.grid = new Grid({
+        this.grid = new GridComponent({
             dom: {
                 loader,
                 grid,
@@ -73,5 +72,4 @@ export class PagesGrid {
             },
         });
     }
-
 }

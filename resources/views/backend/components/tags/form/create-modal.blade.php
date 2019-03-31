@@ -1,4 +1,4 @@
-@component('backend.components.core.generic-modal-form', ['id' => 'create-tag-modal'])
+@component('backend.components.core.form-modal', ['id' => 'create-tag-modal'])
     @slot('title')
         Creating tag
     @endslot

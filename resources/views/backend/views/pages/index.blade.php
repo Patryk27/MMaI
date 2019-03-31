@@ -29,7 +29,5 @@
         </div>
     </div>
 
-    <div id="pages-loader" data-loader-type="tile">
-        <div id="pages-grid" class="grid"></div>
-    </div>
+    @include('backend.components.grid', ['name' => 'pages'])
 @endsection

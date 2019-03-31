@@ -1,9 +1,9 @@
-import { GridQueryPagination } from '@/modules/grid/model/GridQueryPagination';
-import { GridQuerySorting } from '@/modules/grid/model/GridQuerySorting';
-import { GridTableConfiguration } from '@/modules/grid/ui/GridTableConfiguration';
+import { GridQueryPagination } from '@/modules/grid/query/GridQueryPagination';
+import { GridQuerySorting } from '@/modules/grid/query/GridQuerySorting';
+import { GridTableConfiguration } from '@/modules/grid/ui/table/GridTable.configuration';
 import $ from 'jquery';
 
-export class GridTable<Item> {
+export class GridTableComponent<Item> {
     private readonly table: JQuery;
     private readonly dataTable: any;
 
@@ -24,11 +24,6 @@ export class GridTable<Item> {
                     .text(field.name)
                     .appendTo(tr);
             });
-        }
-
-        // Build table's body
-        {
-            $('<tbody>').appendTo(this.table);
         }
 
         // Initialize DataTable

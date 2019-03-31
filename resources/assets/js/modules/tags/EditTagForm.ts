@@ -1,24 +1,27 @@
-import { GenericForm } from '@/modules/core/GenericForm';
+import { Form } from '@/modules/core/Form';
 import { Tag } from '@/modules/tags/Tag';
 import { TagsFacade } from '@/modules/tags/TagsFacade';
 import { Input } from '@/ui/components/Input';
-import { Form } from '@/ui/form/Form';
-import { FormInputControl } from '@/ui/form/FormInputControl';
+import { Form as FormComponent, FormInputControl } from '@/ui/form';
 
-export class EditTagForm implements GenericForm<Tag> {
+export class EditTagForm implements Form<Tag> {
 
-    private form: Form;
+    private readonly form: FormComponent;
     private tag?: Tag;
 
     public constructor(container: JQuery) {
-        this.form = new Form({
+        this.form = new FormComponent({
             controls: [
                 new FormInputControl('name', Input.fromContainer(container, 'name')),
             ],
         });
     }
 
-    public reset(tag: Tag): void {
+    public reset(tag: Tag | null): void {
+        if (!tag) {
+            throw 'No tag has been specified.';
+        }
+
         this.form.find<FormInputControl>('name').input.value = tag.name;
         this.tag = tag;
     }
