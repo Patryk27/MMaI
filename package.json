@@ -18,7 +18,7 @@
     "@types/jquery": "^3.3.29",
     "@types/select2": "^4.0.48",
     "@types/simplemde": "^1.11.7",
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
     "bootstrap": "^4.3.1",
     "bootstrap-add-clear": "^1.0.7",
     "clipboard-polyfill": "^2.7.0",
