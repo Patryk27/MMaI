@@ -27,7 +27,7 @@
     "datatables.net-bs4": "^1.10.19",
     "flag-icon-css": "^3.3.0",
     "flatpickr": "^4.5.7",
-    "jquery": "^3.3.1",
+    "jquery": "^3.4.0",
     "laravel-mix": "^4.0.15",
     "moment": "^2.24.0",
     "popper.js": "^1.14.7",
